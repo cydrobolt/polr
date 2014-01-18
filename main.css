@@ -1,7 +1,5 @@
-#footer-pad
-{
-padding-left:13%;
-}
 footer {
+  padding-left:15%;
   bottom:0px;
+  position:absolute;
 }
