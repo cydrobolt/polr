@@ -47,6 +47,10 @@ a {
   background: transparent;
 }
 
+footer {
+  position:absolute;
+  bottom:0px;
+}
 a:focus {
   outline: thin dotted;
 }
