@@ -33,7 +33,7 @@ The `lookup` action takes a single argument: `url`. This is the URL to
 lookup. If it exists, the API will return with the destination of that URL. If
 it does not exist, the API will return with the status code 404 (Not Found).
 
-Example: GET `http://polr.cf/api.php?apikey=hunter2&action=lookup&url=http://polr.cf/3`
+Example: GET `http://polr.cf/api.php?apikey=hunter2&action=lookup&url=3`
 
 Remember that the `url` argument must be urlencoded (unless it is passed as a
 POST parameter).
