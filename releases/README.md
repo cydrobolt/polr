@@ -3,11 +3,11 @@ polr releases
 
 A URL Shortner with simple API
 
+###To download a file, click the file then choose "VIEW RAW".
+
+
 If this folder is empty, that means no versions have been released yet. Please check back later. Otherwise, choose the release that you wish to use
-and download it. Releases with _BETA or _ALPHA in their filenames could be unstable. An install guide will be created soon. 
-
-
-
+and download it. Releases with BETA or ALPHA in their filenames could be unstable. An install guide will be created soon. T
 Requirements for Polr:
 
 
