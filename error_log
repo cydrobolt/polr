@@ -1,0 +1,23 @@
+[19-Jan-2014 08:44:58 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/cydro/public_html/demo.polr.cf/req.php on line 8
+[19-Jan-2014 08:44:58 America/Chicago] PHP Warning:  mysqli::real_escape_string(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 25
+[19-Jan-2014 08:44:58 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 27
+[19-Jan-2014 08:44:58 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/cydro/public_html/demo.polr.cf/createurl.php on line 28
+[19-Jan-2014 08:44:58 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 32
+[19-Jan-2014 08:44:58 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/cydro/public_html/demo.polr.cf/createurl.php on line 33
+[19-Jan-2014 08:44:58 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 37
+[19-Jan-2014 17:25:15 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/cydro/public_html/demo.polr.cf/req.php on line 8
+[19-Jan-2014 17:25:15 America/Chicago] PHP Warning:  mysqli::real_escape_string(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 26
+[19-Jan-2014 17:25:15 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 28
+[19-Jan-2014 17:25:15 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/cydro/public_html/demo.polr.cf/createurl.php on line 29
+[19-Jan-2014 17:25:15 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 33
+[19-Jan-2014 17:25:15 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/cydro/public_html/demo.polr.cf/createurl.php on line 34
+[19-Jan-2014 17:25:15 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 38
+[19-Jan-2014 17:30:41 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/cydro/public_html/demo.polr.cf/req.php on line 8
+[19-Jan-2014 17:30:41 America/Chicago] PHP Warning:  mysqli::real_escape_string(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 26
+[19-Jan-2014 17:30:41 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 28
+[19-Jan-2014 17:30:41 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/cydro/public_html/demo.polr.cf/createurl.php on line 29
+[19-Jan-2014 17:30:41 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 33
+[19-Jan-2014 17:30:41 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/cydro/public_html/demo.polr.cf/createurl.php on line 34
+[19-Jan-2014 17:30:41 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home/cydro/public_html/demo.polr.cf/createurl.php on line 38
+[19-Jan-2014 17:33:28 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home/cydro/public_html/demo.polr.cf/req.php on line 17
+[19-Jan-2014 17:45:21 America/Chicago] PHP Fatal error:  Call to a member function query() on a non-object in /home/cydro/public_html/demo.polr.cf/req.php on line 17
