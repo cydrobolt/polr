@@ -1,21 +1,12 @@
-polr releases
+polr information
 ==================
 
 A URL Shortner with simple API
 
-If this folder is empty, that means no versions have been released yet. Please check back later. Otherwise, choose the release that you wish to use
-and download it. Releases with _BETA or _ALPHA in their filenames could be unstable. An install guide will be created soon. 
+Polr's code is separated into three folders. 
 
-
-
-Requirements for Polr:
-
-
-
-One MySQL Database
-
-A PHP-enabled web server
-
+Developers wanting to intergrate Polr into their app/website should go to /releases/ and read the /docs/
+Prospective contributors should go to /dev/
 
 
     Copyright (C) 2014  Polr
