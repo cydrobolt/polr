@@ -3,7 +3,7 @@ polr info
 
 A URL Shortner with simple API
 
-Documentation will be stored here. To read a file, click on it and the contents will be displayed.
+### Polr's documentation is located in the Repo Wiki - https://github.com/Cydrobolt/polr/wiki
 
 
     Copyright (C) 2014  Polr
