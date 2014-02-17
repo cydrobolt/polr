@@ -1,19 +1,16 @@
-<!-- polr 404 -->
-
-<!DOCTYPE html>
+<!-- polr 404 --><!DOCTYPE html>
 <html>
     <head>
-        <title>404 Polr</title>
+        <title>404</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <link rel="stylesheet" href="bootstrap.css"/>
             <link rel="stylesheet" href="main.css"/>
         </head>
         <body style="padding-top:60px">
             <div class="navbar navbar-inverse navbar-fixed-top">
-                <a class="navbar-brand" href="index.html">Polr</a>
+                <a class="navbar-brand" href="<?php require_once('req.php');echo 'http://'.$wsa;?>"><?php echo $wsn;?></a>
                 <ul class="nav navbar-nav">
-                    <li><a href="//github.com/Cydrobolt/polr">Github</a></li>
-                    <li><a href=-"about.html">About</a></li>
+                    <li><a href="//github.com/Cydrobolt/polr">Polr Github</a></li>
                 </ul>
             </div>
             <div class="container">
@@ -21,8 +18,10 @@
                     <h1>404</h1><br><h2>You step in the stream</h2><h2>But the water has moved on.</h2><h2>This page is not here</h2></div>
             </div>
                        <footer>
-                <p>&copy; Copyright 2013 Polr - Special Thanks to <a href="http://mywot.com">WOT</a></p>
+                <p><?php echo $footer;?></p>
             </footer>
         </div>
     </body>
 </html>
+
+

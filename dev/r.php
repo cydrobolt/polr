@@ -14,7 +14,7 @@ $result = $mysqli->query($query) or showerror();
 $row = mysqli_fetch_assoc($result);
 
 if(!$row['rurl']) {
-    header("Location: 404.html",true,301);
+    header("Location: 404.php",true,301);
     }
 else {
     header("Location: {$row['rurl']}",true,301);

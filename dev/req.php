@@ -1,18 +1,13 @@
 <?php
-//POLR CONFIGURATION
-
-$host = "localhost"; //Enter Mysql host address
-$user = "root"; //Mysql user
-$passwd = ""; //Mysql user password
-$db = "polr"; //Mysql DB name
-$wsa = "localhost/polr/php"; //Address of website : e.g polr.cf - do not include http://
-$ip = $_SERVER['REMOTE_ADDR']; //How Polr should fetch the user's ip - some hosts require you to use getenv()
-@(include('ovr.php')); //If OVR.php is there, load that config instead
+//POLR CONFIGURATION LOADING
 
 
+@(require_once('config.php'));
+include('version.php');
+$footer = "&copy; Copyright 2014 $wsn. Powered by <a href='http://github.com/cydrobolt/polr'>Polr</a> ver $version build $reldate";
 
 //connect to mysql with $mysqli variable
-$mysqli = new mysqli($host,$user,$passwd,$db) or die("Error : Could not establish database connection");
+$mysqli = new mysqli($host,$user,$passwd,$db) or $wp=1; //If cannot connect, then set var $wp to 1
 
 //SQL Functions
 
@@ -20,7 +15,7 @@ $mysqli = new mysqli($host,$user,$passwd,$db) or die("Error : Could not establis
 function sqlrun ($query) {
     global $mysqli;
     $queryrs = $query;
-    $resultrs = $mysqli->query($queryrs) or die("ERROR in $query");
+    $resultrs = $mysqli->query($queryrs) or $mysqli->error;
     return true;
 }
 
@@ -69,11 +64,3 @@ function filterurl ($url) {
         return true;
     }
 }
-/*
-$(function() {
-    console.log( "ready!" );
-    var todec = $("#todec").val();
-    var decoded = window.atob(todec);
-    $(".form-control").val("http://polr.cf/"+decoded);
-});
-*/

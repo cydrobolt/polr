@@ -4,3 +4,7 @@ footer {
   position:absolute;
   font-size:75%;
 }
+.footer-pad {
+    padding-left:11%;
+    font-size: 75%;
+}
