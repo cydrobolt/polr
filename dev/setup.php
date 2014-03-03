@@ -49,11 +49,20 @@
                         '$ip = $_SERVER[\'REMOTE_ADDR\'];
 			?>';
 		$file = "config.php";
-
 		$handle = fopen($file, 'a');
 		if (fwrite($handle, $data) === FALSE) { echo "Can not write to (".$file.")"; }
-		echo "Succesfully created config. ";
 		fclose($handle);
+		
+		$data = 'RewriteEngine On
+			RewriteCond %{THE_REQUEST} ^(GET|HEAD)\ ' . $_POST['path'] . '/(index\.php)?\?id=([0-9]+)([^\ ]*)
+			RewriteRule ^ ' . $_POST['path'] . '/%3?%4 [L,R=301]
+			RewriteCond %{REQUEST_FILENAME} !-f
+			RewriteCond %{REQUEST_FILENAME} !-d
+			RewriteRule ^([a-zA-Z0-9]+)/?$ /' . $_POST['path'] . 'r.php?u=$1 [L,QSA]';
+		$file = ".htaccess";
+		$handle = fopen($file, 'a');
+		if (fwrite($handle, $data) === FALSE) { echo "Can not write to (".$file.")"; }
+		echo "Succesfully created config and htaccess.";
                 require_once('req.php');
                 
                 //Create Tables
@@ -86,6 +95,7 @@
 		echo "Database Name: <input type=\"text\" name=\"dbname\" value=\"polr\"><br>";
                 echo "Application Name: <input type=\"text\" name=\"appname\" value=\"polr\"><br>";
                 echo "Application URL (path to Polr, no http:// or www.) : <input type=\"text\" name=\"appurl\" value=\"yoursite.com\"><br>";
+                echo "Directory (where polr is instaled in your server(no trailing slash)): <input type=\"text\" name=\"path\" value=\"polr\"><br>";
                 echo "App Access Password: <input type=\"text\" name=\"protpass\" value=\"password123\"><br>";
                 if(isset($_POST['pw'])) {
                     echo "<input type='hidden' value='{$_POST['pw']}' name='pw' />";
