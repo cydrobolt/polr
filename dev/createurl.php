@@ -24,7 +24,7 @@
 <?php
 if(!filterurl($_POST['urlr'])) {
     echo "You entered an invalid url<br>";
-    echo "<a href='index.html'>Back</a>";
+    echo "<a href='index.php'>Back</a>";
     die();
 }
 $urlr = $_POST['urlr'];
@@ -36,7 +36,7 @@ $isshort = array('polr.cf','bit.ly','is.gd','tiny.cc','adf.ly','ur1.ca','goo.gl'
 foreach ($isshort as $url_shorteners) {
     if(strstr($urlr, $url_shorteners)) {
     echo "You entered an already shortened URL.<br>";
-    echo "<a href='index.html'>Back</a>";
+    echo "<a href='index.php'>Back</a>";
     die();
     }
 }
