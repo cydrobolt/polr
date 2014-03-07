@@ -1,3 +1,3 @@
 <?php
-$version = "0.15 RC1";
-$reldate = "2/15/2014";
+$version = "0.15 RC2";
+$reldate = "3/10/2014";
