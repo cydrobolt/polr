@@ -1,8 +1,6 @@
 <?php
 //API CONFIGURATION BELOW
 
-//no vars yet
-
 //POLR API - by http://github.com/cydrobolt/polr
 
 require_once('req.php'); //Fetch Config
@@ -18,9 +16,9 @@ else {
 //checking API key:
 $query = "SELECT valid FROM api WHERE apikey='$apikey'";
 $result = $mysqli->query($query) or showerror();
-$numrows = $result->num_rows;
+$row = mysqli_fetch_assoc($result);
 //check if valid
-if(!$numrows) {
+if(!$row['valid']) {
     $api_key_valid = 0;
 }
 else {
