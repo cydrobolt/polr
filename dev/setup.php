@@ -18,13 +18,14 @@
                 <span><h1>Polr setup</h1></span><br>
         <?php
         @(include('config.php'));
+        include ('version.php');
         if (isset($ppass)) {
             if(!isset($_POST['pw'])) {
             echo "<h2>Enter password to proceed:</h2>";
             echo "<form action='setup.php' method='post'><br><input type='password' name='pw' /><br><input type='submit' value='Log in' /></form>";
             die();
             }
-            else if($_POST['pw']==$ppass) {
+            else if(md5(sha1($_POST['pw']."523422da3a33")+sha1($version.$reldate))==$ppass) {
                 echo "";
             }
             else {
@@ -44,7 +45,7 @@
 			'$db="'.$_POST['dbname'].'";'.
                         '$wsa = "'.$_POST['appurl'].'";'.
                         '$wsn = "'.$_POST['appname'].'";'.
-                        '$ppass = "'.$_POST['protpass'].'";'.
+                        '$ppass = "'.md5(sha1($_POST['protpass']."523422da3a33")+sha1($version.$reldate)).'";'.
                         '$ppfrontend = "'.$_POST['pp'].'";'.
                         '$ip = $_SERVER[\'REMOTE_ADDR\'];
 			?>';

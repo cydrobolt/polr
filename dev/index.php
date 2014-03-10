@@ -6,7 +6,7 @@ echo "<h2>Enter password to proceed:</h2>";
 echo "<form action='index.php' method='post'><br><input type='password' name='pw' /><br><input type='submit' value='Log in' /></form>";
 die();
 }
-else if($_POST['pw']==$ppass) {
+else if(md5(sha1($_POST['pw']."523422da3a33")+sha1($version.$reldate))==$ppass) {
     echo "<!--logged in-->";
 }
 else if($ppfrontend!=true) {
