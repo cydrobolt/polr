@@ -5,10 +5,7 @@ polr information
 
 A URL Shortner with simple API
 
-Polr's code is separated into three folders. 
-
-Developers wanting to intergrate Polr into their app/website should go to /releases/ and read the /docs/
-Prospective contributors should go to /dev/
+Polr App (Self-hosted) is currently on hold while a stable version of the PaaS (platform-as-a-service) site is developed. (http://polr.cf) If you would like to contribute to Polr PaaS, please email Cydrobolt or join on on IRC, #polr on Freenode.
 
 
 
