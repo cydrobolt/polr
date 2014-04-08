@@ -6,6 +6,8 @@ polr
 ####Todos:
 
 - Update Self-hosted option w/ PaaS code
+- **Create a logo for Polr**
+- OOP-ize the shorten functions
 - Improve UCP
 - Better statistics
 - More links options
