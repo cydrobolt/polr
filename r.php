@@ -1,5 +1,5 @@
 <?php
-//POLR Redirector
+//POLR Redirector CORE
 require_once('req.php');
 require_once('dnsbl.php');
 $dnsbl = new dnsbl();
@@ -52,6 +52,14 @@ else {
 ';
         die();
     }
+    if(strtolower($row['rurl'])=="disabled") {
+        require_once 'header.php';
+        echo "<h2>The link you are trying to reach has been disabled because it infriges our <a href='tos.php'>Terms Of Service</a></h2><br>"
+        . "Sorry for the inconvienience.";
+        require_once 'footer.php';
+    }
+
+    
     header("Location: {$row['rurl']}",true,301);
 	$oldclicks = sqlfetch("redirinfo","clicks","baseval",$val);
 	$newclicks = $oldclicks+1;

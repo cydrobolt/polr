@@ -6,7 +6,8 @@ $passwd = "##HIDDEN - STOP PEEKING! ##";
 $db = "polr";
 $wsa = "polr.cf";
 $debug = 0;
-$ip = $_SERVER['CF-Connecting-IP'];
+$headers = apache_request_headers();
+$ip = $headers['CF-Connecting-IP'];
 $hp = "##HIDDEN - STOP PEEKING! ##";
 
 function autoloader($class) {
