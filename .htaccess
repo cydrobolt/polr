@@ -1,8 +1,9 @@
 RewriteEngine On
 
-RewriteCond %{THE_REQUEST} ^(GET|HEAD)\ /(index\.php)?\?id=([0-9]+)([^\ ]*)
-RewriteRule ^ /%3?%4 [L,R=301]
+RewriteRule ^api$ /api.php [L]
+RewriteRule ^api/$ /api.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([a-zA-Z0-9]+)/?$ /r.php?u=$1 [L,QSA]
+RewriteRule ^/?\+([a-zA-Z0-9]+)$ /stats.php?bv=$1 [L,QSA]

@@ -1,32 +1,17 @@
-<!-- polr -->
+<!-- polr about -->
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Polr</title>
+        <title>About Polr</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="bootstrap.css"/>
         <link rel="stylesheet" href="main.css"/>
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-        <script src='mpjs.js'></script>
         <link rel="shortcut icon" href="favicon.ico">
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
-        <script>
-            $(function() {
-                // Setup drop down menu
-                $('.dropdown-toggle').dropdown();
-
-                // Fix input element click problem
-                $('.dropdown input, .dropdown label').click(function(e) {
-                    e.stopPropagation();
-                });
-            });
-        </script>
     </head>
     <body style="padding-top:60px">
         <div class="container-fluid">
@@ -68,20 +53,11 @@
         </div>
         <div class="container">
             <div class="jumbotron" style="text-align:center; padding-top:80px; background-color: rgba(0,0,0,0);">
-                <h1 class='title'>Polr</h1>
-                <form id='shortenform' method="POST" action="createurl.php" role="form">
-                    <input type="text" class="form-control" placeholder="URL" id="url" value="http://" name="urlr" />
-                    <div id='options'>
-                        <br>Customize link: <br><div style='color: green'><h2 style='display:inline'>polr.cf/</h2><input type='text' id='custom' title='After entering your custom ending, if the ending is available, enter your long URL into box above and press "Shorten"!' name='custom' /><br>
-                            <a href="#" class="btn btn-inverse btn-sm" id='checkavail'>Check Availability</a><div id='status'></div></div>
-                    </div>
-                    <br><input type="submit" class="btn btn-info" id='shorten' value="Shorten!"/>   <a href="#" class="btn btn-warning" id='showoptions'>Link Options</a>
-                    <input type="hidden" id="hp" name="hp" value="<?php echo $hp; ?>"/>
-                </form>
-                <br><br><div id="tips" class='text-muted'><i class="fa fa-spinner"></i> Loading Tips...</div>
+                <h1>Polr</h1><br><p>Polr is an <a href='http://en.wikipedia.org/wiki/Open_source'>open source</a> URL shortener developed by <a href='http://cydrobolt.com'>Cydrobolt</a>. <br>If you would like to contribute, please join us at #polr on irc.freenode.net:6667 (<a href='http://webchat.freenode.net/?channels=#polr'>Webchat</a>)<br>If you would like to use Polr on your own website, visit the Polr <a href='//project.polr.cf'>project website</a>. <br>The code is hosted at Github - <a href='http://github.com/Cydrobolt/polr'>here</a></p>
             </div>
+
             <footer>
-                <p id="footer-pad">&copy; Copyright 2014 Polr - <a href='privacypolicy.php'>Privacy Policy</a> - <a href='tos.php'>Terms of Service</a> - <a href="//cydrobolt.com/contact.html">Contact</a></p>
+                <p>&copy; Copyright 2014 Polr - <a href='privacypolicy.php'>Privacy Policy</a> - <a href='tos.php'>Terms of Service</a></p>
             </footer>
         </div>
     </body>
