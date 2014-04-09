@@ -10,7 +10,7 @@
 public class polr($polrkey) {
 	$apikey = $polrkey;
 
-	function buildlink(apikey,action,url) {
+	function buildlink($apikey,$action,$url) {
 		$url = "http://polr.cf/api.php?apikey=".$apikey."&action=".$action."&url=."$url;
 		return $url;
 	}
