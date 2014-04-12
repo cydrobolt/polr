@@ -1,25 +1,20 @@
-polr information
-==================
+polr
+====
 
-####Polr App (Self-hosted) is currently on hold while a stable version of the PaaS (platform-as-a-service) site is developed. (http://polr.cf) If you would like Polr PaaS's code, please email Cydrobolt or join on on IRC, #polr on Freenode.
+###This branch is for Polr PaaS. Are you looking for the self-hosted project? https://github.com/Cydrobolt/polr/tree/master
 
-A URL Shortner with simple API
+#####Would like to contribute? Take a look at the Todos, get familiar with our code, and submit a pull request. We'll see what we can do.
 
-Polr App (Self-hosted) is currently on hold while a stable version of the PaaS (platform-as-a-service) site is developed. (http://polr.cf) If you would like to contribute to Polr PaaS, please email Cydrobolt or join on on IRC, #polr on Freenode.
+####Todos:
+
+- Update Self-hosted option w/ PaaS code
+- **Create a logo for Polr**
+- OOP-ize the shorten functions
+- Improve UCP
+- Better statistics
+- More links options
+- Code cleaning
 
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Cydrobolt/polr/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
-    Copyright (C) 2014  Polr
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
