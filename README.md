@@ -1,7 +1,7 @@
 polr information
 ==================
 
-####Polr App (Self-hosted) is currently on hold while a stable version of the PaaS (platform-as-a-service) site is developed. (http://polr.cf) If you would like Polr PaaS's code, please email Cydrobolt or join on on IRC, #polr on Freenode.
+####Polr App (Self-hosted) is currently on hold while a stable version of the PaaS (platform-as-a-service) site is developed. (http://polr.cf) If you would like to contribute to Polr PaaS, or view its code, please switch to the "PaaS-DevLatest" git branch. https://github.com/Cydrobolt/polr
 
 A URL Shortner with simple API
 
