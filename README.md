@@ -14,3 +14,7 @@ polr
 - Better statistics
 - More links options
 - Code cleaning
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Cydrobolt/polr/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
