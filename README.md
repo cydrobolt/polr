@@ -14,4 +14,5 @@ polr
 - Better statistics
 - More links options
 - Code cleaning
+- **Optimize display in mobile browsers**
 - Other ideas? Give us a pull req.
