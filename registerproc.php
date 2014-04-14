@@ -1,5 +1,12 @@
 <?php
-require_once('password.php'); //import polr password hashing lib
+/*
+ * IF YOU ARE GOING TO GIT PUSH PLEASE READ THIS
+ * THE RHC INSTANCE DOES NOT HAVE MYCRYPT
+ * DO NOT SIMPLY PUSH THIS VERSION!!!!git pu
+ */
+
+
+require_once('password.php'); //password hashing lib - crpypt forward compat
 require_once('req.php');
 require_once("ayah.php");
 require_once('sgmail.php');
@@ -38,24 +45,22 @@ if((strlen($_POST['username'])>15) || (strlen($_POST['password'])>25) || (strlen
     require_once 'footer.php';
     die(); //prevent user from registering
 }
-if(strlen($_POST['username'])==0 || strlen($_POST['password'])<5 || strlen($_POST['email'])==0) {
+if(strlen($_POST['username'])==0 || strlen($_POST['password'])<4 || strlen($_POST['email'])==0) {
     require_once 'header.php';
-    echo "Fields may not be left blank, password must be over 6 characters. <br><br><a href='register.php'>Go Back</a>";
+    echo "Fields may not be left blank, password must be over 4 characters. <br><br><a href='register.php'>Go Back</a>";
     require_once 'footer.php';
     die(); //prevent user from registering   
 }
-
-function noMc($length = 10) {
-    return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+if(!ctype_alnum($_POST['username'])) {
+    require_once 'header.php';
+    echo "Your username must be alphanumerical (numbers and letters only). <br><br><a href='register.php'>Go Back</a>";
+    require_once 'footer.php';
+    die(); //prevent user from registering 
 }
-//NOMC IS FOR LOCAL TESTING ONLY - FOR SYSTEMS WITHOUT MCRYPT. PLEASE DO NOT USE
-//NOMC IN A PRODUCTION SERVER. NOT VERY SECURE!!
 
-//$salt = mcrypt_create_iv(23, MCRYPT_DEV_URANDOM); //create salt
-//$rstr = mcrypt_create_iv(23, MCRYPT_DEV_URANDOM);
-$rstr = sha1(noMc(rand(40,60)));
-$salt = sha1(noMc(rand(40,60)));
 
+$salt = mcrypt_create_iv(23, MCRYPT_DEV_URANDOM); //create salt
+$rstr = mcrypt_create_iv(23, MCRYPT_DEV_URANDOM);
 $reg['username'] = $mysqli->real_escape_string($_POST['username']);
 $reg['email'] = $mysqli->real_escape_string($_POST['email']);
 $reg['password'] = $mysqli->real_escape_string($_POST['password']);
@@ -93,7 +98,7 @@ $sm = $sgmail->sendmail($to, 'Polr Account Validation',$sgmsg);
 
 
 require_once 'header.php';
-echo "Thanks for registering. Check your email for an activation link. You must activate your account before logging in (top right corner). <br> Need help? Click here : <a href='webchat.freenode.net/?channels=#polr'>webchat.freenode.net/?channels=#polr</a>";
+echo "Thanks for registering. Check your email for an activation link. You must activate your account before logging in (top right corner)";
 require_once 'footer.php';
 die();
 

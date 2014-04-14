@@ -5,6 +5,9 @@ require_once('polrauth.php');
 $polrauth = new polrauth();
 $authcreds['username'] = $mysqli->real_escape_string($_POST['username']);
 $authcreds['password'] = $mysqli->real_escape_string($_POST['password']);
+if(strstr($authcreds['username'], ' ')) {
+    $authcreds['username'] = trim($authcreds['username']);
+}
 
 $authed = $polrauth->processlogin($authcreds['username'],$authcreds['password']);
 
@@ -16,7 +19,7 @@ if($authed==true) {
 }
 else {
     require_once('header.php');
-    echo '<h2>Incorrect password or username. Try again</h2><br><p>The login form is at the top right corner.</p>';
+    echo '<h2>Incorrect password or username (or account not activated). Try again</h2><br>';
     require_once('footer.php');
     die();
 }
