@@ -1,11 +1,4 @@
 <?php
-/*
- * IF YOU ARE GOING TO GIT PUSH PLEASE READ THIS
- * THE RHC INSTANCE DOES NOT HAVE MYCRYPT
- * DO NOT SIMPLY PUSH THIS VERSION!!!!git pu
- */
-
-
 require_once('password.php'); //password hashing lib - crpypt forward compat
 require_once('req.php');
 require_once("ayah.php");
