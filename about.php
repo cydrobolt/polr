@@ -29,7 +29,7 @@
                 </ul>
                 <ul class="nav pull-right navbar-nav">
                     <?php
-                    include('polrauth.php');
+                    require_once('polrauth.php');
                     $polrauth = new polrauth();
                     $polrauth->headblock();
                     ?>
