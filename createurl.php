@@ -9,11 +9,13 @@ $protocol = '://';
 $hpi = $_POST['hp'];
 $country_code = @$_SERVER["HTTP_CF_IPCOUNTRY"];
 
+
 if(!strstr($_POST['urlr'], $protocol)) {
-    $urlr = "http".$protocol.$_POST['urlr']; //add http:// if :// not there
+    
+    $urlr = "http".$protocol.trim($_POST['urlr']); //add http:// if :// not there
 }
 else {
-    $urlr = $_POST['urlr'];
+    $urlr = trim($_POST['urlr']);
 }
 if(!filterurl($urlr)) {
     echo "You entered an invalid url<br>";
