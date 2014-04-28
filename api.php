@@ -66,6 +66,14 @@ function shorten($urlr) {
     global $mysqli;
     global $wsa;
     global $apikey;
+    $protocol = '://';
+    $isshort = array('polr.cf', 'bit.ly', 'is.gd', 'tiny.cc', 'adf.ly', 'ur1.ca', 'goo.gl', 'ow.ly', 'j.mp', 't.co');
+    foreach ($isshort as $url_shorteners) {
+        if (strstr($urlr, $protocol . $url_shorteners)) {
+            header("HTTP/1.0 400 Bad Request");
+            die("<h1>400 Bad Request (URL Already Shortened)</h1>");
+        }
+    }
     $query1 = "SELECT rid FROM redirinfo WHERE rurl='{$urlr}'";
     $result = $mysqli->query($query1);
     $row = mysqli_fetch_assoc($result);
