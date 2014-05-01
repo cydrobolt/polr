@@ -35,8 +35,8 @@ if (!$validrow['valid']) {
 }
 
 if (!$api_key_valid) {
-    header("HTTP/1.0 401 Forbidden"); //Access denied - invalid key
-    die('<h1>401 Forbidden</h1>');
+    header("HTTP/1.0 401 Unauthorized"); //Access denied - invalid key
+    die('<h1>401 Unauthorized</h1>');
 }
 
 if (!filter_var($url_api, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) && $action != "lookup") {
@@ -48,7 +48,7 @@ if (!filter_var($url_api, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) && $ac
 
 $isbl = $dnsbl->isbl($urlr);
 if ($isbl === "malware" || $isbl === "phishing") {
-    header("HTTP/1.0 401 Forbidden");
+    header("HTTP/1.0 401 Unauthorized");
     echo "Polr does not shorten potentially malicious URLs"; //If link tests positive to possible malware/phish, then block
     die();
 }
