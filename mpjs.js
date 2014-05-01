@@ -4,13 +4,17 @@ $(function() {
    $('#options').hide();
    var slid=0;
    optionsbutton.click(function() {
+       var absfoot = '<footer><p id="footer-pad">&copy; Copyright 2014 Polr - <a href=\'privacypolicy.php\'>Privacy Policy</a> - <a href=\'tos.php\'>Terms of Service</a> - <a href="//cydrobolt.com/contact.html">Contact</a></p></footer>';
+       var pfoot = '<p id="footer">&copy; Copyright 2014 Polr - <a href=\'privacypolicy.php\'>Privacy Policy</a> - <a href=\'tos.php\'>Terms of Service</a> - <a href="//cydrobolt.com/contact.html">Contact</a></p>';
         if(slid==0) {
             $("#options").slideDown();
             slid = 1;
+            $("#polrfooter").html(pfoot);
         }
         else {
             $("#options").slideUp();
             slid=0;
+            $("#polrfooter").html(absfoot)            
         }
    });
    $('#checkavail').click(function() {
