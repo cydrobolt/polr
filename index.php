@@ -80,9 +80,11 @@
                 </form>
                 <br><br><div id="tips" class='text-muted'><i class="fa fa-spinner"></i> Loading Tips...</div>
             </div>
+            <div id="polrfooter">
             <footer>
                 <p id="footer-pad">&copy; Copyright 2014 Polr - <a href='privacypolicy.php'>Privacy Policy</a> - <a href='tos.php'>Terms of Service</a> - <a href="//cydrobolt.com/contact.html">Contact</a></p>
             </footer>
+            </div>
         </div>
     </body>
 </html>
