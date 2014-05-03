@@ -4,3 +4,13 @@ footer {
   position:absolute;
   font-size:75%;
 }
+#footer {
+    padding-left:5%;
+    font-size:75%;
+}
+table {
+    table-layout: fixed;
+}
+td {
+    word-wrap: break-word;
+}
