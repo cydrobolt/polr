@@ -49,7 +49,7 @@ request.fail(function( jqXHR, textStatus ) {
    max = 5;
    var i = Math.floor(Math.random() * (max - min + 1)) + min;
    changeTips(i);
-   var tipstimer=setInterval(function(){changeTips(i);i++;},4000);
+   var tipstimer=setInterval(function(){changeTips(i);i++;},8000);
    
    function setTip(tip) {
        $("#tips").html(tip);
