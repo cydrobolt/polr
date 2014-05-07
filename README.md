@@ -5,6 +5,13 @@ polr
 
 #####Would like to contribute? Take a look at the Todos, get familiar with our code, and submit a pull request. We'll see what we can do.
 
+
+###Blockers (* need * to be done):
+
+- create ratelimiting system (quota for api)
+- allow settings to be changed
+- port PaaS to Self-Hosted
+
 ####Todos:
 
 - Update Self-hosted option w/ PaaS code
