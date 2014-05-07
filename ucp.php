@@ -54,9 +54,9 @@ if (!is_array($auth->islogged())) {
                         . "<td>" . $link['ip'] . '</td>'
                         . "<td>" . 'N/A' . '</td>';
                 if ($link['rurl'] == 'disabled') {
-                    $linkshtml = $linkshtml . '<td><span class=' . $link['baseval'] . '><input type="button" value="Enable" onClick="doenable(\'' . $link['baseval'] . '\');" class="enablelink" id="' . $link['baseval'] . '" />' . '</span></td></tr>';
+                    $linkshtml = $linkshtml . '<td><span class=' . $link['baseval'] . '><input type="button" value="++Enable++" onClick="doenable(\'' . $link['baseval'] . '\');" class="enablelink" id="' . $link['baseval'] . '" />' . '</span></td></tr>';
                 } else {
-                    $linkshtml = $linkshtml . "<td>" . '<span class=' . $link['baseval'] . '><input type="button" value="Disable" onClick="dodisable(\'' . $link['baseval'] . '\');" class="disablelink" id="' . $link['baseval'] . '" />' . '</span></td></tr>';
+                    $linkshtml = $linkshtml . "<td>" . '<span class=' . $link['baseval'] . '><input type="button" value="--Disable--" onClick="dodisable(\'' . $link['baseval'] . '\');" class="disablelink" id="' . $link['baseval'] . '" />' . '</span></td></tr>';
                 }
             }
             $linkshtml = $linkshtml . "</tr></table>";
