@@ -66,6 +66,7 @@ function shorten($urlr) {
     global $mysqli;
     global $wsa;
     global $apikey;
+    global $ip;
     $protocol = '://';
     $isshort = array('polr.cf', 'bit.ly', 'is.gd', 'tiny.cc', 'adf.ly', 'ur1.ca', 'goo.gl', 'ow.ly', 'j.mp', 't.co');
     foreach ($isshort as $url_shorteners) {
