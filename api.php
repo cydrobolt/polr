@@ -84,7 +84,7 @@ function shorten($urlr) {
         $row = mysqli_fetch_assoc($result);
         $ridr = $row['rid'];
         $baseval = base_convert($ridr + 1, 10, 36);
-        $query2 = "INSERT INTO redirinfo (baseval,user,rurl,ip) VALUES ('{$baseval}','APIKEY-{$apikey}','{$urlr}',{$ip});";
+        $query2 = "INSERT INTO redirinfo (baseval,user,rurl,ip) VALUES ('{$baseval}','APIKEY-{$apikey}','{$urlr}','{$ip}');";
         $result2r = $mysqli->query($query2) or showerror();
         return "http://{$wsa}/{$baseval}";
     } else {
