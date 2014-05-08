@@ -3,7 +3,7 @@
 //API CONFIGURATION BELOW
 //No Configs
 //POLR API - by http://github.com/cydrobolt/polr
-//@Author: Cydrobolt
+//@Author: Cydrobolt and sckasturi
 $reqargs['nosession'] = true;
 require_once('req.php'); //Fetch Config
 require_once('dnsbl.php'); //Load Google SafeBrowsing Script
@@ -36,7 +36,7 @@ if (!$validrow['valid']) {
 
 if (!$api_key_valid) {
     header("HTTP/1.0 401 Unauthorized"); //Access denied - invalid key
-    die('<h1>401 Unauthorized</h1>');
+    die('401 Unauthorized');
 }
 
 if (!filter_var($url_api, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) && $action != "lookup") {
@@ -71,7 +71,7 @@ function shorten($urlr) {
     foreach ($isshort as $url_shorteners) {
         if (strstr($urlr, $protocol . $url_shorteners)) {
             header("HTTP/1.0 400 Bad Request");
-            die("<h1>400 Bad Request (URL Already Shortened)</h1>");
+            die("400 Bad Request (URL Already Shortened)");
         }
     }
     $query1 = "SELECT rid FROM redirinfo WHERE rurl='{$urlr}'";
@@ -105,7 +105,7 @@ if ($action == "shorten") {
     $looked_up_url = lookup($url_api);
     if (!$looked_up_url) {
         header("HTTP/1.0 404 Not Found");
-        die("<h1>404 Not Found</h1>");
+        die("404 Not Found");
     } else {
         echo $looked_up_url;
     }
