@@ -1,3 +1,4 @@
+<IfModule mod_rewrite.c>
 RewriteEngine On
 
 RewriteRule ^api$ /api.php [L]
@@ -7,3 +8,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([a-zA-Z0-9]+)/?$ /r.php?u=$1 [L,QSA]
 RewriteRule ^/?\+([a-zA-Z0-9]+)$ /stats.php?bv=$1 [L,QSA]
+</IfModule>
