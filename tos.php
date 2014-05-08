@@ -11,4 +11,4 @@ You, as the user, may <b>not</b><br>
 Usage of the site constitutes agreement to these Terms and Conditions. Please follow the Terms and Conditions listed above, or your account will be immediately terminated.
 <br>
 If you find a link that infriges our TOS, please report it immediately through our <a href="contact.php">contact page</a>.
-<?php require_once('footer.php');echo "</div>";?>
+<?php require_once('footerpage.php');echo "</div>";?>
