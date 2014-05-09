@@ -1,16 +1,23 @@
 <?php
 
-//API CONFIGURATION BELOW
-//No Configs
 //POLR API - by http://github.com/cydrobolt/polr
 //@Author: Cydrobolt and sckasturi
+
+/*
+ * Reference:
+ * Request Vars Listing:
+ * ReqEndpoint: url - the url to perform action on
+ * ReqEndpoint: apikey - the APIKey provided for authentication
+ * ReqEndpoint: action - action to perform, either lookup or shorten
+ * OptEndpoint: temp - whether the URL is temporary or not
+ */
 $reqargs['nosession'] = true;
 require_once('req.php'); //Fetch Config
 require_once('dnsbl.php'); //Load Google SafeBrowsing Script
 
 $protocol = '://';
 if (!strstr($_REQUEST['url'], $protocol)) {
-    $urlr = "http" . $protocol . $_POST['urlr']; //add http:// if :// not there
+    $urlr = "http" . $protocol . $_REQUEST['url']; //add http:// if :// not there
 }
 
 $dnsbl = new dnsbl(); //create a gsb object
@@ -46,7 +53,7 @@ if (!filter_var($url_api, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) && $ac
 }
 //Check if URL given is malware/phishing
 
-$isbl = $dnsbl->isbl($urlr);
+$isbl = $dnsbl->isbl($url_api);
 if ($isbl === "malware" || $isbl === "phishing") {
     header("HTTP/1.0 401 Unauthorized");
     echo "Polr does not shorten potentially malicious URLs"; //If link tests positive to possible malware/phish, then block
@@ -62,7 +69,7 @@ function lookup($urltl) {
     return $row['rurl'];
 }
 
-function shorten($urlr) {
+function shorten($urlr, $t = 'false') {
     global $mysqli;
     global $wsa;
     global $apikey;
@@ -72,7 +79,7 @@ function shorten($urlr) {
     foreach ($isshort as $url_shorteners) {
         if (strstr($urlr, $protocol . $url_shorteners)) {
             header("HTTP/1.0 400 Bad Request");
-            die("400 Bad Request (URL Already Shortened)");
+            die("400 Bad Request (URL Already a ShortURL)");
         }
     }
     $query1 = "SELECT rid FROM redirinfo WHERE rurl='{$urlr}'";
@@ -80,12 +87,24 @@ function shorten($urlr) {
     $row = mysqli_fetch_assoc($result);
     $existing = $row['rid'];
     if (!$existing) {
-        $query1 = "SELECT MAX(rid) AS rid FROM redirinfo;";
-        $result = $mysqli->query($query1);
-        $row = mysqli_fetch_assoc($result);
-        $ridr = $row['rid'];
-        $baseval = base_convert($ridr + 1, 10, 36);
-        $query2 = "INSERT INTO redirinfo (baseval,user,rurl,ip) VALUES ('{$baseval}','APIKEY-{$apikey}','{$urlr}','{$ip}');";
+        if ($t != 'false') {
+            //if tempurl
+            $query1 = "SELECT MAX(rid) AS rid FROM `redirinfo-temp`;";
+            $result = $mysqli->query($query1);
+            $row = mysqli_fetch_assoc($result);
+            $ridr = $row['rid'];
+            $baseval = "t-" . (string) (base_convert($ridr + 1, 10, 36));
+            $query2 = "INSERT INTO `redirinfo-temp` (baseval,user,rurl,ip) VALUES ('{$baseval}','APIKEY-{$apikey}','{$urlr}','{$ip}');";
+        } else {
+            //if NOT tempurl
+            $query1 = "SELECT MAX(rid) AS rid FROM redirinfo;";
+            $result = $mysqli->query($query1);
+            $row = mysqli_fetch_assoc($result);
+            $ridr = $row['rid'];
+            $baseval = base_convert($ridr + 1, 10, 36);
+            $query2 = "INSERT INTO redirinfo (baseval,user,rurl,ip) VALUES ('{$baseval}','APIKEY-{$apikey}','{$urlr}','{$ip}');";
+        }
+
         $result2r = $mysqli->query($query2) or showerror();
         return "http://{$wsa}/{$baseval}";
     } else {
@@ -100,6 +119,14 @@ function shorten($urlr) {
 //api action start
 
 if ($action == "shorten") {
+    if (isset($_REQUEST['temp'])) {
+        $ist = $mysqli->real_escape_string($_REQUEST['temp']);
+        $ist = strtolower($ist);
+    }
+    if (($ist == 'true') || ($ist == 'false')) {
+        echo shorten($url_api, $ist);
+        die();
+    }
     echo shorten($url_api);
     die();
 } else if ($action == "lookup") {
