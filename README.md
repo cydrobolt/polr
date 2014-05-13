@@ -5,6 +5,13 @@ polr
 
 #####Would like to contribute? Take a look at the Todos, get familiar with our code, and submit a pull request. We'll see what we can do.
 
+####Documentation: Look at the wiki (right sidebar icon)
+
+###Requirements for Polr:
+
+ - PHP >= 5.4
+ - MySQL >=5.4 (5.5 recommended)
+ - A webserver (e.g Apache, nginx)
 
 ###Blockers (* need * to be done):
 
