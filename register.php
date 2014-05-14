@@ -13,7 +13,7 @@ echo "<form action='registerproc.php' method='POST'>"
 . "<br>Username: <input type='text' name='username' class='form-control' placeholder='Username' />"
         . "<br>Password: <input type='password' name='password' class='form-control' placeholder='Password' />"
         . "<br>Email: <input type='email' name='email' class='form-control' placeholder='Email' />"
-        . "<br>Complete the Captcha below:"
+        . "<br><input type='checkbox' name='tos' value='accept' /> I accept Polr's <a href='tos.php'>Terms of Service</a>"
         .$ayahhtml
         . "<br><input type=\"submit\" name=\"polrsubmit\" class=\"btn btn-default btn-warning\" value=\"Register\"/>";
 

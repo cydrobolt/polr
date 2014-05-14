@@ -50,6 +50,12 @@ if(!ctype_alnum($_POST['username'])) {
     require_once 'footer.php';
     die(); //prevent user from registering 
 }
+if ($_POST['tos']!='accept') {
+    require_once 'header.php';
+    echo "You must accept the <a href='tos.php'>Terms of Service</a> in order to register.<br><br><a href='register.php'>Go Back</a>";
+    require_once 'footer.php';
+    die();
+}
 
 
 $salt = mcrypt_create_iv(23, MCRYPT_DEV_URANDOM); //create salt
