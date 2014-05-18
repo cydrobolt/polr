@@ -32,6 +32,8 @@ function sqlrun($query) {
 }
 
 function sqlex($table, $rowf, $where, $wval) {
+	// Check whether a certain row/column exists
+	// Look at SQLFetch for variable def's
     global $mysqli; //Import var into function
 //Sanitize strings
     $rowfs = $mysqli->real_escape_string($rowf);
@@ -50,6 +52,14 @@ function sqlex($table, $rowf, $where, $wval) {
 }
 
 function sqlfetch($table, $rowf, $where, $wval) {
+	/*
+     * Fetch a value from the database
+     * Takes 4 arguments:
+     * $table : table in question
+     * $rowf = row to fetch
+     * $where = the 'where' value, as in WHERE $where = $wval
+     * $wval = the value of the $where val ^
+     */
     global $mysqli;
 
     $rowfs = $mysqli->real_escape_string($rowf);
@@ -64,6 +74,7 @@ function sqlfetch($table, $rowf, $where, $wval) {
 }
 
 function showerror() {
+	//Show an error, and die. If Debug is on, show SQL error message
     global $debug;
     global $mysqli;
     echo "There seems to be a problem :'( *sniff* . Click > <a href='http://webchat.freenode.net/?channels=polr'>here</a> contact an administrator.";
@@ -75,6 +86,7 @@ function showerror() {
 }
 
 function filterurl($url) {
+	// Check whether a certain url is actually an URL
     if (!filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED)) {
         return false;
     } else {
@@ -83,6 +95,7 @@ function filterurl($url) {
 }
 
 function filteremail($email) {
+	// Validate an email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return false;
     } else {
@@ -90,11 +103,3 @@ function filteremail($email) {
     }
 }
 
-/*
-$(function() {
-    console.log( "ready!" );
-    var todec = $("#todec").val();
-    var decoded = window.atob(todec);
-    $(".form-control").val("http://polr.cf/"+decoded);
-});
-*/
