@@ -31,9 +31,10 @@ if (is_string($_REQUEST['apikey']) && is_string($_REQUEST['action']) && is_strin
 }
 
 //checking API key:
-$query = "SELECT valid FROM api WHERE apikey='$apikey'";
+$query = "SELECT `valid`,`quota` FROM `api` WHERE apikey='$apikey'";
 $result = $mysqli->query($query) or showerror();
 $validrow = mysqli_fetch_assoc($result);
+$userquota = $validrow['quota'];
 //check if valid
 if (!$validrow['valid']) {
     $api_key_valid = 0;
@@ -69,11 +70,35 @@ function lookup($urltl) {
     return $row['rurl'];
 }
 
+function exquota($apikey, $quota) {
+    
+    if ($quota < 1) {
+        return false; // if quota is negative, then no quota
+    }
+    
+    global $mysqli;
+    $last_min = time()-60;
+    $query = "SELECT `rurl` FROM `redirinfo` WHERE user='APIKEY-{$apikey}' AND UNIX_TIMESTAMP(date) > $last_min;";
+    $result = $mysqli->query($query) or showerror();
+    $total_queries = $mysqli->affected_rows; //get the amount of queries in the past minute
+    $query = "SELECT `rurl` FROM `redirinfo-temp` WHERE user='APIKEY-{$apikey}' AND UNIX_TIMESTAMP(date) > $last_min;";
+    $result = $mysqli->query($query) or showerror();
+    $total_queries_temp = $mysqli->affected_rows; //get the amount of queries to temp in the past minute
+    if (($total_queries+$total_queries_temp) >= $quota) {
+        return true; // if met/exeeding quota
+    }
+    else {
+        return false;
+    }
+    
+}
+
 function shorten($urlr, $t = 'false') {
     global $mysqli;
     global $wsa;
     global $apikey;
     global $ip;
+    
     $protocol = '://';
     $isshort = array('polr.cf', 'bit.ly', 'is.gd', 'tiny.cc', 'adf.ly', 'ur1.ca', 'goo.gl', 'ow.ly', 'j.mp', 't.co');
     foreach ($isshort as $url_shorteners) {
@@ -115,8 +140,19 @@ function shorten($urlr, $t = 'false') {
         return "http://{$wsa}/{$baseval}";
     }
 }
+/*
+ * One last check! 
+ * See whether the user is exeeding his quota
+ */
 
-//api action start
+$isexeeding = exquota($apikey, $userquota);
+if ($isexeeding) {
+    header("HTTP/1.0 503 Service Unavailable");
+    die('Hey, slow down! Exeeding your perminute quota. Try again in around a minute.'); 
+    // don't let them shorten :>
+}
+
+// API execute actions. Promised, no more checks :)
 
 if ($action == "shorten") {
     if (isset($_REQUEST['temp'])) {
