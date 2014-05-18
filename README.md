@@ -15,7 +15,6 @@ polr
 
 ###Blockers (* need * to be done):
 
-- create ratelimiting system (quota for api)
 - allow settings to be changed
 - port PaaS to Self-Hosted
 
