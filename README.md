@@ -1,11 +1,11 @@
 polr information
 ==================
 
-####Polr App (Self-hosted) is currently on hold while a stable version of the PaaS (platform-as-a-service) site is developed. (http://polr.cf) If you would like to contribute to Polr PaaS, or view its code, please switch to the "PaaS-DevLatest" git branch. https://github.com/Cydrobolt/polr
+##Current State: Under development, merging in updates from PaaS. Latest version: 0.15 RC1 Beta, with known issues. (https://github.com/Cydrobolt/polr/releases/tag/v0.15-RC2-KI)
 
-A URL Shortner with simple API
+###Welcome to Polr, the self-hosted version. Read up on some documentation through our github wiki (https://github.com/Cydrobolt/polr/wiki)
 
-Polr App (Self-hosted) is currently on hold while a stable version of the PaaS (platform-as-a-service) site is developed. (http://polr.cf) If you would like to contribute to Polr PaaS, or view its code, please switch to the "PaaS-DevLatest" git branch. https://github.com/Cydrobolt/polr
+###Would like to contribute? Submit pull requests through our Github page. Found an issue? Create an issue here: (https://github.com/Cydrobolt/polr/issues)
 
 
 
