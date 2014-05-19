@@ -1,7 +1,7 @@
 polr information
 ==================
 
-##Current State: Under development, merging in updates from PaaS. Latest version: 0.15 RC1 Beta, with known issues. (https://github.com/Cydrobolt/polr/releases/tag/v0.15-RC2-KI)
+####Current State: Under development, merging in updates from PaaS. Latest version: 0.15 RC1 Beta, with known issues. (https://github.com/Cydrobolt/polr/releases/tag/v0.15-RC2-KI)
 
 ###Welcome to Polr, the self-hosted version. Read up on some documentation through our github wiki (https://github.com/Cydrobolt/polr/wiki)
 
