@@ -4,8 +4,18 @@ polr information
 ###A beautiful, modern, minimalist, and open-source URL shortening platform.
 
 ==================
+Installation
+==================
 
-####Current State: Under development, merging in updates from PaaS. Latest version: 0.15 RC1 Beta, with known issues. (https://github.com/Cydrobolt/polr/releases/tag/v0.15-RC2-KI)
+ - Unpack Polr, or clone the git repo
+ - Go to the root of your Polr folder (on webserver)
+ - Read each setup item carefully, and then click "create config"
+ - You're ready to go!
+
+
+
+==================
+####Current State: 0.20 Alpha (download at release)
 
 Welcome to Polr, the self-hosted version. Read up on some documentation through our github wiki (https://github.com/Cydrobolt/polr/wiki)
 
