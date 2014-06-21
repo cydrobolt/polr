@@ -1,11 +1,3 @@
-<!-- polr -->
-
-<?php 
-if(!@include('config.php')) {
-    header('Location:setup.php');
-}
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,15 +5,13 @@ if(!@include('config.php')) {
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<?php require_once('config.php');if (!$theme) {echo 'bootstrap.css';}else {echo $theme;}?>"/>
         <link rel="stylesheet" href="main.css"/>
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-        <script src='mpjs.js'></script>
         <link rel="shortcut icon" href="favicon.ico">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <script src='select_url.js'></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-
         <script>
             $(function() {
                 // Setup drop down menu
@@ -49,12 +39,14 @@ if(!@include('config.php')) {
                     <li><a href="about.php">About</a></li>
                 </ul>
                 <ul class="nav pull-right navbar-nav">
-                    <?php include('polrauth.php');
+                    <?php
+                    require_once('polrauth.php');
                     $polrauth = new polrauth();
-                    $polrauth->headblock(); ?>
+                    $polrauth->headblock();
+                    ?>
                     <?php require_once('config.php'); if ($reg != 'none'){ echo '<li><a href="register.php">Sign Up</a></li>';}?>
                     <li class="divider-vertical"></li>
-                    <li class="dropdown">
+                    <li class="dropdown pull-right">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
                         <div class="dropdown-menu" id="dropdown" style="padding: 15px; padding-bottom: 0px; color:white;">
                             <h2>Login</h2>
@@ -68,29 +60,8 @@ if(!@include('config.php')) {
                         </div>
                     </li>
 <?php $polrauth->headendblock(); ?>
-
                 </ul>
             </div>
         </div>
         <div class="container">
-            <div class="jumbotron" style="text-align:center; padding-top:80px; background-color: rgba(0,0,0,0);">
-                <h1 class='title'><?php require_once('config.php');echo $wsn;?></h1>
-                <form id='shortenform' method="POST" action="createurl.php" role="form">
-                    <input type="text" class="form-control" placeholder="URL" id="url" value="http://" name="urlr" />
-                    <div id='options'>
-                        <br>Customize link: <br><div style='color: green'><h2 style='display:inline'><?php require_once('config.php');echo $wsa;?>/</h2><input type='text' id='custom' title='After entering your custom ending, if the ending is available, enter your long URL into box above and press "Shorten"!' name='custom' /><br>
-                            <a href="#" class="btn btn-inverse btn-sm" id='checkavail'>Check Availability</a><div id='status'></div></div>
-                    </div>
-                    <br><input type="submit" class="btn btn-info" id='shorten' value="Shorten!"/>   <a href="#" class="btn btn-warning" id='showoptions'>Link Options</a>
-                    <input type="hidden" id="hp" name="hp" value="<?php echo $hp; ?>"/>
-                </form>
-                <br><br><div id="tips" class='text-muted'><i class="fa fa-spinner"></i> Loading Tips...</div>
-            </div>
-            <div id="polrfooter">
-            <footer>
-                <p id="footer-pad">&copy; Copyright <?php require_once('version.php');echo $relyear;?> The Polr Project. Proudly powered by <a href="//github.com/cydrobolt/polr">Polr</a></p>
-            </footer>
-            </div>
-        </div>
-    </body>
-</html>
+            <div class="jumbotron" style="text-align:left; padding-top:5px; background-color: rgba(0,0,0,0);">

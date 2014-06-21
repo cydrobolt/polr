@@ -4,7 +4,12 @@ footer {
   position:absolute;
   font-size:75%;
 }
-.footer-pad {
-    padding-left:11%;
-    font-size: 75%;
+.push {
+    padding-left:5%;
+}
+.pushbottom {
+    padding-bottom: 3%;
+}
+.pushtop {
+    padding-top: 3%;
 }
