@@ -1,3 +1,0 @@
-<?php
-			$host="localhost";$user="root";$passwd="";$db="polr-rel";$wsa = "yoursite.com";$wsn = "ThemeTest";$wsb = "June 21 2014";$ppass = '$2y$10$HpGDsbXaxhWe1USuiCTnIOmbIP.4CX3LSwQAAyXz/jbjSM8T80ZHK';$ip = $_SERVER['REMOTE_ADDR'];$hp = "899f1726ed8e07b93fa5b90ef046895f38e4c89c";$reg = "free";$path = "/polr-rel/";$theme = "//maxcdn.bootstrapcdn.com/bootswatch/3.1.1/cerulean/bootstrap.min.css";$ip = $_SERVER['REMOTE_ADDR'];$unstr = "APCv9mIEfirdBQHVJFhR10KG3425gSUnOlYte8cWNjqDxbTwXL";
-			?>
