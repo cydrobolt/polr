@@ -68,13 +68,12 @@ $reg['password'] = $hashed;
 
 
 
-if ($reg == "free") {
+if ($regtype == "free") {
     $active = "1";
 } 
 else {
     $active = "0";
 }
-
 
 $qr = "INSERT INTO auth (username,email,password,rkey,valid,ip) VALUES ('{$reg['username']}','{$reg['email']}','{$hashed}','{$reg['rkey']}','{$active}', '{$ip}');";
 $rr = $mysqli->query($qr) or showerror();

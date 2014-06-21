@@ -44,7 +44,7 @@
                     $polrauth = new polrauth();
                     $polrauth->headblock();
                     ?>
-                    <?php require_once('config.php'); if ($reg != 'none'){ echo '<li><a href="register.php">Sign Up</a></li>';}?>
+                    <?php require_once('config.php'); if ($regtype != 'none'){ echo '<li><a href="register.php">Sign Up</a></li>';}?>
                     <li class="divider-vertical"></li>
                     <li class="dropdown pull-right">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>

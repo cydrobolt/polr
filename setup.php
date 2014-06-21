@@ -70,7 +70,7 @@
                         '$ppass = \'' . hashpass($_POST['protpass']) . '\';' .
                         '$ip = $_SERVER[\'REMOTE_ADDR\'];'
                         . '$hp = "' . sha1(rstr(30)) . "\";"
-                        . '$reg = "' . $_POST['reg'] . "\";"
+                        . '$regtype = "' . $_POST['reg'] . "\";"
                         . '$path = "' . $_POST['path'] . "\";"
                         . '$theme = "' . $_POST['t'] . "\";"
                         . '$ip = ' . $_POST['ipfetch'] . ";" .
