@@ -19,6 +19,7 @@ Prerequisites:
 - PHP >= 5.4
 - Apache httpd
 - MySQLi extension for PHP
+- MySQLnd (native driver; i.e php5-mysql on Ubuntu)
 - Patience
 
 ==================
