@@ -12,7 +12,13 @@ Installation
  - Read each setup item carefully, and then click "create config"
  - You're ready to go!
 
+Prerequisites:
 
+- mod_rewrite (install help: https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_rewrite)
+- MySQL or MariaDB equivalent >= 5.5
+- PHP >= 5.4
+- Apache httpd
+- Patience
 
 ==================
 ####Current State: 0.20 Alpha (download at release)
