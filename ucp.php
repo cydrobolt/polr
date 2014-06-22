@@ -16,7 +16,7 @@ if (!is_array($auth->islogged())) {
         global $mysqli;
         $sqr = "SELECT `baseval`,`rurl`,`date` FROM `redirinfo` WHERE user = '{$mysqli->real_escape_string($userinfo['username'])}' LIMIT {$lstart} , 50;";
         $res = $mysqli->query($sqr);
-        $links = mysqli_fetch_assoc($res);
+        $links =  mysqli_fetch_all($res, MYSQLI_ASSOC);
 
         $linkshtml = '<table class="table table-hover"><tr><th>Link ending</th><th>Long Link</th><th>Date (EST - NA)</th><th>PW-Protected</th></tr>';
         foreach ($links as $link) {
