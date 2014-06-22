@@ -22,6 +22,8 @@ Prerequisites:
 - MySQLnd (native driver; i.e php5-mysql on Ubuntu)
 - MCrypt (http://www.php.net//manual/en/book.mcrypt.php)
 
+This list may be long, but most hosts include these prerequisites, so you don't have to install them yourself.
+
 ==================
 Troubleshooting
 ==================
