@@ -18,6 +18,7 @@ Prerequisites:
 - MySQL or MariaDB equivalent >= 5.5
 - PHP >= 5.4
 - Apache httpd
+- MySQLi extension for PHP
 - Patience
 
 ==================
