@@ -75,7 +75,7 @@ Would like to contribute? Submit pull requests through our Github page. Found an
 
 
 
-    Copyright (C) 2014  Polr
+    Copyright (C) 2014 Chaoyi Zha
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
