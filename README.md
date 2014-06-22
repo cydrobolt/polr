@@ -1,4 +1,4 @@
-polr information
+Polr
 ==================
 
 ###A beautiful, modern, minimalist, and open-source URL shortening platform.
