@@ -14,17 +14,24 @@ echo $version; ?>
     <dt>
 </dl>
 <br><p>Polr is an open source, minimalist link shortening platform. Learn more at <a href='https://github.com/Cydrobolt/polr'>our Github page</a>, our <a href="//project.polr.cf">project site</a>, <a href="//polr.cf/about">or our about page</a>.
-    <br>Polr is licensed under the MIT License.</p>
-<div style="font-size: 50%; padding-top: 40px">
-    The MIT License (MIT)
+    <br>Polr is licensed under the GNU GPL License.</p>
+<div style="font-size: 70%; padding-top: 40px">
+    The GNU General Public License v3
     <br>
-    Copyright (c) 2014 Polr Project & <a href='//cydrobolt.com'>Chaoyi Zha</a>
-    <br>
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-    <br>
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-    <br>
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    Copyright (C) 2014 Chaoyi Zha, the Polr Project
+    <br />
+    This program is free software: you can redistribute it and/or modify<br />
+    it under the terms of the GNU General Public License as published by<br />
+    the Free Software Foundation, either version 3 of the License, or<br />
+    (at your option) any later version.<br />
+    <br />
+    This program is distributed in the hope that it will be useful,<br />
+    but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br />
+    GNU General Public License for more details.<br />
+    <br />
+    You should have received a copy of the GNU General Public License<br />
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 <?php
 require_once 'footerpage.php';
