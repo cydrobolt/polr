@@ -2,7 +2,7 @@ Polr
 ==================
 
 ###A beautiful, modern, minimalist, and open-source URL shortening platform.
-
+Demo: http://polr-c9-cydrobolt.c9.io/
 ==================
 Installation
 ==================
@@ -67,7 +67,7 @@ Make sure your host is correct. Some webhosts require you to bind to a certain i
 Make sure the database is premade, and that the user has the required permissions to create tables.
 
 ==================
-####Current State: 0.20 Alpha (download at release)
+####Current State: 0.23 Alpha (download at release)
 
 Welcome to Polr, the self-hosted version. Read up on some documentation through our github wiki (https://github.com/Cydrobolt/polr/wiki)
 
