@@ -3,6 +3,7 @@ Polr
 
 ###A beautiful, modern, minimalist, and open-source URL shortening platform.
 Demo: http://polr-c9-cydrobolt.c9.io/
+Polr will use Semantic Versioning http://semver.org/ starting at ver 1.0.0
 
 ==================
 Installation
