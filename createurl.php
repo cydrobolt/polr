@@ -49,7 +49,7 @@ $query1 = "SELECT rid FROM redirinfo WHERE rurl='{$urlr}' AND iscustom='no'";
 $result = $mysqli->query($query1);
 $row = mysqli_fetch_assoc($result);
 $existing = $row['rid'];
-$decodescript = "<script src='durl.js'></script>";
+$decodescript = "<script src='js/durl.js'></script>";
 $ip = $mysqli->real_escape_string($ip);
 $customurl = $mysqli->real_escape_string($_POST['custom']);
 if($customurl == "") {

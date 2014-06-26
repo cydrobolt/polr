@@ -15,7 +15,7 @@ if(!@include('config.php')) {
         <link rel="stylesheet" href="main.css"/>
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-        <script src='mpjs.js'></script>
+        <script src='js/mpjs.js'></script>
         <link rel="shortcut icon" href="favicon.ico">
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
