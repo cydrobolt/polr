@@ -26,7 +26,7 @@
     </head>
     <body style="padding-top:60px">
         <div class="container-fluid">
-            <div class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><a class="navbar-brand" href="index.php"><?php require_once('config.php');echo $wsn;?></a></div>
+            <div class="navbar navbar-default navbar-fixed-top"><div class="navbar-header"><a class="navbar-brand" href="../index.php"><?php require_once('config.php');echo $wsn;?></a></div>
                 <!--<a class="btn btn-navbar btn-default" data-toggle="collapse" data-target="#nbc">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
