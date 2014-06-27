@@ -51,8 +51,7 @@ $ireg;
 $ireg['1'] = sqlex('auth', 'email', 'username', $reg['username']);
 $ireg['2'] = sqlex('auth', 'username', 'email', $reg['email']);
 $ireg['3'] = sqlfetch('auth', 'valid', 'email', $reg['email']);
-var_dump($ireg);
-die();
+
 
 
 if (($ireg['1'] == true || $ireg['2'] == true) && $ireg['3'] == 1) {
