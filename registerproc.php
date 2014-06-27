@@ -47,10 +47,13 @@ $rstr = mcrypt_create_iv(23, MCRYPT_DEV_URANDOM);
 $reg = array("username" => $mysqli->real_escape_string($_POST['username']),"email" => $mysqli->real_escape_string($_POST['email']), "password" => $mysqli->real_escape_string($_POST['password']), "rkey" => sha1($mysqli->real_escape_string($_POST['username']) . date('zjDygs') . $rstr));
 
 //check if already exists
-
+$ireg;
 $ireg['1'] = sqlex('auth', 'email', 'username', $reg['username']);
 $ireg['2'] = sqlex('auth', 'username', 'email', $reg['email']);
-$ireg['3'] = sqlfetch('auth', 'valid', 'email', $reg['username']);
+$ireg['3'] = sqlfetch('auth', 'valid', 'email', $reg['email']);
+var_dump($ireg);
+die();
+
 
 if (($ireg['1'] == true || $ireg['2'] == true) && $ireg['3'] == 1) {
     require_once 'header.php';
