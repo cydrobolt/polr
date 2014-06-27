@@ -44,7 +44,7 @@ if (!ctype_alnum($_POST['username'])) {
 $salt = mcrypt_create_iv(23, MCRYPT_DEV_URANDOM); //create salt
 $rstr = mcrypt_create_iv(23, MCRYPT_DEV_URANDOM);
 
-$reg = array("username" => $mysqli->real_escape_string($_POST['username']),"email" => $mysqli->real_escape_string($_POST['email']), "password" => $mysqli->real_escape_string($_POST['password']), "rkey" => sha1($reg['username'] . $reg['email'] . date('zjDygs') . $rstr));
+$reg = array("username" => $mysqli->real_escape_string($_POST['username']),"email" => $mysqli->real_escape_string($_POST['email']), "password" => $mysqli->real_escape_string($_POST['password']), "rkey" => sha1($mysqli->real_escape_string($_POST['username']) . date('zjDygs') . $rstr));
 
 //check if already exists
 
