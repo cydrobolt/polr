@@ -2,7 +2,7 @@
 
 require_once '../req.php';
 require_once 'headerpage.php';
-require_once 'polrauth.php';
+require_once '../polrauth.php';
 $auth = new polrauth();
 $isadmin = $auth->isadminli();
 if (!is_array($auth->islogged())) {
