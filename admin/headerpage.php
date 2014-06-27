@@ -59,7 +59,7 @@
                             </form>
                         </div>
                     </li>
-<?php $polrauth->headendblock(); ?>
+<?php $polrauth->headendblock(true); ?>
                 </ul>
             </div>
         </div>
