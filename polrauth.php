@@ -43,21 +43,37 @@ class polrauth {
         }
     }
 
-    public function headendblock() {
+    public function headendblock($ar = false) {
         if (is_array($this->islogged())) {
             $authinfo = $this->islogged();
             echo "-->";
             $text = '<div class=\'nav pull-right navbar-nav\' style=\'color: white\'>
         <li class=\'dropdown\'>
-        <a class="dropdown-toggle" href="#" data-toggle="dropdown" style=\'padding-right: 10px\'>'.$authinfo['username'].' <strong class="caret"></strong></a>
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown" style=\'padding-right: 10px\'>' . $authinfo['username'] . ' <strong class="caret"></strong></a>
 
             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
-                <li><a tabindex="-1" href="ucp.php">Dashboard</a></li>
-                <li><a tabindex="-1" href="ucp.php">Settings</a></li>
+                <li><a tabindex="-1" href="admin">Dashboard</a></li>
+                <li><a tabindex="-1" href="admin">Settings</a></li>
                 <li><a tabindex="-1" href="logout.php">Logout</a></li>
             </ul>
         </li>
         </div>';
+            if ($ar == true) {
+                # if called from UCP
+                $text = '<div class=\'nav pull-right navbar-nav\' style=\'color: white\'>
+        <li class=\'dropdown\'>
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown" style=\'padding-right: 10px\'>' . $authinfo['username'] . ' <strong class="caret"></strong></a>
+
+            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
+                <li><a tabindex="-1" href="index.php">Dashboard</a></li>
+                <li><a tabindex="-1" href="index.php">Settings</a></li>
+                <li><a tabindex="-1" href="../logout.php">Logout</a></li>
+            </ul>
+        </li>
+        </div>';
+            }
+
+
             echo $text;
         }
     }
@@ -97,7 +113,7 @@ class polrauth {
         $username = $mysqli->real_escape_string($username);
         $a = "SELECT `role`,`username`,`ip`,`theme`,`rkey` FROM `auth` WHERE username='{$username}';";
         $b = $mysqli->query($a) or showerror();
-        
+
         $numrows = $b->num_rows;
         if (!$numrows) {
             return false;
@@ -112,7 +128,7 @@ class polrauth {
         //$a = "SELECT `role`,`username`,`ip,`theme`,`rkey` FROM `auth` WHERE email='{$email}';";
         $a = "SELECT `role`,`username`,`ip`,`theme`,`rkey` FROM `auth` WHERE email='{$email}';";
         $b = $mysqli->query($a) or showerror();
-        
+
         $numrows = $b->num_rows;
         if (!$numrows) {
             return false;
@@ -126,9 +142,10 @@ class polrauth {
         $params = session_get_cookie_params();
         setcookie(session_name(), $_COOKIE[session_name()], time() + 60 * 60 * 24 * 30, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
     }
+
     public function crkey($username) {
         global $mysqli;
-        $nrkey = sha1($username.(string)(rand(100,4434555)).date('yDm'));
+        $nrkey = sha1($username . (string) (rand(100, 4434555)) . date('yDm'));
         $usernamesan = $mysqli->real_escape_string($username);
         $qr = "UPDATE auth SET rkey='{$nrkey}' WHERE username='$usernamesan';";
         $e = $mysqli->query($qr) or showerror();

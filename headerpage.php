@@ -4,7 +4,7 @@
         <title>Polr</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<?php require_once('config.php');if (!$theme) {echo 'bootstrap.css';}else {echo $theme;}?>"/>
-        <link rel="stylesheet" href="main.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
         <link rel="shortcut icon" href="favicon.ico">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
