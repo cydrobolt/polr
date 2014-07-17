@@ -65,7 +65,7 @@ if (!is_array($auth->islogged())) {
 
         function fetchusersadmin($lstart = 0) {
             global $mysqli;
-            $sqr = "SELECT `username`,`email`,`valid` FROM `auth` LIMIT {$lstart} , 360;";
+            $sqr = "SELECT `username`,`email`,`valid` FROM `auth` LIMIT {$lstart} , 720;";
             $res = $mysqli->query($sqr);
             $links = mysqli_fetch_all($res, MYSQLI_ASSOC);
             $usershtml = '<table class="table table-hover"><tr><th>Username</th><th>Email</th><th>Activated?</th></tr>';
@@ -119,7 +119,7 @@ if (!is_array($auth->islogged())) {
         foreach ($_SESSION as $sevar) {
             $sessiondump = $sessiondump . '<br>' . $sevar;
         }
-        echo '<div class="tab-pane" id="adminpanel"><br>Polr Links - Limited @ 360:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="ucpjs.js"></script>';
+        echo '<div class="tab-pane" id="adminpanel"><br>Polr Links - Limited @ 720:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="ucpjs.js"></script>';
         if ($debug==1) {
             '<br>Debug Variables: <br>Default IP Fetch: ' . $ip . '<br>X-Forwarded-For:' . @$headers['X-Forwarded-For'] . '<br>Forwarded-For' . @$headers['forwarded-for'];
         }
