@@ -4,6 +4,10 @@ Polr
 ###A beautiful, modern, minimalist, and open-source URL shortening platform.
 Demo: http://polr-c9-cydrobolt.c9.io/
 
+######Prerelease Beta 1.0.0: https://github.com/Cydrobolt/polr/releases/download/1.0.0b-c/polr-1.0.0-beta.zip
+
+######Stable 0.2.3: https://github.com/Cydrobolt/polr/releases/download/v0.23-Alpha/polr-0.23-alpha.zip
+
 Polr will use Semantic Versioning http://semver.org/ starting at ver 1.0.0
 
 Do you use Polr? We'll add your website to the list at the bottom of the page, just email one of the collaborators, or support@polr.cf .
