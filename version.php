@@ -1,4 +1,4 @@
 <?php
-$version = "0.3.0 Alpha";
-$reldate = "6/26/2014";
+$version = "1.0.0 Beta";
+$reldate = "7/18/2014";
 $relyear = 2014;
