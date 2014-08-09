@@ -50,10 +50,10 @@
                     if (!$salt) {
                         $salt = rstr(60);
                     }
-                    $opts = [
+                    $opts = array(
                         'cost' => 10,
                         'salt' => $salt
-                    ];
+                    );
                     $hashed = password_hash($pass, PASSWORD_BCRYPT, $opts);
                     return $hashed;
                 }
