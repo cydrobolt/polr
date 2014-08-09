@@ -61,10 +61,10 @@ if (($ireg['1'] == true || $ireg['2'] == true) && $ireg['3'] == 1) {
     die(); //prevent user from registering   
 }
 
-$opts = [
+$opts = array(
     'cost' => 10,
     'salt' => $salt
-];
+);
 $hashed = password_hash($reg['password'], PASSWORD_BCRYPT, $opts);
 $reg['password'] = $hashed;
 
