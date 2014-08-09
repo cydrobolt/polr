@@ -81,6 +81,21 @@ Make sure your host is correct. Some webhosts require you to bind to a certain i
 
 Make sure the database is premade, and that the user has the required permissions to create tables.
 
+###I'm getting an error in the dashboard; Missing mysqli_fetch_all.
+
+This problem occurs when your version of PHP is under 5.5. If you are running PHP 5.3.x, or below, place this in your `req.php` file:
+
+```
+function mysqli_fetch_all($res) {
+    $array = array();
+    while ($row = $res->fetch_assoc()) {
+        array_push($array, $row);
+    }
+    return $array;
+}
+```
+
+
 ==================
 ####Current State: 0.23 Alpha (download at release)
 
