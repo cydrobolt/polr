@@ -97,7 +97,7 @@ function mysqli_fetch_all($res) {
 
 
 ==================
-####Current State: 0.23 Alpha (download at release)
+####Current State: 1.0.0 Beta (download at releases) & 0.2.3 Alpha (latest semi-stable)
 
 Welcome to Polr, the self-hosted version. Read up on some documentation through our github wiki (https://github.com/Cydrobolt/polr/wiki)
 
@@ -106,10 +106,12 @@ Would like to contribute? Submit pull requests through our Github page. Found an
 ==================
 ######List of websites using Polr
 
-- http://polr.cf
+- http://polr.me
+
+####License
 
 
-    Copyright (C) 2014 Chaoyi Zha
+    Copyright (C) 2014 Chaoyi Zha <summermontreal@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
