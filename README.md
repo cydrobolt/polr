@@ -69,7 +69,8 @@ sudo service apache2 restart
 
 ###I have errors enabled, and I get "`Illegal String Offset`"
 
-This usually occurs when you are missing an extension, and thus, the expected associative arrays (e.g `mysqli_fetch_assoc`) are instead strings, and errors occur. The most common cause of this is the missing MySQLi extension or native driver. Refer to the first FAQ.
+This usually occurs when you are missing an extension, and thus, the expected associative arrays (e.g `mysqli_fetch_assoc`) are instead strings, and errors occur. The most common cause of this is the missing MySQLi extension or native driver. Refer to the first FAQ, or the `mysqli_fetch_all` FAQ. This issue is usually caused by an
+old PHP version.
 
 ###The links produced give me 404
 
