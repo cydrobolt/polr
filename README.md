@@ -85,7 +85,7 @@ Make sure the database is premade, and that the user has the required permission
 
 ###I'm getting an error in the dashboard; Missing mysqli_fetch_all.
 
-This problem occurs when your version of PHP is under 5.5. If you are running PHP 5.3.x, or below, place this in your `req.php` file:
+This problem occurs if your PHP version is below 5.3 or you do not have the native driver (http://php.net/manual/en/book.mysqlnd.php). If you cannot install the native driver, place this in your `req.php` file:
 
 ```
 function mysqli_fetch_all($res) {
