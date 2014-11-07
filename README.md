@@ -2,15 +2,16 @@ Polr
 ==================
 
 ###A beautiful, modern, fast, minimalist, and open-source URL shortening platform in vanilla PHP. 
-Demo: http://polr-c9-cydrobolt.c9.io/
+http://polr.me
 
 ######Prerelease Beta 1.0.0: https://github.com/Cydrobolt/polr/releases/download/1.0.0b-c/polr-1.0.0-beta.zip
 
 ######Stable 0.2.3: https://github.com/Cydrobolt/polr/releases/download/v0.23-Alpha/polr-0.23-alpha.zip
 
-Polr will use Semantic Versioning http://semver.org/ starting at ver 1.0.0
+Polr uses Semantic Versioning http://semver.org/
 
-Do you use Polr? We'll add your website to the list at the bottom of the page, just email one of the collaborators, or support@polr.cf .
+Do you use Polr? We'll add your website to the list at the bottom of the page, just email one of the collaborators, or support@polr.me
+No attribution is required, and we encourage you to modify Polr, but it would be nice for you to link to us in footers, source, or about page. Thanks for trying Polr!
 
 Useful Links:
 
@@ -99,7 +100,7 @@ function mysqli_fetch_all($res) {
 
 
 ==================
-####Current State: 1.0.0 Beta (download at releases) & 0.2.3 Alpha (latest semi-stable)
+####Current State: 1.0.4 Beta (download at releases) & 0.2.3 Alpha (latest semi-stable)
 
 Welcome to Polr, the self-hosted version. Read up on some documentation through our github wiki (https://github.com/Cydrobolt/polr/wiki)
 
