@@ -44,7 +44,7 @@ This list may be long, but most hosts include these prerequisites, so you don't 
 Troubleshooting
 ==================
 
-###I get a blank page at the user dashboard (ucp.php)
+###I get a blank page at the user dashboard (/admin/)
 
 This error occurs when your PHP installation's version is older than 5.3, or because you do not have either the PHP mysqli extension or do not have the MySQLnd (native driver). On Ubuntu, you simply need to `sudo apt-get install php5-mysql` and restart apache2 `service apache2 restart`. You should have the mysqli.so extension enabled. Ask on IRC if you need further support.
 
