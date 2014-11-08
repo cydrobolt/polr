@@ -9,9 +9,9 @@ if (is_string($_GET['u'])) {
 }
 
 if (strstr($val, "t-")) {
-    $query = "SELECT rurl FROM `redirinfo-temp` WHERE baseval='{$val}'";
+    $query = "SELECT `rurl` FROM `redirinfo-temp` WHERE baseval='{$val}'";
 } else {
-    $query = "SELECT rurl FROM redirinfo WHERE baseval='{$val}'";
+    $query = "SELECT `rurl`,`lkey` FROM `redirinfo` WHERE baseval='{$val}'";
 }
 $result = $mysqli->query($query) or showerror();
 
@@ -27,8 +27,20 @@ if (strtolower($row['rurl']) == "disabled") {
     . "Sorry for the inconvienience.";
     require_once 'footer.php';
 }
-
-
+$lkey = @$row['lkey'];
+if (strlen($lkey)>1) {
+	// Key needed? Check for it
+	$sent_lkey = isset($_GET[$lkey]);
+	if ($sent_lkey) {
+		// yup, right key...continue on
+	}
+	else {
+		require_once('header.php');
+		echo "Incorrect Key. (http://{$wsa}/abc?keyhere)";
+		require_once('footer.php');
+		die();
+	}
+}
 header("Location: {$row['rurl']}", true, 301);
 $oldclicks = sqlfetch("redirinfo", "clicks", "baseval", $val);
 $newclicks = $oldclicks + 1;

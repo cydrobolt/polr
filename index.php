@@ -31,7 +31,7 @@ if(!@include('config.php')) {
         <script src='js/mpjs.js'></script>
         <link rel="shortcut icon" href="favicon.ico">
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
@@ -44,6 +44,32 @@ if(!@include('config.php')) {
                 $('.dropdown input, .dropdown label').click(function(e) {
                     e.stopPropagation();
                 });
+				$('.btn-toggle').click(function() {
+					$(this).find('.btn').toggleClass('active');
+
+					if ($(this).find('.btn-primary').size()>0) {
+						$(this).find('.btn').toggleClass('btn-primary');
+					}
+					if ($(this).find('.btn-danger').size()>0) {
+						$(this).find('.btn').toggleClass('btn-danger');
+					}
+					if ($(this).find('.btn-success').size()>0) {
+						$(this).find('.btn').toggleClass('btn-success');
+					}
+					if ($(this).find('.btn-info').size()>0) {
+						$(this).find('.btn').toggleClass('btn-info');
+					}
+
+					$(this).find('.btn').toggleClass('btn-default');
+
+				});
+/*
+				$('form').submit(function(){
+					alert($(this["ps"]).val());
+					return false;
+				});
+				*/
+
             });
         </script>
     </head>
@@ -57,8 +83,6 @@ if(!@include('config.php')) {
                 </a>-->
 
                 <ul class="nav navbar-collapse navbar-nav" id="nbc">
-                    <li><a href="//github.com/Cydrobolt/polr">Github</a></li>
-                    <li><a href="//project.polr.cf">Source</a></li>
                     <li><a href="about.php">About</a></li>
                 </ul>
                 <ul class="nav pull-right navbar-nav">
@@ -74,7 +98,7 @@ if(!@include('config.php')) {
                             <form action="loginproc.php" method="post" accept-charset="UTF-8">
                                 <input id="user_username" style="margin-bottom: 15px;" type="text" name="username" placeholder='Username' size="30" class="form-control">
                                 <input id="user_password" style="margin-bottom: 15px;" type="password" name="password" placeholder='Password' size="30" class="form-control">
-
+                                <a href='forgotpass.php' style='color:white; text-align:center'>Forgot Password?</a>
                                 <input class="btn btn-success form-control" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="login" value="Sign In">
                                 <br><br>
                             </form>
@@ -91,6 +115,15 @@ if(!@include('config.php')) {
                 <form id='shortenform' method="POST" action="createurl.php" role="form">
                     <input type="text" class="form-control" placeholder="URL" id="url" value="http://" name="urlr" />
                     <div id='options'>
+                        <br />
+                        <div class="btn-group btn-toggle" data-toggle="buttons">
+							<label class="btn btn-primary btn-sm active">
+							  <input type="radio" name="options" value="p" checked=""> Public
+							</label>
+							<label class="btn btn-sm btn-default">
+							  <input type="radio" name="options" value="s"> Secret
+							</label>
+					    </div> <br /><br />
                         <br>Customize link: <br><div style='color: green'><h2 style='display:inline'><?php require_once('config.php');echo $wsa;?>/</h2><input type='text' id='custom' title='After entering your custom ending, if the ending is available, enter your long URL into box above and press "Shorten"!' name='custom' /><br>
                             <a href="#" class="btn btn-inverse btn-sm" id='checkavail'>Check Availability</a><div id='status'></div></div>
                     </div>
