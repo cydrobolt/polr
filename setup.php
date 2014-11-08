@@ -82,6 +82,7 @@
                         . '$hp = "' . sha1(rstr(30)) . "\";"
                         . '$regtype = "' . $_POST['reg'] . "\";"
                         . '$path = "' . $_POST['path'] . "\";"
+                        . '$fpass = ' . $_POST['fpass'] . ";"
                         . '$theme = "' . $_POST['t'] . "\";"
                         . '$ip = ' . $_POST['ipfetch'] . ";" .
                         '$unstr = "' . $rstr . '";
@@ -217,6 +218,10 @@
                 . "<option value='email'>Email verification required</option>"
                 . "<option value='free'>No email verification required</option>"
                 . "<option value='regulated'>New registrations must be approved (do not choose, future option)</option>"
+                . "</select><br /><br />";
+                echo "Password Recovery (requires mail server): <select name='fpass' style='width:650px' class='form-control'>"
+                . "<option value='false'>No (default)</option>"
+                . "<option value='true'>Yes (could cause problems unless sgmail.php is properly set up)</option>"
                 . "</select><br /><br />";
                 echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" value=\"/polr/\"><br>";
                 echo "Theme (choose wisely, click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots: <select name='t' style='width:650px' class='form-control'>"

@@ -15,12 +15,15 @@ if($authed==true) {
     $_SESSION['li'] = sha1('li');
     $_SESSION['username'] = $authcreds['username'];
     $_SESSION['role'] = $polrauth->getrole($authcreds['username']);
-    
+
     header('Location:index.php');
 }
 else {
     require_once('header.php');
-    echo '<h2>Incorrect password or username (or account not activated). Try again</h2><br>';
+    echo '<h2>Incorrect password or username (or account not activated). Try again</h2><br />';
+    if ($fpass == true) {
+        echo '<a href="fpass.php">Forgot Password?</a><br />';
+    }
     require_once('footer.php');
     die();
 }
