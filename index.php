@@ -1,4 +1,4 @@
-<!-- 
+<!--
 # Copyright (C) 2013-2014 Chaoyi Zha
 # Polr is an open-source project licensed under the GPL.
 # The above copyright notice and the following license are applicable to
@@ -13,7 +13,7 @@
 #
 -->
 
-<?php 
+<?php
 if(!@include('config.php')) {
     header('Location:setup.php');
 }
@@ -22,7 +22,7 @@ if(!@include('config.php')) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Polr</title>
+        <title><?php require_once('config.php');echo $wsn;?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<?php require_once('config.php');if (!$theme) {echo 'bootstrap.css';}else {echo $theme;}?>"/>
         <link rel="stylesheet" href="css/main.css"/>
