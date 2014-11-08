@@ -28,19 +28,19 @@ if ($action == 'changepw') {
     $hpw = $fetch['password'];
     $islegit = $polrauth->processlogin($username, $currpw);
     if (!$islegit) {
-        die('Invalid current password. <a href="admin">Back</a>');
+        die('Invalid current password. <a href="index.php">Back</a>');
     }
 
     $sqr = "UPDATE auth SET password = '{$hashed}' WHERE `username`='{$username}';";
     $res = $mysqli->query($sqr);
     if ($res) {
         require_once 'header.php';
-        echo "Success! <a href='admin'>Back</a>";
+        echo "Success! <a href='index.php'>Back</a>";
         require_once 'footer.php';
         die();
     } else {
         require_once 'header.php';
-        echo "Error! <a href='admin'>Back</a>";
+        echo "Error! <a href='index.php'>Back</a>";
         require_once 'footer.php';
         die();
     }
