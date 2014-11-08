@@ -25,11 +25,11 @@ Useful Links:
 Installation
 ==================
 
- - Unpack Polr, or clone the git repo
+ - Unpack Polr, or clone the git repo. Only the `git clone` option allows quick updating through `git pull`.
  - Go to the root of your Polr folder (on webserver)
  - Read each setup item carefully, and then click "create config"
- - *MySQL warning: Set your character set to UTF8. Some character sets are vulnerable to a certain bug in MySQL and mysqli_real_escape_string. For more information, please see http://stackoverflow.com/questions/5741187/sql-injection-that-gets-around-mysql-real-escape-string*. Polr PaaS is not vulnerable. Future updates will use prepared statements. 
- - You're ready to go!
+ - *MySQL warning: Set your character set to UTF8. Some character sets are vulnerable to a certain bug in MySQL and mysqli_real_escape_string. For more information, please see http://stackoverflow.com/questions/5741187/sql-injection-that-gets-around-mysql-real-escape-string*. This bug should be mostly fixed >1.1.0. 
+ - You're ready to go! Check back for updates, and `git pull` if possible to update Polr. Otherwise, you can download a ZIP from Github and replace your current files. Make sure to keep your `config.php`!
 
 Prerequisites:
 
