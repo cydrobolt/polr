@@ -81,7 +81,7 @@ else {
 //$rr = $mysqli->query($qr) or showerror();
 $qp = "INSERT INTO `auth` (username,email,password,rkey,valid,ip) VALUES (?,?,?,?,?,?)";
 $st = $mysqli->prepare($qp) or showerror();
-$st->bind_param('ssssss', $reg['username'], $reg['email'], $hashed, , $reg['rkey'], $active, $ip) or showerror();
+$st->bind_param('ssssss', $reg['username'], $reg['email'], $hashed, $reg['rkey'], $active, $ip) or showerror();
 $st->execute() or showerror();
 
 if ($regtype == 'email') {
