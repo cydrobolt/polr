@@ -22,7 +22,7 @@
     </head>
     <body style="padding-top:60px">
         <div class="navbar navbar-default navbar-fixed-top">
-            <a class="navbar-brand" href="/">Polr</a>
+            <a class="navbar-brand" href="index.php">Polr</a>
         </div>
         <div class='container-fluid push pushtop' style="text-align: left">
             <span><h1 style="text-align:center">Polr Setup</h1></span><br>
@@ -225,7 +225,7 @@
                 . "</select><br /><br />";
                 echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" value=\"/polr/\"><br>";
                 echo "Theme (choose wisely, click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots: <select name='t' style='width:650px' class='form-control'>"
-                . "<option value='bootstrap.css'>Modern (default)</option>"
+                . "<option value=''>Modern (default)</option>"
                 . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cyborg/bootstrap.min.css'>Midnight Black</option>"
                 . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/amelia/bootstrap.min.css'>Cheery</option>"
                 . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/united/bootstrap.min.css'>Orange</option>"

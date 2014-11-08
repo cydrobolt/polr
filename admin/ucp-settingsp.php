@@ -1,9 +1,9 @@
 <?php
-require_once 'req.php';
+require_once '../req.php';
 if (!$_SESSION['li']) {
     header('Location: index.php');
 }
-require_once 'polrauth.php';
+require_once '../polrauth.php';
 $polrauth = new polrauth();
 $islogged = $polrauth->islogged();
 $action = $mysqli->real_escape_string($_POST['action']);
@@ -12,7 +12,7 @@ if ($action == 'changepw') {
     $currpw = $mysqli->real_escape_string($_POST['currpw']);
     $newpw = $mysqli->real_escape_string($_POST['newpw']);
 
-    require_once 'password.php';
+    require_once '../password.php';
     function noMc($length = 23) {
         return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
     }
