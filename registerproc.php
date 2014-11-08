@@ -77,14 +77,14 @@ else {
     $active = "0";
 }
 
-$qr = "INSERT INTO auth (username,email,password,rkey,valid,ip) VALUES ('{$reg['username']}','{$reg['email']}','{$hashed}','{$reg['rkey']}','{$active}', '{$ip}');";
+$qr = "INSERT INTO `auth` (username,email,password,rkey,valid,ip) VALUES ('{$reg['username']}','{$reg['email']}','{$hashed}','{$reg['rkey']}','{$active}', '{$ip}');";
 $rr = $mysqli->query($qr) or showerror();
 
 if ($reg == 'email') {
-    $sglink = "http://polr.cf/activate.php?key=" . $reg['rkey'] . '&user=' . $reg['username'];
-    $sgmsg = "Please validate your Polr Account by clicking the link below or pasting it into your browser:<br>"
+    $sglink = "http://{$wsa}/activate.php?key=" . $reg['rkey'] . '&user=' . $reg['username'];
+    $sgmsg = "Please validate your {$wsn} Account by clicking the link below or pasting it into your browser:<br>"
             . '<a href="' . $sglink . '">' . $sglink . '</a>'
-            . "<br><br>If you did not register at Polr (<a href='//polr.cf'>Polr.cf</a>), please disregard this email."
+            . "<br><br>If you did not register at {$wsn} (<a href='//{$wsa}'>{$wsn}</a>), please disregard this email."
             . "<br>";
     $to = $reg['email'];
     $sm = $sgmail->sendmail($to, 'Polr Account Validation', $sgmsg);
