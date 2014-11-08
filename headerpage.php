@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Polr</title>
+        <title><?php require_once('config.php');echo $wsn;?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<?php require_once('config.php');if (!$theme) {echo 'bootstrap.css';}else {echo $theme;}?>"/>
+        <link rel="stylesheet" href="<?php if (!$theme) {echo 'bootstrap.css';}else {echo $theme;}?>"/>
         <link rel="stylesheet" href="css/main.css"/>
         <link rel="shortcut icon" href="favicon.ico">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <script src='select_url.js'></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
         <script>
