@@ -59,6 +59,16 @@ function sqlfetch($table, $rowf, $where, $wval) {
     return $row[$rowf];
 }
 
+//SQL Functions
+//Sanitize input when using sqlrun!
+function sqlrun($query) {
+    global $mysqli;
+    $queryrs = $query;
+    $resultrs = $mysqli->query($queryrs) or die("ERROR in $query");
+    return true;
+}
+
+
 function showerror() {
 	//Show an error, and die. If Debug is on, show SQL error message
     global $debug;
