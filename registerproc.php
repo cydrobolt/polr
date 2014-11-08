@@ -24,13 +24,13 @@ if (strlen($_POST['username']) == 0 || strlen($_POST['password']) < 4 || strlen(
     require_once 'header.php';
     echo "Fields may not be left blank, password must be over 4 characters. <br><br><a href='register.php'>Go Back</a>";
     require_once 'footer.php';
-    die(); //prevent user from registering   
+    die(); //prevent user from registering
 }
 if (!ctype_alnum($_POST['username'])) {
     require_once 'header.php';
     echo "Your username must be alphanumerical (numbers and letters only). <br><br><a href='register.php'>Go Back</a>";
     require_once 'footer.php';
-    die(); //prevent user from registering 
+    die(); //prevent user from registering
 }
 /*
   if ($_POST['tos']!='accept') {
@@ -58,7 +58,7 @@ if (($ireg['1'] == true || $ireg['2'] == true) && $ireg['3'] == 1) {
     require_once 'header.php';
     echo "Username/email already in use. <br><br><a href='register.php'>Go Back</a>";
     require_once 'footer.php';
-    die(); //prevent user from registering   
+    die(); //prevent user from registering
 }
 
 $opts = array(
@@ -72,15 +72,19 @@ $reg['password'] = $hashed;
 
 if ($regtype == "free") {
     $active = "1";
-} 
+}
 else {
     $active = "0";
 }
 
-$qr = "INSERT INTO `auth` (username,email,password,rkey,valid,ip) VALUES ('{$reg['username']}','{$reg['email']}','{$hashed}','{$reg['rkey']}','{$active}', '{$ip}');";
-$rr = $mysqli->query($qr) or showerror();
+//$qr = "INSERT INTO `auth` (username,email,password,rkey,valid,ip) VALUES ('{$reg['username']}','{$reg['email']}','{$hashed}','{$reg['rkey']}','{$active}', '{$ip}');";
+//$rr = $mysqli->query($qr) or showerror();
+$qp = "INSERT INTO `auth` (username,email,password,rkey,valid,ip) VALUES (?,?,?,?,?,?);";
+$st = $mysqli->prepare($qp) or showerror();
+$st->bind_param('ssssss', $reg['username'], $reg['email'], $hashed, , $reg['rkey'], $active, $ip) or showerror();
+$st->execute() or showerror();
 
-if ($reg == 'email') {
+if ($regtype == 'email') {
     $sglink = "http://{$wsa}/activate.php?key=" . $reg['rkey'] . '&user=' . $reg['username'];
     $sgmsg = "Please validate your {$wsn} Account by clicking the link below or pasting it into your browser:<br>"
             . '<a href="' . $sglink . '">' . $sglink . '</a>'
@@ -101,8 +105,3 @@ else {
     require_once 'footer.php';
     die();
 }
-
-
-
-
-
