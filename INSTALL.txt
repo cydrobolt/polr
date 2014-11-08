@@ -1,0 +1,13 @@
+INSTALLING POLR
+
+Steps: 
+
+ - Make sure your MySQL server is set up and accessible. 
+ - Create the database that you wish to use with Polr
+ - Set the Character Set of your database to UTF8. Although Polr does this for you each time your site is accessed, 
+   this should be set through MySQL to prevent certain SQL injection attacks.
+ - Create a user that you wish to use with Polr. It should have all permissions during the installation.
+ - Fill in the fields and finish the installation.
+ - If you have any troubles, it is probably due to your MySQL database. Set "$debug" to 1 in `req.php`, delete `config.php`,
+   and try to install again. MySQL will show what errors are causing the problem.
+ - Additionally, please read the README.md file for troubleshooting, requirements, and more.
