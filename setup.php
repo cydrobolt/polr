@@ -30,7 +30,7 @@
             @(include('config.php'));
             include ('version.php');
             require_once 'password.php';
-
+            date_default_timezone_set('UTC');
             function rstr($length = 34) {
                 return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
             }

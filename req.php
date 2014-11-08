@@ -1,5 +1,4 @@
 <?php
-
 @(require_once('config.php'));
 include('version.php');
 $debug = 0; // Set to 1 in order to enable debug mode (shows sensitive database info), use for troubleshooting
@@ -27,9 +26,9 @@ function sqlex($table, $rowf, $where, $wval) {
     $tables = $mysqli->real_escape_string($table);
     $wheres = $mysqli->real_escape_string($where);
     $wvals = $mysqli->real_escape_string($wval);
-    $q2p = "SELECT {$rowfs} FROM {$tables} WHERE ?=?";
+    $q2p = "SELECT {$rowfs} FROM {$tables} WHERE {$wheres}=?";
 	$stmt = $mysqli->prepare($q2p);
-	$stmt->bind_param('ss', $wheres, $wvals);
+	$stmt->bind_param('s', $wvals);
 	$stmt->execute();
 	$result = $stmt->get_result();
     $numrows = $result->num_rows;
@@ -49,10 +48,9 @@ function sqlfetch($table, $rowf, $where, $wval) {
     $wvals = $mysqli->real_escape_string($wval);
 
     //$query = "SELECT $rowfs FROM $tables WHERE $wheres='$wvals'";
-    $q2p = "SELECT {$rowfs} FROM {$tables} WHERE ?=?";
+    $q2p = "SELECT {$rowfs} FROM {$tables} WHERE {$wheres}=?";
 	$stmt = $mysqli->prepare($q2p);
-	echo $mysqli->error;
-	$stmt->bind_param('ss', $wheres, $wvals);
+	$stmt->bind_param('s', $wvals);
 	$stmt->execute();
 	$result = $stmt->get_result();
     $row = mysqli_fetch_assoc($result);
@@ -64,7 +62,11 @@ function sqlfetch($table, $rowf, $where, $wval) {
 function sqlrun($query) {
     global $mysqli;
     $queryrs = $query;
-    $resultrs = $mysqli->query($queryrs) or die("ERROR in $query");
+    $resultrs = $mysqli->query($queryrs) or ($err =  $mysqli->error);
+    if (strstr($err, "already exists")) {
+        echo "<br />Could not create tables because the database already has Polr tables (perhaps from a previous installation?). Delete the existing Polr table and try again. You can also export the database and restore it after installation, however, the old database may not be compatible. ";
+        die();
+    }
     return true;
 }
 
