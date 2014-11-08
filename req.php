@@ -58,27 +58,6 @@ function sqlfetch($table, $rowf, $where, $wval) {
     $row = mysqli_fetch_assoc($result);
     return $row[$rowf];
 }
-function sqlfetch($table, $rowf, $where, $wval) {
-	/*
-     * Fetch a value from the database
-     * Takes 4 arguments:
-     * $table : table in question
-     * $rowf = row to fetch
-     * $where = the 'where' value, as in WHERE $where = $wval
-     * $wval = the value of the $where val ^
-     */
-    global $mysqli;
-
-    $rowfs = $mysqli->real_escape_string($rowf);
-    $tables = $mysqli->real_escape_string($table);
-    $wheres = $mysqli->real_escape_string($where);
-    $wvals = $mysqli->real_escape_string($wval);
-
-    $query = "SELECT $rowfs FROM $tables WHERE $wheres='$wvals'";
-    $result = $mysqli->query($query) or showerror();
-    $row = mysqli_fetch_assoc($result);
-    return $row[$rowf];
-}
 
 function showerror() {
 	//Show an error, and die. If Debug is on, show SQL error message
