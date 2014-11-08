@@ -7,7 +7,7 @@ class polrauth {
 
     public $authcreds = [];
 
-    public function islogged() {
+    public function islogged () {
         if (@$_SESSION['li'] !== sha1('li')) {
             return false;
         } else {
@@ -15,6 +15,34 @@ class polrauth {
             $data['role'] = $_SESSION['role'];
             return $data;
         }
+    }
+    public function prepare ($query) {
+        global $mysqli;
+        global $debug;
+        if(!($p = $mysqli->prepare($query))) {
+            if ($debug === 1) {
+                echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+            }
+            else {
+                showerror();
+                return false;
+
+            }
+        }
+        return $p;
+    }
+    public function gr ($p) {
+        global $debug;
+        // Fetches result from prepared statement
+        if(!($g = $p->get_result())) {
+            if ($debug === 1) {
+                echo "Prepare failed: (" . $p->errno . ") " . $p->error;
+            }
+            showerror();
+            return false;
+
+        }
+        return $g;
     }
 
     public function isadminli() {
@@ -29,7 +57,7 @@ class polrauth {
         }
     }
 
-    public function isadmin($user) {
+    public function isadmin ($user) {
         if ($this->getrole($user) == 'adm') {
             return true;
         } else {
@@ -37,13 +65,13 @@ class polrauth {
         }
     }
 
-    public function headblock() {
+    public function headblock () {
         if (is_array($this->islogged())) {
             echo "<!--";
         }
     }
 
-    public function headendblock($ar = false) {
+    public function headendblock ($ar = false) {
         if (is_array($this->islogged())) {
             $authinfo = $this->islogged();
             echo "-->";
@@ -78,16 +106,20 @@ class polrauth {
         }
     }
 
-    public function processlogin($username, $password) {
+    public function processlogin ($username, $password) {
         global $mysqli;
-        $a = "SELECT password FROM auth WHERE username='{$username}'";
-        $b = $mysqli->query($a) or showerror();
-        $c = mysqli_fetch_assoc($b);
+        $a = "SELECT `password`,`valid` FROM `auth` WHERE `username`=?";
+        $b = $mysqli->prepare($a);
+        $b->bind_param('s', $username);
+        $b->execute();
+        $d = $b->get_result();
+        echo $b->error;
+        $c = mysqli_fetch_assoc($d);
         $hpw = $c['password'];
-        $a = "SELECT valid FROM auth WHERE username='{$username}'";
-        $b = $mysqli->query($a) or showerror();
-        $c = mysqli_fetch_assoc($b);
         $uv = $c['valid'];
+
+
+
         if ((!$hpw) || (!$uv)) {
             return false;
         }
@@ -100,7 +132,7 @@ class polrauth {
         }
     }
 
-    public function getrole($username) {
+    public function getrole ($username) {
         global $mysqli;
         $a = "SELECT role FROM auth WHERE username='{$username}'";
         $b = $mysqli->query($a) or showerror();
@@ -108,7 +140,7 @@ class polrauth {
         return $c['role'];
     }
 
-    public function getinfomu($username) {
+    public function getinfomu ($username) {
         global $mysqli;
         $username = $mysqli->real_escape_string($username);
         $a = "SELECT `role`,`username`,`ip`,`theme`,`rkey` FROM `auth` WHERE username='{$username}';";
@@ -122,7 +154,7 @@ class polrauth {
         return $c;
     }
 
-    public function getinfome($email) {
+    public function getinfome ($email) {
         global $mysqli;
         $email = $mysqli->real_escape_string($email);
         //$a = "SELECT `role`,`username`,`ip,`theme`,`rkey` FROM `auth` WHERE email='{$email}';";
@@ -137,13 +169,13 @@ class polrauth {
         return $c;
     }
 
-    public function remember_me() {
+    public function remember_me () {
         // Extend the login session cookie to last 30 days
         $params = session_get_cookie_params();
         setcookie(session_name(), $_COOKIE[session_name()], time() + 60 * 60 * 24 * 30, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
     }
 
-    public function crkey($username) {
+    public function crkey ($username) {
         global $mysqli;
         $nrkey = sha1($username . (string) (rand(100, 4434555)) . date('yDm'));
         $usernamesan = $mysqli->real_escape_string($username);

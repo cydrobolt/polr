@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?php require_once('config.php');echo $wsn;?></title>
+        <title><?php require_once('../config.php');echo $wsn;?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<?php require_once('../config.php');if (!$theme) {echo '../css/bootstrap.css';}else {echo $theme;}?>"/>
+        <link rel="stylesheet" href="<?php if (!$theme) {echo '../css/bootstrap.css';}else {echo $theme;}?>"/>
         <link rel="stylesheet" href="../css/main.css"/>
         <link rel="shortcut icon" href="../favicon.ico">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

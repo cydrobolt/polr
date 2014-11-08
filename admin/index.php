@@ -30,7 +30,7 @@ if (!is_array($auth->islogged())) {
     }
 
     $linkshtml = fetchurls();
-    echo "<script src='ucptabs.js'></script>";
+    echo "<script src='../js/ucptabs.js'></script>";
     echo "<h3>Polr Dashboard</h3><br>";
     echo '<ul class="nav nav-tabs" id="tabsb">
         <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
@@ -100,13 +100,13 @@ if (!is_array($auth->islogged())) {
             $msges = '<div class="tab-pane" id="messages"><br>'.$status.'</div>';
         }
     }
-    
-    
+
+
     echo '</ul>';
     echo '<div class="tab-content">
   <div class="tab-pane active" id="home"><br><h2>Welcome to '.$wsn.' user dashboard. Powered by <a href="//github.com/cydrobolt/polr">Polr</a>; Made with <3, <code>$ bash</code>, and lots of <code>git push</code>es</div>
   <div class="tab-pane" id="links"><br>' . $linkshtml . '</div>
-  
+
   '.$msges.'
   <div class="tab-pane" id="settings"><br><b>Settings:</b><br><br><form action="ucp-settings.php" method="POST">
   Current Password: <input type="password" name="cpw" /><br>New Password: <input type="password" name="npw" />
@@ -119,7 +119,7 @@ if (!is_array($auth->islogged())) {
         foreach ($_SESSION as $sevar) {
             $sessiondump = $sessiondump . '<br>' . $sevar;
         }
-        echo '<div class="tab-pane" id="adminpanel"><br>Polr Links - Limited @ 720:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="ucpjs.js"></script>';
+        echo '<div class="tab-pane" id="adminpanel"><br>Polr Links - Limited @ 720:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="../js/ucpjs.js"></script>';
         if ($debug==1) {
             '<br>Debug Variables: <br>Default IP Fetch: ' . $ip . '<br>X-Forwarded-For:' . @$headers['X-Forwarded-For'] . '<br>Forwarded-For' . @$headers['forwarded-for'];
         }
