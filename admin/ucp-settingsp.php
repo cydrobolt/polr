@@ -28,7 +28,10 @@ if ($action == 'changepw') {
     $hpw = $fetch['password'];
     $islegit = $polrauth->processlogin($username, $currpw);
     if (!$islegit) {
-        die('Invalid current password. <a href="index.php">Back</a>');
+        require_once 'header.php';
+        echo "Invalid current password. <a href=\"index.php\">Back</a>";
+        require_once 'footer.php';
+        die();
     }
 
     $sqr = "UPDATE auth SET password = '{$hashed}' WHERE `username`='{$username}';";
