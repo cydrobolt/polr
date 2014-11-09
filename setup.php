@@ -31,6 +31,19 @@
             include ('version.php');
             require_once 'password.php';
             date_default_timezone_set('UTC');
+            $mysqlnd = function_exists('mysqli_fetch_all');
+            
+			if (!$mysqlnd) {
+				echo "<br /><br /><p>Error: You don't seem to have the <pre>MySQL native driver. </pre>
+				<br />You should install it in order to use Polr properly. <br />
+				On Ubuntu-based distros: <pre>sudo apt-get install php5-mysqlnd</pre><br />
+				On Fedora-based distros: <pre>sudo yum install php-mysqlnd</pre>, or if you get errors, <pre>sudo yum remove php-mysql && yum install php-mysqlnd</pre><br />
+				For most Windows computers, the native driver should come by default for PHP >= 5.4. 
+				<br />For more information, click <a href='http://php.net/manual/en/mysqlnd.install.php'>here</a></p>";
+				die();
+			}
+            
+            
             function rstr($length = 34) {
                 return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
             }
