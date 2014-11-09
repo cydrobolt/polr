@@ -18,7 +18,7 @@ No attribution is required, and we encourage you to modify Polr, but it would be
 Useful Links:
 
  - http://github.com/Cydrobolt/polr-cli Command-line interface for Polr
- - http://github.com/Cydrobolt/polr-PaaS Polr Platform-as-a-Service (http://polr.cf)
+ - http://github.com/Cydrobolt/polr-PaaS Polr Platform-as-a-Service (http://polr.me)
 
 
 ==================
@@ -27,7 +27,7 @@ Installation
 
  - Unpack Polr, or clone the git repo. Only the `git clone` option allows quick updating through `git pull`.
  - Go to the root of your Polr folder (on webserver)
- - Read each setup item carefully, and then click "create config"
+ - Read `INSTALL.txt`
  - *MySQL warning: Set your character set to UTF8. Some character sets are vulnerable to a certain bug in MySQL and mysqli_real_escape_string. For more information, please see http://stackoverflow.com/questions/5741187/sql-injection-that-gets-around-mysql-real-escape-string*. This bug should be mostly fixed >1.1.0. 
  - You're ready to go! Check back for updates, and `git pull` if possible to update Polr. Otherwise, you can download a ZIP from Github and replace your current files. Make sure to keep your `config.php`!
 
@@ -38,10 +38,10 @@ Prerequisites:
 - PHP >= 5.4
 - Apache httpd
 - MySQLi extension for PHP
-- MySQLnd (native driver; i.e php5-mysql on Ubuntu)
+- MySQLnd (native driver; i.e php5-mysqlnd on Ubuntu)
 - MCrypt (http://www.php.net//manual/en/book.mcrypt.php)
 
-This list may be long, but most hosts include these prerequisites, so you don't have to install them yourself.
+The list may be long, but most hosts include these prerequisites in PHP stacks, so you don't have to install them yourself.
 
 ==================
 Troubleshooting
@@ -49,7 +49,7 @@ Troubleshooting
 
 ###I get a blank page at the user dashboard (/admin/)
 
-This error occurs when your PHP installation's version is older than 5.3, or because you do not have either the PHP mysqli extension or do not have the MySQLnd (native driver). On Ubuntu, you simply need to `sudo apt-get install php5-mysql` and restart apache2 `service apache2 restart`. You should have the mysqli.so extension enabled. Ask on IRC if you need further support.
+This error occurs when your PHP installation's version is older than 5.3, or because you do not have either the PHP mysqli extension or do not have the MySQLnd (native driver). On Ubuntu, you simply need to `sudo apt-get install php5-mysqlnd` and restart apache2 `service apache2 restart`. You should have the mysqli.so extension enabled. Ask on IRC if you need further support.
 
 ###I get a blank page when trying to register (registerproc.php)
 
@@ -100,6 +100,9 @@ function mysqli_fetch_all($res) {
 }
 ```
 
+###I can't install Polr through the setup script.
+
+You probably didn't configure MySQL correctly. Delete `config.php` and try again.
 
 ==================
 ####Current State: 1.0.4 Beta (download at releases) & 0.2.3 Alpha (latest semi-stable)
