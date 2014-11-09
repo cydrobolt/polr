@@ -18,7 +18,6 @@
         <meta charset="UTF-8">
         <title>Polr Setup</title>
         <link rel="stylesheet" href="install-bootstrap.css"/>
-        <link rel="stylesheet" href="main.css"/>
     </head>
     <body style="padding-top:60px">
         <div class="navbar navbar-default navbar-fixed-top">
