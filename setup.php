@@ -34,10 +34,10 @@
             $mysqlnd = function_exists('mysqli_fetch_all');
             
 			if (!$mysqlnd) {
-				echo "<br /><br /><p>Error: You don't seem to have the <pre>MySQL native driver. </pre>
+				echo "<br /><br /><p>Error: You don't seem to have the <code>MySQL native driver. </code>
 				<br />You should install it and restart your server in order to use Polr properly. <br />
-				On Ubuntu-based distros: <pre>sudo apt-get install php5-mysqlnd</pre><br />
-				On Fedora-based distros: <pre>sudo yum install php-mysqlnd</pre>, or if you get errors, <pre>sudo yum remove php-mysql && yum install php-mysqlnd</pre><br />
+				On Ubuntu-based distros: <code>sudo apt-get install php5-mysqlnd</code><br />
+				On Fedora-based distros: <code>sudo yum install php-mysqlnd</code>, or if you get errors, <code>sudo yum remove php-mysql && yum install php-mysqlnd</code><br />
 				For most Windows computers, the native driver should come by default for PHP >= 5.4. 
 				<br />For more information, click <a href='http://php.net/manual/en/mysqlnd.install.php'>here</a></p>";
 				die();
