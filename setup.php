@@ -35,7 +35,7 @@
             
 			if (!$mysqlnd) {
 				echo "<br /><br /><p>Error: You don't seem to have the <pre>MySQL native driver. </pre>
-				<br />You should install it in order to use Polr properly. <br />
+				<br />You should install it and restart your server in order to use Polr properly. <br />
 				On Ubuntu-based distros: <pre>sudo apt-get install php5-mysqlnd</pre><br />
 				On Fedora-based distros: <pre>sudo yum install php-mysqlnd</pre>, or if you get errors, <pre>sudo yum remove php-mysql && yum install php-mysqlnd</pre><br />
 				For most Windows computers, the native driver should come by default for PHP >= 5.4. 
