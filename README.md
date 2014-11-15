@@ -11,11 +11,11 @@ Polr
 
 
 Polr uses Semantic Versioning http://semver.org/
+Consider clicking the "star" button if you've enjoyed Polr. We appreciate it :)
 
-Do you use Polr? We'll add your website to the list at the bottom of the page, just email one of the collaborators, or support@polr.me
+
 No attribution is required, and we encourage you to modify Polr, but it would be nice for you to link to us in footers, source, or about page. Thanks for trying Polr!
 
-Consider clicking the "star" button if you've enjoyed Polr. We appreciate it :)
 
 Useful Links:
 
