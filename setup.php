@@ -101,10 +101,10 @@
 			    if (strlen($_POST['smtp-servers'])>1) {
                     $smtpSection = '
                         $smtpCfg = array(
-                            "servers"  => "'.$_POST['smtp-servers'].'",
-                            "from" => "'.$_POST['smtp-from'].'",
-                            "username" => "'.$_POST['smtp-username'].'",
-                            "password" => "'.$_POST['smtp-password'].'",
+                            "servers"  => \''.$_POST['smtp-servers'].'\',
+                            "from" => \''.$_POST['smtp-from'].'\',
+                            "username" => \''.$_POST['smtp-username'].'\',
+                            "password" => \''.$_POST['smtp-password'].'\'",
                         );
                     ';
                     $data .= $smtpSection;
