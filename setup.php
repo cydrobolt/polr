@@ -228,20 +228,20 @@
                 echo "<form name=\"Config Creation\" style='margin:0 auto; width: 650px' method=\"post\" action=\"" . 'setup.php' . "\">";
 
                 // DB Config
-                echo "<b style=\"text-align:center\">Database Configuration</b>";
+                echo "<b style=\"text-align:center\">Database Configuration</b><br />";
                 echo "Database Host: <input type=\"text\" class='form-control' style='width:650px' name=\"dbserver\" value=\"localhost\"><br>";
                 echo "Database User: <input type=\"text\" class='form-control' style='width:650px' name=\"dbuser\" value=\"root\"><br>";
                 echo "Database Pass: <input type=\"password\" class='form-control' style='width:650px' name=\"dbpass\" value=\"password\"><br>";
                 echo "Database Name: <input type=\"text\" class='form-control' style='width:650px' name=\"dbname\" value=\"polr\"><br>";
 
                 // App Config
-                echo "<br /><b style=\"text-align:center\">Application Settings</b>";
+                echo "<br /><b style=\"text-align:center\">Application Settings</b><br />";
                 echo "Application Name: <input type=\"text\" class='form-control' style='width:650px' name=\"appname\" value=\"polr\"><br>";
                 echo "Application URL (path to Polr, no http:// or www.) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br>";
                 echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br>";
 
                 // Security/Account Config
-                echo "<br /><b style=\"text-align:center\">Admin Account Settings</b>";
+                echo "<br /><b style=\"text-align:center\">Admin Account Settings</b><br />";
                 echo "Setup Access Password: <input type=\"text\" class='form-control' style='width:650px' name=\"protpass\" value=\"password123\"><br>";
                 echo "Admin Account: <input type=\"text\" class='form-control' style='width:650px' style='width:650px' name=\"acct\" value=\"polr\"><br>";
                 echo "Admin Email: <input type=\"text\" class='form-control' style='width:650px' style='width:650px' name=\"acctemail\" value=\"polr@admin.tld\"><br>";
@@ -255,7 +255,7 @@
                 echo "SMTP From: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-from\" placeholder=\"example@gmail.com\"><br>";
 
 
-                echo "<br /><b style=\"text-align:center\">Other Settings</b>Registration: <select name='reg' style='width:650px' class='form-control'>"
+                echo "<br /><b style=\"text-align:center\">Other Settings</b><br />Registration: <select name='reg' style='width:650px' class='form-control'>"
                 . "<option value='none'>No registration</option>"
                 . "<option value='email'>Email verification required</option>"
                 . "<option value='free'>No email verification required</option>"
