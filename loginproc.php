@@ -22,7 +22,7 @@ else {
     require_once('header.php');
     echo '<h2>Incorrect password or username (or account not activated). Try again</h2><br />';
     if ($fpass == true) {
-        echo '<a href="fpass.php">Forgot Password?</a><br />';
+        echo '<a href="forgotpass.php">Forgot Password?</a><br />';
     }
     require_once('footer.php');
     die();
