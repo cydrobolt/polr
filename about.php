@@ -12,13 +12,12 @@ if ($_SESSION['role']=="adm") {
     <dl>Build Information
         <dt>Version: $version
         <dt>Release date: $reldate
-        <dt>App Build : $wsn . " by " . $wsa . " on " . $wsb
-        <dt>
+        <dt>App Build : $wsn by $wsa  on $wsb        <dt>
     </dl>You are seeing this message because you are logged in as an Administrator.<br />";
 }
 
 ?>
-<br><p><?php echo $wsa;?> is powered by Polr, an open source, minimalist link shortening platform. Learn more at <a href='https://github.com/Cydrobolt/polr'>our Github page</a>, our <a href="//project.polr.me">project site</a>, <a href="//polr.me/about">or our own about page</a>.
+<br><p><?php echo $wsn;?> is powered by Polr, an open source, minimalist link shortening platform. Learn more at <a href='https://github.com/Cydrobolt/polr'>our Github page</a>, our <a href="//project.polr.me">project site</a>, <a href="//polr.me/about">or our own about page</a>.
     <br>Polr is licensed under the GNU GPL License.</p>
 <div style="font-size: 70%; padding-top: 40px">
     The GNU General Public License v3
