@@ -104,7 +104,7 @@
                             "servers"  => \''.$_POST['smtp-servers'].'\',
                             "from" => \''.$_POST['smtp-from'].'\',
                             "username" => \''.$_POST['smtp-username'].'\',
-                            "password" => \''.$_POST['smtp-password'].'\'",
+                            "password" => \''.$_POST['smtp-password'].'\',
                         );
                     ';
                     $data .= $smtpSection;
