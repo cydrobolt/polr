@@ -7,7 +7,7 @@ $auth = new polrauth();
 $isadmin = $auth->isadminli();
 if (!is_array($auth->islogged())) {
     echo "<h3>You must login to access this page.</h3><br><a href='index.php'>Home</a>";
-    require_once 'footer.php';
+    require_once '../footer.php';
     die(); //END NOT LOGGED IN PORTION
 } else {
     $userinfo = $auth->islogged();
