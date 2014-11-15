@@ -80,8 +80,8 @@ class polrauth {
         <a class="dropdown-toggle" href="#" data-toggle="dropdown" style=\'padding-right: 10px\'>' . $authinfo['username'] . ' <strong class="caret"></strong></a>
 
             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
-                <li><a tabindex="-1" href="admin">Dashboard</a></li>
-                <li><a tabindex="-1" href="admin">Settings</a></li>
+                <li><a tabindex="-1" href="admin/index.php">Dashboard</a></li>
+                <li><a tabindex="-1" href="admin/index.php">Settings</a></li>
                 <li><a tabindex="-1" href="logout.php">Logout</a></li>
             </ul>
         </li>
