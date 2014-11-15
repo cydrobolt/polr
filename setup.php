@@ -251,7 +251,7 @@
                 echo "<br /><b style=\"text-align:center\">SMTP Settings</b><p>(leave blank if you are not using email verification/password recovery)</p>";
                 echo "SMTP Servers (semicolon separated): <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-servers\" placeholder=\"smtp.gmail.com\"><br>";
                 echo "SMTP Username: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-username\" placeholder=\"example@gmail.com\"><br>";
-                echo "SMTP Password: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-password\" placeholder=\"password\"><br>";
+                echo "SMTP Password: <input type=\"password\" class='form-control' style='width:650px' name=\"smtp-password\" placeholder=\"password\"><br>";
                 echo "SMTP From: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-from\" placeholder=\"example@gmail.com\"><br>";
 
 
