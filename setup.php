@@ -31,18 +31,18 @@
             require_once 'password.php';
             date_default_timezone_set('UTC');
             $mysqlnd = function_exists('mysqli_fetch_all');
-            
+
 			if (!$mysqlnd) {
 				echo "<br /><br /><p>Error: You don't seem to have the <code>MySQL native driver. </code>
 				<br />You should install it and restart your server in order to use Polr properly. <br />
 				On Ubuntu-based distros: <code>sudo apt-get install php5-mysqlnd</code><br />
 				On Fedora-based distros: <code>sudo yum install php-mysqlnd</code>, or if you get errors, <code>sudo yum remove php-mysql && yum install php-mysqlnd</code><br />
-				For most Windows computers, the native driver should come by default for PHP >= 5.4. 
+				For most Windows computers, the native driver should come by default for PHP >= 5.4.
 				<br />For more information, click <a href='http://php.net/manual/en/mysqlnd.install.php'>here</a></p>";
 				die();
 			}
-            
-            
+
+
             function rstr($length = 34) {
                 return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
             }
@@ -82,7 +82,7 @@
 
                 $nowdate = date('F d Y');
                 $data = '<?php
-			$host="' . $_POST['dbserver'] . '";' .
+			            $host="' . $_POST['dbserver'] . '";' .
                         '$user="' . $_POST['dbuser'] . '";' .
                         '$passwd="' . $_POST['dbpass'] . '";' .
                         '$db="' . $_POST['dbname'] . '";' .
@@ -96,9 +96,20 @@
                         . '$path = "' . $_POST['path'] . "\";"
                         . '$fpass = ' . $_POST['fpass'] . ";"
                         . '$theme = "' . $_POST['t'] . "\";"
-                        . '$ip = ' . $_POST['ipfetch'] . ";" .
-                        '$unstr = "' . $rstr . '";
-			?>';
+                        . '$ip = ' . $_POST['ipfetch'] . ";"
+                        . '$unstr = "' . $rstr . '";';
+			    if (strlen($_POST['smtp-servers'])>1) {
+                    $smtpSection = '
+                        $smtpCfg = array(
+                            "servers"  => \''.$_POST['smtp-servers'].'\',
+                            "from" => \''.$_POST['smtp-from'].'\',
+                            "username" => \''.$_POST['smtp-username'].'\',
+                            "password" => \''.$_POST['smtp-password'].'\',
+                        );
+                    ';
+                    $data .= $smtpSection;
+                }
+                $data .= '?>';
                 $file = "config.php";
 
                 $handle = fopen($file, 'a');
@@ -209,31 +220,50 @@
                 );');
                 $acctpass = hashpass($_POST['acctpass']);
                 $nr = sha1(rstr(50));
-                sqlrun("INSERT INTO auth (username,email,password,rkey,valid,role) VALUES ('{$_POST['acct']}','polr@admin.none','{$acctpass}','{$nr}','1','adm') ");
+                sqlrun("INSERT INTO auth (username,email,password,rkey,valid,role) VALUES ('{$_POST['acct']}','{$_POST['acctemail']}','{$acctpass}','{$nr}','1','adm') ");
                 echo "You are now finished Polr Setup. You can now close this window, and login to your account <a href='index.php'>here</a> (login form @ top right). <br><br>If you need help, click <a href=\"http://webchat.freenode.net/?channels=#polr\">here</a><br>"
-                . "<br><br><b>Clueless? Read the docs. <a href='https://github.com/Cydrobolt/polr/wiki'>https://github.com/Cydrobolt/polr/wiki</a></b>";
+                . "<br><br><b>Clueless? Read the docs. <a href='https://github.com/Cydrobolt/polr/blob/master/README.md'>https://github.com/Cydrobolt/polr/blob/master/README.md</a></b>";
             } else {
                 include('version.php');
                 echo "<form name=\"Config Creation\" style='margin:0 auto; width: 650px' method=\"post\" action=\"" . 'setup.php' . "\">";
+
+                // DB Config
+                echo "<b style=\"text-align:center\">Database Configuration</b><br />";
                 echo "Database Host: <input type=\"text\" class='form-control' style='width:650px' name=\"dbserver\" value=\"localhost\"><br>";
                 echo "Database User: <input type=\"text\" class='form-control' style='width:650px' name=\"dbuser\" value=\"root\"><br>";
                 echo "Database Pass: <input type=\"password\" class='form-control' style='width:650px' name=\"dbpass\" value=\"password\"><br>";
                 echo "Database Name: <input type=\"text\" class='form-control' style='width:650px' name=\"dbname\" value=\"polr\"><br>";
+
+                // App Config
+                echo "<br /><b style=\"text-align:center\">Application Settings</b><br />";
                 echo "Application Name: <input type=\"text\" class='form-control' style='width:650px' name=\"appname\" value=\"polr\"><br>";
                 echo "Application URL (path to Polr, no http:// or www.) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br>";
+                echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br>";
+
+                // Security/Account Config
+                echo "<br /><b style=\"text-align:center\">Admin Account Settings</b><br />";
                 echo "Setup Access Password: <input type=\"text\" class='form-control' style='width:650px' name=\"protpass\" value=\"password123\"><br>";
                 echo "Admin Account: <input type=\"text\" class='form-control' style='width:650px' style='width:650px' name=\"acct\" value=\"polr\"><br>";
+                echo "Admin Email: <input type=\"text\" class='form-control' style='width:650px' style='width:650px' name=\"acctemail\" value=\"polr@admin.tld\"><br>";
                 echo "Admin Password: <input type=\"password\" style='width:650px' class='form-control' name=\"acctpass\" value=\"polr\"><br>";
-                echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br>";
-                echo "Registration: <select name='reg' style='width:650px' class='form-control'>"
+
+                // SMTP Config
+                echo "<br /><b style=\"text-align:center\">SMTP Settings</b><p>(leave blank if you are not using email verification/password recovery)</p>";
+                echo "SMTP Servers (semicolon separated): <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-servers\" placeholder=\"smtp.gmail.com\"><br>";
+                echo "SMTP Username: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-username\" placeholder=\"example@gmail.com\"><br>";
+                echo "SMTP Password: <input type=\"password\" class='form-control' style='width:650px' name=\"smtp-password\" placeholder=\"password\"><br>";
+                echo "SMTP From: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-from\" placeholder=\"example@gmail.com\"><br>";
+
+
+                echo "<br /><b style=\"text-align:center\">Other Settings</b><br />Registration: <select name='reg' style='width:650px' class='form-control'>"
                 . "<option value='none'>No registration</option>"
                 . "<option value='email'>Email verification required</option>"
                 . "<option value='free'>No email verification required</option>"
                 . "<option value='regulated'>New registrations must be approved (do not choose, future option)</option>"
                 . "</select><br /><br />";
-                echo "Password Recovery (requires mail server): <select name='fpass' style='width:650px' class='form-control'>"
+                echo "Password Recovery: <select name='fpass' style='width:650px' class='form-control'>"
                 . "<option value='false'>No (default)</option>"
-                . "<option value='true'>Yes (could cause problems unless sgmail.php is properly set up)</option>"
+                . "<option value='true'>Yes (could cause problems unless sgmail.php/email is properly set up)</option>"
                 . "</select><br /><br />";
                 echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" value=\"/polr/\"><br>";
                 echo "Theme (choose wisely, click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots: <select name='t' style='width:650px' class='form-control'>"

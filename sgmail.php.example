@@ -9,7 +9,8 @@ To use this mailer, replace sgmail.php with this file.
 
 require_once 'req.php';
 require_once 'sglib/sendgrid-php.php'; // Download from 
-// https://sendgrid-open-source.s3.amazonaws.com/sendgrid-php/sendgrid-php.zip, place in app root, and rename "sglib"
+// https://sendgrid-open-source.s3.amazonaws.com/sendgrid-php/sendgrid-php.zip
+// place in /path/to/polr/vendor, and rename "sglib"
 class sgmail {
     public function sendmail($to, $subject, $message) {
         $url = 'https://sendgrid.com/';
