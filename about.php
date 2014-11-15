@@ -3,17 +3,22 @@
 require_once 'headerpage.php';
 require_once('version.php');
 ?>
+<?php
+require_once('req.php');
+if ($_SESSION['role']=="adm") {
+    echo "
+    <h1>About Polr</h1>
+    <br>
+    <dl>Build Information
+        <dt>Version: $version
+        <dt>Release date: $reldate
+        <dt>App Build : $wsn . " by " . $wsa . " on " . $wsb
+        <dt>
+    </dl>You are seeing this message because you are logged in as an Administrator.<br />";
+}
 
-<h1>About Polr</h1>
-<br>
-<dl>Build Information
-    <dt>Version: <?php require_once('req.php');
-echo $version; ?>
-    <dt>Release date: <?php echo $reldate; ?>
-    <dt>App Build : <?php echo $wsn . " by " . $wsa . " on " . $wsb ?>
-    <dt>
-</dl>
-<br><p>Polr is an open source, minimalist link shortening platform. Learn more at <a href='https://github.com/Cydrobolt/polr'>our Github page</a>, our <a href="//project.polr.cf">project site</a>, <a href="//polr.cf/about">or our about page</a>.
+?>
+<br><p><?php echo $wsa;?> is powered by Polr, an open source, minimalist link shortening platform. Learn more at <a href='https://github.com/Cydrobolt/polr'>our Github page</a>, our <a href="//project.polr.me">project site</a>, <a href="//polr.me/about">or our own about page</a>.
     <br>Polr is licensed under the GNU GPL License.</p>
 <div style="font-size: 70%; padding-top: 40px">
     The GNU General Public License v3
