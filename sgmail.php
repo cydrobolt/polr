@@ -39,7 +39,7 @@ class sgmail {
 		$mail->Port = 587;                                    // TCP port to connect to
 
 		$mail->From = $smtpFrom;
-		// $mail->FromName = 'Mailer';
+		$mail->FromName = $wsn;
 		$mail->addAddress($to);     						  // Add a recipient
 
 		/*
