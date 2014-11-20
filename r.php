@@ -23,7 +23,7 @@ if (!$row['rurl']) {
 }
 if (strtolower($row['rurl']) == "disabled") {
     require_once 'header.php';
-    echo "<h2>The link you are trying to reach has been disabled by an Administrator</h2><br>"
+    echo "<h2>The link you are trying to reach has been disabled by an administrator</h2><br>"
     . "Sorry for the inconvienience.";
     require_once 'footer.php';
 }
