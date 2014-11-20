@@ -5,9 +5,11 @@ $debug = 0; // Set to 1 in order to enable debug mode (shows sensitive database 
 $footer = "&copy; Copyright 2014 $wsn. Powered by <a href='http://github.com/cydrobolt/polr'>Polr</a> ver $version build $reldate";
 $hidefooter = true; // Let's hide this for now
 //connect to mysql with $mysqli variable
-$mysqli = new mysqli($host, $user, $passwd, $db) or $wp = 1; //If cannot connect, then set var $wp to 1
-if (!$mysqli && $req_noredirect = true) {
-	header('Location:error.php');
+$mysqli = new mysqli($host, $user, $passwd, $db) ;
+if ($mysqli->connect_errno) {
+    echo "Database error. If you are a member of the general public, contact an administrator to solve this issue.
+    If you are the administrator of this website, please make sure your database is turned on and that credentials are correct.";
+    die();
 }
 // Attempt to set Charset as UTF8 to avoid real_escape_string vulnerabilities
 if (!$mysqli->set_charset("utf8")) {
