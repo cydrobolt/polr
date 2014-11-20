@@ -6,7 +6,7 @@ $footer = "&copy; Copyright 2014 $wsn. Powered by <a href='http://github.com/cyd
 $hidefooter = true; // Let's hide this for now
 //connect to mysql with $mysqli variable
 $mysqli = new mysqli($host, $user, $passwd, $db) or $wp = 1; //If cannot connect, then set var $wp to 1
-if (!$mysqli) {
+if (!$mysqli && $req_noredirect = true) {
 	header('Location:error.php');
 }
 // Attempt to set Charset as UTF8 to avoid real_escape_string vulnerabilities
