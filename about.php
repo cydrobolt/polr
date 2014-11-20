@@ -35,7 +35,7 @@ if ($_SESSION['role']=="adm") {
     GNU General Public License for more details.<br />
     <br />
     You should have received a copy of the GNU General Public License<br />
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    along with this program.  If not, see <a href='http://www.gnu.org/copyleft/gpl.html'>http://www.gnu.org/copyleft/gpl.html</a>.
 </div>
 <?php
 require_once 'footerpage.php';
