@@ -1,5 +1,5 @@
 <?php
-/*Polr ver 0.1.
+/*
  * http://github.com/cydrobolt/polr
  */
 //To use this, put this in your app
@@ -24,7 +24,7 @@
  * domain root.
  * 
  */
-
+/*
 function lookup ($urltl) {
     global $mysqli;
     $val = $mysqli->real_escape_string($urltl);
@@ -59,3 +59,6 @@ function shorten ($urlr) {
 	return "http://{$wsa}/{$baseval}";
     }
 }
+*/
+
+// Unsafe for now
