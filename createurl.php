@@ -67,10 +67,11 @@ foreach ($isshort as $url_shorteners) {
     echo "<a href='index.php'>Back</a>";
     die();
     }
-}$query1 = "SELECT rid FROM redirinfo WHERE rurl='{$urlr}' AND iscustom='no'"; // Check if exists naturally
+}$query1 = "SELECT `rid`,`lkey` FROM `redirinfo` WHERE `rurl`='{$urlr}' AND iscustom='no';"; // Check if exists naturally
 $result = $mysqli->query($query1);
 $row = mysqli_fetch_assoc($result);
 $existing = $row['rid'];
+$lkey_ex = $row['lkey'];
 $decodescript = "<script src='js/durl.js'></script>";
 $ip = $mysqli->real_escape_string($ip);
 $customurl = $mysqli->real_escape_string($_POST['custom']);
@@ -89,7 +90,7 @@ if($customurl!="") {
             die();
         }
 }
-if(!$existing || $customurl!="" || $ps=="s") {
+if(!$existing || $customurl!="" || $ps=="s" || $lkey_ex) {
         // If does not exist or creating custom URL. If requesting a secret link, recreate as well.
 		$query1 = "SELECT MAX(rid) AS `rid` FROM `redirinfo` WHERE `iscustom`='no';";
 		$result = $mysqli->query($query1);
@@ -113,7 +114,7 @@ if(!$existing || $customurl!="" || $ps=="s") {
 			// creating custom URL?
             $baseval = $customurl;
             $iscustom = "yes";
-            $query = "SELECT rid FROM redirinfo WHERE baseval='{$customurl}'"; //check if baseval used already
+            $query = "SELECT `rid` FROM `redirinfo` WHERE `baseval`='{$customurl}'"; //check if baseval used already
             $result = $mysqli->query($query);
             $row = mysqli_fetch_assoc($result);
             $custom_existing = $row['rid'];
@@ -123,10 +124,10 @@ if(!$existing || $customurl!="" || $ps=="s") {
             }
         }
         if($ps == "p" || !$ps) {
-			$query2 = "INSERT INTO redirinfo (baseval,rurl,ip,user,iscustom,country) VALUES ('{$baseval}','{$urlr}','{$ip}','{$userinfo['username']}','{$iscustom}','{$country_code}');";
+			$query2 = "INSERT INTO `redirinfo` (baseval,rurl,ip,user,iscustom,country) VALUES ('{$baseval}','{$urlr}','{$ip}','{$userinfo['username']}','{$iscustom}','{$country_code}');";
         }
         else if($ps=="s") {
-			$query2 = "INSERT INTO redirinfo (baseval,rurl,ip,user,iscustom,lkey,country) VALUES ('{$baseval}','{$urlr}','{$ip}','{$userinfo['username']}','{$iscustom}','{$rstr}','{$country_code}');";
+			$query2 = "INSERT INTO `redirinfo` (baseval,rurl,ip,user,iscustom,lkey,country) VALUES ('{$baseval}','{$urlr}','{$ip}','{$userinfo['username']}','{$iscustom}','{$rstr}','{$country_code}');";
 			$baseval .= "?".$rstr;
         }
 
@@ -139,7 +140,7 @@ if(!$existing || $customurl!="" || $ps=="s") {
         }
 else {
 	// Already exists. Fetch from DB and send over.
-    $query1 = "SELECT baseval FROM redirinfo WHERE rurl='{$urlr}' AND iscustom='no'";
+    $query1 = "SELECT `baseval` FROM `redirinfo` WHERE `rurl`='{$urlr}' AND iscustom='no'";
     $result = $mysqli->query($query1);
     $row = mysqli_fetch_assoc($result);
     $baseval = $row['baseval'];
