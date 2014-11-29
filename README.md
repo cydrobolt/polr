@@ -3,10 +3,8 @@ Polr
 
 ###A beautiful, modern, fast, minimalist, and open-source URL shortening platform in vanilla PHP. 
 
-######LATEST: Stable 1.2.1: Clone me!
-######Beta 1.0.4 *broken*: https://github.com/Cydrobolt/polr/archive/1.0.0-b-d.zip
-
-######Stable 0.2.3: https://github.com/Cydrobolt/polr/releases/download/v0.23-Alpha/polr-0.23-alpha.zip
+######Latest Development Version: Clone this repo
+######Latest Release: https://github.com/Cydrobolt/polr/releases
 
 
 
