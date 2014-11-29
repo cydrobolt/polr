@@ -1,0 +1,22 @@
+# =========================
+# Polr nginx redirect rules
+# http://github.com/cydrobolt/polr
+# Append this file to your nginx configuration
+# Please note that this configuration is experimental,
+# and may have issues.
+# =========================
+
+location = /api {
+rewrite ^(.*)$ /api.php break;
+rewrite ^(.*)$ /api.php break;
+}
+location / {
+if (!-e $request_filename){
+rewrite ^/([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ /r.php?u=$1&lkey=$2 break;
+}
+rewrite ^/([a-zA-Z0-9]+)/?$ /r.php?u=$1 break;
+rewrite ^/?\+([a-zA-Z0-9]+)$ /stats.php?bv=$1 break;
+}
+location /t {
+rewrite ^/t-([a-zA-Z0-9]+)/?$ /r.php?u=t-$1 break;
+}
