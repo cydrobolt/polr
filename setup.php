@@ -138,6 +138,26 @@
                     if (fwrite($handle, $data) === FALSE) {
                         echo "Can not write to (" . $file . ")";
                     }
+                    $data = "# Polr Custom nginx configuration. Append this to your nginx config for effect.
+                    	     # If you use Apache, ignore this file.
+				location = $path/api {
+				rewrite ^(.*)$ $path/api.php break;
+				rewrite ^(.*)$ $path/api.php break;
+				}
+				location $path/ {
+				if (!-e $request_filename){
+				rewrite ^$path/([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ $path/r.php?u=$1&lkey=$2 break;
+				}
+				rewrite ^$path/([a-zA-Z0-9]+)/?$ $path/r.php?u=$1 break;
+				rewrite ^$path/?\+([a-zA-Z0-9]+)$ $path/stats.php?bv=$1 break;
+				}
+				location $path/t {
+				rewrite ^$path/t-([a-zA-Z0-9]+)/?$ $path/r.php?u=t-$1 break;
+				}";
+		    $handle = fopen('.nginx-config', 'w');
+                    if (fwrite($handle, $data) === FALSE) {
+                        echo "Can not write to (" . $file . ")";
+                    }
                     echo "Succesfully created htaccess (custom path) <br />. ";
                     fclose($handle);
                 }
