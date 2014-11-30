@@ -92,7 +92,7 @@ if(!@include('config.php')) {
                     <li class="divider-vertical"></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-                        <div class="dropdown-menu pull-right" id="dropdown" style="padding: 15px; padding-bottom: 0px; color:white;">
+                        <div class="dropdown-menu pull-right" id="dropdown" style="padding: 15px; padding-bottom: 0px;">
                             <h2>Login</h2>
                             <form action="loginproc.php" method="post" accept-charset="UTF-8">
                                 <input id="user_username" style="margin-bottom: 15px;" type="text" name="username" placeholder='Username' size="30" class="form-control">
