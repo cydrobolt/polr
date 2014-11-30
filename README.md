@@ -2,6 +2,7 @@ Polr
 ==================
 
 ###A beautiful, modern, fast, minimalist, and open-source URL shortening platform in vanilla PHP. 
+Polr is an enterprise-class open-source link shortening web application designed to operate at any scale, built on the Software-as-a-Service paradigm
 
 ######Latest Development Version: Clone this repo
 ######Latest Release: https://github.com/Cydrobolt/polr/releases
