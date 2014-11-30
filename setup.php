@@ -123,6 +123,7 @@
                 if (strlen($path) > 2) {
                     $data = "<IfModule mod_rewrite.c>
                             RewriteEngine On
+                            RewriteBase $path
                             RewriteRule ^api$ /api.php [L]
                             RewriteRule ^api/$ /api.php [L]
                             RewriteCond %{REQUEST_FILENAME} !-f
