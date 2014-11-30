@@ -237,7 +237,7 @@
                 // App Config
                 echo "<br /><b style=\"text-align:center\">Application Settings</b><br />";
                 echo "Application Name: <input type=\"text\" class='form-control' style='width:650px' name=\"appname\" value=\"polr\"><br>";
-                echo "Application URL (path to Polr, no http:// or www.) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br>";
+                echo "Application URL (path to Polr, no http://, www., or trailing slash) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br>";
                 echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br>";
 
                 // Security/Account Config
