@@ -124,14 +124,14 @@
                     $data = "<IfModule mod_rewrite.c>
                             RewriteEngine On
                             RewriteBase $path
-                            RewriteRule ^api$ /api.php [L]
-                            RewriteRule ^api/$ /api.php [L]
+                            RewriteRule ^api$ api.php [L]
+                            RewriteRule ^api/$ api.php [L]
                             RewriteCond %{REQUEST_FILENAME} !-f
                             RewriteCond %{REQUEST_FILENAME} !-d
-                            RewriteRule ^([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ /r.php?u=$1&lkey=$2 [L,QSA]
-                            RewriteRule ^([a-zA-Z0-9]+)/?$ /r.php?u=$1 [L,QSA]
-                            RewriteRule ^t-([a-zA-Z0-9]+)/?$ /r.php?u=t-$1 [L,QSA]
-                            RewriteRule ^/?\+([a-zA-Z0-9]+)$ /stats.php?bv=$1 [L,QSA]
+                            RewriteRule ^([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ r.php?u=$1&lkey=$2 [L,QSA]
+                            RewriteRule ^([a-zA-Z0-9]+)/?$ r.php?u=$1 [L,QSA]
+                            RewriteRule ^t-([a-zA-Z0-9]+)/?$ r.php?u=t-$1 [L,QSA]
+                            RewriteRule ^/?\+([a-zA-Z0-9]+)$ stats.php?bv=$1 [L,QSA]
                             </IfModule>
                             ";
                     $handle = fopen('.htaccess', 'w');
