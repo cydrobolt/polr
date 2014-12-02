@@ -10,7 +10,6 @@ $ps = $_POST['options'];
 $country_code = @$_SERVER["HTTP_CF_IPCOUNTRY"];
 if ($li_shorten_only == true) {
     if (!isset($_SESSION['username'])) {
-        require_once('header.php');
         echo "<h2>Only logged in users may shorten links. Did you mean to <a href='login.php'>log in</a>?</h2>";
         require_once('footer.php');
         die();
@@ -145,7 +144,7 @@ if(!$existing || $customurl!="" || $ps=="s" || $lkey_ex) {
         $basebv =base64_encode($baseval);
         echo "<input type='hidden' value='$basebv' id='j' /><input type='hidden' value='$basewsa' id='k' />";
         echo $decodescript;
-        echo "<div style='text-align:center'>URL: <input type='text' id='i' onselect=\"select_text();\" onclick=\"select_text();\" readonly=\"readonly\" class='form-control' value=\"Please enable Javascript\" />";
+        echo "<div style='text-align:center;padding-left:11%;padding-right:11%;'><h3>URL:</h3> <input type='text' id='i' onselect=\"select_text();\" onclick=\"select_text();\" readonly=\"readonly\" class='form-control' value=\"Please enable Javascript\" />";
         }
 else {
 	// Already exists. Fetch from DB and send over.
@@ -157,7 +156,7 @@ else {
     $basewsa = base64_encode($wsa);
     echo "<input type='hidden' value='$basebv' id='j' /><input type='hidden' value='$basewsa' id='k' />";
     echo $decodescript;
-    echo "URL:<input type='text' id='i' onselect=\"select_text();\" onclick=\"select_text();\" readonly=\"readonly\" class='form-control' value=\"Please enable JavaScript\" />";
+    echo "<div style='text-align:center;padding-left:11%;padding-right:11%;'><h3>URL:</h3> <input type='text' id='i' onselect=\"select_text();\" onclick=\"select_text();\" readonly=\"readonly\" class='form-control' value=\"Please enable JavaScript\" />";
     }
 echo '<br><a href="index.php" class="btn btn-primary btn-large">Shorten Another Link</a></div>';
 
