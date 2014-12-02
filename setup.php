@@ -262,8 +262,8 @@
                 echo "Application URL (path to Polr, no http://, www., or trailing slash) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br>";
                 echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br>";
                 echo "Shortening Permissions: <select name='li_shorten_only' style='width:650px' class='form-control'>"
+                . "<option value='false' selected="selected">All users can shorten URLs</option>"
                 . "<option value='true'>Only logged in users may shorten URLs</option>"
-                . "<option value='false'>All users can shorten URLs</option>"
                 . "</select><br /><br />";
 
                 // Security/Account Config
