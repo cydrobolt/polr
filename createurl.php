@@ -8,6 +8,15 @@ $hpi = $_POST['hp'];
 $ps = $_POST['options'];
 
 $country_code = @$_SERVER["HTTP_CF_IPCOUNTRY"];
+if ($li_shorten_only == true) {
+    if (!isset($_SESSION['username']) {
+        require_once('header.php');
+        echo "<h2>Only logged in users may shorten links. Did you mean to <a href='login.php'>log in</a>?</h2>";
+        require_once('footer.php');
+        die();
+    }
+}
+
 
 function bve($bv) {
     global $mysqli;
@@ -114,7 +123,7 @@ if(!$existing || $customurl!="" || $ps=="s" || $lkey_ex) {
 			// creating custom URL?
             $baseval = $customurl;
             $iscustom = "yes";
-            $query = "SELECT `rid` FROM `redirinfo` WHERE `baseval`='{$customurl}'"; //check if baseval used already
+            $query = "SELECT `rid` FROM `redirinfo` WHERE `baseval`='{$customurl}';"; //check if baseval used already
             $result = $mysqli->query($query);
             $row = mysqli_fetch_assoc($result);
             $custom_existing = $row['rid'];

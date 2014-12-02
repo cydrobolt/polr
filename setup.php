@@ -95,6 +95,7 @@
                         . '$regtype = "' . $_POST['reg'] . "\";"
                         . '$path = "' . $_POST['path'] . "\";"
                         . '$fpass = ' . $_POST['fpass'] . ";"
+                        . '$li_shorten_only = ' . $_POST['li_shorten_only'] . ";"
                         . '$theme = "' . $_POST['t'] . "\";"
                         . '$ip = ' . $_POST['ipfetch'] . ";"
                         . '$unstr = "' . $rstr . '";';
@@ -260,6 +261,10 @@
                 echo "Application Name: <input type=\"text\" class='form-control' style='width:650px' name=\"appname\" value=\"polr\"><br>";
                 echo "Application URL (path to Polr, no http://, www., or trailing slash) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br>";
                 echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br>";
+                echo "Shortening Permissions: <select name='li_shorten_only' style='width:650px' class='form-control'>"
+                . "<option value='true'>Only logged in users may shorten URLs</option>"
+                . "<option value='false'>All users can shorten URLs</option>"
+                . "</select><br /><br />";
 
                 // Security/Account Config
                 echo "<br /><b style=\"text-align:center\">Admin Account Settings</b><br />";
