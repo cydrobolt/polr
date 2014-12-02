@@ -9,7 +9,7 @@ $ps = $_POST['options'];
 
 $country_code = @$_SERVER["HTTP_CF_IPCOUNTRY"];
 if ($li_shorten_only == true) {
-    if (!isset($_SESSION['username']) {
+    if (!isset($_SESSION['username'])) {
         require_once('header.php');
         echo "<h2>Only logged in users may shorten links. Did you mean to <a href='login.php'>log in</a>?</h2>";
         require_once('footer.php');
