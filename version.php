@@ -1,4 +1,4 @@
 <?php
-$version = "1.2.5 Bleeding Edge";
-$reldate = "Nov 20 2014";
+$version = "1.3.0 Stable: Raring Turtle";
+$reldate = "Dec 03 2014";
 $relyear = 2014;
