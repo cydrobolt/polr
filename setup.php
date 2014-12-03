@@ -115,9 +115,11 @@
 
                 $handle = fopen($file, 'a');
                 if (fwrite($handle, $data) === FALSE) {
-                    echo "Can not write to (" . $file . ")";
+                    echo "Can not write to (" . $file . "). Please make sure your file permissions are correct. 
+                    	<br />Your webserver's user should have write permissions for the folder. Try looking up <code>chown</code>, <code>chgrp</code> and <code>chmod</code>. <a href='http://linuxcommand.org/lts0070.php'>Helpful link</a>";
+                    die();
                 }
-                echo "Succesfully created config. ";
+                echo "Successfully created config. ";
                 fclose($handle);
                 require_once('req.php');
                 $path = $_POST['path'];
