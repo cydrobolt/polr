@@ -5,7 +5,7 @@ require_once('password.php');
 
 class polrauth {
 
-    public $authcreds = [];
+    public $authcreds = array();
 
     public function islogged () {
         if (@$_SESSION['li'] !== sha1('li')) {
