@@ -115,7 +115,7 @@
 
                 $handle = fopen($file, 'a');
                 if (fwrite($handle, $data) === FALSE) {
-                    echo "Can not write to (" . $file . "). Please make sure your file permissions are correct. 
+                    echo "Can not write to (" . $file . "). Please make sure your file permissions are correct.
                     	<br />Your webserver's user should have write permissions for the folder. Try looking up <code>chown</code>, <code>chgrp</code> and <code>chmod</code>. <a href='http://linuxcommand.org/lts0070.php'>Helpful link</a>";
                     die();
                 }
@@ -141,23 +141,28 @@
                     if (fwrite($handle, $data) === FALSE) {
                         echo "Can not write to (" . $file . ")";
                     }
-                    $data = "# Polr Custom nginx configuration. Append this to your nginx config for effect.
+                    $data = "# Polr Custom **experimental** nginx configuration. Append this to your nginx config for effect.
                     	     # If you use Apache, ignore this file.
-				location = $path/api {
-				rewrite ^(.*)$ $path/api.php break;
-				rewrite ^(.*)$ $path/api.php break;
-				}
-				location $path/ {
-				if (!-e $request_filename){
-				rewrite ^$path/([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ $path/r.php?u=$1&lkey=$2 break;
-				}
-				rewrite ^$path/([a-zA-Z0-9]+)/?$ $path/r.php?u=$1 break;
-				rewrite ^$path/?\+([a-zA-Z0-9]+)$ $path/stats.php?bv=$1 break;
-				}
-				location $path/t {
-				rewrite ^$path/t-([a-zA-Z0-9]+)/?$ $path/r.php?u=t-$1 break;
-				}";
-		    $handle = fopen('.nginx-config', 'w');
+                             # Try `/etc/nginx/config.d/` if you have trouble finding the configuration
+				      server {
+                        listen 80;
+                        server_name %SERVER_NAME%;
+                        index index.php
+                        location = $path/api {
+            				rewrite ^(.*)$ $path/api.php;
+        				}
+        				location $path/ {
+        				if (!-e $request_filename){
+        				    rewrite ^$path/([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ $path/r.php?u=$1&lkey=$2;
+        				}
+            				rewrite ^$path/([a-zA-Z0-9]+)/?$ $path/r.php?u=$1;
+            				rewrite ^$path/?\+([a-zA-Z0-9]+)$ $path/stats.php?bv=$1;
+        				}
+        				location $path/t {
+            				rewrite ^$path/t-([a-zA-Z0-9]+)/?$ $path/r.php?u=t-$1;
+        			    }
+                    }";
+		       $handle = fopen('.nginx-config', 'w');
                     if (fwrite($handle, $data) === FALSE) {
                         echo "Can not write to (" . $file . ")";
                     }
