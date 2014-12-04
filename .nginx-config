@@ -1,22 +1,33 @@
 # =========================
 # Polr nginx redirect rules
 # http://github.com/cydrobolt/polr
-# Append this file to your nginx configuration
+# Add this file to your nginx configuration at /etc/nginx/conf.d/
 # Please note that this configuration is experimental,
 # and may have issues.
 # =========================
 
-location = /api {
-rewrite ^(.*)$ /api.php break;
-rewrite ^(.*)$ /api.php break;
-}
-location / {
-if (!-e $request_filename){
-rewrite ^/([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ /r.php?u=$1&lkey=$2 break;
-}
-rewrite ^/([a-zA-Z0-9]+)/?$ /r.php?u=$1 break;
-rewrite ^/?\+([a-zA-Z0-9]+)$ /stats.php?bv=$1 break;
-}
-location /t {
-rewrite ^/t-([a-zA-Z0-9]+)/?$ /r.php?u=t-$1 break;
-}
+server {
+    listen 80;
+    server_name %SERVER_NAME%;
+    root /app;
+    index index.php;
+    location / {
+        if (!-e $request_filename) {
+            rewrite ^/([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ /r.php?u=$1&lkey=$2;
+        }
+        rewrite ^/([a-zA-Z0-9]+)/?$ /r.php?u=$1;
+        rewrite ^/?\+([a-zA-Z0-9]+)$ /stats.php?bv=$1;
+    }
+    location /t {
+        rewrite ^/t-([a-zA-Z0-9]+)/?$ /r.php?u=t-$1;
+    }
+    location /api {
+        rewrite ^(.*)$ /api.php;
+    }
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
