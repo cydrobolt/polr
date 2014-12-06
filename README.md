@@ -36,13 +36,13 @@ Prerequisites:
 
 - mod_rewrite (install help: https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_rewrite)
 - MySQL or MariaDB equivalent >= 5.5
-- PHP >= 5.4
-- Apache httpd
+- PHP >= 5.3
+- Apache httpd or nginx (no out-of-box compatibility with nginx) 
 - MySQLi extension for PHP
 - MySQLnd (native driver; i.e php5-mysqlnd on Ubuntu)
 - MCrypt (http://www.php.net//manual/en/book.mcrypt.php)
 
-The list may be long, but most hosts include these prerequisites in PHP stacks, so you don't have to install them yourself.
+Most hosts include these prerequisites in PHP stacks, so you probably won't have to install them yourself.
 
 ==================
 Troubleshooting
@@ -72,11 +72,6 @@ sudo php5enmod mcrypt
 sudo service apache2 restart
 ```
 
-###I have errors enabled, and I get "`Illegal String Offset`"
-
-This usually occurs when you are missing an extension, and thus, the expected associative arrays (e.g `mysqli_fetch_assoc`) are instead strings, and errors occur. The most common cause of this is the missing MySQLi extension or native driver. Refer to the first FAQ, or the `mysqli_fetch_all` FAQ. This issue is usually caused by an
-old PHP version.
-
 ###The links produced give me 404
 
 You need mod_rewrite in order to use Polr. Please take a look at https://www.digitalocean.com/community/tutorials/how-to-set-up-mod_rewrite
@@ -87,35 +82,23 @@ Make sure your host is correct. Some webhosts require you to bind to a certain i
 
 Make sure the database is premade, and that the user has the required permissions to create tables.
 
-###I'm getting an error in the dashboard; Missing mysqli_fetch_all.
-
-This problem occurs if your PHP version is below 5.3 or you do not have the native driver (http://php.net/manual/en/book.mysqlnd.php). If you cannot install the native driver, place this in your `req.php` file:
-
-```
-function mysqli_fetch_all($res) {
-    $array = array();
-    while ($row = $res->fetch_assoc()) {
-        array_push($array, $row);
-    }
-    return $array;
-}
-```
-
 ###I can't install Polr through the setup script.
 
 You probably didn't configure MySQL correctly. Delete `config.php` and try again.
 
 ==================
+
 Welcome to Polr, the self-hosted version. Read up on some documentation through our github wiki (https://github.com/Cydrobolt/polr/wiki)
 
 Would like to contribute? Submit pull requests through our Github page. Found an issue? Create an issue here: (https://github.com/Cydrobolt/polr/issues)
 
 ==================
 
+
 ####License
 
 
-    Copyright (C) 2014 Chaoyi Zha <summermontreal@gmail.com>
+    Copyright (C) 2014 Chaoyi Zha
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
