@@ -106,8 +106,6 @@ function mysqli_fetch_all($res) {
 You probably didn't configure MySQL correctly. Delete `config.php` and try again.
 
 ==================
-####Current State: 1.2.1 (Latest Stable Version)
-
 Welcome to Polr, the self-hosted version. Read up on some documentation through our github wiki (https://github.com/Cydrobolt/polr/wiki)
 
 Would like to contribute? Submit pull requests through our Github page. Found an issue? Create an issue here: (https://github.com/Cydrobolt/polr/issues)
