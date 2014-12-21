@@ -31,6 +31,7 @@ Installation
  - Read `INSTALL.txt`
  - *MySQL warning: Set your character set to UTF8. Some character sets are vulnerable to a certain bug in MySQL and mysqli_real_escape_string. For more information, please see http://stackoverflow.com/questions/5741187/sql-injection-that-gets-around-mysql-real-escape-string*. This bug should be mostly fixed >1.1.0. 
  - You're ready to go! Check back for updates, and `git pull` if possible to update Polr. Otherwise, you can download a ZIP from Github and replace your current files. Make sure to keep your `config.php`!
+ - Note: *please* disable errors on your server if you plan to use Polr in production. Certain warnings are normal, and you should not panic. It is not only unsafe but having errors shown also messes up the interface.
 
 Prerequisites:
 
