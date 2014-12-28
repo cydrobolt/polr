@@ -1,7 +1,7 @@
 <?php
 
-//POLR API - by http://github.com/cydrobolt/polr
-//@Author: Cydrobolt and sckasturi
+//Polr API - http://github.com/cydrobolt/polr
+
 
 /*
  * Reference:
@@ -31,7 +31,7 @@ if (is_string($_REQUEST['apikey']) && is_string($_REQUEST['action']) && is_strin
 }
 
 //checking API key:
-$query = "SELECT `valid`,`quota` FROM `api` WHERE apikey='$apikey'";
+$query = "SELECT `valid`,`quota` FROM `api` WHERE apikey='{$apikey}'";
 $result = $mysqli->query($query) or showerror();
 $validrow = mysqli_fetch_assoc($result);
 $userquota = $validrow['quota'];
@@ -107,7 +107,7 @@ function shorten($urlr, $t = 'false') {
             die("400 Bad Request (URL Already a ShortURL)");
         }
     }
-    $query1 = "SELECT rid FROM redirinfo WHERE rurl='{$urlr}'";
+    $query1 = "SELECT `rid` FROM `redirinfo` WHERE `rurl`='{$urlr}' AND `iscustom`='no'";
     $result = $mysqli->query($query1);
     $row = mysqli_fetch_assoc($result);
     $existing = $row['rid'];
@@ -142,7 +142,7 @@ function shorten($urlr, $t = 'false') {
 }
 /*
  * One last check! 
- * See whether the user is exeeding his quota
+ * See whether the user is exceeding his quota
  */
 
 $isexeeding = exquota($apikey, $userquota);
