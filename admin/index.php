@@ -102,7 +102,7 @@ if (!is_array($auth->islogged())) {
 
     echo '</ul>';
     echo '<div class="tab-content">
-              <div class="tab-pane active" id="home"><br><h2>Welcome to '.$wsn.' Polr dashboard.</div>
+              <div class="tab-pane active" id="home"><br><h2>Welcome to '.$wsn.'\'s Polr dashboard.</div>
               <div class="tab-pane" id="links"><br>' . $linkshtml . '</div>
 
               '.$msges.'
