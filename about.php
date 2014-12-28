@@ -1,10 +1,10 @@
 <?php
 @(include('config.php')) or header('Location:setup.php');
-require_once 'headerpage.php';
+require_once 'layout-headermd.php';
 require_once('version.php');
 ?>
 <?php
-require_once('req.php');
+require_once('lib-core.php');
 if ($_SESSION['role']=="adm") {
     echo "
     <h1>About Polr</h1>
@@ -38,5 +38,5 @@ if ($_SESSION['role']=="adm") {
     along with this program.  If not, see <a href='http://www.gnu.org/copyleft/gpl.html'>http://www.gnu.org/copyleft/gpl.html</a>.
 </div>
 <?php
-require_once 'footerpage.php';
+require_once 'layout-footermd.php';
 ?>

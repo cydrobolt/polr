@@ -1,13 +1,13 @@
 <?php
 
-require_once '../req.php';
+require_once '../lib-core.php';
 require_once 'headerpage.php';
-require_once '../polrauth.php';
+require_once '../lib-auth.php';
 $auth = new polrauth();
 $isadmin = $auth->isadminli();
 if (!is_array($auth->islogged())) {
     echo "<h3>You must login to access this page.</h3><br><a href='index.php'>Home</a>";
-    require_once '../footer.php';
+    require_once '../layout-footerlg.php';
     die(); //END NOT LOGGED IN PORTION
 } else {
     $userinfo = $auth->islogged();
@@ -30,13 +30,12 @@ if (!is_array($auth->islogged())) {
     }
 
     $linkshtml = fetchurls();
-    echo "<script src='../js/ucptabs.js'></script>";
     echo "<h3>Polr Dashboard</h3><br>";
     echo '<ul class="nav nav-tabs" id="tabsb">
-        <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-        <li><a href="#links" data-toggle="tab">My links</a></li>
-        <li><a href="#messages" data-toggle="tab">Messages</a></li>
-        <li><a href="#settings" data-toggle="tab">Settings</a></li>';
+            <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+            <li><a href="#links" data-toggle="tab">My links</a></li>
+            <li><a href="#messages" data-toggle="tab">Messages</a></li>
+            <li><a href="#settings" data-toggle="tab">Settings</a></li>';
     if ($isadmin == true) {
         echo '<li><a href="#adminpanel" data-toggle="tab">Admin Panel</a></li>';
 
@@ -101,29 +100,27 @@ if (!is_array($auth->islogged())) {
         }
     }
 
-
     echo '</ul>';
     echo '<div class="tab-content">
-  <div class="tab-pane active" id="home"><br><h2>Welcome to '.$wsn.' user dashboard. Powered by <a href="//github.com/cydrobolt/polr">Polr</a>; Made with <3, <code>$ bash</code>, and lots of <code>git push</code>es</div>
-  <div class="tab-pane" id="links"><br>' . $linkshtml . '</div>
+              <div class="tab-pane active" id="home"><br><h2>Welcome to '.$wsn.'\'s Polr dashboard.</div>
+              <div class="tab-pane" id="links"><br>' . $linkshtml . '</div>
 
-  '.$msges.'
-  <div class="tab-pane" id="settings"><br>
-  <h3>Change password</h3>
-<form action=\'ucp-settingsp.php\' method=\'POST\'>
-    <input type=\'hidden\' name=\'action\' value=\'changepw\' />
-    Old Password: <input type=\'password\' name=\'currpw\' />
-    New Password: <input type=\'password\' name=\'newpw\' />
-    <input type=\'submit\' class=\'btn btn-success\'/>
-</form>
-  </div>';
+              '.$msges.'
+              <div class="tab-pane" id="settings"><br>
+              <h3>Change password</h3>
+              <form action=\'ucp-settingsp.php\' method=\'POST\'>
+                  <input type=\'hidden\' name=\'action\' value=\'changepw\' />
+                  Old Password: <input type=\'password\' name=\'currpw\' />
+                  New Password: <input type=\'password\' name=\'newpw\' />
+                  <input type=\'submit\' class=\'btn btn-success\'/>
+              </form>
+          </div>';
     if ($isadmin == true) {
-        $sessiondump = "";
         foreach ($_SESSION as $sevar) {
             $sessiondump = $sessiondump . '<br>' . $sevar;
         }
-        echo '<div class="tab-pane" id="adminpanel"><br>Polr Links - Limited @ 720:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="../js/ucpjs.js"></script>';
-        if ($debug==1) {
+        echo '<div class="tab-pane" id="adminpanel"><br>Polr Links - Limited @ 720:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="../js/ucp.js"></script>';
+        if ($debug == 1) {
             '<br>Debug Variables: <br>Default IP Fetch: ' . $ip . '<br>X-Forwarded-For:' . @$headers['X-Forwarded-For'] . '<br>Forwarded-For' . @$headers['forwarded-for'];
         }
     }
@@ -131,5 +128,3 @@ if (!is_array($auth->islogged())) {
 
     echo '</div>';
 }
-
-//require_once 'footerpage.php';

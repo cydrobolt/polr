@@ -1,42 +1,42 @@
 <?php
 
-require_once('password.php'); //password hashing lib - crpypt forward compat
-require_once('req.php');
-require_once('sgmail.php');
+require_once('lib-password.php'); //password hashing lib - crpypt forward compat
+require_once('lib-core.php');
+require_once('helper-mailsend.php');
 $sgmail = new sgmail();
 
 
 $isemail = filteremail($_POST['email']);
 
 if (!$isemail) {
-    require_once 'header.php';
+    require_once 'layout-headerlg.php';
     echo "Please enter a valid email. <br><br><a href='register.php'>Go Back</a>";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die(); //prevent user from registering
 }
 if ((strlen($_POST['username']) > 15) || (strlen($_POST['password']) > 25) || (strlen($_POST['email']) > 50)) {
-    require_once 'header.php';
+    require_once 'layout-headerlg.php';
     echo "Your username must not be over 15 characters, password must be under 25 characters but over 6 characters, and email must be under 50 charcaters. <br><br><a href='register.php'>Go Back</a>";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die(); //prevent user from registering
 }
 if (strlen($_POST['username']) == 0 || strlen($_POST['password']) < 4 || strlen($_POST['email']) == 0) {
-    require_once 'header.php';
+    require_once 'layout-headerlg.php';
     echo "Fields may not be left blank, password must be over 4 characters. <br><br><a href='register.php'>Go Back</a>";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die(); //prevent user from registering
 }
 if (!ctype_alnum($_POST['username'])) {
-    require_once 'header.php';
+    require_once 'layout-headerlg.php';
     echo "Your username must be alphanumerical (numbers and letters only). <br><br><a href='register.php'>Go Back</a>";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die(); //prevent user from registering
 }
 /*
   if ($_POST['tos']!='accept') {
-  require_once 'header.php';
+  require_once 'layout-headerlg.php';
   echo "You must accept the <a href='tos.php'>Terms of Service</a> in order to register.<br><br><a href='register.php'>Go Back</a>";
-  require_once 'footer.php';
+  require_once 'layout-footerlg.php';
   die();
   }
  */
@@ -55,9 +55,9 @@ $ireg['3'] = sqlfetch('auth', 'valid', 'email', $reg['email']);
 
 
 if (($ireg['1'] == true || $ireg['2'] == true) && $ireg['3'] == 1) {
-    require_once 'header.php';
+    require_once 'layout-headerlg.php';
     echo "Username/email already in use. <br><br><a href='register.php'>Go Back</a>";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die(); //prevent user from registering
 }
 
@@ -94,14 +94,14 @@ if ($regtype == 'email') {
     $sm = $sgmail->sendmail($to, 'Polr Account Validation', $sgmsg);
 
 
-    require_once 'header.php';
+    require_once 'layout-headerlg.php';
     echo "Thanks for registering. Check your email for an activation link. You must activate your account before logging in (top right corner)";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die();
 }
 else {
-    require_once 'header.php';
+    require_once 'layout-headerlg.php';
     echo "Thanks for registering. You may now login (top right corner)";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die();
 }

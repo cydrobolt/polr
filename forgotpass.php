@@ -5,16 +5,16 @@ if ($fpass == false) {
     die('This service was disabled by the site owner. ');
 }
 
-require_once 'req.php'; // require core libs
-require_once 'polrauth.php'; // require auth libs
-require_once 'sgmail.php'; // require mail libs
-require_once 'password.php'; // require password encryption libs
+require_once 'lib-core.php'; // require core libs
+require_once 'lib-auth.php'; // require auth libs
+require_once 'helper-mailsend.php'; // require mail libs
+require_once 'lib-password.php'; // require password encryption libs
 require_once 'fpasslib.php'; // require fpass functions
 // require_once('ayah.php');
 
 $polrauth = new polrauth();
 $fpass = new fpass();
-require_once 'header.php';
+require_once 'layout-headerlg.php';
 if (isset($_POST['rnpass']) && isset($_POST['npass']) && isset($_POST['crkey']) && isset($_POST['cuser'])) {
     // if submitting new pw
     $ckey = $mysqli->real_escape_string($_POST['crkey']);
@@ -26,29 +26,29 @@ if (isset($_POST['rnpass']) && isset($_POST['npass']) && isset($_POST['crkey']) 
         echo "<h2>That username is not associated with any account. Please try again.</h2>"
         . "<br />"
         . "<a href='forgotpass.php'>Back</a>";
-        require_once 'footer.php';
+        require_once 'layout-footerlg.php';
         die();
     }
     if ($userinfoc == false) {
         // if user does not exist
-        require_once 'header.php';
+        require_once 'layout-headerlg.php';
         echo "<h2>User or key invalid or already used.</h2>";
-        require_once 'footer.php';
+        require_once 'layout-footerlg.php';
         die();
     }
     if ($userinfoc['rkey'] == $_POST['crkey']) { // if rkey & user check out
         if ($npass != $rnpass) {
             // if new pass & repeat don't match
-            require_once 'header.php';
+            require_once 'layout-headerlg.php';
             echo "<h2>Passwords don't match. Try again. (click the link in the email again)</h2>";
-            require_once 'footer.php';
+            require_once 'layout-footerlg.php';
             die();
         } else { // all checks out
             $fpass->changepass($npass, $cuser); // change pass
             $polrauth->crkey($cuser); //change rkey
-            require_once 'header.php';
+            require_once 'layout-headerlg.php';
             echo "<h2>Password changed.</h2>";
-            require_once 'footer.php';
+            require_once 'layout-footerlg.php';
             die();
         }
     }
@@ -61,19 +61,19 @@ if (isset($_GET['key']) && isset($_GET['username'])) {
         echo "<h2>That username is not associated with any account. Please try again.</h2>"
         . "<br />"
         . "<a href='forgotpass.php'>Back</a>";
-        require_once 'footer.php';
+        require_once 'layout-footerlg.php';
         die();
     }
     if ($userinfoc == false) {
         // if user does not exist
-        require_once 'header.php';
+        require_once 'layout-headerlg.php';
         echo "<h2>User or key invalid or already used.</h2>";
-        require_once 'footer.php';
+        require_once 'layout-footerlg.php';
         die();
     }
     //var_dump($userinfoc);
     if ($userinfoc['rkey'] == $_GET['key']) {
-        require_once 'header.php';
+        require_once 'layout-headerlg.php';
         echo "<h2>Change Password for {$_GET['username']}</h2>";
         echo "<form action='forgotpass.php' method='POST' class='form-inline' role='form'>"
         . "<input type='password' name='npass' id='npass' placeholder='New Password' style='width: 250px;' class='form-control' size='50'/>"
@@ -84,7 +84,7 @@ if (isset($_GET['key']) && isset($_GET['username'])) {
         . "<input type='submit' id='submit' class='form-control' style='width: 450px;' value='Change Password' />"
         . "</form>";
         echo "<script src='fpass.js'></script>";
-        require_once 'footer.php';
+        require_once 'layout-footerlg.php';
         die();
     }
 }
@@ -101,7 +101,7 @@ if (!$email) {
     . "<input type='text' class='form-control' style='width: 450px;' name='email' placeholder='Email...' /><br />"
     . "<input type='submit' name='fpasssubmit' class='form-control' style='width: 450px;' value='Get a password reset email' />"
     . "</form>";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die();
 }
 if (strlen($email) < 5) {
@@ -111,7 +111,7 @@ if (strlen($email) < 5) {
     . "<input type='text' name='email' placeholder='Email...' />"
     . "<input type='submit' name='fpasssubmit' value='Get a password reset email' />"
     . "</form>";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die();
 }
 $email = $mysqli->real_escape_string($_POST['email']);
@@ -120,11 +120,11 @@ if ($userinfo == false) {
     echo "<h2>That email is not associated with any account. Please try again.</h2>"
     . "<br />"
     . "<a href='forgotpass.php'>Back</a>";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die();
 }
 $rkey = $userinfo['rkey'];
 $username = $userinfo['username'];
 $fpass->sendfmail($email, $username, $rkey); // send the email
 echo "Email successfully sent. Check your inbox for more info.";
-require_once 'footer.php';
+require_once 'layout-footerlg.php';

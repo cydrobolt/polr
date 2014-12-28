@@ -1,7 +1,7 @@
 <?php
-require_once("req.php");
-require_once('header.php');
-require_once('polrauth.php');
+require_once("lib-core.php");
+require_once('layout-headerlg.php');
+require_once('lib-auth.php');
 $polrauth = new polrauth();
 $protocol = '://';
 $hpi = $_POST['hp'];
@@ -11,7 +11,7 @@ $country_code = @$_SERVER["HTTP_CF_IPCOUNTRY"];
 if ($li_shorten_only == true) {
     if (!isset($_SESSION['username'])) {
         echo "<h2>Only logged in users may shorten links. Did you mean to <a href='login.php'>log in</a>?</h2>";
-        require_once('footer.php');
+        require_once('layout-footerlg.php');
         die();
     }
 }
@@ -160,4 +160,4 @@ else {
     }
 echo '<br><a href="index.php" class="btn btn-primary btn-large">Shorten Another Link</a></div>';
 
-require_once('footer.php');
+require_once('layout-footerlg.php');

@@ -1,8 +1,8 @@
 <?php
 // includes for forgotpassword functions
-require_once 'sgmail.php';
-require_once 'polrauth.php';
-require_once 'req.php';
+require_once 'helper-mailsend.php';
+require_once 'lib-auth.php';
+require_once 'lib-core.php';
 $polrauth = new polrauth();
 $sgmail = new sgmail();
 class fpass {

@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    $('#tabsb').tab();
+});
+
 function dodisable(baseval) {
     //var baseval = $(this).attr('id');
     var basevalr = baseval;
