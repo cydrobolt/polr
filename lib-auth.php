@@ -1,7 +1,7 @@
 <?php
 
-require_once('req.php'); //load config etc
-require_once('password.php');
+require_once('lib-core.php'); //load config etc
+require_once('lib-password.php');
 
 class polrauth {
 
@@ -95,7 +95,7 @@ class polrauth {
             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
                 <li><a tabindex="-1" href="index.php">Dashboard</a></li>
                 <li><a tabindex="-1" href="index.php">Settings</a></li>
-                <li><a tabindex="-1" href="../logout.php">Logout</a></li>
+                <li><a tabindex="-1" href="logout.php">Logout</a></li>
             </ul>
         </li>
         </div>';

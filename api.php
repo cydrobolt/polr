@@ -12,7 +12,7 @@
  * OptEndpoint: temp - whether the URL is temporary or not
  */
 $reqargs['nosession'] = true;
-require_once('req.php'); //Fetch Config
+require_once('lib-core.php'); //Fetch Config
 require_once('dnsbl.php'); //Load Google SafeBrowsing Script
 
 $protocol = '://';

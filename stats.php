@@ -1,10 +1,10 @@
 <?php
-require_once 'header.php';
+require_once 'layout-headerlg.php';
 if (is_string($_GET['bv']) && ctype_alnum($_GET['bv'])) {
     $bv = $mysqli->real_escape_string($_GET['bv']);
 } else {
     echo "<h2>You attempted to show stats for a link that does not exist, or you are formatting your link wrong.</h2>";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
     die();
 }
 $query = "SELECT `clicks`,`country`,`rurl` FROM redirinfo WHERE baseval='{$bv}';";
@@ -12,7 +12,7 @@ $result = $mysqli->query($query);
 $row = mysqli_fetch_assoc($result);
 if(!$row) {
     echo "404 Not Found";
-    require_once 'footer.php';die();
+    require_once 'layout-footerlg.php';die();
 }
 
 if(!$row['user']) {
@@ -28,4 +28,4 @@ echo "<div class='col-md-4'><h2>Clicks</h2><span style='color:blue'>{$row['click
 echo "<div class='col-md-4'><h2>Created by</h2><span style='color:red'>{$row['user']}</span></div>";
 echo "<div class='col-md-4'><h2>Country</h2><span style='color:grey'>{$row['country']}</span></div>";
 
-require_once 'footer.php';
+require_once 'layout-footerlg.php';
