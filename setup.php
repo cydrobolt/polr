@@ -329,7 +329,7 @@
                 echo "</form>";
                 echo "<br><br></div><div class='container' style='text-align:center'>"
                 . "<p><b>Please read the README.md file located in the root Polr directory. It contains essential and indispensable troubleshooting, installation, and support materials. <b/></p>";
-                echo "<br><br>Polr is <a href='http://en.wikipedia.org/wiki/Open-source_software'>Open-Source software</a> licensed under the <a href='//www.gnu.org/copyleft/gpl.html'>GPL License</a>. By continuing to use Polr, you agree to the terms of the MIT License.";
+                echo "<br><br>Polr is <a href='http://en.wikipedia.org/wiki/Open-source_software'>Open-Source software</a> licensed under the <a href='//www.gnu.org/copyleft/gpl.html'>GPL License</a>. By continuing to use Polr, you agree to the terms of the GPL License.";
                 echo "<div class=''>Polr Version $version released $reldate - <a href='//github.com/cydrobolt/polr'>Github</a></div></div><br><span style='padding-left:4%'>&copy; Copyright $relyear Chaoyi Zha & <a href='https://github.com/Cydrobolt/polr/graphs/contributors'>Other Polr Contributors</a></span>";
             }
             ?>
