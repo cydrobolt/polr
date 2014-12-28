@@ -34,13 +34,11 @@
                 </a>-->
 
                 <ul class="nav navbar-collapse navbar-nav" id="nbc">
-                    <li><a href="//github.com/Cydrobolt/polr">Github</a></li>
-                    <li><a href="//project.polr.cf">Source</a></li>
                     <li><a href="about.php">About</a></li>
                 </ul>
                 <ul class="nav pull-right navbar-nav">
                     <?php
-                    require_once('../polrauth.php');
+                    require_once('../lib-auth.php');
                     $polrauth = new polrauth();
                     $polrauth->headblock();
                     ?>
@@ -50,7 +48,7 @@
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
                         <div class="dropdown-menu" id="dropdown" style="padding: 15px; padding-bottom: 0px; color:white;">
                             <h2>Login</h2>
-                            <form action="../loginproc.php" method="post" accept-charset="UTF-8">
+                            <form action="../handle-login.php" method="post" accept-charset="UTF-8">
                                 <input id="user_username" style="margin-bottom: 15px;" type="text" name="username" placeholder='Username' size="30" class="form-control">
                                 <input id="user_password" style="margin-bottom: 15px;" type="password" name="password" placeholder='Password' size="30" class="form-control">
 

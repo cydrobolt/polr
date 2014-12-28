@@ -1,6 +1,6 @@
 <?php
-require_once '../req.php';
-require_once '../polrauth.php';
+require_once '../lib-core.php';
+require_once '../lib-auth.php';
 $polrauth = new polrauth();
 $baseval = $mysqli->real_escape_string($_POST['baseval']);
 $userinfo = $polrauth->islogged();

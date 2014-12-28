@@ -17,7 +17,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Polr Setup</title>
-        <link rel="stylesheet" href="install-bootstrap.css"/>
+        <link rel="stylesheet" href="css/install-bootstrap.css"/>
     </head>
     <body style="padding-top:60px">
         <div class="navbar navbar-default navbar-fixed-top">
@@ -28,7 +28,7 @@
             <?php
             @(include('config.php'));
             include ('version.php');
-            require_once 'password.php';
+            require_once 'lib-password.php';
             date_default_timezone_set('UTC');
             $mysqlnd = function_exists('mysqli_fetch_all');
 
@@ -49,19 +49,19 @@
 
             if (isset($ppass)) {
                 if (!isset($_POST['pw'])) {
-                    require_once 'header.php';
+                    require_once 'layout-headerlg.php';
                     echo "<h2>Enter setup password to proceed:</h2>";
                     echo "<form action='setup.php' method='post'><br><input class='form-control' type='password' name='pw' /><br><input type='submit' class='form-control' value='Log in' /></form>";
-                    require_once 'footer.php';
+                    require_once 'layout-footerlg.php';
                     die();
                 } else if ($pwf = password_verify($_POST['pw'], $ppass)) {
                     echo "";
                 } else {
-                    require_once 'header.php';
+                    require_once 'layout-headerlg.php';
                     echo "Wrong password<br>";
                     echo "<h2>Enter setup password to proceed:</h2>";
                     echo "<form action='setup.php' method='post'><br><input type='password' class='form-control' name='pw' /><br><input type='submit' class='form-control' value='Log in' /></form>";
-                    require_once 'footer.php';
+                    require_once 'layout-footerlg.php';
                     die();
                 }
             }
@@ -82,15 +82,15 @@
 
                 $nowdate = date('F d Y');
                 $data = '<?php
-			            $host="' . $_POST['dbserver'] . '";' .
-                        '$user="' . $_POST['dbuser'] . '";' .
-                        '$passwd="' . $_POST['dbpass'] . '";' .
-                        '$db="' . $_POST['dbname'] . '";' .
-                        '$wsa = "' . $_POST['appurl'] . '";' .
-                        '$wsn = "' . $_POST['appname'] . '";' .
-                        '$wsb = "' . $nowdate . '";' .
-                        '$ppass = \'' . hashpass($_POST['protpass']) . '\';' .
-                        '$ip = $_SERVER[\'REMOTE_ADDR\'];'
+                           $host="' . $_POST['dbserver'] . '";'
+                        . '$user="' . $_POST['dbuser'] . '";'
+                        . '$passwd="' . $_POST['dbpass'] . '";'
+                        . '$db="' . $_POST['dbname'] . '";'
+                        . '$wsa = "' . $_POST['appurl'] . '";'
+                        . '$wsn = "' . $_POST['appname'] . '";'
+                        . '$wsb = "' . $nowdate . '";'
+                        . '$ppass = \'' . hashpass($_POST['protpass']) . '\';'
+                        . '$ip = $_SERVER[\'REMOTE_ADDR\'];'
                         . '$hp = "' . sha1(rstr(30)) . "\";"
                         . '$regtype = "' . $_POST['reg'] . "\";"
                         . '$path = "' . $_POST['path'] . "\";"
@@ -121,7 +121,7 @@
                 }
                 echo "Successfully created config. ";
                 fclose($handle);
-                require_once('req.php');
+                require_once('lib-core.php');
                 $path = $_POST['path'];
                 if (strlen($path) > 2) {
                     $data = "<IfModule mod_rewrite.c>
@@ -135,13 +135,12 @@
                             RewriteRule ^([a-zA-Z0-9]+)/?$ r.php?u=$1 [L,QSA]
                             RewriteRule ^t-([a-zA-Z0-9]+)/?$ r.php?u=t-$1 [L,QSA]
                             RewriteRule ^/?\+([a-zA-Z0-9]+)$ stats.php?bv=$1 [L,QSA]
-                            </IfModule>
-                            ";
+                            </IfModule>";
                     $handle = fopen('.htaccess', 'w');
                     if (fwrite($handle, $data) === FALSE) {
                         echo "Can not write to (" . $file . ")";
                     }
-                    $data = "# Polr Custom **experimental** nginx configuration. Append this to your nginx config for effect.
+                    $data = "# Polr **experimental** nginx configuration. Append this to your nginx config for effect.
                     	     # If you use Apache, ignore this file.
                              # Try `/etc/nginx/config.d/` if you have trouble finding the configuration
 				      server {
@@ -152,7 +151,7 @@
             				rewrite ^(.*)$ $path/api.php;
         				}
         				location $path/ {
-        				if (!-e $request_filename){
+        				if (!-e \$request_filename){
         				    rewrite ^$path/([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ $path/r.php?u=$1&lkey=$2;
         				}
             				rewrite ^$path/([a-zA-Z0-9]+)/?$ $path/r.php?u=$1;
@@ -265,7 +264,7 @@
 
                 // App Config
                 echo "<br /><b style=\"text-align:center\">Application Settings</b><br />";
-                echo "Application Name: <input type=\"text\" class='form-control' style='width:650px' name=\"appname\" value=\"polr\"><br>";
+                echo "Application Name: <input type=\"text\" class='form-control' style='width:650px' name=\"appname\" value=\"Polr\"><br>";
                 echo "Application URL (path to Polr, no http://, www., or trailing slash) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br>";
                 echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br>";
                 echo "Shortening Permissions: <select name='li_shorten_only' style='width:650px' class='form-control'>"
@@ -296,7 +295,7 @@
                 . "</select><br /><br />";
                 echo "Password Recovery: <select name='fpass' style='width:650px' class='form-control'>"
                 . "<option value='false'>No (default)</option>"
-                . "<option value='true'>Yes (could cause problems unless sgmail.php/email is properly set up)</option>"
+                . "<option value='true'>Yes (could cause problems unless helper-mailsend.php/email is properly set up)</option>"
                 . "</select><br /><br />";
                 echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" value=\"/polr/\"><br>";
                 echo "Theme (choose wisely, click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots: <select name='t' style='width:650px' class='form-control'>"
@@ -330,7 +329,7 @@
                 echo "</form>";
                 echo "<br><br></div><div class='container' style='text-align:center'>"
                 . "<p><b>Please read the README.md file located in the root Polr directory. It contains essential and indispensable troubleshooting, installation, and support materials. <b/></p>";
-                echo "<br><br>Polr is <a href='http://en.wikipedia.org/wiki/Open-source_software'>Open-Source software</a> licensed under the <a href='//www.gnu.org/copyleft/gpl.html'>GPL License</a>. By continuing to use Polr, you agree to the terms of the MIT License.";
+                echo "<br><br>Polr is <a href='http://en.wikipedia.org/wiki/Open-source_software'>Open-Source software</a> licensed under the <a href='//www.gnu.org/copyleft/gpl.html'>GPL License</a>. By continuing to use Polr, you agree to the terms of the GPL License.";
                 echo "<div class=''>Polr Version $version released $reldate - <a href='//github.com/cydrobolt/polr'>Github</a></div></div><br><span style='padding-left:4%'>&copy; Copyright $relyear Chaoyi Zha & <a href='https://github.com/Cydrobolt/polr/graphs/contributors'>Other Polr Contributors</a></span>";
             }
             ?>

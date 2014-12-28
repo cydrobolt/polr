@@ -1,6 +1,6 @@
 <?php
 
-require_once 'req.php';
+require_once 'lib-core.php';
 require 'vendor/PHPMailer/PHPMailerAutoload.php';
 
 /*

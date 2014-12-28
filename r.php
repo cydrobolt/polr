@@ -1,6 +1,6 @@
 <?php
 //Polr Redirector Core
-require_once('req.php');
+require_once('lib-core.php');
 if (is_string($_GET['u'])) {
     $val = $mysqli->real_escape_string($_GET['u']);
 } else {
@@ -22,10 +22,10 @@ if (!$row['rurl']) {
     header("Location: 404.php", true, 302);
 }
 if (strtolower($row['rurl']) == "disabled") {
-    require_once 'header.php';
+    require_once 'layout-headerlg.php';
     echo "<h2>The link you are trying to reach has been disabled.</h2><br>"
     . "Sorry for the inconvienience.";
-    require_once 'footer.php';
+    require_once 'layout-footerlg.php';
 }
 $lkey = @$row['lkey'];
 if (strlen($lkey)>1) {
@@ -35,9 +35,9 @@ if (strlen($lkey)>1) {
 		// yup, right key...continue on
 	}
 	else {
-		require_once('header.php');
+		require_once('layout-headerlg.php');
 		echo "Incorrect Key. (http://{$wsa}/abc?keyhere)";
-		require_once('footer.php');
+		require_once('layout-footerlg.php');
 		die();
 	}
 }

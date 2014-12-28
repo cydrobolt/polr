@@ -1,6 +1,6 @@
 <?php
 
-require_once 'req.php';
+require_once 'lib-core.php';
 $ruser = $_GET['user'];
 $rusersan = $mysqli->real_escape_string($ruser);
 $rkey = $_GET['key'];
@@ -10,7 +10,7 @@ function noMc($length = 10) {
     return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 }
 
-//Please read the message concerning the use of NoMC @ registerproc.php
+//Please read the message concerning the use of NoMC @ handle-register.php
 
 $nrkey = sha1(noMc(rand(40,60)));
 $rkeys = $mysqli->real_escape_string($rkey);
@@ -24,13 +24,13 @@ $iv = $c['rkey'];
 if ($iv == $rkey) {
     $qr = "UPDATE auth SET valid='1', rkey='{$nrkey}' WHERE username='$rusersan';";
     $rr = $mysqli->query($qr) or showerror();
-    require_once('header.php');
+    require_once('layout-headerlg.php');
     echo "You have successfully activated your account. You may now login (top right)";
-    require_once('footer.php');
+    require_once('layout-footerlg.php');
     die();
 } else {
-    require_once('header.php');
+    require_once('layout-headerlg.php');
     echo "The key/username you specified is incorrect.";
-    require_once('footer.php');
+    require_once('layout-footerlg.php');
     die();
 }
