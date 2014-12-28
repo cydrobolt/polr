@@ -81,8 +81,8 @@
                 }
 
                 $nowdate = date('F d Y');
-                $data = '<?php'
-			            . '$host="' . $_POST['dbserver'] . '";'
+                $data = '<?php
+                           $host="' . $_POST['dbserver'] . '";'
                         . '$user="' . $_POST['dbuser'] . '";'
                         . '$passwd="' . $_POST['dbpass'] . '";'
                         . '$db="' . $_POST['dbname'] . '";'
