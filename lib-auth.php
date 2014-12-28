@@ -76,29 +76,29 @@ class polrauth {
             $authinfo = $this->islogged();
             echo "-->";
             $text = '<div class=\'nav pull-right navbar-nav\' style=\'color: white\'>
-        <li class=\'dropdown\'>
-        <a class="dropdown-toggle" href="#" data-toggle="dropdown" style=\'padding-right: 10px\'>' . $authinfo['username'] . ' <strong class="caret"></strong></a>
+                        <li class=\'dropdown\'>
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" style=\'padding-right: 10px\'>' . $authinfo['username'] . ' <strong class="caret"></strong></a>
 
-            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
-                <li><a tabindex="-1" href="admin/index.php">Dashboard</a></li>
-                <li><a tabindex="-1" href="admin/index.php">Settings</a></li>
-                <li><a tabindex="-1" href="logout.php">Logout</a></li>
-            </ul>
-        </li>
-        </div>';
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
+                                <li><a tabindex="-1" href="admin/index.php">Dashboard</a></li>
+                                <li><a tabindex="-1" href="admin/index.php">Settings</a></li>
+                                <li><a tabindex="-1" href="logout.php">Logout</a></li>
+                            </ul>
+                        </li>
+                    </div>';
             if ($ar == true) {
                 # if called from UCP
                 $text = '<div class=\'nav pull-right navbar-nav\' style=\'color: white\'>
-        <li class=\'dropdown\'>
-        <a class="dropdown-toggle" href="#" data-toggle="dropdown" style=\'padding-right: 10px\'>' . $authinfo['username'] . ' <strong class="caret"></strong></a>
+                            <li class=\'dropdown\'>
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown" style=\'padding-right: 10px\'>' . $authinfo['username'] . ' <strong class="caret"></strong></a>
 
-            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
-                <li><a tabindex="-1" href="index.php">Dashboard</a></li>
-                <li><a tabindex="-1" href="index.php">Settings</a></li>
-                <li><a tabindex="-1" href="logout.php">Logout</a></li>
-            </ul>
-        </li>
-        </div>';
+                                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
+                                    <li><a tabindex="-1" href="index.php">Dashboard</a></li>
+                                    <li><a tabindex="-1" href="index.php">Settings</a></li>
+                                    <li><a tabindex="-1" href="../logout.php">Logout</a></li>
+                                </ul>
+                            </li>
+                        </div>';
             }
 
 
