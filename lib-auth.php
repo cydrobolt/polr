@@ -1,6 +1,19 @@
 <?php
-
-require_once('lib-core.php'); //load config etc
+/*
+# Copyright (C) 2013-2014 Chaoyi Zha
+# Polr is an open-source project licensed under the GPL.
+# The above copyright notice and the following license are applicable to
+# the entire project, unless explicitly defined otherwise.
+# http://github.com/cydrobolt/polr
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+# See http://www.gnu.org/copyleft/gpl.html  for the full text of the
+# license.
+#
+*/
+require_once('lib-core.php'); 
 require_once('lib-password.php');
 
 class polrauth {

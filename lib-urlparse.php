@@ -1,7 +1,4 @@
 <?php
-/*
- * URL Parser for Polr's GSB Module
- */
 
 class parseurl {
 

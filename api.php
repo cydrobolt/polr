@@ -1,6 +1,18 @@
 <?php
-
-//Polr API - http://github.com/cydrobolt/polr
+/*
+# Copyright (C) 2013-2014 Chaoyi Zha
+# Polr is an open-source project licensed under the GPL.
+# The above copyright notice and the following license are applicable to
+# the entire project, unless explicitly defined otherwise.
+# http://github.com/cydrobolt/polr
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+# See http://www.gnu.org/copyleft/gpl.html  for the full text of the
+# license.
+#
+*/
 
 
 /*
@@ -71,11 +83,11 @@ function lookup($urltl) {
 }
 
 function exquota($apikey, $quota) {
-    
+
     if ($quota < 1) {
         return false; // if quota is negative, then no quota
     }
-    
+
     global $mysqli;
     $last_min = time()-60;
     $query = "SELECT `rurl` FROM `redirinfo` WHERE user='APIKEY-{$apikey}' AND UNIX_TIMESTAMP(date) > $last_min;";
@@ -90,7 +102,7 @@ function exquota($apikey, $quota) {
     else {
         return false;
     }
-    
+
 }
 
 function shorten($urlr, $t = 'false') {
@@ -98,7 +110,7 @@ function shorten($urlr, $t = 'false') {
     global $wsa;
     global $apikey;
     global $ip;
-    
+
     $protocol = '://';
     $isshort = array('polr.cf', 'bit.ly', 'is.gd', 'tiny.cc', 'adf.ly', 'ur1.ca', 'goo.gl', 'ow.ly', 'j.mp', 't.co');
     foreach ($isshort as $url_shorteners) {
@@ -141,14 +153,14 @@ function shorten($urlr, $t = 'false') {
     }
 }
 /*
- * One last check! 
+ * One last check!
  * See whether the user is exceeding his quota
  */
 
 $isexeeding = exquota($apikey, $userquota);
 if ($isexeeding) {
     header("HTTP/1.0 503 Service Unavailable");
-    die('Hey, slow down! Exeeding your perminute quota. Try again in around a minute.'); 
+    die('Hey, slow down! Exeeding your perminute quota. Try again in around a minute.');
     // don't let them shorten :>
 }
 
@@ -177,4 +189,3 @@ if ($action == "shorten") {
 } else {
     die("Invalid Action");
 }
-

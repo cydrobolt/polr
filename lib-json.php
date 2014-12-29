@@ -1,9 +1,5 @@
 <?php
 
-/**
-* @project
-* Polr-Core Lib-PHPJSON
-*/
 if (!defined('IN_PHPBB'))
 {
 	exit;
