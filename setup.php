@@ -90,7 +90,6 @@
                         . '$wsn = "' . $_POST['appname'] . '";'
                         . '$wsb = "' . $nowdate . '";'
                         . '$ppass = \'' . hashpass($_POST['protpass']) . '\';'
-                        . '$ip = $_SERVER[\'REMOTE_ADDR\'];'
                         . '$hp = "' . sha1(rstr(30)) . "\";"
                         . '$regtype = "' . $_POST['reg'] . "\";"
                         . '$path = "' . $_POST['path'] . "\";"
