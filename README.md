@@ -8,9 +8,13 @@ Polr is an enterprise-class open-source link shortening web application designed
 - **Latest Release: https://github.com/Cydrobolt/polr/releases**
 - **[Troubleshooting information](https://github.com/Cydrobolt/polr/blob/master/TROUBLESHOOTING.md)**
 - **[Screenshots](http://imgur.com/a/BheDx)**
+- **[Vote for us on Bitnami](https://bitnami.com/stack/polr/)**
 
 
 Polr uses Semantic Versioning http://semver.org/
+
+
+
 
 Installation
 ==================
