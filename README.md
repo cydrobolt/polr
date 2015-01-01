@@ -51,7 +51,7 @@ Polr operates a channel on the freenode IRC network, which can be used for purpo
 ####License
 
 
-    Copyright (C) 2014 Chaoyi Zha
+    Copyright (C) 2015 Chaoyi Zha
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
