@@ -1,5 +1,5 @@
 <!--
-# Copyright (C) 2013-2014 Chaoyi Zha
+# Copyright (C) 2013-2015 Chaoyi Zha
 # Polr is an open-source project licensed under the GPL.
 # The above copyright notice and the following license are applicable to
 # the entire project, unless explicitly defined otherwise.
