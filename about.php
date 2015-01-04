@@ -13,7 +13,7 @@ if ($_SESSION['role']=="adm") {
         <dt>Version: $version
         <dt>Release date: $reldate
         <dt>App Build : $wsn by $wsa  on $wsb        <dt>
-    </dl>You are seeing this message because you are logged in as an Administrator.<br />";
+    </dl>You are seeing the information above because you are logged in as an Administrator.<br />";
 }
 
 ?>
