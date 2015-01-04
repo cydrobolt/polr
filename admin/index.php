@@ -14,16 +14,20 @@ if (!is_array($auth->islogged())) {
     function fetchurls($lstart = 0) {
         global $userinfo;
         global $mysqli;
-        $sqr = "SELECT `baseval`,`rurl`,`date` FROM `redirinfo` WHERE user = '{$mysqli->real_escape_string($userinfo['username'])}' LIMIT {$lstart} , 50;";
+        $sqr = "SELECT `baseval`,`rurl`,`date`,`lkey` FROM `redirinfo` WHERE user = '{$mysqli->real_escape_string($userinfo['username'])}' LIMIT {$lstart} , 50;";
         $res = $mysqli->query($sqr);
         $links =  mysqli_fetch_all($res, MYSQLI_ASSOC);
 
-        $linkshtml = '<table class="table table-hover"><tr><th>Link ending</th><th>Long Link</th><th>Date (EST - NA)</th><th>PW-Protected</th></tr>';
+        $linkshtml = '<table class="table table-hover"><tr><th>Link ending</th><th>Long Link</th><th>Date</th><th>Secret</th></tr>';
         foreach ($links as $link) {
+            $is_secret = "False";
+            if (strlen($link['lkey']) > 1) {
+                $is_secret = "True";
+            }
             $linkshtml = $linkshtml . "<tr><td>" . $link['baseval'] . '</td>'
                     . "<td>" . substr($link['rurl'], 0, 170) . '</td>'
                     . "<td>" . $link['date'] . '</td>'
-                    . "<td>" . 'N/A' . '</td></tr>';
+                    . "<td>" . $is_secret . "</td>";
         }
         $linkshtml = $linkshtml . "</tr></table>";
         return $linkshtml;
@@ -41,17 +45,21 @@ if (!is_array($auth->islogged())) {
 
         function fetchurlsadmin($lstart = 0, $limit = 360) {
             global $mysqli;
-            $sqr = "SELECT `baseval`,`rurl`,`date`,`user`,`ip` FROM `redirinfo` LIMIT {$lstart} , {$limit};";
+            $sqr = "SELECT `baseval`,`rurl`,`date`,`user`,`ip`,`lkey` FROM `redirinfo` LIMIT {$lstart} , {$limit};";
             $res = $mysqli->query($sqr);
             $links = mysqli_fetch_all($res, MYSQLI_ASSOC);
-            $linkshtml = '<table class="table table-hover"><tr><th>Link ending</th><th>Long Link</th><th>Date (EST - NA)</th><th>Link Owner</th><th>IP</th><th>PW-Protected</th><th>Disable/Enable</th></tr>';
+            $linkshtml = '<table class="table table-hover"><tr><th>Link ending</th><th>Long Link</th><th>Date</th><th>Link Owner</th><th>IP</th><th>Secret</th><th>Disable/Enable</th></tr>';
             foreach ($links as $link) {
+                $is_secret = "False";
+                if (strlen($link['lkey']) > 1) {
+                    $is_secret = "True";
+                }
                 $linkshtml = $linkshtml . "<tr><td>" . $link['baseval'] . '</td>'
                         . "<td>" . substr($link['rurl'], 0, 170) . '</td>'
                         . "<td>" . $link['date'] . '</td>'
                         . "<td>" . $link['user'] . '</td>'
                         . "<td>" . $link['ip'] . '</td>'
-                        . "<td>" . 'N/A' . '</td>';
+                        . "<td>" . $is_secret . "</td>";
                 if ($link['rurl'] == 'disabled') {
                     $linkshtml = $linkshtml . '<td><span class=' . $link['baseval'] . '><input type="button" value="Enable" onClick="doenable(\'' . $link['baseval'] . '\');" class="btn btn-sm btn-success enablelink" id="' . $link['baseval'] . '" />' . '</span></td></tr>';
                 } else {
