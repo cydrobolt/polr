@@ -49,6 +49,7 @@
             </ul>
             <ul class="nav pull-right navbar-nav hidden-xs">
                 <?php require_once('../lib-auth.php');
+                $ar = true;
                 $polrauth = new polrauth();
                 $polrauth->headblock(); ?>
                 <?php require_once('../config.php'); if ($regtype != 'none'){ echo '<li><a href="../register.php">Sign Up</a></li>';}?>
@@ -65,7 +66,7 @@
                         </form>
                     </div>
                 </li>
-<?php $polrauth->headendblock(); ?>
+<?php $polrauth->headendblock(true); ?>
 
             </ul>
         </div>
