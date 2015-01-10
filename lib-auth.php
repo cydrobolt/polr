@@ -68,7 +68,7 @@ class polrauth {
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
                                 <li><a tabindex="-1" href="admin/index.php">Dashboard</a></li>
                                 <li><a tabindex="-1" href="admin/index.php">Settings</a></li>
-                                <li><a tabindex="-1" href="logout.php">Logout</a></li>
+                                <li><a tabindex="-1" href="admin/logout.php">Logout</a></li>
                             </ul>
                         </li>
                     </div>';
