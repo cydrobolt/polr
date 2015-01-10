@@ -6,7 +6,7 @@ $(function() {
    optionsbutton.click(function() {
        //var absfoot = $('#polrfooter').html();
        //var pfoot = '<p id="footer">&copy; Copyright 2014 Polr</p>';
-        if(slid==0) {
+        if (slid===0) {
             $("#options").slideDown();
             slid = 1;
         }
@@ -18,7 +18,7 @@ $(function() {
    $('#checkavail').click(function() {
 var customlink = $('#custom').val();
 var request = $.ajax({
-  url: "helper-linkcheck.php",
+  url: "helpers/helper-linkcheck.php",
   type: "POST",
   data: { link : customlink },
   dataType: "html"
@@ -38,7 +38,7 @@ request.done(function( msg ) {
       $('#status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>'+msg);
   }
 });
- 
+
 request.fail(function( jqXHR, textStatus ) {
   $('#status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>'+textstatus);
 });
@@ -48,11 +48,11 @@ request.fail(function( jqXHR, textStatus ) {
    var i = Math.floor(Math.random() * (max - min + 1)) + min;
    changeTips(i);
    var tipstimer=setInterval(function(){changeTips(i);i++;},8000);
-   
+
    function setTip(tip) {
        $("#tips").html(tip);
    }
-   
+
    function changeTips(tcase) {
        switch(tcase) {
            case 1:
@@ -63,8 +63,37 @@ request.fail(function( jqXHR, textStatus ) {
                break;
            case 3:
                setTip('Did you know you can change the URL ending by clicking on "Link Options"?');
-               break;
                i = 1;
+               break;
        }
    }
+});
+
+$(function() {
+    // Setup drop down menu
+    $('.dropdown-toggle').dropdown();
+
+    // Fix input element click problem
+    $('.dropdown input, .dropdown label').click(function(e) {
+        e.stopPropagation();
+    });
+    $('.btn-toggle').click(function() {
+            $(this).find('.btn').toggleClass('active');
+
+            if ($(this).find('.btn-primary').size()>0) {
+                    $(this).find('.btn').toggleClass('btn-primary');
+            }
+            if ($(this).find('.btn-danger').size()>0) {
+                    $(this).find('.btn').toggleClass('btn-danger');
+            }
+            if ($(this).find('.btn-success').size()>0) {
+                    $(this).find('.btn').toggleClass('btn-success');
+            }
+            if ($(this).find('.btn-info').size()>0) {
+                    $(this).find('.btn').toggleClass('btn-info');
+            }
+
+            $(this).find('.btn').toggleClass('btn-default');
+
+    });
 });

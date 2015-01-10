@@ -1,6 +1,7 @@
 </div>
-<?php require_once('config.php');if($hidefooter==true){echo "<!--";}?><p id="footer-pad">&copy; Copyright <?php require_once('version.php');echo $relyear;?> The Polr Project. Proudly powered by <a href="//github.com/cydrobolt/polr">Polr</a></p> <?php require_once('config.php');if($hidefooter==true){echo "-->";}?>        
-
         </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+        <script src="js/index.js"></script>
     </body>
+
 </html>

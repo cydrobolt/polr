@@ -124,9 +124,6 @@ if (!is_array($auth->islogged())) {
               </form>
           </div>';
     if ($isadmin == true) {
-        foreach ($_SESSION as $sevar) {
-            $sessiondump = $sessiondump . '<br>' . $sevar;
-        }
         echo '<div class="tab-pane" id="adminpanel"><br>Polr Links - Limited @ 720:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="../js/ucp.js"></script>';
         if ($debug == 1) {
             '<br>Debug Variables: <br>Default IP Fetch: ' . $ip . '<br>X-Forwarded-For:' . @$headers['X-Forwarded-For'] . '<br>Forwarded-For' . @$headers['forwarded-for'];

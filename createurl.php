@@ -158,6 +158,6 @@ else {
     echo $decodescript;
     echo "<div style='text-align:center;padding-left:11%;padding-right:11%;'><h3>URL:</h3> <input type='text' id='i' onselect=\"select_text();\" onclick=\"select_text();\" readonly=\"readonly\" class='form-control' value=\"Please enable JavaScript\" />";
     }
-echo '<br><a href="index.php" class="btn btn-primary btn-large">Shorten Another Link</a></div>';
+echo '<br><a href="index.php" class="btn btn-primary btn-large">Shorten Another Link</a></div><script>function select_text(){var a=document.getElementById("i");a&&(a.focus(),a.select())}window.onload=select_text;</script>';
 
 require_once('layout-footerlg.php');

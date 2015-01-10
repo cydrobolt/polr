@@ -85,7 +85,7 @@ function sqlrun($query) {
     $queryrs = $query;
     $resultrs = $mysqli->query($queryrs) or ($err =  $mysqli->error);
     if (strstr($err, "already exists")) {
-        echo "<br />Could not create tables because the database already has Polr tables (perhaps from a previous installation?). Delete the existing Polr table and try again. You can also export the database and restore it after installation, however, the old database may not be compatible. ";
+        echo "<br />Could not create tables because the database already has Polr tables (perhaps from a previous installation?). If you wanted a clean install, delete the existing Polr table and try again. Otherwise, your existing database may be used. ";
         die();
     }
     return true;
