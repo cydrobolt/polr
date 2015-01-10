@@ -67,8 +67,8 @@ class polrauth {
 
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
                                 <li><a tabindex="-1" href="admin/index.php">Dashboard</a></li>
-                                <li><a tabindex="-1" href="admin/index.php">Settings</a></li>
-                                <li><a tabindex="-1" href="admin/logout.php">Logout</a></li>
+                                <li><a tabindex="-1" href="admin/index.php#settings">Settings</a></li>
+                                <li><a tabindex="-1" href="logout.php">Logout</a></li>
                             </ul>
                         </li>
                     </div>';
@@ -80,8 +80,8 @@ class polrauth {
 
                                 <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
                                     <li><a tabindex="-1" href="index.php">Dashboard</a></li>
-                                    <li><a tabindex="-1" href="index.php">Settings</a></li>
-                                    <li><a tabindex="-1" href="logout.php">Logout</a></li>
+                                    <li><a tabindex="-1" href="index.php#settings">Settings</a></li>
+                                    <li><a tabindex="-1" href="../logout.php">Logout</a></li>
                                 </ul>
                             </li>
                         </div>';

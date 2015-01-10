@@ -1,7 +1,10 @@
 <?php
+if (!@include('config.php')) {
+    header('Location:setup.php');
+}
 @session_start();
-if (strlen($_SESSION['username']) < 1) {
-    die("<h1>400 Forbidden</h1><br /><a href='login.php'>Login</a>");
+if (strlen($_SESSION['username']) < 1 && $li_show_front === true) {
+    die("<h1>400 Forbidden</h1><em><a href='login.php'>Login</a> to access this resource.</em>");
 }
 ?>
 <!--
