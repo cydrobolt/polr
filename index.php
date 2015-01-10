@@ -22,13 +22,6 @@ if (strlen($_SESSION['username']) < 1 && $li_show_front === true) {
 #
 -->
 
-<?php
-if (!@include('config.php')) {
-    header('Location:setup.php');
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
