@@ -272,8 +272,7 @@
                 echo "Shortening Permissions: <select name='li_shorten_only' style='width:650px' class='form-control'>"
                 . "<option value='false' selected='selected'>All users can shorten URLs</option>"
                 . "<option value='true'>Only logged in users may shorten URLs</option>"
-                . "</select><br /><br />";
-
+                . "</select><br />";
                 echo "Show public interface: <select name='li_show_front' style='width:650px' class='form-control'>"
                 . "<option value='false' selected='selected'>Show public interface (default)</option>"
                 . "<option value='true'>Hide public interface (for private shorteners)</option>"
