@@ -1,3 +1,9 @@
+<?php
+@session_start();
+if (strlen($_SESSION['username']) < 1) {
+    die("<h1>400 Forbidden</h1><br /><a href='login.php'>Login</a>");
+}
+?>
 <!--
 # Copyright (C) 2013-2015 Chaoyi Zha
 # Polr is an open-source project licensed under the GPL.
@@ -14,9 +20,10 @@
 -->
 
 <?php
-if(!@include('config.php')) {
+if (!@include('config.php')) {
     header('Location:setup.php');
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +31,7 @@ if(!@include('config.php')) {
     <head>
         <title><?php require_once('config.php');echo $wsn;?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<?php require_once('config.php');if (!$theme) {echo 'css/bootstrap.css';}else {echo $theme;}?>"/>
+        <link rel="stylesheet" href="<?php if (!$theme) {echo 'css/bootstrap.css';}else {echo $theme;}?>"/>
         <link rel="stylesheet" href="css/main.css"/>
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -43,32 +50,25 @@ if(!@include('config.php')) {
                 $('.dropdown input, .dropdown label').click(function(e) {
                     e.stopPropagation();
                 });
-				$('.btn-toggle').click(function() {
-					$(this).find('.btn').toggleClass('active');
+                $('.btn-toggle').click(function() {
+                        $(this).find('.btn').toggleClass('active');
 
-					if ($(this).find('.btn-primary').size()>0) {
-						$(this).find('.btn').toggleClass('btn-primary');
-					}
-					if ($(this).find('.btn-danger').size()>0) {
-						$(this).find('.btn').toggleClass('btn-danger');
-					}
-					if ($(this).find('.btn-success').size()>0) {
-						$(this).find('.btn').toggleClass('btn-success');
-					}
-					if ($(this).find('.btn-info').size()>0) {
-						$(this).find('.btn').toggleClass('btn-info');
-					}
+                        if ($(this).find('.btn-primary').size()>0) {
+                                $(this).find('.btn').toggleClass('btn-primary');
+                        }
+                        if ($(this).find('.btn-danger').size()>0) {
+                                $(this).find('.btn').toggleClass('btn-danger');
+                        }
+                        if ($(this).find('.btn-success').size()>0) {
+                                $(this).find('.btn').toggleClass('btn-success');
+                        }
+                        if ($(this).find('.btn-info').size()>0) {
+                                $(this).find('.btn').toggleClass('btn-info');
+                        }
 
-					$(this).find('.btn').toggleClass('btn-default');
+                        $(this).find('.btn').toggleClass('btn-default');
 
-				});
-/*
-				$('form').submit(function(){
-					alert($(this["ps"]).val());
-					return false;
-				});
-				*/
-
+                });
             });
         </script>
     </head>

@@ -18,7 +18,7 @@ $(function() {
    $('#checkavail').click(function() {
 var customlink = $('#custom').val();
 var request = $.ajax({
-  url: "helper-linkcheck.php",
+  url: "helpers/helper-linkcheck.php",
   type: "POST",
   data: { link : customlink },
   dataType: "html"

@@ -1,5 +1,5 @@
 <?php
-require_once('lib-core.php');
+require_once('../lib-core.php');
 class ajaxhandler {
     public function __construct() {
         global $mysqli;
@@ -9,7 +9,6 @@ class ajaxhandler {
         if(!ctype_alnum($link) || strlen($link)>20) {
             return 3;
         }
-        $iscustom = "yes";
         $query = "SELECT rid FROM redirinfo WHERE baseval='{$link}'"; //check if baseval used already
         $result = $mysqli->query($query);
         $row = mysqli_fetch_assoc($result);

@@ -13,7 +13,7 @@
 # license.
 #
 */
-require_once('lib-core.php'); 
+require_once('lib-core.php');
 require_once('lib-password.php');
 
 class polrauth {
@@ -29,34 +29,7 @@ class polrauth {
             return $data;
         }
     }
-    public function prepare ($query) {
-        global $mysqli;
-        global $debug;
-        if(!($p = $mysqli->prepare($query))) {
-            if ($debug === 1) {
-                echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-            }
-            else {
-                showerror();
-                return false;
 
-            }
-        }
-        return $p;
-    }
-    public function gr ($p) {
-        global $debug;
-        // Fetches result from prepared statement
-        if(!($g = $p->get_result())) {
-            if ($debug === 1) {
-                echo "Prepare failed: (" . $p->errno . ") " . $p->error;
-            }
-            showerror();
-            return false;
-
-        }
-        return $g;
-    }
 
     public function isadminli() {
         if ($_SESSION['li'] !== sha1('li')) {
@@ -108,7 +81,7 @@ class polrauth {
                                 <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
                                     <li><a tabindex="-1" href="index.php">Dashboard</a></li>
                                     <li><a tabindex="-1" href="index.php">Settings</a></li>
-                                    <li><a tabindex="-1" href="../logout.php">Logout</a></li>
+                                    <li><a tabindex="-1" href="logout.php">Logout</a></li>
                                 </ul>
                             </li>
                         </div>';

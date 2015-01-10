@@ -97,7 +97,9 @@
                         . '$li_shorten_only = ' . $_POST['li_shorten_only'] . ";"
                         . '$theme = "' . $_POST['t'] . "\";"
                         . '$ip = ' . $_POST['ipfetch'] . ";"
+                        . '$li_show_front = ' . $_POST['li_show_front'] . ";"
                         . '$unstr = "' . $rstr . '";';
+
 			    if (strlen($_POST['smtp-servers'])>1) {
                     $smtpSection = '
                         $smtpCfg = array(
@@ -266,10 +268,17 @@
                 echo "Application Name: <input type=\"text\" class='form-control' style='width:650px' name=\"appname\" value=\"Polr\"><br>";
                 echo "Application URL (path to Polr, no http://, www., or trailing slash) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br>";
                 echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br>";
+
                 echo "Shortening Permissions: <select name='li_shorten_only' style='width:650px' class='form-control'>"
                 . "<option value='false' selected='selected'>All users can shorten URLs</option>"
                 . "<option value='true'>Only logged in users may shorten URLs</option>"
                 . "</select><br /><br />";
+
+                echo "Show public interface: <select name='li_show_front' style='width:650px' class='form-control'>"
+                . "<option value='false' selected='selected'>Show public interface (default)</option>"
+                . "<option value='true'>Hide public interface (for private shorteners)</option>"
+                . "</select><br /><br />";
+
 
                 // Security/Account Config
                 echo "<br /><b style=\"text-align:center\">Admin Account Settings</b><br />";

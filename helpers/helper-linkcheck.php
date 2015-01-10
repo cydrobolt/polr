@@ -1,12 +1,12 @@
 <?php
 
-require_once('lib-core.php');
+require_once('../lib-core.php');
 require_once('helper-ajax.php');
 
 $ajaxhandler = new ajaxhandler();
 
 $link = $mysqli->real_escape_string($_POST['link']);
-$checked = $ajaxhandler->linkcheck($link,$mysqli);
+$checked = $ajaxhandler->linkcheck($link);
 if ($checked==1) {
     echo "1";
     die();
