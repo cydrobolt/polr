@@ -17,7 +17,7 @@ if ($_SESSION['role']=="adm") {
 }
 
 ?>
-<br><p><?php echo $wsn;?> is powered by Polr, an open source, minimalist link shortening platform. Learn more at <a href='https://github.com/Cydrobolt/polr'>our Github page</a>, our <a href="//project.polr.me">project site</a>, <a href="//polr.me/about">or our own about page</a>.
+<br><p><?php echo $wsn;?> is powered by Polr, an open source, minimalist link shortening platform. Learn more at <a href='https://github.com/Cydrobolt/polr'>our Github page</a>, our <a href="//project.polr.me">project site</a>, <a href="//polr.me/about.php">or our own about page</a>.
     <br>Polr is licensed under the GNU GPL License.</p>
 <div style="font-size: 70%; padding-top: 40px">
     The GNU General Public License v3
