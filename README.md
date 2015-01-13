@@ -45,6 +45,12 @@ Would like to contribute? Submit a pull request. Found an issue? Create an issue
 
 Polr operates a channel on the freenode IRC network, which can be used for purposes of development or general support. [Webchat](http://webchat.freenode.net/?channels=#polr)
 
+Development
+==================
+
+Polr is currently undergoing a massive cleanup/rewrite. Many new features will be implemented, plugins will be supported, and its general code structure will be changed. https://github.com/Cydrobolt/polr/issues/66
+
+
 ==================
 
 
