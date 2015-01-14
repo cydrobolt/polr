@@ -84,8 +84,8 @@
                 $data = '<?php
                            $host = "' . $_POST['dbserver'] . '";'.PHP_EOL
                         . '$user = "' . $_POST['dbuser'] . '";'.PHP_EOL
-                        . '$passwd="' . $_POST['dbpass'] . '";'.PHP_EOL
-                        . '$db="' . $_POST['dbname'] . '";'.PHP_EOL
+                        . '$passwd = "' . $_POST['dbpass'] . '";'.PHP_EOL
+                        . '$db = "' . $_POST['dbname'] . '";'.PHP_EOL
                         . '$wsa = "' . $_POST['appurl'] . '";'.PHP_EOL
                         . '$wsn = "' . $_POST['appname'] . '";'.PHP_EOL
                         . '$wsb = "' . $nowdate . '";'.PHP_EOL
