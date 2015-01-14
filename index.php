@@ -3,7 +3,7 @@ if (!@include('config.php')) {
     header('Location:setup.php');
 }
 @session_start();
-if (strlen($_SESSION['username']) < 1 && $li_show_front === true) {
+if (!isset($_SESSION['username']) && $li_show_front === true) {
     die("<h1>401 Unauthorized</h1><em><a href='login.php'>Login</a> to access this resource.</em>");
 }
 

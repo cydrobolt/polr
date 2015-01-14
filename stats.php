@@ -15,13 +15,12 @@ if(!$row) {
     require_once 'layout-footerlg.php';die();
 }
 
-if(!$row['user']) {
+if(!isset($row['user'])) {
     $row['user'] = '<i>Anonymous</i>';
 }
-if(!$row['country']) {
+if(!isset($row['country'])) {
     $row['country'] = '<i>Unknown</i>';
 }
-
 
 echo "<h2 style='display:inline'>Link Stats for </h2><h2 style='color:green'>$wsa/".$bv.'</h2><p class="text-muted">'.$row['rurl'].'</p><br>';
 echo "<div class='col-md-4'><h2>Clicks</h2><span style='color:blue'>{$row['clicks']}</span></div>";
