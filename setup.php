@@ -82,33 +82,33 @@
 
                 $nowdate = date('F d Y');
                 $data = '<?php
-                           $host="' . $_POST['dbserver'] . '";'
-                        . '$user="' . $_POST['dbuser'] . '";'
-                        . '$passwd="' . $_POST['dbpass'] . '";'
-                        . '$db="' . $_POST['dbname'] . '";'
-                        . '$wsa = "' . $_POST['appurl'] . '";'
-                        . '$wsn = "' . $_POST['appname'] . '";'
-                        . '$wsb = "' . $nowdate . '";'
-                        . '$ppass = \'' . hashpass($_POST['protpass']) . '\';'
-                        . '$hp = "' . sha1(rstr(30)) . "\";"
-                        . '$regtype = "' . $_POST['reg'] . "\";"
-                        . '$path = "' . $_POST['path'] . "\";"
-                        . '$fpass = ' . $_POST['fpass'] . ";"
-                        . '$li_shorten_only = ' . $_POST['li_shorten_only'] . ";"
-                        . '$theme = "' . $_POST['t'] . "\";"
-                        . '$ip = ' . $_POST['ipfetch'] . ";"
-                        . '$li_show_front = ' . $_POST['li_show_front'] . ";"
-                        . '$unstr = "' . $rstr . '";';
+                           $host = "' . $_POST['dbserver'] . '";'.PHP_EOL
+                        . '$user = "' . $_POST['dbuser'] . '";'.PHP_EOL
+                        . '$passwd="' . $_POST['dbpass'] . '";'.PHP_EOL
+                        . '$db="' . $_POST['dbname'] . '";'.PHP_EOL
+                        . '$wsa = "' . $_POST['appurl'] . '";'.PHP_EOL
+                        . '$wsn = "' . $_POST['appname'] . '";'.PHP_EOL
+                        . '$wsb = "' . $nowdate . '";'.PHP_EOL
+                        . '$ppass = \'' . hashpass($_POST['protpass']) . '\';'.PHP_EOL
+                        . '$hp = "' . sha1(rstr(30)) . "\";".PHP_EOL
+                        . '$regtype = "' . $_POST['reg'] . "\";".PHP_EOL
+                        . '$path = "' . $_POST['path'] . "\";".PHP_EOL
+                        . '$fpass = ' . $_POST['fpass'] . ";".PHP_EOL
+                        . '$li_shorten_only = ' . $_POST['li_shorten_only'] . ";".PHP_EOL
+                        . '$theme = "' . $_POST['t'] . "\";".PHP_EOL
+                        . '$ip = ' . $_POST['ipfetch'] . ";".PHP_EOL
+                        . '$li_show_front = ' . $_POST['li_show_front'] . ";".PHP_EOL
+                        . '$unstr = "' . $rstr . '";'.PHP_EOL;
 
 			    if (strlen($_POST['smtp-servers'])>1) {
                     $smtpSection = '
-                        $smtpCfg = array(
-                            "servers"  => \''.$_POST['smtp-servers'].'\',
-                            "from" => \''.$_POST['smtp-from'].'\',
-                            "username" => \''.$_POST['smtp-username'].'\',
-                            "password" => \''.$_POST['smtp-password'].'\',
-                        );
-                    ';
+                        $smtpCfg = array('.PHP_EOL
+                            . '"servers"  => \''.$_POST['smtp-servers'].'\','.PHP_EOL
+                            . '"from" => \''.$_POST['smtp-from'].'\','.PHP_EOL
+                            . '"username" => \''.$_POST['smtp-username'].'\','.PHP_EOL
+                            . '"password" => \''.$_POST['smtp-password'].'\','.PHP_EOL
+                        . ');'.PHP_EOL;
+
                     $data .= $smtpSection;
                 }
                 $data .= '?>';
