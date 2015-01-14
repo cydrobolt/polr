@@ -38,7 +38,7 @@ function autoloader($class) {
 }
 
 spl_autoload_register('autoloader');
-session_start();
+@session_start();
 
 function sqlex($table, $rowf, $where, $wval) {
     global $mysqli; //Import var into function
