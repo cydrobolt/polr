@@ -5,7 +5,7 @@ require_once('version.php');
 ?>
 <?php
 require_once('lib-core.php');
-if ($_SESSION['role']=="adm") {
+if (isset($_SESSION['role']) && $_SESSION['role'] == "adm") {
     echo "
     <h1>About Polr</h1>
     <br>
