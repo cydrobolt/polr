@@ -125,18 +125,18 @@
                 require_once('lib-core.php');
                 $path = $_POST['path'];
                 if (strlen($path) > 2) {
-                    $data = "<IfModule mod_rewrite.c>
-                            RewriteEngine On
-                            RewriteBase $path
-                            RewriteRule ^api$ api.php [L]
-                            RewriteRule ^api/$ api.php [L]
-                            RewriteCond %{REQUEST_FILENAME} !-f
-                            RewriteCond %{REQUEST_FILENAME} !-d
-                            RewriteRule ^([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ r.php?u=$1&lkey=$2 [L,QSA]
-                            RewriteRule ^([a-zA-Z0-9]+)/?$ r.php?u=$1 [L,QSA]
-                            RewriteRule ^t-([a-zA-Z0-9]+)/?$ r.php?u=t-$1 [L,QSA]
-                            RewriteRule ^/?\+([a-zA-Z0-9]+)$ stats.php?bv=$1 [L,QSA]
-                            </IfModule>";
+                    $data = "<IfModule mod_rewrite.c>".PHP_EOL
+                            . "RewriteEngine On".PHP_EOL
+                            . "RewriteBase $path".PHP_EOL
+                            . "RewriteRule ^api$ api.php [L]".PHP_EOL
+                            . "RewriteRule ^api/$ api.php [L]".PHP_EOL
+                            . "RewriteCond %{REQUEST_FILENAME} !-f".PHP_EOL
+                            . "RewriteCond %{REQUEST_FILENAME} !-d".PHP_EOL
+                            . "RewriteRule ^([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ r.php?u=\$1&lkey=\$2 [L,QSA]".PHP_EOL
+                            . "RewriteRule ^([a-zA-Z0-9]+)/?$ r.php?u=\$1 [L,QSA]".PHP_EOL
+                            . "RewriteRule ^t-([a-zA-Z0-9]+)/?$ r.php?u=t-\$1 [L,QSA]".PHP_EOL
+                            . "RewriteRule ^\+([a-zA-Z0-9]+)$ stats.php?bv=\$1 [L,QSA]".PHP_EOL
+                            . "</IfModule>";
                     $handle = fopen('.htaccess', 'w');
                     if (fwrite($handle, $data) === FALSE) {
                         echo "Can not write to (" . $file . ")";
