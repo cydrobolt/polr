@@ -22,7 +22,7 @@ if ($_SESSION['role']=="adm") {
 <div style="font-size: 70%; padding-top: 40px">
     The GNU General Public License v3
     <br>
-    Copyright (C) 2014 Chaoyi Zha, the Polr Project
+    Copyright (C) 2013-2015 Chaoyi Zha, the Polr Project
     <br />
     This program is free software: you can redistribute it and/or modify<br />
     it under the terms of the GNU General Public License as published by<br />
