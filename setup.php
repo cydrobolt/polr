@@ -215,7 +215,6 @@
                   `etc` text,
                   `etc2` text,
                   PRIMARY KEY (`rid`),
-                  KEY `rurl` (`rurl`),
                   KEY `baseval` (`baseval`),
                   KEY `baseval_2` (`baseval`),
                   KEY `rurl_2` (`rurl`),
