@@ -218,7 +218,7 @@
                   KEY `baseval` (`baseval`),
                   KEY `baseval_2` (`baseval`),
                   KEY `ip` (`ip`),
-                  KEY `iscustom` (`iscustom`),
+                  KEY `iscustom` (`iscustom`)
                 );');
                 sqlrun('
                CREATE TABLE `redirinfo-temp` (
@@ -238,7 +238,7 @@
                   PRIMARY KEY (`rid`),
                   KEY `baseval` (`baseval`),
                   KEY `ip` (`ip`),
-                  KEY `iscustom` (`iscustom`),
+                  KEY `iscustom` (`iscustom`)
                 );');
                 $acctpass = hashpass($_POST['acctpass']);
                 $nr = sha1(rstr(50));
