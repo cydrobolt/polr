@@ -217,14 +217,12 @@
                   PRIMARY KEY (`rid`),
                   KEY `baseval` (`baseval`),
                   KEY `baseval_2` (`baseval`),
-                  KEY `rurl_2` (`rurl`),
                   KEY `ip` (`ip`),
                   KEY `iscustom` (`iscustom`),
-                  KEY `rurl_3` (`rurl`,`rid`,`baseval`,`ip`,`iscustom`)
                 );');
                 sqlrun('
                CREATE TABLE `redirinfo-temp` (
-                  `rurl` varchar(80) NOT NULL,
+                  `rurl` tinytext NOT NULL,
                   `rid` smallint(200) NOT NULL AUTO_INCREMENT,
                   `baseval` varchar(30) NOT NULL,
                   `ip` varchar(90) NOT NULL,
@@ -238,13 +236,9 @@
                   `etc` text,
                   `etc2` text,
                   PRIMARY KEY (`rid`),
-                  KEY `rurl` (`rurl`),
                   KEY `baseval` (`baseval`),
-                  KEY `baseval_2` (`baseval`),
-                  KEY `rurl_2` (`rurl`),
                   KEY `ip` (`ip`),
                   KEY `iscustom` (`iscustom`),
-                  KEY `rurl_3` (`rurl`,`rid`,`baseval`,`ip`,`iscustom`)
                 );');
                 $acctpass = hashpass($_POST['acctpass']);
                 $nr = sha1(rstr(50));
