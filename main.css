@@ -4,3 +4,6 @@ footer {
   position:absolute;
   font-size:75%;
 }
+.demo-btn {
+    background: transparent url(../images/demo-button.png) 0 0 no-repeat !important;
+}
