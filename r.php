@@ -17,22 +17,23 @@ $result = $mysqli->query($query) or showerror();
 
 $row = mysqli_fetch_assoc($result);
 
-
-if (!$row['rurl']) {
+if (!isset($row['rurl']) || strlen($row['rurl']) < 1) {
     header("Location: 404.php", true, 302);
+    die();
 }
 if (strtolower($row['rurl']) == "disabled") {
     require_once 'layout-headerlg.php';
     echo "<h2>The link you are trying to reach has been disabled.</h2><br>"
     . "Sorry for the inconvienience.";
     require_once 'layout-footerlg.php';
+    die();
 }
 $lkey = @$row['lkey'];
-if (strlen($lkey)>1) {
-	// Key needed? Check for it
+if (strlen($lkey) > 1) {
+	// check for key
 	$sent_lkey = isset($_GET[$lkey]);
 	if ($sent_lkey) {
-		// yup, right key...continue on
+		// correct key
 	}
 	else {
 		require_once('layout-headerlg.php');
