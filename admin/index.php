@@ -14,7 +14,7 @@ if (!is_array($auth->islogged())) {
     function fetchurls($lstart = 0) {
         global $userinfo;
         global $mysqli;
-        $sqr = "SELECT `baseval`,`rurl`,`date`,`lkey` FROM `redirinfo` WHERE user = '{$mysqli->real_escape_string($userinfo['username'])}' LIMIT {$lstart} , 50;";
+        $sqr = "SELECT `baseval`,`rurl`,`date`,`lkey` FROM `redirinfo` WHERE user = '{$mysqli->real_escape_string($userinfo['username'])}' LIMIT {$lstart} , 720;";
         $res = $mysqli->query($sqr);
         $links =  mysqli_fetch_all($res, MYSQLI_ASSOC);
 
