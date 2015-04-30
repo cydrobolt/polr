@@ -25,14 +25,15 @@
  */
 $reqargs['nosession'] = true;
 require_once('lib-core.php'); //Fetch Config
-require_once('dnsbl.php'); //Load Google SafeBrowsing Script
+// require_once('dnsbl.php'); //Load Google SafeBrowsing Script
 
 $protocol = '://';
 if (!strstr($_REQUEST['url'], $protocol)) {
     $urlr = "http" . $protocol . $_REQUEST['url']; //add http:// if :// not there
 }
 
-$dnsbl = new dnsbl(); //create a gsb object
+// $dnsbl = new dnsbl(); //create a gsb object
+
 if (is_string($_REQUEST['apikey']) && is_string($_REQUEST['action']) && is_string($_REQUEST['url'])) {
     $apikey = $mysqli->real_escape_string($_REQUEST['apikey']); //Sanitize input
     $action = $mysqli->real_escape_string($_REQUEST['action']);
@@ -66,13 +67,14 @@ if (!filter_var($url_api, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) && $ac
 }
 //Check if URL given is malware/phishing
 
+/*
 $isbl = $dnsbl->isbl($url_api);
 if ($isbl === "malware" || $isbl === "phishing") {
     header("HTTP/1.0 401 Unauthorized");
     echo "Polr does not shorten potentially malicious URLs"; //If link tests positive to possible malware/phish, then block
     die();
 }
-
+*/
 function lookup($urltl) {
     global $mysqli;
     $val = $mysqli->real_escape_string($urltl);
