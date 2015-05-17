@@ -87,7 +87,6 @@ if($customurl == "") {
     $iscustom = "no";
 }
 //check custom url
-$not_allowed_custom = array('.');
 if($customurl!="") {
         if(!ctype_alnum($customurl)) {
             echo "<b>Symbols or spaces are not allowed in a customized URL - alphanumeric only. <a href='index.php'>Try again</a></b>";
