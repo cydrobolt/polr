@@ -88,8 +88,8 @@ if($customurl == "") {
 }
 //check custom url
 if($customurl!="") {
-        if(!ctype_alnum($customurl)) {
-            echo "<b>Symbols or spaces are not allowed in a customized URL - alphanumeric only. <a href='index.php'>Try again</a></b>";
+        if (!preg_match('^[\pL\pN\-\._~:\/\?#\[\]@!\$&\'\(\)\*\+,;=%]+$', $customurl)) {
+            echo "<b>Custom Link must be an RFC compliant URI. <a href='index.php'>Try again</a></b>";
             die();
         }
         if(strlen($customurl)>20) {
