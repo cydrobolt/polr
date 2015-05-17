@@ -88,7 +88,7 @@ if($customurl == "") {
 }
 //check custom url
 if($customurl!="") {
-        if (!preg_match('^[\pL\pN\-\._~:\/\?#\[\]@!\$&\'\(\)\*\+,;=%]+$', $customurl)) {
+        if (!preg_match('/^[\pL\pN\-\._~:\/\?#\[\]@!\$&\'\(\)\*\+,;=%]+$/', $customurl)) {
             echo "<b>Custom Link must be an RFC compliant URI. <a href='index.php'>Try again</a></b>";
             die();
         }
