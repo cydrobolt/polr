@@ -297,7 +297,7 @@
                 . "<option value='false'>No (default)</option>"
                 . "<option value='true'>Yes (could cause problems unless helper-mailsend.php/email is properly set up)</option>"
                 . "</select><br /><br />";
-                echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" placeholder=\"/polr\" value=\"\"><br>";
+                echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" placeholder=\"/polr/\" value=\"\"><br>";
                 echo "Theme (choose wisely, click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots: <select name='t' style='width:650px' class='form-control'>"
                 . "<option value='css/modern-bootstrap.min.css'>Modern (default)</option>"
                 . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css'>Midnight Black</option>"
