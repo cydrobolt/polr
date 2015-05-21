@@ -297,20 +297,21 @@
                 . "<option value='false'>No (default)</option>"
                 . "<option value='true'>Yes (could cause problems unless helper-mailsend.php/email is properly set up)</option>"
                 . "</select><br /><br />";
-                echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" value=\"/polr/\"><br>";
+                echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" placeholder=\"/polr\" value=\"\"><br>";
                 echo "Theme (choose wisely, click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots: <select name='t' style='width:650px' class='form-control'>"
-                . "<option value=''>Classic (default)</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cyborg/bootstrap.min.css'>Midnight Black</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/amelia/bootstrap.min.css'>Cheery</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/united/bootstrap.min.css'>Orange</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/simplex/bootstrap.min.css'>Crisp White</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/darkly/bootstrap.min.css'>Cloudy Night</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cerulean/bootstrap.min.css'>Calm Skies</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/paper/bootstrap.min.css'>Android Material Design</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/superhero/bootstrap.min.css'>Blue Metro</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/sandstone/bootstrap.min.css'>Sandstone</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cyborg/bootstrap.min.css'>Jet Black</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/lumen/bootstrap.min.css'>Newspaper</option>"
+                . "<option value='css/modern-bootstrap.min.css'>Modern (default)</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css'>Midnight Black</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/amelia/bootstrap.min.css'>Cheery</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/united/bootstrap.min.css'>Orange</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/simplex/bootstrap.min.css'>Crisp White</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/darkly/bootstrap.min.css'>Cloudy Night</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cerulean/bootstrap.min.css'>Calm Skies</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css'>Android Material Design</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/superhero/bootstrap.min.css'>Blue Metro</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/sandstone/bootstrap.min.css'>Sandstone</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css'>Jet Black</option>"
+                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/lumen/bootstrap.min.css'>Newspaper</option>"
+                . "<option value=''>Classic (old default)</option>"
 
                 . "</select><br /><br />";
 
