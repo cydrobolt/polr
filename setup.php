@@ -178,68 +178,66 @@
                   `quota` int(11) NOT NULL,
                   PRIMARY KEY (`apikey`),
                   UNIQUE KEY `email` (`email`),
-                  KEY `email_2` (`email`),
-                  KEY `valid` (`valid`),
-                  KEY `aindex` (`valid`,`email`)
+                  KEY `email` (`email`),
+                  KEY `valid` (`valid`)
                 );');
 
                 sqlrun('
-                CREATE TABLE `auth` (
-                    `username` varchar(50) NOT NULL,
-                    `password` text NOT NULL,
-                    `email` varchar(65) NOT NULL,
-                    `rkey` varchar(65) NOT NULL,
-                    `role` varchar(37) NOT NULL,
-                    `valid` tinyint(1) NOT NULL DEFAULT "0",
-                    `uid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    `theme` varchar(65) NOT NULL,
-                    `ip` tinytext NOT NULL,
-                    KEY `valid` (`valid`),
-                    KEY `email3` (`email`),
-                    KEY `username2` (`username`)
-                );');
+		CREATE TABLE `auth` (
+		    `username` varchar(50) NOT NULL,
+		    `password` text NOT NULL,
+		    `email` varchar(65) NOT NULL,
+		    `rkey` varchar(65) NOT NULL,
+		    `role` varchar(37) NOT NULL,
+		    `valid` tinyint(1) NOT NULL DEFAULT "0",
+		    `uid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		    `theme` varchar(65) NOT NULL,
+		    `ip` tinytext NOT NULL,
+		    KEY `valid` (`valid`),
+		    KEY `email` (`email`),
+		    KEY `username` (`username`)
+		);');
 
                 sqlrun('
-               CREATE TABLE `redirinfo` (
-                  `rurl` text NOT NULL,
-                  `rid` smallint(200) NOT NULL AUTO_INCREMENT,
-                  `baseval` varchar(30) NOT NULL,
-                  `ip` varchar(90) NOT NULL,
-                  `iscustom` varchar(4) NOT NULL,
-                  `user` tinytext NOT NULL,
-                  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                  `country` varchar(10) NOT NULL,
-                  `lkey` tinytext NOT NULL,
-                  `clicks` int(11) NOT NULL,
-                  `pw` int(120) NOT NULL,
-                  `etc` text,
-                  `etc2` text,
-                  PRIMARY KEY (`rid`),
-                  KEY `baseval` (`baseval`),
-                  KEY `baseval_2` (`baseval`),
-                  KEY `ip` (`ip`),
-                  KEY `iscustom` (`iscustom`)
-                );');
+		CREATE TABLE `redirinfo` (
+		  `rurl` text NOT NULL,
+		  `rid` smallint(200) NOT NULL AUTO_INCREMENT,
+		  `baseval` varchar(30) NOT NULL,
+		  `ip` varchar(90) NOT NULL,
+		  `iscustom` varchar(4) NOT NULL,
+		  `user` tinytext NOT NULL,
+		  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  `country` varchar(10) NOT NULL,
+		  `lkey` tinytext NOT NULL,
+		  `clicks` int(11) NOT NULL,
+		  `pw` int(120) NOT NULL,
+		  `etc` text,
+		  `etc2` text,
+		  PRIMARY KEY (`rid`),
+		  KEY `baseval` (`baseval`),
+		  KEY `ip` (`ip`),
+		  KEY `iscustom` (`iscustom`)
+		);');
                 sqlrun('
-               CREATE TABLE `redirinfo-temp` (
-                  `rurl` text NOT NULL,
-                  `rid` smallint(200) NOT NULL AUTO_INCREMENT,
-                  `baseval` varchar(30) NOT NULL,
-                  `ip` varchar(90) NOT NULL,
-                  `iscustom` varchar(4) NOT NULL,
-                  `user` tinytext NOT NULL,
-                  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                  `country` tinytext NOT NULL,
-                  `theme` varchar(65) NOT NULL,
-                  `clicks` int(11) NOT NULL,
-                  `pw` int(120) NOT NULL,
-                  `etc` text,
-                  `etc2` text,
-                  PRIMARY KEY (`rid`),
-                  KEY `baseval` (`baseval`),
-                  KEY `ip` (`ip`),
-                  KEY `iscustom` (`iscustom`)
-                );');
+		CREATE TABLE `redirinfo-temp` (
+		  `rurl` text NOT NULL,
+		  `rid` smallint(200) NOT NULL AUTO_INCREMENT,
+		  `baseval` varchar(30) NOT NULL,
+		  `ip` varchar(90) NOT NULL,
+		  `iscustom` varchar(4) NOT NULL,
+		  `user` tinytext NOT NULL,
+		  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		  `country` tinytext NOT NULL,
+		  `theme` varchar(65) NOT NULL,
+		  `clicks` int(11) NOT NULL,
+		  `pw` int(120) NOT NULL,
+		  `etc` text,
+		  `etc2` text,
+		  PRIMARY KEY (`rid`),
+		  KEY `baseval` (`baseval`),
+		  KEY `ip` (`ip`),
+		  KEY `iscustom` (`iscustom`)
+		);');
                 $acctpass = hashpass($_POST['acctpass']);
                 $nr = sha1(rstr(50));
                 sqlrun("INSERT INTO auth (username,email,password,rkey,valid,role) VALUES ('{$_POST['acct']}','{$_POST['acctemail']}','{$acctpass}','{$nr}','1','adm') ");
