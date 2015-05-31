@@ -1,20 +1,82 @@
 <?php
+// 5lcCOCvI*g&r
 
 require_once '../lib-core.php';
 require_once 'headerpage.php';
 require_once '../lib-auth.php';
 $auth = new polrauth();
 $isadmin = $auth->isadminli();
+
+@$users_page = $_GET['upage'];
+@$links_page = $_GET['lpage'];
+@$admin_links_page = $_GET['alpage'];
+
+function table_length($table_name) {
+    global $mysqli;
+    if ($table_name == "redirinfo") {
+        $colname = "rurl";
+    }
+    else if ($table_name == "auth") {
+        $colname = "username";
+    }
+    $result = $mysqli->query("SELECT COUNT(`{$colname}`) FROM `{$table_name}`;") or showerror();
+    $count = ($result->fetch_assoc());
+    $count = (double) $count["COUNT(`{$colname}`)"];
+
+    $pages = $count / 30;
+
+    return ceil($pages);
+}
+function paginate_table($current_page = 0, $total_pages = 0, $pag_name, $sel_name) {
+    $markup = '<ul class="pagination">';
+    $next_page = $current_page + 1;
+    $prev_page = $current_page - 1;
+
+    $prev_class = "";
+    $next_class = "";
+    if ($prev_page < 0) {
+        $prev_class = "disabled";
+    }
+    if ($next_page > ($total_pages - 1)) {
+        $next_class = "disabled";
+    }
+
+    $markup .= "<li class='{$prev_class}'><a href='?{$pag_name}={$prev_page}#{$sel_name}'>&laquo;</a></li>";
+    for ($i=0; $i<$total_pages; $i++) {
+        if ($i == $current_page) {
+            $class = "active";
+        }
+        else {
+            $class = "";
+        }
+        $markup .= "<li class='{$class}'><a href='?{$pag_name}={$i}#{$sel_name}'>{$i}</a></li>";
+    }
+    $markup .= "<li class='{$next_class}'><a href='?{$pag_name}={$next_page}#{$sel_name}'>&raquo;</a></li>";
+    $markup .= '</ul>';
+    return $markup;
+}
+
+function user_link_table_length($current_user) {
+    global $mysqli;
+    $current_user = $mysqli->real_escape_string($current_user);
+    $result = $mysqli->query("SELECT COUNT(`rurl`) FROM `redirinfo` WHERE `user` = '{$current_user}';") or showerror();
+
+    $count = ($result->fetch_assoc());
+    $count = (double) $count["COUNT(`rurl`)"];
+    $pages = $count / 30;
+    return ceil($pages);
+}
+
 if (!is_array($auth->islogged())) {
-    echo "<h3>You must login to access this page.</h3><br><a href='index.php'>Home</a>";
+    echo "<h3>You must <a href='../login.php'>login</a> to access this page.</h3><br><a href='index.php'>Home</a>";
     require_once '../layout-footerlg.php';
     die();
 } else {
     $userinfo = $auth->islogged();
-    function fetchurls($lstart = 0) {
+    function fetchurls($lstart = 0, $limit = 30) {
         global $userinfo;
         global $mysqli;
-        $sqr = "SELECT `baseval`,`rurl`,`date`,`lkey` FROM `redirinfo` WHERE user = '{$mysqli->real_escape_string($userinfo['username'])}' LIMIT {$lstart} , 720;";
+        $sqr = "SELECT `baseval`,`rurl`,`date`,`lkey` FROM `redirinfo` WHERE user = '{$mysqli->real_escape_string($userinfo['username'])}' LIMIT {$lstart} , {$limit};";
         $res = $mysqli->query($sqr);
         $links =  mysqli_fetch_all($res, MYSQLI_ASSOC);
 
@@ -25,7 +87,7 @@ if (!is_array($auth->islogged())) {
                 $is_secret = "True";
             }
             $linkshtml = $linkshtml . "<tr><td>" . $link['baseval'] . '</td>'
-                    . "<td>" . substr($link['rurl'], 0, 170) . '</td>'
+                    . "<td>" . substr($link['rurl'], 0, 255) . '</td>'
                     . "<td>" . $link['date'] . '</td>'
                     . "<td>" . $is_secret . "</td>";
         }
@@ -33,7 +95,24 @@ if (!is_array($auth->islogged())) {
         return $linkshtml;
     }
 
-    $linkshtml = fetchurls();
+    $links_total_pages = user_link_table_length($userinfo['username']);
+    $linkshtml = false;
+    if ($links_page && is_numeric($links_page)) {
+        // If valid links page
+        $links_page = intval($links_page);
+        if ($links_page < $links_total_pages && $links_page > 0) {
+            $ls = (30 * $links_page);
+            $limit = ($lstart + 30);
+            $linkshtml = fetchurls($ls, $limit);
+        }
+    }
+    if ($linkshtml == false) {
+        $linkshtml = fetchurls();
+        $links_page = 0;
+    }
+    $linkshtml .= paginate_table($links_page, $links_total_pages, "lpage", "links");
+
+
     echo "<h3>Polr Dashboard</h3><br>";
     echo '<ul class="nav nav-tabs" id="tabsb">
             <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
@@ -43,7 +122,7 @@ if (!is_array($auth->islogged())) {
     if ($isadmin == true) {
         echo '<li><a href="#adminpanel" data-toggle="tab">Admin Panel</a></li>';
 
-        function fetchurlsadmin($lstart = 0, $limit = 360) {
+        function fetchurlsadmin($lstart = 0, $limit = 30) {
             global $mysqli;
             $sqr = "SELECT `baseval`,`rurl`,`date`,`user`,`ip`,`lkey` FROM `redirinfo` LIMIT {$lstart} , {$limit};";
             $res = $mysqli->query($sqr);
@@ -54,8 +133,14 @@ if (!is_array($auth->islogged())) {
                 if (strlen($link['lkey']) > 1) {
                     $is_secret = "True";
                 }
+
+
+                $rurl_trimmed = substr($link['rurl'], 0, 200);
+                if (strlen($link['rurl']) > 200) {
+                    $rurl_trimmed .= "<h4 class='inline'><a href='../+{$link['baseval']}'>...</a></h4>";
+                }
                 $linkshtml = $linkshtml . "<tr><td>" . $link['baseval'] . '</td>'
-                        . "<td>" . substr($link['rurl'], 0, 170) . '</td>'
+                        . "<td>" . $rurl_trimmed . '</td>'
                         . "<td>" . $link['date'] . '</td>'
                         . "<td>" . $link['user'] . '</td>'
                         . "<td>" . $link['ip'] . '</td>'
@@ -70,9 +155,9 @@ if (!is_array($auth->islogged())) {
             return $linkshtml;
         }
 
-        function fetchusersadmin($lstart = 0) {
+        function fetchusersadmin($lstart = 0, $limit = 30) {
             global $mysqli;
-            $sqr = "SELECT `username`,`email`,`valid` FROM `auth` LIMIT {$lstart} , 720;";
+            $sqr = "SELECT `username`,`email`,`valid` FROM `auth` LIMIT {$lstart} , {$limit};";
             $res = $mysqli->query($sqr);
             $links = mysqli_fetch_all($res, MYSQLI_ASSOC);
             $usershtml = '<table class="table table-hover"><tr><th>Username</th><th>Email</th><th>Activated?</th></tr>';
@@ -85,22 +170,58 @@ if (!is_array($auth->islogged())) {
             return $usershtml;
         }
 
-        $usersadmin = fetchusersadmin();
-        $linksadmin = fetchurlsadmin();
-    }
-    if (!$isadmin) {
-        // Shown to users
-        $status = file_get_contents('https://raw.githubusercontent.com/Cydrobolt/polr/notices/unotices'); // fetch notices from Github
-        if (strlen($status)<4) {
+        $users_total_pages = table_length("auth");
+        $usersadmin = false;
+        if ($users_page && is_numeric($users_page)) {
+            // If valid users page
+            $users_page = intval($users_page);
+            if ($users_page < $users_total_pages  && $users_page > 0) {
+                $ls1 = (30 * $users_page);
+                $limit = ($ls1 + 30);
+
+                $usersadmin = fetchusersadmin($ls1, $limit);
+            }
+        }
+
+        if ($usersadmin == false) {
+            $usersadmin = fetchusersadmin();
+            $users_page = 0;
+        }
+        $usersadmin .= paginate_table($users_page, $users_total_pages, "upage", "adminpanel");
+
+
+        $admin_links_total_pages = table_length("redirinfo");
+
+        $linksadmin = false;
+        if ($admin_links_page && is_numeric($admin_links_page)) {
+            // If valid users page
+            $users_page = intval($admin_links_page);
+            if ($admin_links_page < $admin_links_total_pages && $admin_links_page > 0) {
+                $lstart = (30 * $users_page);
+                $limit = ($lstart + 30);
+                $linksadmin = fetchurlsadmin($lstart, $limit);
+            }
+        }
+
+        if ($linksadmin == false) {
+            $linksadmin = fetchurlsadmin();
+            $admin_links_page = 0;
+        }
+
+        $linksadmin .= paginate_table($admin_links_page, $admin_links_total_pages, "alpage", "adminpanel");
+
+        $status = file_get_contents('https://raw.githubusercontent.com/Cydrobolt/polr/notices/anotices'); // fetch notices from Github
+        if (strlen($status)<30) {
             $msges = '<div class="tab-pane" id="messages"><br><b>There are <span style="color:green">no new messages</span>.</b></div>';
         }
         else {
             $msges = '<div class="tab-pane" id="messages"><br>'.$status.'</div>';
         }
     }
-    else if ($isadmin == true) {
-        $status = file_get_contents('https://raw.githubusercontent.com/Cydrobolt/polr/notices/anotices'); // fetch notices from Github
-        if (strlen($status)<4) {
+    else {
+        // Shown to users
+        $status = file_get_contents('https://raw.githubusercontent.com/Cydrobolt/polr/notices/unotices'); // fetch notices from Github
+        if (strlen($status)<30) {
             $msges = '<div class="tab-pane" id="messages"><br><b>There are <span style="color:green">no new messages</span>.</b></div>';
         }
         else {
@@ -125,7 +246,7 @@ if (!is_array($auth->islogged())) {
           </div>';
     if ($isadmin == true) {
         echo '<div class="tab-pane" id="adminpanel"><br />';
-        echo 'Polr Links - Limited @ 720:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="../js/ucp.js"></script>';
+        echo 'Polr Links:' . $linksadmin . '<br>Polr Users' . $usersadmin. '<script src="../js/ucp.js"></script>';
         echo 'Disable a Link<br />';
         echo '<input type="text" id="linkAction" placeholder="Link ending" style="width:30%;" class="form-control" />';
         echo '<div class="linkActionBtn"><a href="javascript:void()" onclick="customDisableLink();" class="btn btn-sm btn-danger">Disable</a>&nbsp;';
