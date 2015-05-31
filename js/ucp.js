@@ -10,7 +10,16 @@ $(document).ready(function() {
         window.location.hash = e.target.hash;
     });
 });
-
+function customDisableLink() {
+    var baseval = $("#linkAction").val();
+    dodisable(baseval);
+    window.alert("Disabled.");
+}
+function customEnableLink() {
+    var baseval = $("#linkAction").val();
+    doenable(baseval);
+    window.alert("Enabled.");
+}
 function dodisable(baseval) {
     //var baseval = $(this).attr('id');
     var basevalr = baseval;

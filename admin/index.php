@@ -8,7 +8,7 @@ $isadmin = $auth->isadminli();
 if (!is_array($auth->islogged())) {
     echo "<h3>You must login to access this page.</h3><br><a href='index.php'>Home</a>";
     require_once '../layout-footerlg.php';
-    die(); //END NOT LOGGED IN PORTION
+    die();
 } else {
     $userinfo = $auth->islogged();
     function fetchurls($lstart = 0) {
@@ -124,7 +124,12 @@ if (!is_array($auth->islogged())) {
               </form>
           </div>';
     if ($isadmin == true) {
-        echo '<div class="tab-pane" id="adminpanel"><br>Polr Links - Limited @ 720:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="../js/ucp.js"></script>';
+        echo '<div class="tab-pane" id="adminpanel"><br />';
+        echo 'Polr Links - Limited @ 720:' . $linksadmin . '<br>Polr Users - Limited @ 360:' . $usersadmin. '<script src="../js/ucp.js"></script>';
+        echo 'Disable a Link<br />';
+        echo '<input type="text" id="linkAction" placeholder="Link ending" style="width:30%;" class="form-control" />';
+        echo '<div class="linkActionBtn"><a href="javascript:void()" onclick="customDisableLink();" class="btn btn-sm btn-danger">Disable</a>&nbsp;';
+        echo '<a href="javascript:void()" onclick="customEnableLink();" class="btn btn-sm btn-success">Enable</a></div>';
         if ($debug == 1) {
             '<br>Debug Variables: <br>Default IP Fetch: ' . $ip . '<br>X-Forwarded-For:' . @$headers['X-Forwarded-For'] . '<br>Forwarded-For' . @$headers['forwarded-for'];
         }
