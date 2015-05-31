@@ -201,7 +201,7 @@
 
                 sqlrun('
                CREATE TABLE `redirinfo` (
-                  `rurl` tinytext NOT NULL,
+                  `rurl` text NOT NULL,
                   `rid` smallint(200) NOT NULL AUTO_INCREMENT,
                   `baseval` varchar(30) NOT NULL,
                   `ip` varchar(90) NOT NULL,
@@ -222,7 +222,7 @@
                 );');
                 sqlrun('
                CREATE TABLE `redirinfo-temp` (
-                  `rurl` tinytext NOT NULL,
+                  `rurl` text NOT NULL,
                   `rid` smallint(200) NOT NULL AUTO_INCREMENT,
                   `baseval` varchar(30) NOT NULL,
                   `ip` varchar(90) NOT NULL,
