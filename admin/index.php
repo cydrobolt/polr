@@ -1,6 +1,4 @@
 <?php
-// 5lcCOCvI*g&r
-
 require_once '../lib-core.php';
 require_once 'headerpage.php';
 require_once '../lib-auth.php';
