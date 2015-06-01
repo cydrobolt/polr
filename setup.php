@@ -178,7 +178,6 @@
                   `quota` int(11) NOT NULL,
                   PRIMARY KEY (`apikey`),
                   UNIQUE KEY `email` (`email`),
-                  KEY `email` (`email`),
                   KEY `valid` (`valid`)
                 );');
 
