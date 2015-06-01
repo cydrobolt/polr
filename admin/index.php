@@ -74,7 +74,7 @@ if (!is_array($auth->islogged())) {
     function fetchurls($lstart = 0, $limit = 30) {
         global $userinfo;
         global $mysqli;
-        $sqr = "SELECT `baseval`,`rurl`,`date`,`lkey` FROM `redirinfo` WHERE user = '{$mysqli->real_escape_string($userinfo['username'])}' LIMIT {$lstart} , {$limit};";
+        $sqr = "SELECT `baseval`,`rurl`,`date`,`lkey` FROM `redirinfo` WHERE user = '{$mysqli->real_escape_string($userinfo['username'])}' ORDER BY `rid` LIMIT {$lstart} , 30;";
         $res = $mysqli->query($sqr);
         $links =  mysqli_fetch_all($res, MYSQLI_ASSOC);
 
@@ -100,8 +100,8 @@ if (!is_array($auth->islogged())) {
         $links_page = intval($links_page);
         if ($links_page < $links_total_pages && $links_page > 0) {
             $ls = (30 * $links_page);
-            $limit = ($lstart + 30);
-            $linkshtml = fetchurls($ls, $limit);
+            $lim = 30;
+            $linkshtml = fetchurls($ls, $lim);
         }
     }
     if ($linkshtml == false) {
@@ -122,7 +122,7 @@ if (!is_array($auth->islogged())) {
 
         function fetchurlsadmin($lstart = 0, $limit = 30) {
             global $mysqli;
-            $sqr = "SELECT `baseval`,`rurl`,`date`,`user`,`ip`,`lkey` FROM `redirinfo` LIMIT {$lstart} , {$limit};";
+            $sqr = "SELECT `baseval`,`rurl`,`date`,`user`,`ip`,`lkey` FROM `redirinfo` ORDER BY `rid` LIMIT {$lstart} , 30;";
             $res = $mysqli->query($sqr);
             $links = mysqli_fetch_all($res, MYSQLI_ASSOC);
             $linkshtml = '<table class="table table-hover"><tr><th>Link ending</th><th>Long Link</th><th>Date</th><th>Link Owner</th><th>IP</th><th>Secret</th><th>Disable/Enable</th></tr>';
@@ -155,7 +155,7 @@ if (!is_array($auth->islogged())) {
 
         function fetchusersadmin($lstart = 0, $limit = 30) {
             global $mysqli;
-            $sqr = "SELECT `username`,`email`,`valid` FROM `auth` LIMIT {$lstart} , {$limit};";
+            $sqr = "SELECT `username`,`email`,`valid` FROM `auth` ORDER BY `uid` LIMIT {$lstart} , 30;";
             $res = $mysqli->query($sqr);
             $links = mysqli_fetch_all($res, MYSQLI_ASSOC);
             $usershtml = '<table class="table table-hover"><tr><th>Username</th><th>Email</th><th>Activated?</th></tr>';
@@ -175,9 +175,9 @@ if (!is_array($auth->islogged())) {
             $users_page = intval($users_page);
             if ($users_page < $users_total_pages  && $users_page > 0) {
                 $ls1 = (30 * $users_page);
-                $limit = ($ls1 + 30);
+                $lim1 = 30;
 
-                $usersadmin = fetchusersadmin($ls1, $limit);
+                $usersadmin = fetchusersadmin($ls1, $lim1);
             }
         }
 
@@ -195,9 +195,9 @@ if (!is_array($auth->islogged())) {
             // If valid users page
             $users_page = intval($admin_links_page);
             if ($admin_links_page < $admin_links_total_pages && $admin_links_page > 0) {
-                $lstart = (30 * $users_page);
-                $limit = ($lstart + 30);
-                $linksadmin = fetchurlsadmin($lstart, $limit);
+                $ls2 = (30 * $users_page);
+                $lim2 = 30;
+                $linksadmin = fetchurlsadmin($ls2, $lim2);
             }
         }
 
@@ -244,8 +244,8 @@ if (!is_array($auth->islogged())) {
           </div>';
     if ($isadmin == true) {
         echo '<div class="tab-pane" id="adminpanel"><br />';
-        echo 'Polr Links:' . $linksadmin . '<br>Polr Users' . $usersadmin. '<script src="../js/ucp.js"></script>';
-        echo 'Disable a Link<br />';
+        echo '<p>Polr Links:</p>' . $linksadmin . '<br><p>Polr Users</p>' . $usersadmin. '<script src="../js/ucp.js"></script>';
+        echo '<p>Disable a Link</p>';
         echo '<input type="text" id="linkAction" placeholder="Link ending" style="width:30%;" class="form-control" />';
         echo '<div class="linkActionBtn"><a href="javascript:void()" onclick="customDisableLink();" class="btn btn-sm btn-danger">Disable</a>&nbsp;';
         echo '<a href="javascript:void()" onclick="customEnableLink();" class="btn btn-sm btn-success">Enable</a></div>';

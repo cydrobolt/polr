@@ -4,8 +4,6 @@ $(function() {
    $('#options').hide();
    var slid=0;
    optionsbutton.click(function() {
-       //var absfoot = $('#polrfooter').html();
-       //var pfoot = '<p id="footer">&copy; Copyright 2014 Polr</p>';
         if (slid===0) {
             $("#options").slideDown();
             slid = 1;
