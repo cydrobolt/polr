@@ -21,3 +21,13 @@ footer {
     width: 120px;
     display: inline;
 }
+td {
+    word-wrap: break-word;
+}
+table {
+    width: 100%;
+    table-layout:fixed;
+}
+.inline {
+    display: inline;
+}
