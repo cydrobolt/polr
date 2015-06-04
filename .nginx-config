@@ -18,7 +18,7 @@ server {
         rewrite ^/([a-zA-Z0-9]+)/?$ /r.php?u=$1;
         rewrite ^/?\+([a-zA-Z0-9]+)$ /stats.php?bv=$1;
     }
-    location /t {
+    location /t- {
         rewrite ^/t-([a-zA-Z0-9]+)/?$ /r.php?u=t-$1;
     }
     location /api {
