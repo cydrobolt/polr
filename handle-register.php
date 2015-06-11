@@ -8,12 +8,19 @@ $sgmail = new sgmail();
 
 $isemail = filteremail($_POST['email']);
 
+if ($regtype == "none") {
+    require_once 'layout-headerlg.php';
+    echo "Registration is disabled. <br><br><a href='register.php'>Go Back</a>";
+    require_once 'layout-footerlg.php';
+    die(); //prevent user from registering
+}
 if (!$isemail) {
     require_once 'layout-headerlg.php';
     echo "Please enter a valid email. <br><br><a href='register.php'>Go Back</a>";
     require_once 'layout-footerlg.php';
     die(); //prevent user from registering
 }
+
 if ((strlen($_POST['username']) > 15) || (strlen($_POST['password']) > 25) || (strlen($_POST['email']) > 50)) {
     require_once 'layout-headerlg.php';
     echo "Your username must not be over 15 characters, password must be under 25 characters but over 6 characters, and email must be under 50 charcaters. <br><br><a href='register.php'>Go Back</a>";
