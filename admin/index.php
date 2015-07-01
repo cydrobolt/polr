@@ -208,7 +208,7 @@ if (!is_array($auth->islogged())) {
 
         $linksadmin .= paginate_table($admin_links_page, $admin_links_total_pages, "alpage", "adminpanel");
 
-        $status = file_get_contents('https://raw.githubusercontent.com/Cydrobolt/polr/notices/anotices'); // fetch notices from Github
+        $status = "";// file_get_contents('https://raw.githubusercontent.com/Cydrobolt/polr/notices/anotices'); // fetch notices from Github
         if (strlen($status)<30) {
             $msges = '<div class="tab-pane" id="messages"><br><b>There are <span style="color:green">no new messages</span>.</b></div>';
         }
@@ -218,7 +218,7 @@ if (!is_array($auth->islogged())) {
     }
     else {
         // Shown to users
-        $status = file_get_contents('https://raw.githubusercontent.com/Cydrobolt/polr/notices/unotices'); // fetch notices from Github
+        $status = "";// file_get_contents('https://raw.githubusercontent.com/Cydrobolt/polr/notices/unotices'); // fetch notices from Github
         if (strlen($status)<30) {
             $msges = '<div class="tab-pane" id="messages"><br><b>There are <span style="color:green">no new messages</span>.</b></div>';
         }
