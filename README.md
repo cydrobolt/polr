@@ -13,10 +13,12 @@ Polr is an enterprise-class open-source link shortening web application designed
 
 Polr uses Semantic Versioning http://semver.org/
 
+Recommended Installation Method
+==================
+Using OpenShift by Red Hat to host your instance of Polr for free is highly recommended. You can instantly deploy an instance of Polr by using this quickstart: https://hub.openshift.com/quickstarts/180-polr
 
 
-
-Installation
+Manual Installation
 ==================
 
  - Unpack Polr, or clone the git repo. Only the `git clone` option allows quick updating through `git pull`.
