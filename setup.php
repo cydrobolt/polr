@@ -298,7 +298,7 @@
                 echo "Theme (choose wisely, click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots: <select name='t' style='width:650px' class='form-control'>"
                 . "<option value=''>Modern (default)</option>"
                 . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css'>Midnight Black</option>"
-                . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/amelia/bootstrap.min.css'>Cheery</option>"
+                . "<option value='/css/install-bootstrap.css'>Cheery</option>"
                 . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/united/bootstrap.min.css'>Orange</option>"
                 . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/simplex/bootstrap.min.css'>Crisp White</option>"
                 . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/darkly/bootstrap.min.css'>Cloudy Night</option>"
