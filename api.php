@@ -16,12 +16,12 @@
 
 
 /*
- * Reference:
- * Request Vars Listing:
- * ReqEndpoint: url - the url to perform action on
- * ReqEndpoint: apikey - the APIKey provided for authentication
- * ReqEndpoint: action - action to perform, either lookup or shorten
- * OptEndpoint: temp - whether the URL is temporary or not
+ * API Reference:
+ * POST/GET arguments:
+ * Required: url - the url to perform action on
+ * Required: apikey - the APIKey provided for authentication
+ * Required: action - action to perform, either lookup or shorten
+ * Optional: temp - whether to treat the URL as temporary or not
  */
 $reqargs['nosession'] = true;
 require_once('lib-core.php'); //Fetch Config
@@ -32,7 +32,7 @@ if (!strstr($_REQUEST['url'], $protocol)) {
     $urlr = "http" . $protocol . $_REQUEST['url']; //add http:// if :// not there
 }
 
-// $dnsbl = new dnsbl(); //create a gsb object
+// $dnsbl = new dnsbl(); //create a Google Safe Browsing object
 
 if (is_string($_REQUEST['apikey']) && is_string($_REQUEST['action']) && is_string($_REQUEST['url'])) {
     $apikey = $mysqli->real_escape_string($_REQUEST['apikey']); //Sanitize input
@@ -43,7 +43,7 @@ if (is_string($_REQUEST['apikey']) && is_string($_REQUEST['action']) && is_strin
     die("Error: No value specified, or wrong data type.");
 }
 
-//checking API key:
+// Check API key
 $query = "SELECT `valid`,`quota` FROM `api` WHERE apikey='{$apikey}'";
 $result = $mysqli->query($query) or showerror();
 $validrow = mysqli_fetch_assoc($result);
@@ -56,25 +56,27 @@ if (!$validrow['valid']) {
 }
 
 if (!$api_key_valid) {
-    header("HTTP/1.0 401 Unauthorized"); //Access denied - invalid key
+    header("HTTP/1.0 401 Unauthorized"); // Invalid key received
     die('401 Unauthorized');
 }
 
 if (!filter_var($url_api, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) && $action != "lookup") {
     header("HTTP/1.0 400 Bad Request");
-    echo "Error: URL is not valid"; //URL not well formatted, but allow if action is lookup
+    echo "Error: URL is not valid"; // URL not well formatted, but allow if action is lookup
     die();
 }
-//Check if URL given is malware/phishing
+
+// Check URL against Google Safe Browsing
 
 /*
 $isbl = $dnsbl->isbl($url_api);
 if ($isbl === "malware" || $isbl === "phishing") {
     header("HTTP/1.0 401 Unauthorized");
-    echo "Polr does not shorten potentially malicious URLs"; //If link tests positive to possible malware/phish, then block
+    echo "Polr does not shorten potentially malicious URLs";
     die();
 }
 */
+
 function lookup($urltl) {
     global $mysqli;
     $val = $mysqli->real_escape_string($urltl);
@@ -85,7 +87,11 @@ function lookup($urltl) {
 }
 
 function exquota($apikey, $quota) {
-
+    /*
+        Check if a user is exceeding their allocated quota.
+        Returns false if they are not exeeding their quota, or
+        true if they are past their quota.
+    */
     if ($quota < 1) {
         return false; // if quota is negative, then no quota
     }
@@ -94,12 +100,13 @@ function exquota($apikey, $quota) {
     $last_min = time()-60;
     $query = "SELECT `rurl` FROM `redirinfo` WHERE user='APIKEY-{$apikey}' AND UNIX_TIMESTAMP(date) > $last_min;";
     $result = $mysqli->query($query) or showerror();
-    $total_queries = $mysqli->affected_rows; //get the amount of queries in the past minute
+    $total_queries = $mysqli->affected_rows; // get the amount of new URLs created in the past minute
     $query = "SELECT `rurl` FROM `redirinfo-temp` WHERE user='APIKEY-{$apikey}' AND UNIX_TIMESTAMP(date) > $last_min;";
     $result = $mysqli->query($query) or showerror();
-    $total_queries_temp = $mysqli->affected_rows; //get the amount of queries to temp in the past minute
+    $total_queries_temp = $mysqli->affected_rows;
+
     if (($total_queries+$total_queries_temp) >= $quota) {
-        return true; // if met/exeeding quota
+        return true;
     }
     else {
         return false;
@@ -114,7 +121,7 @@ function shorten($urlr, $t = 'false') {
     global $ip;
 
     $protocol = '://';
-    $isshort = array('polr.cf', 'bit.ly', 'is.gd', 'tiny.cc', 'adf.ly', 'ur1.ca', 'goo.gl', 'ow.ly', 'j.mp', 't.co');
+    $isshort = array('polr.me', 'bit.ly', 'is.gd', 'tiny.cc', 'adf.ly', 'ur1.ca', 'goo.gl', 'ow.ly', 'j.mp', 't.co');
     foreach ($isshort as $url_shorteners) {
         if (strstr($urlr, $protocol . $url_shorteners)) {
             header("HTTP/1.0 400 Bad Request");
@@ -155,15 +162,13 @@ function shorten($urlr, $t = 'false') {
     }
 }
 /*
- * One last check!
- * See whether the user is exceeding his quota
+ * Check whether the user is exceeding his quota
  */
 
 $isexeeding = exquota($apikey, $userquota);
 if ($isexeeding) {
     header("HTTP/1.0 503 Service Unavailable");
-    die('Hey, slow down! Exeeding your perminute quota. Try again in around a minute.');
-    // don't let them shorten :>
+    die('Hey, slow down! Exeeding your per minute quota. Try again in around a minute.');
 }
 
 // API execute actions. Promised, no more checks :)
