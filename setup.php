@@ -227,7 +227,6 @@
 		  `user` tinytext NOT NULL,
 		  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		  `country` tinytext NOT NULL,
-		  `theme` varchar(100) NOT NULL,
 		  `clicks` int(11) NOT NULL,
 		  `pw` int(120) NOT NULL,
 		  `etc` text,
