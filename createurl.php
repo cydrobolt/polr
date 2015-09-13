@@ -31,6 +31,8 @@ function bve($bv) {
     }
 }
 
+$_POST['urlr'] = $_POST['naked'] . "/?utm_source=" . $_POST['utm-source'] . "&utm_medium=" . $_POST['utm-medium'] . "&utm_campaign=" . $_POST['utm-name'];
+
 if(!strstr($_POST['urlr'], $protocol)) {
 
     $urlr = "http".$protocol.trim($_POST['urlr']); //add http:// if :// not there
@@ -51,8 +53,8 @@ function rStr($length = 4) {
     return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 }
 if($ps == "s") {
-	// if secret url
-	$rstr = rStr(4);
+    // if secret url
+    $rstr = rStr(4);
 }
 
 
@@ -99,11 +101,11 @@ if($customurl!="") {
 }
 if(!$existing || $customurl!="" || $ps=="s" || $lkey_ex) {
         // If does not exist or creating custom URL. If requesting a secret link, recreate as well.
-		$query1 = "SELECT MAX(rid) AS `rid` FROM `redirinfo` WHERE `iscustom`='no';";
-		$result = $mysqli->query($query1);
-		$row = mysqli_fetch_assoc($result);
-		$ridr = $row['rid'];
-		// Check if next URL in base32 has been occupied by a custom url
+        $query1 = "SELECT MAX(rid) AS `rid` FROM `redirinfo` WHERE `iscustom`='no';";
+        $result = $mysqli->query($query1);
+        $row = mysqli_fetch_assoc($result);
+        $ridr = $row['rid'];
+        // Check if next URL in base32 has been occupied by a custom url
         $q_checkbv = "SELECT `baseval` FROM `redirinfo` WHERE `rid`='{$ridr}';";
         $perform_cbv = $mysqli->query($q_checkbv);
         $cbvr = mysqli_fetch_assoc($perform_cbv);
@@ -118,7 +120,7 @@ if(!$existing || $customurl!="" || $ps=="s" || $lkey_ex) {
 
 
         if($customurl!="") {
-			// creating custom URL?
+            // creating custom URL?
             $baseval = $customurl;
             $iscustom = "yes";
             $query = "SELECT `rid` FROM `redirinfo` WHERE `baseval`='{$customurl}';"; //check if baseval used already
@@ -131,11 +133,11 @@ if(!$existing || $customurl!="" || $ps=="s" || $lkey_ex) {
             }
         }
         if($ps == "p" || !$ps) {
-			$query2 = "INSERT INTO `redirinfo` (baseval,rurl,ip,user,iscustom,country) VALUES ('{$baseval}','{$urlr}','{$ip}','{$userinfo['username']}','{$iscustom}','{$country_code}');";
+            $query2 = "INSERT INTO `redirinfo` (baseval,rurl,ip,user,iscustom,country) VALUES ('{$baseval}','{$urlr}','{$ip}','{$userinfo['username']}','{$iscustom}','{$country_code}');";
         }
         else if($ps=="s") {
-			$query2 = "INSERT INTO `redirinfo` (baseval,rurl,ip,user,iscustom,lkey,country) VALUES ('{$baseval}','{$urlr}','{$ip}','{$userinfo['username']}','{$iscustom}','{$rstr}','{$country_code}');";
-			$baseval .= "?".$rstr;
+            $query2 = "INSERT INTO `redirinfo` (baseval,rurl,ip,user,iscustom,lkey,country) VALUES ('{$baseval}','{$urlr}','{$ip}','{$userinfo['username']}','{$iscustom}','{$rstr}','{$country_code}');";
+            $baseval .= "?".$rstr;
         }
 
         $result2r = $mysqli->query($query2);// or showerror();
@@ -146,7 +148,7 @@ if(!$existing || $customurl!="" || $ps=="s" || $lkey_ex) {
         echo "<div style='text-align:center;padding-left:11%;padding-right:11%;'><h3>URL:</h3> <input type='text' id='i' onselect=\"select_text();\" onclick=\"select_text();\" readonly=\"readonly\" class='form-control' value=\"Please enable Javascript\" />";
         }
 else {
-	// Already exists. Fetch from DB and send over.
+    // Already exists. Fetch from DB and send over.
     $query1 = "SELECT `baseval` FROM `redirinfo` WHERE `rurl`='{$urlr}' AND iscustom='no'";
     $result = $mysqli->query($query1);
     $row = mysqli_fetch_assoc($result);

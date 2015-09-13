@@ -11,17 +11,24 @@ require_once('layout-headerlg.php');
 ?>
 <h1 class='title'><?php require_once('config.php');echo $wsn;?></h1>
 <form id='shortenform' method="POST" action="createurl.php" role="form">
-    <input type="text" class="form-control" placeholder="URL" id="url" value="http://" name="urlr" />
+    <input type="text" required="true" class="form-control" placeholder="URL" id="url" value="http://" name="naked" />
+    <br />
+
+    <input required="true" type="text" class="form-control wd33 has-error" placeholder="Campaign Source" id="utm-source" value="" name="utm-source" /> 
+    <input required="true" type="text" class="form-control wd33 has-error" placeholder="Campaign Medium" id="utm-medium" value="" name="utm-medium" /> 
+    <input required="true" type="text" class="form-control wd33 has-error" placeholder="Campaign Name" id="utm-name" value="" name="utm-name" />
+
+    <br />
     <div id='options'>
-        <br />
+        <br  style="clear:both" />
         <div class="btn-group btn-toggle" data-toggle="buttons">
-			<label class="btn btn-primary btn-sm active">
-			  <input type="radio" name="options" value="p" checked=""> Public
-			</label>
-			<label class="btn btn-sm btn-default">
-			  <input type="radio" name="options" value="s"> Secret
-			</label>
-	    </div> <br /><br />
+            <label class="btn btn-primary btn-sm active">
+              <input type="radio" name="options" value="p" checked=""> Public
+            </label>
+            <label class="btn btn-sm btn-default">
+              <input type="radio" name="options" value="s"> Secret
+            </label>
+        </div> <br /><br />
         <br>Customize link: <br><div style='color: green'><h2 style='display:inline'><?php require_once('config.php');echo $wsa;?>/</h2><input type='text' id='custom' class="form-control" name='custom' /><br>
             <a href="#" class="btn btn-inverse btn-sm" id='checkavail'>Check Availability</a><div id='status'></div></div>
     </div>
@@ -30,3 +37,4 @@ require_once('layout-headerlg.php');
 </form>
 <br><br><div id="tips" class='text-muted'><i class="fa fa-spinner"></i> Loading Tips...</div>
 <?php require_once('layout-footerlg.php');
+

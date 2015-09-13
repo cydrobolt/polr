@@ -31,3 +31,11 @@ table {
 .inline {
     display: inline;
 }
+
+.wd33 {
+  width: 32%;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  float: left;
+}
+
