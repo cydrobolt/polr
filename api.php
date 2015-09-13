@@ -171,8 +171,6 @@ if ($isexeeding) {
     die('Hey, slow down! Exeeding your per minute quota. Try again in around a minute.');
 }
 
-// API execute actions. Promised, no more checks :)
-
 if ($action == "shorten") {
     if (isset($_REQUEST['temp'])) {
         $ist = $mysqli->real_escape_string($_REQUEST['temp']);
