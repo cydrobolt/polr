@@ -1,5 +1,5 @@
 <?php
-// includes for forgotpassword functions
+// includes for password resets
 require_once 'helpers/helper-mailsend.php';
 require_once 'lib-auth.php';
 require_once 'lib-core.php';
@@ -20,7 +20,7 @@ class fpass {
                 . "<br />"
                 . "Cheers,<br />"
                 . "The {$wsn} Team<br />";
-                $sgmail->sendmail($to, $subject, $message); //actually send the email
+                $sgmail->sendmail($to, $subject, $message); // send email
     }
     public function hash($pass) {
         $opts = [
