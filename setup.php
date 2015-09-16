@@ -81,6 +81,7 @@
                 }
 
                 $nowdate = date('F d Y');
+                $site_theme = $_POST['t'];
                 $data = '<?php
                            $host="' . $_POST['dbserver'] . '";'
                         . '$user="' . $_POST['dbuser'] . '";'
@@ -95,7 +96,7 @@
                         . '$path = "' . $_POST['path'] . "\";"
                         . '$fpass = ' . $_POST['fpass'] . ";"
                         . '$li_shorten_only = ' . $_POST['li_shorten_only'] . ";"
-                        . '$theme = "' . $_POST['t'] . "\";"
+                        . '$theme = "' . $site_theme . "\";"
                         . '$ip = ' . $_POST['ipfetch'] . ";"
                         . '$li_show_front = ' . $_POST['li_show_front'] . ";"
                         . '$unstr = "' . $rstr . '";';
@@ -141,7 +142,7 @@
                     if (fwrite($handle, $data) === FALSE) {
                         echo "Can not write to (" . $file . ")";
                     }
-                    $data = "# Polr **experimental** nginx configuration. Append this to your nginx config for effect.
+                    $data = "# Polr experimental nginx configuration. Append this to your nginx config for effect.
                     	     # If you use Apache, ignore this file.
                              # Try `/etc/nginx/config.d/` if you have trouble finding the configuration
 				      server {
@@ -238,7 +239,7 @@
 		);');
                 $acctpass = hashpass($_POST['acctpass']);
                 $nr = sha1(rstr(50));
-                sqlrun("INSERT INTO auth (username,email,password,rkey,valid,role,theme,ip) VALUES ('{$_POST['acct']}','{$_POST['acctemail']}','{$acctpass}','{$nr}','1','adm','{$_POST['t']}','{$ip}') ");
+                sqlrun("INSERT INTO auth (username,email,password,rkey,valid,role,theme,ip) VALUES ('{$_POST['acct']}','{$_POST['acctemail']}','{$acctpass}','{$nr}','1','adm','{$site_theme}','{$ip}') ");
                 echo "You are now finished Polr Setup. You can now close this window, and login to your account <a href='index.php'>here</a> (login form @ top right). <br><br>If you need help, click <a href=\"http://webchat.freenode.net/?channels=#polr\">here</a><br>"
                 . "<br><br><b>Clueless? Read the docs. <a href='https://github.com/Cydrobolt/polr/blob/master/README.md'>https://github.com/Cydrobolt/polr/blob/master/README.md</a></b>";
             } else {
