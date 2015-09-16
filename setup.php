@@ -238,7 +238,7 @@
 		);');
                 $acctpass = hashpass($_POST['acctpass']);
                 $nr = sha1(rstr(50));
-                sqlrun("INSERT INTO auth (username,email,password,rkey,valid,role) VALUES ('{$_POST['acct']}','{$_POST['acctemail']}','{$acctpass}','{$nr}','1','adm') ");
+                sqlrun("INSERT INTO auth (username,email,password,rkey,valid,role,theme,ip) VALUES ('{$_POST['acct']}','{$_POST['acctemail']}','{$acctpass}','{$nr}','1','adm','{$_POST['t']}','{$ip}') ");
                 echo "You are now finished Polr Setup. You can now close this window, and login to your account <a href='index.php'>here</a> (login form @ top right). <br><br>If you need help, click <a href=\"http://webchat.freenode.net/?channels=#polr\">here</a><br>"
                 . "<br><br><b>Clueless? Read the docs. <a href='https://github.com/Cydrobolt/polr/blob/master/README.md'>https://github.com/Cydrobolt/polr/blob/master/README.md</a></b>";
             } else {
