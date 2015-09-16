@@ -16,17 +16,19 @@
 */
 @(require_once('config.php'));
 include('version.php');
-$debug = 0; // Set to 1 in order to enable debug mode (shows sensitive database info), use for troubleshooting
-$footer = "&copy; Copyright 2014 $wsn. Powered by <a href='http://github.com/cydrobolt/polr'>Polr</a> ver $version build $reldate";
-$hidefooter = true; // Let's hide this for now
-//connect to mysql with $mysqli variable
-$mysqli = new mysqli($host, $user, $passwd, $db) ;
+
+// set to 1 in order to enable debug mode (shows sensitive database info), use for troubleshooting
+$debug = 0;
+
+// connect to mysql trhough the $mysqli variable
+$mysqli = new mysqli($host, $user, $passwd, $db);
+
 if ($mysqli->connect_errno) {
     echo "Database error. If you are a member of the general public, contact an administrator to solve this issue.
     If you are the administrator of this website, please make sure your database is turned on and that credentials are correct.";
     die();
 }
-// Attempt to set Charset as UTF8 to avoid real_escape_string vulnerabilities
+// attempt to set Charset as UTF8 to avoid real_escape_string vulnerabilities
 if (!$mysqli->set_charset("utf8")) {
     $insecure = true;
 } else {
@@ -41,14 +43,14 @@ spl_autoload_register('autoloader');
 session_start();
 function sqlex($table, $rowf, $where, $wval) {
     global $mysqli;
-    //Sanitize strings
+
     $rowfs = $mysqli->real_escape_string($rowf);
     $tables = $mysqli->real_escape_string($table);
     $wheres = $mysqli->real_escape_string($where);
-    $wvals = $mysqli->real_escape_string($wval);
+
     $q2p = "SELECT {$rowfs} FROM {$tables} WHERE {$wheres}=?";
 	$stmt = $mysqli->prepare($q2p);
-	$stmt->bind_param('s', $wvals);
+	$stmt->bind_param('s', $wval);
 	$stmt->execute();
 	$result = $stmt->get_result();
     $numrows = $result->num_rows;
@@ -65,20 +67,17 @@ function sqlfetch($table, $rowf, $where, $wval) {
     $rowfs = $mysqli->real_escape_string($rowf);
     $tables = $mysqli->real_escape_string($table);
     $wheres = $mysqli->real_escape_string($where);
-    $wvals = $mysqli->real_escape_string($wval);
 
-    //$query = "SELECT $rowfs FROM $tables WHERE $wheres='$wvals'";
     $q2p = "SELECT {$rowfs} FROM {$tables} WHERE {$wheres}=?";
 	$stmt = $mysqli->prepare($q2p);
-	$stmt->bind_param('s', $wvals);
+	$stmt->bind_param('s', $wval);
 	$stmt->execute();
 	$result = $stmt->get_result();
     $row = mysqli_fetch_assoc($result);
     return $row[$rowf];
 }
 
-//SQL Functions
-//Sanitize input when using sqlrun!
+// sanitize input when using sqlrun!
 function sqlrun($query) {
     global $mysqli;
     $queryrs = $query;
@@ -92,7 +91,7 @@ function sqlrun($query) {
 
 
 function showerror() {
-	//Show an error, and die. If Debug is on, show SQL error message
+	// show an error and die. If `debug` is on, show SQL error message
     global $debug;
     global $mysqli;
     echo "There seems to be a problem. Contact an administrator to report this issue.";
@@ -112,7 +111,7 @@ function filterurl($url) {
     }
 }
 function filteremail($email) {
-	// Validate an email
+	// validate an email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return false;
     } else {
