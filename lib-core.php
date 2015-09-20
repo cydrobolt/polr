@@ -16,7 +16,10 @@
 */
 @(require_once('config.php'));
 include('version.php');
-$debug = 0; // Set to 1 in order to enable debug mode (shows sensitive database info), use for troubleshooting
+$debug = false; // Set to 1 in order to enable debug mode (shows sensitive database info), use for troubleshooting
+if ( $debug === FALSE ) {
+    error_reporting(E_ERROR);
+}
 $footer = "&copy; Copyright 2014 $wsn. Powered by <a href='http://github.com/cydrobolt/polr'>Polr</a> ver $version build $reldate";
 $hidefooter = true; // Let's hide this for now
 //connect to mysql with $mysqli variable
