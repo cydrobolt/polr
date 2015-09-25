@@ -16,9 +16,13 @@
 */
 @(require_once('config.php'));
 include('version.php');
-$debug = false; // Set to 1 in order to enable debug mode (shows sensitive database info), use for troubleshooting
+// Set to TRUE to enable debug mode (shows sensitive database info), use for troubleshooting only!
+// Also enables PHP error reporting level E_ALL
+$debug = FALSE;
 if ( $debug === FALSE ) {
-    error_reporting(E_ERROR);
+    error_reporting( 0 );
+} else {
+    error_reporting( E_ALL );
 }
 $footer = "&copy; Copyright 2014 $wsn. Powered by <a href='http://github.com/cydrobolt/polr'>Polr</a> ver $version build $reldate";
 $hidefooter = true; // Let's hide this for now
