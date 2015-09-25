@@ -81,51 +81,54 @@
                 }
 
                 $nowdate = date('F d Y');
-                $site_theme = $_POST['t'];
-                $data = '<?php
-                           $host="' . $_POST['dbserver'] . '";'
-                        . '$user="' . $_POST['dbuser'] . '";'
-                        . '$passwd="' . $_POST['dbpass'] . '";'
-                        . '$db="' . $_POST['dbname'] . '";'
-                        . '$wsa = "' . $_POST['appurl'] . '";'
-                        . '$wsn = "' . $_POST['appname'] . '";'
-                        . '$wsb = "' . $nowdate . '";'
-                        . '$ppass = \'' . hashpass($_POST['protpass']) . '\';'
-                        . '$hp = "' . sha1(rstr(30)) . "\";"
-                        . '$regtype = "' . $_POST['reg'] . "\";"
-                        . '$path = "' . $_POST['path'] . "\";"
-                        . '$fpass = ' . $_POST['fpass'] . ";"
-                        . '$li_shorten_only = ' . $_POST['li_shorten_only'] . ";"
-                        . '$theme = "' . $site_theme . "\";"
-                        . '$ip = ' . $_POST['ipfetch'] . ";"
-                        . '$li_show_front = ' . $_POST['li_show_front'] . ";"
-                        . '$unstr = "' . $rstr . '";';
+                $ppass = hashpass($_POST['protpass']);
+                $hp    = sha1(rstr(30));
+                $data  = <<<PHP
+                \n<?php
+                \$host    = "{$_POST['dbserver']}";
+                \$user    = "{$_POST['dbuser']}";
+                \$passwd  = "{$_POST['dbpass']}";
+                \$db      = "{$_POST['dbname']}";
+                \$wsa     = "{$_POST['appurl']}";
+                \$wsn     = "{$_POST['appname']}";
+                \$wsb     = "{$nowdate}";
+                \$ppass   = '{$ppass}';
+                \$hp      = "{$hp}";
+                \$regtype = "{$_POST['reg']}";
+                \$path    = "{$_POST['path']}";
+                \$fpass   = {$_POST['fpass']};
+                \$li_shorten_only = {$_POST['li_shorten_only']};
+                \$theme   = "{$_POST['t']}";
+                \$ip      = {$_POST['ipfetch']};
+                \$li_show_front = {$_POST['li_show_front']};
+                \$unstr   = "{$rstr}";
+PHP;
 
 			    if (strlen($_POST['smtp-servers'])>1) {
-                    $smtpSection = '
-                        $smtpCfg = array(
-                            "servers"  => \''.$_POST['smtp-servers'].'\',
-                            "from" => \''.$_POST['smtp-from'].'\',
-                            "username" => \''.$_POST['smtp-username'].'\',
-                            "password" => \''.$_POST['smtp-password'].'\',
-                        );
-                    ';
+                    $smtpSection = <<<PHP
+                \n
+                \$smtpCfg = array(
+                    "servers"  => "{$_POST['smtp-servers']}",
+                    "from"     => "{$_POST['smtp-from']}",
+                    "username" => "{$_POST['smtp-username']}",
+                    "password" => "{$_POST['smtp-password']}",
+                );
+PHP;
                     $data .= $smtpSection;
                 }
-                $data .= '?>';
-                $file = "config.php";
-
-                $handle = fopen($file, 'a');
+                $data .= "\n?>";
+                $handle = fopen("config.php", 'w');
                 if (fwrite($handle, $data) === FALSE) {
-                    echo "Can not write to (" . $file . "). Please make sure your file permissions are correct.
-                    	<br />Your webserver's user should have write permissions for the folder. Try looking up <code>chown</code>, <code>chgrp</code> and <code>chmod</code>. <a href='http://linuxcommand.org/lts0070.php'>Helpful link</a>";
-                    die();
+                    die("<p class='alert alert-danger'>Could not write to <strong>config.php</strong>. Please make sure your file permissions are correct.
+                    	<br />Your webserver's user should have write permissions for the folder. Try looking up <code>chown</code>, <code>chgrp</code> and <code>chmod</code>. <a href='http://linuxcommand.org/lts0070.php'>Helpful link</a></p>. <strong>Aborting Setup</strong>");
+                } else {
+                    echo "<p class='alert alert-success'>Successfully created <strong>config.php</strong> .</p>";
                 }
-                echo "Successfully created config. ";
-                fclose($handle);
+                fclose($handle); //config.php
+
                 require_once('lib-core.php');
                 $path = $_POST['path'];
-                if (strlen($path) > 2) {
+                if (strlen($path) > 2) { // why 2? Is a folder like /r possible?
                     $data = "<IfModule mod_rewrite.c>
                             RewriteEngine On
                             RewriteBase $path
@@ -140,8 +143,13 @@
                             </IfModule>";
                     $handle = fopen('.htaccess', 'w');
                     if (fwrite($handle, $data) === FALSE) {
-                        echo "Can not write to (" . $file . ")";
+                        echo "<p class='alert alert-danger'>Could not write to <strong>.htaccess</strong> .</p>";
+                    } else {
+                        echo "<p class='alert alert-success'>Successfully created <strong>.htaccess</strong> .</p>";
                     }
+                    fclose($handle); //.htaccess
+
+                    // .nginx-config
                     $data = "# Polr experimental nginx configuration. Append this to your nginx config for effect.
                     	     # If you use Apache, ignore this file.
                              # Try `/etc/nginx/config.d/` if you have trouble finding the configuration
@@ -162,15 +170,19 @@
         				location $path/t {
             				rewrite ^$path/t-([a-zA-Z0-9]+)/?$ $path/r.php?u=t-$1;
         			    }
-                    }";
-		       $handle = fopen('.nginx-config', 'w');
+                      }";
+                    $handle = fopen('.nginx-config', 'w');
                     if (fwrite($handle, $data) === FALSE) {
-                        echo "Can not write to (" . $file . ")";
+                        echo "<p class='alert alert-warning'>Could not write to <strong>.nginx-config</strong></p>";
+                    } else {
+                        echo "<p class='alert alert-success'>Successfully created <strong>.nginx-config</strong> .</p>";
                     }
-                    echo "Succesfully created htaccess (custom path) <br />. ";
-                    fclose($handle);
+                    fclose($handle); //.nginx-config
                 }
 
+                // Create Polr tables
+                // TODO: lib-core.php:95
+                // return actual result of query and implement Error message here instead of core~
                 sqlrun('
                 CREATE TABLE `api` (
                   `valid` tinyint(1) NOT NULL,
