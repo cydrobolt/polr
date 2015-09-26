@@ -116,7 +116,6 @@ PHP;
 PHP;
                     $data .= $smtpSection;
                 }
-                $data .= "\n?>";
                 $handle = fopen("config.php", 'w');
                 if (fwrite($handle, $data) === FALSE) {
                     die("<p class='alert alert-danger'>Could not write to <strong>config.php</strong>. Please make sure your file permissions are correct.
