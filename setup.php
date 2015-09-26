@@ -128,7 +128,10 @@ PHP;
 
                 require_once('lib-core.php');
                 $path = $_POST['path'];
-                if (strlen($path) > 2) { // why 2? Is a folder like /r possible?
+                // check if path ends with / , validating it for .htaccess
+                if ( !(substr( $path, -1) == "/") ) {
+                    die("<p class='alert alert-danger'>Path needs trailing slash (<code>/</code>).</p>");
+                } else {
                     $data = "<IfModule mod_rewrite.c>
                             RewriteEngine On
                             RewriteBase $path
@@ -157,18 +160,18 @@ PHP;
                         listen 80;
                         server_name %SERVER_NAME%;
                         index index.php
-                        location = $path/api {
-            				rewrite ^(.*)$ $path/api.php;
+                        location = {$path}api {
+            				rewrite ^(.*)$ {$path}api.php;
         				}
-        				location $path/ {
+        				location {$path} {
         				if (!-e \$request_filename){
-        				    rewrite ^$path/([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ $path/r.php?u=$1&lkey=$2;
+        				    rewrite ^{$path}([a-zA-Z0-9]+)\?([a-zA-Z0-9]+)$ {$path}r.php?u=$1&lkey=$2;
         				}
-            				rewrite ^$path/([a-zA-Z0-9]+)/?$ $path/r.php?u=$1;
-            				rewrite ^$path/?\+([a-zA-Z0-9]+)$ $path/stats.php?bv=$1;
+            				rewrite ^{$path}([a-zA-Z0-9]+)/?$ {$path}r.php?u=$1;
+            				rewrite ^{$path}?\+([a-zA-Z0-9]+)$ {$path}stats.php?bv=$1;
         				}
-        				location $path/t {
-            				rewrite ^$path/t-([a-zA-Z0-9]+)/?$ $path/r.php?u=t-$1;
+        				location {$path}t {
+            				rewrite ^{$path}t-([a-zA-Z0-9]+)/?$ {$path}r.php?u=t-$1;
         			    }
                       }";
                     $handle = fopen('.nginx-config', 'w');
