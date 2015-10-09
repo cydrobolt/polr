@@ -128,8 +128,11 @@ PHP;
                 require_once('lib-core.php');
                 $path = $_POST['path'];
                 // check if path ends with / , validating it for .htaccess
-                if ( !(substr( $path, -1) == "/") ) {
-                    die("<p class='alert alert-danger'>Path needs trailing slash (<code>/</code>).</p>");
+                if ( empty( $path ) ) {
+                    echo "<p class='alert alert-success'>Path is empty, no <strong>.htaccess</strong> needs to be written.</p>";
+                } elseif ( !( ( strlen( $path) > 2) &&
+                         ( substr( $path, -1 ) == "/") ) ) {
+                    echo "<p class='alert alert-danger'>Path needs trailing slash (<code>/</code>) and cannot be a slash only.</p>";
                 } else {
                     $data = "<IfModule mod_rewrite.c>
                             RewriteEngine On
