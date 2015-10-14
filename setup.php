@@ -84,35 +84,35 @@
                 $ppass = hashpass($_POST['protpass']);
                 $hp    = sha1(rstr(30));
                 $data  = <<<PHP
-                \n<?php
-                \$host    = "{$_POST['dbserver']}";
-                \$user    = "{$_POST['dbuser']}";
-                \$passwd  = "{$_POST['dbpass']}";
-                \$db      = "{$_POST['dbname']}";
-                \$wsa     = "{$_POST['appurl']}";
-                \$wsn     = "{$_POST['appname']}";
-                \$wsb     = "{$nowdate}";
-                \$ppass   = '{$ppass}';
-                \$hp      = "{$hp}";
-                \$regtype = "{$_POST['reg']}";
-                \$path    = "{$_POST['path']}";
-                \$fpass   = {$_POST['fpass']};
-                \$li_shorten_only = {$_POST['li_shorten_only']};
-                \$theme   = "{$_POST['t']}";
-                \$ip      = {$_POST['ipfetch']};
-                \$li_show_front = {$_POST['li_show_front']};
-                \$unstr   = "{$rstr}";
+<?php
+\$host    = "{$_POST['dbserver']}";
+\$user    = "{$_POST['dbuser']}";
+\$passwd  = "{$_POST['dbpass']}";
+\$db      = "{$_POST['dbname']}";
+\$wsa     = "{$_POST['appurl']}";
+\$wsn     = "{$_POST['appname']}";
+\$wsb     = "{$nowdate}";
+\$ppass   = '{$ppass}';
+\$hp      = "{$hp}";
+\$regtype = "{$_POST['reg']}";
+\$path    = "{$_POST['path']}";
+\$fpass   = {$_POST['fpass']};
+\$li_shorten_only = {$_POST['li_shorten_only']};
+\$theme   = "{$_POST['t']}";
+\$ip      = {$_POST['ipfetch']};
+\$li_show_front = {$_POST['li_show_front']};
+\$unstr   = "{$rstr}";
 PHP;
 
 			    if (strlen($_POST['smtp-servers'])>1) {
                     $smtpSection = <<<PHP
-                \n
-                \$smtpCfg = array(
-                    "servers"  => "{$_POST['smtp-servers']}",
-                    "from"     => "{$_POST['smtp-from']}",
-                    "username" => "{$_POST['smtp-username']}",
-                    "password" => "{$_POST['smtp-password']}",
-                );
+\n
+\$smtpCfg = array(
+    "servers"  => "{$_POST['smtp-servers']}",
+    "from"     => "{$_POST['smtp-from']}",
+    "username" => "{$_POST['smtp-username']}",
+    "password" => "{$_POST['smtp-password']}",
+);
 PHP;
                     $data .= $smtpSection;
                 }
