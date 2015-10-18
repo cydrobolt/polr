@@ -218,7 +218,7 @@ PHP;
                 sqlrun('
 		CREATE TABLE `redirinfo` (
 		  `rurl` text NOT NULL,
-		  `rid` smallint(200) NOT NULL AUTO_INCREMENT,
+		  `rid` int(11) NOT NULL AUTO_INCREMENT,
 		  `baseval` varchar(30) NOT NULL,
 		  `ip` varchar(90) NOT NULL,
 		  `iscustom` varchar(4) NOT NULL,
@@ -238,7 +238,7 @@ PHP;
                 sqlrun('
 		CREATE TABLE `redirinfo-temp` (
 		  `rurl` text NOT NULL,
-		  `rid` smallint(200) NOT NULL AUTO_INCREMENT,
+		  `rid` int(11) NOT NULL AUTO_INCREMENT,
 		  `baseval` varchar(30) NOT NULL,
 		  `ip` varchar(90) NOT NULL,
 		  `iscustom` varchar(4) NOT NULL,
