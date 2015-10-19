@@ -66,7 +66,7 @@ else {
 
 $urlr = $mysqli->real_escape_string($urlr);
 
-$isshort = array('polr.me', 'polr.cf','bit.ly','is.gd','tiny.cc','adf.ly','ur1.ca','goo.gl','ow.ly','j.mp','t.co');
+$isshort = array('polr.me', 'polr.cf','bit.ly','is.gd','tiny.cc','adf.ly','ur1.ca','goo.gl','ow.ly','j.mp','t.co', $wsa);
 
 foreach ($isshort as $url_shorteners) {
     if(strstr($urlr, $protocol.$url_shorteners)) {
