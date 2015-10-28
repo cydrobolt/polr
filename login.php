@@ -2,7 +2,7 @@
 require_once('lib-auth.php');
 $polrauth = new polrauth();
 if ($polrauth->islogged() != false) {
-	header("Location: ucp.php");
+	header("Location: admin");
 	die();
 }
 require_once('layout-headersm.php');
