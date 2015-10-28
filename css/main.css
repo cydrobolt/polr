@@ -31,3 +31,7 @@ table {
 .inline {
     display: inline;
 }
+.passwbox {
+    width: 200px;
+    margin-bottom: 20px;
+}
