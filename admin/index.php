@@ -237,8 +237,8 @@ if (!is_array($auth->islogged())) {
               <h3>Change password</h3>
               <form action=\'ucp-settingsp.php\' method=\'POST\'>
                   <input type=\'hidden\' name=\'action\' value=\'changepw\' />
-                  Old Password: <input type=\'password\' name=\'currpw\' />
-                  New Password: <input type=\'password\' name=\'newpw\' />
+                  Old Password: <input class="form-control passwbox" type=\'password\' name=\'currpw\' />
+                  New Password: <input class="form-control passwbox" type=\'password\' name=\'newpw\' />
                   <input type=\'submit\' class=\'btn btn-success\'/>
               </form>
           </div>';
