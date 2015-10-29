@@ -11,7 +11,7 @@ require_once('layout-headerlg.php');
 ?>
 <h1 class='title'><?php require_once('config.php');echo $wsn;?></h1>
 <form id='shortenform' method="POST" action="createurl.php" role="form">
-    <input type="text" class="form-control" placeholder="URL" id="url" value="http://" name="urlr" />
+    <input type="text" class="form-control" placeholder="URL" id="url" name="urlr" />
     <div id='options'>
         <br />
         <div class="btn-group btn-toggle" data-toggle="buttons">
