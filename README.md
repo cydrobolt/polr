@@ -42,6 +42,16 @@ Would like to contribute? Submit a pull request. Found an issue? Create an issue
 
 Polr operates a channel on the freenode IRC network, which can be used for purposes of development or general support. [Webchat](http://webchat.freenode.net/?channels=#polr)
 
+Who uses Polr?
+==================
+Polr is currently used by some of the following organisations:
+
+[Polr](https://polr.me) - the Polr instance maintained by Polr developers.
+
+If you'd like your organisation's name or logo added, please make a pull request to this file or open a ticket
+with your website, Polr instance, or logo.
+
+
 Development
 ==================
 
