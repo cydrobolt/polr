@@ -4,7 +4,13 @@ if (!@include('config.php')) {
 }
 @session_start();
 if (strlen($_SESSION['username']) < 1 && $li_show_front === true) {
-    die("<h1>401 Unauthorized</h1><em><a href='login.php'>Login</a> to access this resource.</em>");
+    if ($li_index_redirect) {
+        header("Location: " + $redirect_link);
+        die();
+    }
+    else {
+        die("<h1>401 Unauthorized</h1><em><a href='login.php'>Login</a> to access this resource.</em>");
+    }
 }
 
 require_once('layout-headerlg.php');

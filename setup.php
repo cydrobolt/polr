@@ -24,7 +24,7 @@
             <a class="navbar-brand" href="index.php">Polr</a>
         </div>
         <div class='container-fluid push pushtop' style="text-align: left">
-            <span><h1 style="text-align:center">Polr Setup</h1></span><br>
+            <span><h1 style="text-align:center">Polr Setup</h1></span><br />
             <?php
             @(include('config.php'));
             include ('version.php');
@@ -51,16 +51,16 @@
                 if (!isset($_POST['pw'])) {
                     require_once 'layout-headerlg.php';
                     echo "<h2>Enter setup password to proceed:</h2>";
-                    echo "<form action='setup.php' method='post'><br><input class='form-control' type='password' name='pw' /><br><input type='submit' class='form-control' value='Log in' /></form>";
+                    echo "<form action='setup.php' method='post'><br /><input class='form-control' type='password' name='pw' /><br /><input type='submit' class='form-control' value='Log in' /></form>";
                     require_once 'layout-footerlg.php';
                     die();
                 } else if ($pwf = password_verify($_POST['pw'], $ppass)) {
                     echo "";
                 } else {
                     require_once 'layout-headerlg.php';
-                    echo "Wrong password<br>";
+                    echo "Wrong password<br />";
                     echo "<h2>Enter setup password to proceed:</h2>";
-                    echo "<form action='setup.php' method='post'><br><input type='password' class='form-control' name='pw' /><br><input type='submit' class='form-control' value='Log in' /></form>";
+                    echo "<form action='setup.php' method='post'><br /><input type='password' class='form-control' name='pw' /><br /><input type='submit' class='form-control' value='Log in' /></form>";
                     require_once 'layout-footerlg.php';
                     die();
                 }
@@ -101,6 +101,7 @@
 \$theme   = "{$_POST['t']}";
 \$ip      = {$_POST['ipfetch']};
 \$li_show_front = {$_POST['li_show_front']};
+\$li_index_redirect = {$_POST['li_index_redirect']};
 \$unstr   = "{$rstr}";
 PHP;
 
@@ -257,24 +258,24 @@ PHP;
                 $acctpass = hashpass($_POST['acctpass']);
                 $nr = sha1(rstr(50));
                 sqlrun("INSERT INTO auth (username,email,password,rkey,valid,role,theme,ip) VALUES ('{$_POST['acct']}','{$_POST['acctemail']}','{$acctpass}','{$nr}','1','adm','{$site_theme}','{$ip}') ");
-                echo "You are now finished Polr Setup. You can now close this window, and login to your account <a href='index.php'>here</a> (login form @ top right). <br><br>If you need help, click <a href=\"http://webchat.freenode.net/?channels=#polr\">here</a><br>"
-                . "<br><br><b>Clueless? Read the docs. <a href='https://github.com/Cydrobolt/polr/blob/master/README.md'>https://github.com/Cydrobolt/polr/blob/master/README.md</a></b>";
+                echo "You are now finished Polr Setup. You can now close this window, and login to your account <a href='index.php'>here</a> (login form @ top right). <br /><br />If you need help, click <a href=\"http://webchat.freenode.net/?channels=#polr\">here</a><br />"
+                . "<br /><br /><b>Clueless? Read the docs. <a href='https://github.com/Cydrobolt/polr/blob/master/README.md'>https://github.com/Cydrobolt/polr/blob/master/README.md</a></b>";
             } else {
                 include('version.php');
                 echo "<form name=\"Config Creation\" style='margin:0 auto; width: 650px' method=\"post\" action=\"" . 'setup.php' . "\">";
 
                 // DB Config
                 echo "<b style=\"text-align:center\">Database Configuration</b><br />";
-                echo "Database Host: <input type=\"text\" class='form-control' style='width:650px' name=\"dbserver\" value=\"localhost\"><br>";
-                echo "Database User: <input type=\"text\" class='form-control' style='width:650px' name=\"dbuser\" value=\"root\"><br>";
-                echo "Database Pass: <input type=\"password\" class='form-control' style='width:650px' name=\"dbpass\" value=\"password\"><br>";
-                echo "Database Name: <input type=\"text\" class='form-control' style='width:650px' name=\"dbname\" value=\"polr\"><br>";
+                echo "Database Host: <input type=\"text\" class='form-control' style='width:650px' name=\"dbserver\" value=\"localhost\"><br />";
+                echo "Database User: <input type=\"text\" class='form-control' style='width:650px' name=\"dbuser\" value=\"root\"><br />";
+                echo "Database Pass: <input type=\"password\" class='form-control' style='width:650px' name=\"dbpass\" value=\"password\"><br />";
+                echo "Database Name: <input type=\"text\" class='form-control' style='width:650px' name=\"dbname\" value=\"polr\"><br />";
 
                 // App Config
                 echo "<br /><b style=\"text-align:center\">Application Settings</b><br />";
-                echo "Application Name: <input type=\"text\" class='form-control' style='width:650px' name=\"appname\" value=\"Polr\"><br>";
-                echo "Application URL (path to Polr, no http://, www., or trailing slash) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br>";
-                echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br>";
+                echo "Application Name: <input type=\"text\" class='form-control' style='width:650px' name=\"appname\" value=\"Polr\"><br />";
+                echo "Application URL (path to Polr, no http://, www., or trailing slash) : <input type=\"text\" style='width:650px' class='form-control' name=\"appurl\" value=\"yoursite.com\"><br />";
+                echo "Fetch ip through variable: <input type=\"text\" class='form-control' style='width:650px' name=\"ipfetch\" value=\"\$_SERVER['REMOTE_ADDR']\"><br />";
 
                 echo "Shortening Permissions: <select name='li_shorten_only' style='width:650px' class='form-control'>"
                 . "<option value='false' selected='selected'>All users can shorten URLs</option>"
@@ -283,22 +284,26 @@ PHP;
                 echo "Show public interface: <select name='li_show_front' style='width:650px' class='form-control'>"
                 . "<option value='false' selected='selected'>Show public interface (default)</option>"
                 . "<option value='true'>Hide public interface (for private shorteners)</option>"
-                . "</select><br /><br />";
+                . "</select>";
+
+                echo "If public interface is hidden, redirect index page to: <input type=\"text\" class='form-control' style='width:650px' name=\"li_index_redirect\" value=\"\your-main-site.com\">"
+                . "<small><i>Notice: if this setting is enabled, you will need to go to http://PATHTOPOLR/login.php before you can access the index page.</i></small>"
+                . "<br /><br />";
 
 
                 // Security/Account Config
                 echo "<br /><b style=\"text-align:center\">Admin Account Settings</b><br />";
-                echo "Setup Access Password: <input type=\"text\" class='form-control' style='width:650px' name=\"protpass\" value=\"password123\"><br>";
-                echo "Admin Account: <input type=\"text\" class='form-control' style='width:650px' style='width:650px' name=\"acct\" value=\"polr\"><br>";
-                echo "Admin Email: <input type=\"text\" class='form-control' style='width:650px' style='width:650px' name=\"acctemail\" value=\"polr@admin.tld\"><br>";
-                echo "Admin Password: <input type=\"password\" style='width:650px' class='form-control' name=\"acctpass\" value=\"polr\"><br>";
+                echo "Setup Access Password: <input type=\"text\" class='form-control' style='width:650px' name=\"protpass\" value=\"password123\"><br />";
+                echo "Admin Account: <input type=\"text\" class='form-control' style='width:650px' style='width:650px' name=\"acct\" value=\"polr\"><br />";
+                echo "Admin Email: <input type=\"text\" class='form-control' style='width:650px' style='width:650px' name=\"acctemail\" value=\"polr@admin.tld\"><br />";
+                echo "Admin Password: <input type=\"password\" style='width:650px' class='form-control' name=\"acctpass\" value=\"polr\"><br />";
 
                 // SMTP Config
                 echo "<br /><b style=\"text-align:center\">SMTP Settings</b><p>(leave blank if you are not using email verification/password recovery)</p>";
-                echo "SMTP Servers (semicolon separated): <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-servers\" placeholder=\"smtp.gmail.com\"><br>";
-                echo "SMTP Username: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-username\" placeholder=\"example@gmail.com\"><br>";
-                echo "SMTP Password: <input type=\"password\" class='form-control' style='width:650px' name=\"smtp-password\" placeholder=\"password\"><br>";
-                echo "SMTP From: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-from\" placeholder=\"example@gmail.com\"><br>";
+                echo "SMTP Servers (semicolon separated): <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-servers\" placeholder=\"smtp.gmail.com\"><br />";
+                echo "SMTP Username: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-username\" placeholder=\"example@gmail.com\"><br />";
+                echo "SMTP Password: <input type=\"password\" class='form-control' style='width:650px' name=\"smtp-password\" placeholder=\"password\"><br />";
+                echo "SMTP From: <input type=\"text\" class='form-control' style='width:650px' name=\"smtp-from\" placeholder=\"example@gmail.com\"><br />";
 
 
                 echo "<br /><b style=\"text-align:center\">Other Settings</b><br />Registration: <select name='reg' style='width:650px' class='form-control'>"
@@ -311,7 +316,7 @@ PHP;
                 . "<option value='false'>No (default)</option>"
                 . "<option value='true'>Yes (could cause problems unless helper-mailsend.php/email is properly set up)</option>"
                 . "</select><br /><br />";
-                echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" placeholder=\"/polr/\" value=\"\"><br>";
+                echo "Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/): <input type=\"text\" class='form-control' style='width:650px' name=\"path\" placeholder=\"/polr/\" value=\"\"><br />";
                 echo "Theme (choose wisely, click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots: <select name='t' style='width:650px' class='form-control'>"
                 . "<option value=''>Modern (default)</option>"
                 . "<option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css'>Midnight Black</option>"
@@ -341,10 +346,10 @@ PHP;
                 echo "<input type=\"reset\" value=\"Clear Fields\" class=\"btn btn-warning\" style='width:150px'>";
                 echo "</div>";
                 echo "</form>";
-                echo "<br><br></div><div class='container' style='text-align:center'>"
+                echo "<br /><br /></div><div class='container' style='text-align:center'>"
                 . "<p><b>Please read the README.md file located in the root Polr directory. It contains essential and indispensable troubleshooting, installation, and support materials. <b/></p>";
-                echo "<br><br>Polr is <a href='http://en.wikipedia.org/wiki/Open-source_software'>Open-Source software</a> licensed under the <a href='//www.gnu.org/copyleft/gpl.html'>GPL License</a>. By continuing to use Polr, you agree to the terms of the GPL License.";
-                echo "<div class=''>Polr Version $version released $reldate - <a href='//github.com/cydrobolt/polr'>Github</a></div></div><br><span style='padding-left:4%'>&copy; Copyright $relyear Chaoyi Zha & <a href='https://github.com/Cydrobolt/polr/graphs/contributors'>Other Polr Contributors</a></span>";
+                echo "<br /><br />Polr is <a href='http://en.wikipedia.org/wiki/Open-source_software'>Open-Source software</a> licensed under the <a href='//www.gnu.org/copyleft/gpl.html'>GPL License</a>. By continuing to use Polr, you agree to the terms of the GPL License.";
+                echo "<div class=''>Polr Version $version released $reldate - <a href='//github.com/cydrobolt/polr'>Github</a></div></div><br /><span style='padding-left:4%'>&copy; Copyright $relyear Chaoyi Zha & <a href='https://github.com/Cydrobolt/polr/graphs/contributors'>Other Polr Contributors</a></span>";
             }
             ?>
         </div>
