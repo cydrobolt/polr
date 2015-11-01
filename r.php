@@ -1,10 +1,13 @@
 <?php
-//Polr Redirector Core
+/*
+	Redirect to target URL.
+*/
+
 require_once('lib-core.php');
 if (is_string($_GET['u'])) {
     $val = $mysqli->real_escape_string($_GET['u']);
 } else {
-    echo "Sorry. You didn't enter a string.";
+    echo "Sorry. You didn't enter a valid ending.";
     die();
 }
 
