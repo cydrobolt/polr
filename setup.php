@@ -101,7 +101,7 @@
 \$theme   = "{$_POST['t']}";
 \$ip      = {$_POST['ipfetch']};
 \$li_show_front = {$_POST['li_show_front']};
-\$li_index_redirect = {$_POST['li_index_redirect']};
+\$li_index_redirect = '{$_POST['li_index_redirect']}';
 \$unstr   = "{$rstr}";
 PHP;
 
@@ -286,8 +286,8 @@ PHP;
                 . "<option value='true'>Hide public interface (for private shorteners)</option>"
                 . "</select>";
 
-                echo "If public interface is hidden, redirect index page to: <input type=\"text\" class='form-control' style='width:650px' name=\"li_index_redirect\" value=\"\your-main-site.com\">"
-                . "<small><i>Notice: if this setting is enabled, you will need to go to http://PATHTOPOLR/login.php before you can access the index page.</i></small>"
+                echo "If public interface is hidden, redirect index page to: <input type=\"text\" class='form-control' style='width:650px' name=\"li_index_redirect\" placeholder=\"http://your-main-site.com\">"
+                . "<i>Notice: if this setting is enabled, you will need to go to http://PATHTOPOLR/login.php before you can access the index page. Leave the field blank to show a generic index page.</i>"
                 . "<br /><br />";
 
 

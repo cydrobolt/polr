@@ -5,7 +5,7 @@ if (!@include('config.php')) {
 @session_start();
 if (strlen($_SESSION['username']) < 1 && $li_show_front === true) {
     if ($li_index_redirect) {
-        header("Location: " + $redirect_link);
+        header("Location: " . $li_index_redirect);
         die();
     }
     else {
