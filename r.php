@@ -31,11 +31,11 @@ if (strtolower($row['rurl']) == "disabled") {
     require_once 'layout-footerlg.php';
     die();
 }
-$lkey = @$row['lkey'];
+$lkey = $row['lkey'];
 if (strlen($lkey) > 1) {
 	// check for key
-	$sent_lkey = isset($_GET[$lkey]);
-	if ($sent_lkey) {
+	$sent_lkey = $_GET[$lkey];
+	if ($sent_lkey == $lkey) {
 		// correct key
 	}
 	else {
