@@ -1,8 +1,8 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
-    "license": "MIT",
+    "name": "cydrobolt/polr",
+    "description": "The Polr URL Shortener.",
+    "keywords": ["url-shortener", "url", "cms"],
+    "license": "GPLv2+",
     "type": "project",
     "require": {
         "php": ">=5.5.9",
