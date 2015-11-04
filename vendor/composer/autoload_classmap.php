@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddVotesToUsersTable' => $baseDir . '/database/migrations/2015_11_04_015656_add_votes_to_users_table.php',
+    'CreateLinkTable' => $baseDir . '/database/migrations/2015_11_04_015813_create_link_table.php',
+    'CreateUsersTable' => $baseDir . '/database/migrations/2015_11_04_015823_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'ExampleTest' => $baseDir . '/tests/ExampleTest.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
