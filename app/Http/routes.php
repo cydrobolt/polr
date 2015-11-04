@@ -11,4 +11,9 @@
 |
 */
 
-$app->get('/', 'IndexController@showIndexPage');
+$app->get('/', ['as' => 'index', 'uses' => 'IndexController@showIndexPage']);
+$app->get('/logout', ['as' => 'logout', 'uses' => 'UserController@logoutUser']);
+$app->get('/login', ['as' => 'login', 'uses' => 'UserController@displayLoginPage']);
+$app->get('/about', ['as' => 'about', 'uses' => 'StaticPageController@displayAbout']);
+
+$app->post('/login', ['as' => 'plogin', 'uses' => 'UserController@performLogin']);

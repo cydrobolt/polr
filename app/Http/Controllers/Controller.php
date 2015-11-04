@@ -1,10 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 
-class Controller extends BaseController
-{
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+
+class Controller extends BaseController {
     //
 }

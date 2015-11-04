@@ -14,12 +14,25 @@ body {
 .login-form-submit {
     clear: left;
     width: 100%;
-    height: 32px;
-    font-size: 13px;
+    margin-bottom: 15px;
 }
 
-.contentDiv {
-    text-align:left;
-    padding-top:5px;
+.content-div-padding {
+    padding-top: 65px;
+}
+.content-div {
+    text-align: left;
     background-color: rgba(0,0,0,0);
+}
+
+.large-content-div {
+    text-align: center;
+}
+
+.login-name {
+    padding-right: 10px;
+}
+
+.center-text {
+    text-align: center;
 }

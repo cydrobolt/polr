@@ -92,9 +92,6 @@ $app->middleware([
 |
 */
 
-$app->configure('twigbridge');
-$app->register('TwigBridge\ServiceProvider');
-
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../app/Http/routes.php';
 });

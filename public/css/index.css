@@ -1,0 +1,21 @@
+.custom-url-field {
+    display: inline;
+    width: 60px;
+}
+
+.site-url-field {
+    color: green;
+    display: inline;
+}
+
+.long-link-input {
+    margin-bottom: 25px;
+}
+
+.tips {
+    margin-top: 20px;
+}
+
+.check-btn {
+    margin-bottom: 30px;
+}
