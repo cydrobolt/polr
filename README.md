@@ -3,13 +3,10 @@
 
 :aerial_tramway: A modern, minimalist, and lightweight URL shortener.
 
-
-
-[![GitHub issues](https://img.shields.io/github/issues/cydrobolt/polr.svg)]()
-[![GitHub license](https://img.shields.io/github/license/cydrobolt/polr.svg)]()
-[![Github Releases](https://img.shields.io/github/downloads/cydrobolt/polr/latest/total.svg)]()
+[![GitHub issues](https://img.shields.io/github/issues/cydrobolt/polr.svg)]() 
+[![GitHub license](https://img.shields.io/github/license/cydrobolt/polr.svg)]() 
+[![2.0 status](https://img.shields.io/badge/devel-2.0-red.svg)]() 
 [![GitHub release](https://img.shields.io/github/release/cydrobolt/polr.svg)]()
-
 
 
 Welcome to Polr's 2.0 development branch. 
