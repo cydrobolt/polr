@@ -14,6 +14,15 @@ class UserController extends Controller {
         return view('login');
     }
 
+    public function displaySignupPage(Request $request) {
+        return view('signup');
+    }
+
+    public function logoutUser(Request $request) {
+        $request->session()->forget('username');
+        return redirect()->route('index');
+    }
+
     public function performLogin(Request $request) {
         $username = $request->input('username');
         $password = $request->input('password');
@@ -25,20 +34,15 @@ class UserController extends Controller {
             ->where('password', $hashed_password)
             ->first();
 
-        if ($user == null){
-            // ok
+        if ($user != null){
+            // log user in
+            $request->session()->put('username', $username);
+            return redirect()->route('index');
         }
         else {
             return view('login', [
-                'error' => "Invalid password or inactivated account. Try again."
+                'error' => 'Invalid password or inactivated account. Try again.'
             ]);
         }
-
-
-    }
-
-    public function logoutUser(Request $request) {
-        $request->session()->forget('username');
-        return redirect()->route('index');
     }
 }

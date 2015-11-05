@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('css')
-<link rel='stylesheet' href='css/login-page.css' />
+<link rel='stylesheet' href='css/login.css' />
 @endsection
 
 @section('content')
@@ -14,6 +14,9 @@
             <input type="password" placeholder="password" name="password" class="form-control login-field" />
             <input type="hidden" name='_token' value='{{csrf_token()}}' />
             <input type="submit" value="Login" class="login-submit btn btn-success" />
+            <p class='signup-prompt'>
+                <small>Don't have an account? <a href='{{route('signup')}}'>Register</a></small>
+            </p>
         </form>
     </div>
     <div class="col-md-3"></div>

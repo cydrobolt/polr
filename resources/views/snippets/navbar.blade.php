@@ -8,17 +8,17 @@
         </button>
         <!-- Output sign in/sign out buttons appropriately -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">{{env('APP_NAME')}}</a>
+            <a class="navbar-brand" href="{{route('index')}}">{{env('APP_NAME')}}</a>
         </div>
 
         <ul id="navbar" class="nav navbar-collapse collapse navbar-nav" id="nbc">
             <li><a href="about">About</a></li>
-            <li class="visible-xs"><a href="login">Sign In</a></li>
-            <li class="visible-xs"><a href="admin">Dashboard</a></li>
+            <li class="visible-xs"><a href="{{route('login')}}">Sign In</a></li>
+            <li class="visible-xs"><a href="{{route('admin')}}">Dashboard</a></li>
         </ul>
         <ul id="navbar" class="nav pull-right navbar-nav hidden-xs">
             @if (env('POLR_REGISTRATION') == true)
-                <li><a href="/register">Sign Up</a></li>
+                <li><a href="{{route('signup')}}">Sign Up</a></li>
             @endif
 
             <li class="divider-vertical"></li>

@@ -37,11 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div class="container">
         <div class="content-div @if (!isset($no_div_padding)) content-div-padding @endif @if (isset($large)) jumbotron large-content-div @endif">
             @if (isset($error))
-            <div class='alert'>
-                {{$error}}
+            <div class='alert alert-danger' role='alert'>
+                <b>Error</b>: {{$error}}
             </div>
             @endif
-            
+
             @yield('content')
         </div>
     </div>
