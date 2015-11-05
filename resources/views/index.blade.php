@@ -30,7 +30,7 @@
     </div>
     <input type='submit' class='btn btn-info' id='shorten' value='Shorten' />
     <a href='#' class='btn btn-warning' id='show-link-options'>Link Options</a>
-    <input type='hidden' name='app-rand-id' value='{{env('APP_RAND_ID')}}'/>
+    <input type="hidden" name='_token' value='{{csrf_token()}}' />
 </form>
 <div id='tips' class='text-muted tips'><i class='fa fa-spinner'></i> Loading Tips...</div>
 @endsection

@@ -26,3 +26,4 @@ $app->get('/{short_link}', ['uses' => 'LinkController@performRedirect']);
 /* POST endpoints */
 
 $app->post('/login', ['as' => 'plogin', 'uses' => 'UserController@performLogin']);
+$app->post('/shorten', ['as' => 'shorten', 'uses' => 'LinkController@performShorten']);
