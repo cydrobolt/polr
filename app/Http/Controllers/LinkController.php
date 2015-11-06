@@ -1,7 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Http\Redirect;
+
 use App\Models\Link;
+
+use App\Helpers\LinkHelper;
 
 class LinkController extends Controller {
     /**
@@ -10,38 +14,64 @@ class LinkController extends Controller {
      * @return Response
      */
 
-    private function checkIfExists($link_ending) {
-        /**
-         * Provided a link ending (string),
-         * check whether the ending is in use.
-         * @return boolean
-         */
+    private function renderError($message) {
+        $this->request->session()->flash('error', $message);
 
+        return redirect()->route('index');
     }
 
+
     public function performShorten(Request $request) {
+        $this->request = $request;
+
         $long_url = $request->input('link-url');
         $custom_ending = $request->input('custom-ending');
-
         $is_secret = ($request->input('options') == "s" ? true : false);
+        $creator = session('username');
 
-        // TODO check if long_url is already a shortened URL
-
-        if ($custom_ending) {
-            // TODO check if custom ending is alphanum (maybe dashes)
+        $is_already_short = LinkHelper::checkIfAlreadyShortened($long_url);
+        if ($is_already_short) {
+            return $this->renderError('Sorry, but your link already
+                looks like a shortened URL.');
         }
 
         if ($is_secret) {
             // TODO if secret label as custom and don't return on lookup
         }
 
-        // TODO check if ending is in use
-            // if not custom
-                // TODO find the next base val available
-            // if custom
-                // TODO return an error
+        if ($custom_ending) {
+            // has custom ending
+            $is_alphanum = ctype_alnum($custom_ending);
 
-        $link_ending = "aaa";
+            if (!$is_alphanum) {
+                return $this->renderError('Sorry, but custom endings
+                    can only contain alphanumeric characters');
+            }
+
+            $ending_in_use = LinkHelper::linkExists($custom_ending);
+            if ($ending_in_use) {
+                return $this->renderError('Sorry, but this URL ending is already in use.');
+            }
+
+            $link_ending = $custom_ending;
+        }
+        else {
+            // no custom ending
+            $link_ending = LinkHelper::findSuitableEnding();
+        }
+
+
+        $link = new Link;
+        $link->short_url = $link_ending;
+        $link->long_url  = $long_url;
+        $link->ip        = $request->ip();
+
+        if ($creator) {
+            // if user is logged in, save user as creator
+            $link->creator = $creator;
+        }
+
+        $link->save();
 
         $short_url = env('APP_PROTOCOL') . env('APP_ADDRESS') . "/" . $link_ending;
         return view('shorten_result', ['short_url' => $short_url]);
@@ -57,10 +87,11 @@ class LinkController extends Controller {
 
         if ($link['disabled'] == 1) {
             return view('error', [
-                'error' => 'Sorry, but this link has been disabled by an administrator.'
+                'message' => 'Sorry, but this link has been disabled by an administrator.'
             ]);
         }
 
-        return redirect()->url($short_url);
+        $long_url = $link->long_url;
+        return redirect()->to($long_url);
     }
 }

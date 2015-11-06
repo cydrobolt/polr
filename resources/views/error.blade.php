@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('contents')
+@section('content')
 <h2>Error</h2>
-<h4>{{$error}}</h4>
+<h4>{{$message}}</h4>
 @endsection

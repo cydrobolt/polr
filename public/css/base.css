@@ -36,3 +36,7 @@ body {
 .center-text {
     text-align: center;
 }
+
+.error-alert {
+    text-align: left;
+}

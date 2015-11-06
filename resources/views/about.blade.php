@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<h1 class='title'>About Polr</h1>
+<img class='logo-img' src='/img/logo.png' />
 
 <div class='about-contents'>
     @if ($role == "admin")

@@ -8,15 +8,11 @@
     padding-top: 40px;
 }
 
-.title {
-    font-size: 70px;
-}
-
-.about-contents {
-    font
-}
-
 .license-btn {
     margin-top: 30px;
     width: 20%;
+}
+
+.logo-img {
+    height: 100px;
 }

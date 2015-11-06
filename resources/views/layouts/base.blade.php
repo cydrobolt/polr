@@ -36,16 +36,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     @include('snippets.navbar')
     <div class="container">
         <div class="content-div @if (!isset($no_div_padding)) content-div-padding @endif @if (isset($large)) jumbotron large-content-div @endif">
-            @if (isset($error))
-            <div class='alert alert-danger' role='alert'>
-                <b>Error</b>: {{$error}}
+            @if (isset($error) || (null !== session('error')))
+            <div class='alert alert-danger error-alert alert-dismissable' role='alert'>
+                <b>Error</b>: {{session('error') ?: $error}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             @endif
 
             @yield('content')
         </div>
     </div>
-    <script src='base.js'></script>
+    <script src='/js/base.js'></script>
     @yield('js')
 </body>
 </html>
