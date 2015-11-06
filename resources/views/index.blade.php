@@ -8,7 +8,7 @@
 <h1 class='title'>{{env('APP_NAME')}}</h1>
 
 <form method='POST' action='/shorten' role='form'>
-    <input type='text' class='form-control long-link-input' placeholder='http://' value='http://' name='link-url' />
+    <input type='text' autocomplete="off" class='form-control long-link-input' placeholder='http://' value='http://' name='link-url' />
     <div id='options'>
         <div class='btn-group btn-toggle visibility-toggler' data-toggle='buttons'>
 			<label class='btn btn-primary btn-sm active'>

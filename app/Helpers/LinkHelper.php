@@ -45,9 +45,26 @@ class LinkHelper {
             return false;
         }
         else {
-            return true;
+            return $link->short_url;
         }
     }
+
+    static public function longLinkExists($long_url) {
+        /**
+         * Provided a long link (string),
+         * check whether the link is in the DB.
+         * @return boolean
+         */
+        $link = Link::where('long_url', $long_url)
+            ->first();
+        if ($link == null) {
+            return false;
+        }
+        else {
+            return $link->short_url;
+        }
+    }
+
 
     static public function findSuitableEnding() {
         /**

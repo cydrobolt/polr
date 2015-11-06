@@ -20,6 +20,14 @@ class LinkController extends Controller {
         return redirect()->route('index');
     }
 
+    private function formatAndRender($link_ending, $secret_ending=False) {
+        $short_url = env('APP_PROTOCOL') . env('APP_ADDRESS') . '/' . $link_ending;
+        if ($secret_ending) {
+            $short_url .= '/' . $secret_ending;
+        }
+        return view('shorten_result', ['short_url' => $short_url]);
+    }
+
 
     public function performShorten(Request $request) {
         $this->request = $request;
@@ -35,8 +43,10 @@ class LinkController extends Controller {
                 looks like a shortened URL.');
         }
 
-        if ($is_secret) {
-            // TODO if secret label as custom and don't return on lookup
+        if (!$is_secret && $existing_link = LinkHelper::longLinkExists($long_url)) {
+            // if link is not specified as secret, is non-custom, and
+            // already exists in Polr, lookup the value and return
+            return $this->formatAndRender($existing_link);
         }
 
         if ($custom_ending) {
@@ -61,6 +71,7 @@ class LinkController extends Controller {
         }
 
 
+
         $link = new Link;
         $link->short_url = $link_ending;
         $link->long_url  = $long_url;
@@ -72,13 +83,19 @@ class LinkController extends Controller {
             $link->creator = $creator;
         }
 
+        if ($is_secret) {
+            $rand_bytes_num = intval(env('POLR_SECRET_BYTES'));
+            $rand_bytes = openssl_random_pseudo_bytes($rand_bytes_num);
+            $secret_key = bin2hex($rand_bytes);
+            $link->secret_key = $secret_key;
+        }
+
         $link->save();
 
-        $short_url = env('APP_PROTOCOL') . env('APP_ADDRESS') . "/" . $link_ending;
-        return view('shorten_result', ['short_url' => $short_url]);
+        return $this->formatAndRender($link_ending, $secret_key);
     }
 
-    public function performRedirect(Request $request, $short_url) {
+    public function performRedirect(Request $request, $short_url, $secret_key=false) {
         $link = Link::where('short_url', $short_url)
             ->first();
 
@@ -86,10 +103,27 @@ class LinkController extends Controller {
             return abort(404);
         }
 
-        if ($link['disabled'] == 1) {
+        $link_secret_key = $link->secret_key;
+
+        if ($link->disabled == 1) {
             return view('error', [
                 'message' => 'Sorry, but this link has been disabled by an administrator.'
             ]);
+        }
+
+        if ($link_secret_key) {
+            if (!$secret_key) {
+                // if we do not receieve a secret key
+                // when we are expecting one, return a 404
+                return abort(404);
+            }
+            else {
+                if ($link_secret_key != $secret_key) {
+                    // a secret key is provided, but it is incorrect
+                    return abort(404);
+                }
+            }
+
         }
 
         $long_url = $link->long_url;
