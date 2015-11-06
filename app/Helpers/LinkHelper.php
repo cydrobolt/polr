@@ -62,14 +62,15 @@ class LinkHelper {
             ->first();
 
         if ($link == null) {
-            $latest_link_ending = "1";
+            $base10_val = 0;
         }
         else {
             $latest_link_ending = $link->short_url;
+            $base10_val = BaseHelper::toBase10($latest_link_ending, $base);
+            $base10_val++;
         }
 
-        $base10_val = BaseHelper::toBase10($latest_link_ending, $base);
-        $base10_val++;
+
         $base_x_val = null;
 
         while (LinkHelper::linkExists($base_x_val) || $base_x_val == null) {

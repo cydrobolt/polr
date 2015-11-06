@@ -65,6 +65,7 @@ class LinkController extends Controller {
         $link->short_url = $link_ending;
         $link->long_url  = $long_url;
         $link->ip        = $request->ip();
+        $link->is_custom = isset($custom_ending);
 
         if ($creator) {
             // if user is logged in, save user as creator
