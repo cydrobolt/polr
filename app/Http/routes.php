@@ -29,3 +29,6 @@ $app->get('/{short_url}/{secret_key}', ['uses' => 'LinkController@performRedirec
 
 $app->post('/login', ['as' => 'plogin', 'uses' => 'UserController@performLogin']);
 $app->post('/shorten', ['as' => 'shorten', 'uses' => 'LinkController@performShorten']);
+
+/* API endpoints */
+$app->post('/api/v2/link_avail_check', ['as' => 'link_check', 'uses' => 'AjaxController@checkLinkAvailability']);

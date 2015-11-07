@@ -51,9 +51,8 @@ class LinkController extends Controller {
 
         if ($custom_ending) {
             // has custom ending
-            $is_alphanum = ctype_alnum($custom_ending);
-
-            if (!$is_alphanum) {
+            $ending_conforms = LinkHelper::validateEnding($custom_ending);
+            if (!$ending_conforms) {
                 return $this->renderError('Sorry, but custom endings
                     can only contain alphanumeric characters');
             }
@@ -70,13 +69,11 @@ class LinkController extends Controller {
             $link_ending = LinkHelper::findSuitableEnding();
         }
 
-
-
         $link = new Link;
         $link->short_url = $link_ending;
         $link->long_url  = $long_url;
         $link->ip        = $request->ip();
-        $link->is_custom = isset($custom_ending);
+        $link->is_custom = $custom_ending != null;
 
         if ($creator) {
             // if user is logged in, save user as creator
@@ -88,6 +85,9 @@ class LinkController extends Controller {
             $rand_bytes = openssl_random_pseudo_bytes($rand_bytes_num);
             $secret_key = bin2hex($rand_bytes);
             $link->secret_key = $secret_key;
+        }
+        else {
+            $secret_key = false;
         }
 
         $link->save();

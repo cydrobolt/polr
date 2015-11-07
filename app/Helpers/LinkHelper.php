@@ -41,11 +41,12 @@ class LinkHelper {
          */
         $link = Link::where('short_url', $link_ending)
             ->first();
+
         if ($link == null) {
             return false;
         }
         else {
-            return $link->short_url;
+            return true;
         }
     }
 
@@ -56,6 +57,7 @@ class LinkHelper {
          * @return boolean
          */
         $link = Link::where('long_url', $long_url)
+            ->where('is_custom', 0)
             ->first();
         if ($link == null) {
             return false;
@@ -65,6 +67,11 @@ class LinkHelper {
         }
     }
 
+    static public function validateEnding($link_ending) {
+        $is_alphanum = ctype_alnum($link_ending);
+
+        return $is_alphanum;
+    }
 
     static public function findSuitableEnding() {
         /**
@@ -74,12 +81,13 @@ class LinkHelper {
          */
         $base = env('POLR_BASE');
 
-        $link = Link::where('is_custom', '0')
+        $link = Link::where('is_custom', 0)
             ->orderBy('created_at', 'desc')
             ->first();
 
         if ($link == null) {
             $base10_val = 0;
+            $base_x_val = 0;
         }
         else {
             $latest_link_ending = $link->short_url;

@@ -4,8 +4,10 @@
 }
 
 .license {
-    font-size: 70%;
-    padding-top: 40px;
+    font-size: 80%;
+    margin-top: 40px;
+    width: auto;
+    color: black;
 }
 
 .license-btn {

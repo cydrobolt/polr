@@ -12,22 +12,22 @@ $(function() {
         }
     });
     $('#check-link-availability').click(function() {
-        var customlink = $('#custom').val();
+        var custom_link = $('.custom-url-field').val();
         var request = $.ajax({
-            url: "/api/v2/linkcheck",
+            url: "/api/v2/link_avail_check",
             type: "POST",
             data: {
-                link: customlink
+                link_ending: custom_link
             },
             dataType: "html"
         });
         $('#link-availability-status').html('<span><i class="fa fa-spinner"></i> Loading</span>');
         request.done(function(msg) {
-            if (msg == '0') {
+            if (msg == 'unavailable') {
                 $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-ban"></i> Already in use</span>');
-            } else if (msg == '1') {
+            } else if (msg == 'available') {
                 $('#link-availability-status').html('<span style="color:green"><i class="fa fa-check"></i> Available</span>');
-            } else if (msg == '2') {
+            } else if (msg == 'invalid') {
                 $('#link-availability-status').html('<span style="color:orange"><i class="fa fa-exclamation-triangle"></i> Invalid Custom URL Ending</span>');
             } else {
                 $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + msg);

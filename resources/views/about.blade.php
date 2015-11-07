@@ -24,24 +24,23 @@
     </p>
 </div>
 <a href='#' class='btn btn-success license-btn'>More Information</a>
-<div class="license" id="gpl-license">
-    The GNU General Public License v3
-    <br />
-    Copyright (C) 2013-2015 Chaoyi Zha, the Polr Project
-    <br />
-    This program is free software: you can redistribute it and/or modify<br />
-    it under the terms of the GNU General Public License as published by<br />
-    the Free Software Foundation, either version 3 of the License, or<br />
-    (at your option) any later version.<br />
-    <br />
-    This program is distributed in the hope that it will be useful,<br />
-    but WITHOUT ANY WARRANTY; without even the implied warranty of<br />
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br />
-    GNU General Public License for more details.<br />
-    <br />
-    You should have received a copy of the GNU General Public License<br />
-    along with this program.  If not, see <a href='http://www.gnu.org/copyleft/gpl.html'>http://www.gnu.org/copyleft/gpl.html</a>.
-</div>
+<pre class="license" id="gpl-license">
+Copyright (C) 2013-2015 Chaoyi Zha
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+</pre>
 
 @endsection
 

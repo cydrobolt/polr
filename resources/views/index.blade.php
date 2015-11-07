@@ -21,7 +21,7 @@
         <p>Customize link: </p>
         <div class='custom-link-text'>
             <h2 class='site-url-field'>{{env('APP_ADDRESS')}}/</h2>
-            <input type='text' class='form-control custom-url-field' name='custom-ending' />
+            <input type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
         </div>
         <div>
             <a href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>Check Availability</a>
