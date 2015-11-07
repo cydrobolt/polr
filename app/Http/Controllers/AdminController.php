@@ -9,6 +9,6 @@ class IndexController extends Controller {
      * @return Response
      */
     public function displayAdminPage(Request $request) {
-        return view('index');
+        return view('admin');
     }
 }

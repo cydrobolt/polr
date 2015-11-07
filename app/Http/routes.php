@@ -28,6 +28,7 @@ $app->get('/{short_url}/{secret_key}', ['uses' => 'LinkController@performRedirec
 /* POST endpoints */
 
 $app->post('/login', ['as' => 'plogin', 'uses' => 'UserController@performLogin']);
+$app->post('/signup', ['as' => 'psignup', 'uses' => 'UserController@performSignup']);
 $app->post('/shorten', ['as' => 'shorten', 'uses' => 'LinkController@performShorten']);
 
 /* API endpoints */

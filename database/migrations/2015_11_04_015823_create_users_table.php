@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('email');
+            $table->text('ip');
 
             $table->string('recovery_key');
             $table->string('role');

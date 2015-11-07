@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Helpers\CryptoHelper;
 
 class IndexController extends Controller {
     /**
@@ -9,7 +10,7 @@ class IndexController extends Controller {
      * @return Response
      */
     public function showIndexPage(Request $request) {
-        // $request->session()->put('username', "cydrobolt");
+        $random_key = CryptoHelper::generateRandomHex(50);
         return view('index', ['large' => true]);
     }
 }

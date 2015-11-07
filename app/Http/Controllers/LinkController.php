@@ -5,6 +5,7 @@ use Illuminate\Http\Redirect;
 
 use App\Models\Link;
 
+use App\Helpers\CryptoHelper;
 use App\Helpers\LinkHelper;
 
 class LinkController extends Controller {
@@ -82,8 +83,7 @@ class LinkController extends Controller {
 
         if ($is_secret) {
             $rand_bytes_num = intval(env('POLR_SECRET_BYTES'));
-            $rand_bytes = openssl_random_pseudo_bytes($rand_bytes_num);
-            $secret_key = bin2hex($rand_bytes);
+            $secret_key = CryptoHelper::generateRandomHex($rand_bytes_num);
             $link->secret_key = $secret_key;
         }
         else {
