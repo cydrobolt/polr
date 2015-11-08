@@ -17,13 +17,12 @@
             <li class="visible-xs"><a href="{{route('admin')}}">Dashboard</a></li>
         </ul>
         <ul id="navbar" class="nav pull-right navbar-nav hidden-xs">
-            @if (env('POLR_REGISTRATION') == true)
-                <li><a href="{{route('signup')}}">Sign Up</a></li>
-            @endif
-
             <li class="divider-vertical"></li>
 
             @if (empty(session('username')))
+                @if (env('POLR_REGISTRATION') == true)
+                    <li><a href="{{route('signup')}}">Sign Up</a></li>
+                @endif
             <li class="dropdown">
                 <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
                 <div class="dropdown-menu pull-right login-dropdown-menu" id="dropdown">

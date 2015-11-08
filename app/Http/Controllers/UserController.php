@@ -5,6 +5,7 @@ use Mail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Helpers\CryptoHelper;
+use App\Helpers\UserHelper;
 
 class UserController extends Controller {
     /**
@@ -31,8 +32,9 @@ class UserController extends Controller {
 
         $credentials_valid = UserHelper::checkCredentials($username, $password);
 
-        if ($credentials_valid){
+        if ($credentials_valid != false) {
             // log user in
+            $role = $credentials_valid['role'];
             $request->session()->put('username', $username);
             return redirect()->route('index');
         }
@@ -79,7 +81,7 @@ class UserController extends Controller {
         $user = new User;
         $user->username = $username;
         $user->password = $hashed_password;
-        $user->recovery_key = $random_key;
+        $user->recovery_key = $recovery_key;
         $user->active = 0;
         $user->ip = $ip;
 
@@ -87,7 +89,7 @@ class UserController extends Controller {
         if ($acct_activation_needed == false) {
             // if no activation is necessary
             $user->active = 1;
-            return view('notice', [
+            $response = view('notice', [
                 'message' => 'Thanks for signing up! You may now log in.'
             ]);
         }
@@ -98,9 +100,12 @@ class UserController extends Controller {
             ], function ($m) use ($user) {
                     $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
             });
-            return view('notice', [
+            $response = view('notice', [
                 'message' => 'Thanks for signing up! Please confirm your email to activate your account.'
             ]);
         }
+        $user->save();
+
+        return $response;
     }
 }

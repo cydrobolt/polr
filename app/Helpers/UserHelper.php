@@ -30,18 +30,21 @@ class UserHelper {
     }
 
     public static function checkCredentials($username, $password) {
-        $hashed_password = Hash::make($password);
-
         $user = User::where('active', 1)
             ->where('username', $username)
-            ->where('password', $hashed_password)
             ->first();
 
         if ($user == null) {
             return false;
         }
+
+        $correct_password = Hash::check($password, $user->password);
+
+        if (!$correct_password) {
+            return false;
+        }
         else {
-            return true;
+            return ['username' => $username, 'role' => $user->role];
         }
     }
 }

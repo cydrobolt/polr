@@ -8,11 +8,11 @@
 <div class='col-md-6'>
     <h2 class='title'>Register</h2>
 
-    <form action='handle-register.php' method='POST'>
+    <form action='{{route('psignup')}}' method='POST'>
         Username: <input type='text' name='username' class='form-control form-field' placeholder='Username' />
         Password: <input type='password' name='password' class='form-control form-field' placeholder='Password' />
         Email: <input type='email' name='email' class='form-control form-field' placeholder='Email' />
-
+        <input type="hidden" name='_token' value='{{csrf_token()}}' />
         <input type="submit" class="btn btn-default btn-success" value="Register"/>
         <p class='login-prompt'>
             <small>Already have an account? <a href='{{route('login')}}'>Login</a></small>
