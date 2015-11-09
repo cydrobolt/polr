@@ -10,7 +10,9 @@ class AdminController extends Controller {
      */
     public function displayAdminPage(Request $request) {
         $role = session('role');
-        
-        return view('admin');
+
+        return view('admin', [
+            'role' => $role
+        ]);
     }
 }

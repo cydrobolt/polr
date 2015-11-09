@@ -108,4 +108,9 @@ class UserController extends Controller {
 
         return $response;
     }
+
+    public static function performActivation(Request $request, $username, $recovery_key) {
+        // TODO process activation
+    }
+
 }

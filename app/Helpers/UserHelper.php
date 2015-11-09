@@ -47,4 +47,19 @@ class UserHelper {
             return ['username' => $username, 'role' => $user->role];
         }
     }
+
+    public static function createNewRecoveryKey($username) {
+        $recovery_key = CryptoHelper::generateRandomHex(50);
+
+        $user = User::where('active', 1)
+            ->where('username', $username)
+            ->first();
+        
+        if ($user == null) {
+            return false;
+        }
+
+        $user->recovery_key = $recovery_key;
+        $user->save();
+    }
 }
