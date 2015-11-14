@@ -20,7 +20,7 @@
             <li class="divider-vertical"></li>
 
             @if (empty(session('username')))
-                @if (env('POLR_REGISTRATION') == true)
+                @if (env('POLR_ALLOW_ACCT_CREATION') == true)
                     <li><a href="{{route('signup')}}">Sign Up</a></li>
                 @endif
             <li class="dropdown">
