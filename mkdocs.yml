@@ -1,0 +1,7 @@
+site_name: Polr Project
+pages:
+- Home: index.md
+- About: about.md
+theme: readthedocs
+repo_url: https://github.com/cydrobolt/polr/
+site_author: Chaoyi Zha
