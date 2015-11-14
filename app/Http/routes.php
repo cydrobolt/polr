@@ -21,6 +21,9 @@ $app->get('/about', ['as' => 'about', 'uses' => 'StaticPageController@displayAbo
 $app->get('/signup', ['as' => 'signup', 'uses' => 'UserController@displaySignupPage']);
 $app->get('/admin', ['as' => 'admin', 'uses' => 'AdminController@displayAdminPage']);
 
+$app->get('/setup', ['as' => 'setup', 'uses' => 'SetupController@displaySetupPage']);
+$app->post('/setup', ['as' => 'psetup', 'uses' => 'SetupController@performSetup'])
+
 $app->get('/{short_url}', ['uses' => 'LinkController@performRedirect']);
 $app->get('/{short_url}/{secret_key}', ['uses' => 'LinkController@performRedirect']);
 
