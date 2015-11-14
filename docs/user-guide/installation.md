@@ -95,40 +95,6 @@ server {
     listen 80 default;
     rewrite ^(.*) https://example.com$1 permanent;
 }
-
-# HTTPS server (optional)
-
-# server {
-#     listen 443;
-#     server_name example.com;
-#
-#     root /var/vhost/example.com/public;
-#     index index.php;
-#
-#     ssl on;
-#     ssl_certificate /etc/ssl/crt/example.com.crt; # Or wherever your crt is
-#     ssl_certificate_key /etc/ssl/key/example.com.key; # Or wherever your key is
-#     ssl_session_timeout 5m;
-#
-#     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-#     ssl_prefer_server_ciphers on;
-#     ssl_ciphers "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA";
-#     ssl_buffer_size 1400; # 1400 bytes, within MTU - because we generally have small responses. Could increase to 4k, but default 16k is too big
-#
-#     location / {
-#         add_header Strict-Transport-Security max-age=15768000;
-#         try_files $uri /index.php$is_args$args;
-#     }
-#
-#     location ~ \.php$ {
-#         include fastcgi_params;
-#         fastcgi_pass unix:/var/run/php5-fpm.sock;
-#         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#         fastcgi_index index.php;
-#         fastcgi_keep_conn on;
-#         add_header Strict-Transport-Security max-age=15768000;
-#     }
-# }
 ```
 ### Shared hosting/other
 
