@@ -17,12 +17,12 @@ class AdminController extends Controller {
         $admin_users = null;
         $admin_links = null;
         if ($role == 'admin') {
-            $admin_users = User::paginate(30);
-            $admin_links = Link::paginate(30);
+            $admin_users = User::paginate(15);
+            $admin_links = Link::paginate(15);
         }
 
         $user_links = Link::where('creator', $username)
-            ->paginate(30);
+            ->paginate(15);
 
         return view('admin', [
             'role' => $role,
