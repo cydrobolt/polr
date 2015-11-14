@@ -1,7 +1,19 @@
 site_name: Polr Project
 pages:
 - Home: index.md
-- About: about.md
+- User Guide:
+    - 'Installation': 'user-guide/installation.md'
+    - 'Troubleshooting': 'user-guide/troubleshooting.md'
+- Developer Guide:
+    - 'Libraries': 'developer-guide/libraries.md'
+    - 'API Documentation': 'developer-guide/api.md'
+- About:
+    - 'License': 'about/license.md'
+    - 'Contributors': 'about/contributors.md'
+    - 'Contributing': 'about/contributing.md'
+
 theme: readthedocs
 repo_url: https://github.com/cydrobolt/polr/
 site_author: Chaoyi Zha
+extra_css:
+    - 'css/base.css'
