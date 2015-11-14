@@ -36,6 +36,8 @@ class UserController extends Controller {
             // log user in
             $role = $credentials_valid['role'];
             $request->session()->put('username', $username);
+            $request->session()->put('role', $role);
+
             return redirect()->route('index');
         }
         else {

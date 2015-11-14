@@ -111,6 +111,8 @@ class LinkController extends Controller {
             ]);
         }
 
+
+
         if ($link_secret_key) {
             if (!$secret_key) {
                 // if we do not receieve a secret key
@@ -127,6 +129,16 @@ class LinkController extends Controller {
         }
 
         $long_url = $link->long_url;
+
+        if (is_int($link->clicks)) {
+            $link->clicks += 1;
+        }
+        else {
+            $link->clicks = 1;
+        }
+
+        $link->save();
+
         return redirect()->to($long_url);
     }
 }

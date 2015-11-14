@@ -12,7 +12,7 @@
         <li role='presentation' aria-controls="settings" class='admin-nav-item'><a href='#settings'>Settings</a></li>
 
         @if ($role == 'admin')
-        <li role='presentation' class='admin-nav-item'><a href='#'>Admin</a></li>
+        <li role='presentation' class='admin-nav-item'><a href='#admin'>Admin</a></li>
         @endif
     </ul>
 </div>
@@ -24,12 +24,30 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="links">
+            @include('snippets.link_table', [
+                'links' => $user_links
+            ])
 
+            {!! $user_links->fragment('links')->render() !!}
         </div>
 
         <div role="tabpanel" class="tab-pane" id="settings">
-
+            <form action='/admin/action/change_password' method='POST'>
+                Old Password: <input class="form-control password-box" type='password' name='current_password' />
+                New Password: <input class="form-control password-box" type='password' name='new_password' />
+                <input type='submit' class='btn btn-success'/>
+            </form>
         </div>
+
+        @if ($role == 'admin')
+        <div role="tabpanel" class="tab-pane" id="admin">
+            @include('snippets.link_table', [
+                'links' => $admin_links
+            ])
+
+            {!! $admin_links->fragment('admin')->render() !!}
+        </div>
+        @endif
     </div>
 </div>
 
