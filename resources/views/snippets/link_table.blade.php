@@ -9,7 +9,7 @@
     @foreach ($links as $link)
     <tr>
         <td>{{$link->short_url}}</td>
-        <!-- TODO truncate long link -->
+        {{-- TODO truncate long link --}}
         <td>{{$link->long_url}}</td>
         <td>{{$link->clicks}}</td>
         <td>{{$link->created_at}}</td>

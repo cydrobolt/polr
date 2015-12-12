@@ -29,23 +29,35 @@
             ])
 
             {!! $user_links->fragment('links')->render() !!}
+            {{-- Add search functions --}}
         </div>
 
         <div role="tabpanel" class="tab-pane" id="settings">
+            <h3>Change Password</h3>
             <form action='/admin/action/change_password' method='POST'>
                 Old Password: <input class="form-control password-box" type='password' name='current_password' />
                 New Password: <input class="form-control password-box" type='password' name='new_password' />
-                <input type='submit' class='btn btn-success'/>
+                <input type='submit' class='btn btn-success change-password-btn'/>
             </form>
         </div>
 
         @if ($role == 'admin')
         <div role="tabpanel" class="tab-pane" id="admin">
+            <h3>Links</h3>
+
             @include('snippets.link_table', [
                 'links' => $admin_links
             ])
 
             {!! $admin_links->fragment('admin')->render() !!}
+
+            <h3>Users</h3>
+            @include('snippets.user_table', [
+                'users' => $admin_users
+            ])
+
+            {!! $admin_users->fragment('admin')->render() !!}
+
         </div>
         @endif
     </div>
@@ -55,5 +67,10 @@
 @endsection
 
 @section('js')
+{{-- Include modal templates --}}
+@include('snippets.modals')
+
+{{-- Include extra JS --}}
+<script src='/js/handlebars-v4.0.5.min.js'></script>
 <script src='/js/admin.js'></script>
 @endsection
