@@ -46,7 +46,7 @@ $(function () {
                     {{else}}
                         False
                     {{/if}}
-                    - <a href='#' data-user-id='{{user_id}}' class='toggle-api-active' class='btn btn-xs btn-success'>Active (click to toggle)</a>
+                    - <a data-user-id='{{user_id}}' class='toggle-api-active btn btn-xs btn-success'>Active (click to toggle)</a>
                 </p>
                 <p>
                     <span>API Key: <code>{{api_key}}</code></span>
@@ -62,6 +62,7 @@ $(function () {
             api_key: api_key,
             api_active: api_active,
             api_quota: api_quota,
+            user_id: user_id,
             title: "API Information for " + username,
             body: markup
         };
@@ -74,12 +75,10 @@ $(function () {
     $('.activate-edit-modal').click(function () {
         // activate modal
     });
-
-    $('.toggle-api-active').click(function () {
+    $('body').delegate('.toggle-api-active', 'click', function () {
         var toggle_user_id = $(this).data('user-id');
         apiCall('admin/toggle_api_active', {
             'user_id': toggle_user_id,
         });
     });
-
 });

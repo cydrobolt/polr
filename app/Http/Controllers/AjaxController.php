@@ -29,5 +29,24 @@ class AjaxController extends Controller {
         if (!$this->currIsAdmin()) {
             abort(401, 'User not admin.');
         }
+
+        $user_to_toggle = $request->input('user_id');
+        $user = User::where('id', $user_id)
+            ->where('active', 1)
+            ->first();
+        if (!$user) {
+            abort(404, 'User not found.');
+        }
+        $current_status = $user->api_active;
+
+        if ($current_status == 1) {
+            $new_status = 0;
+        }
+        else {
+            $new_status = 1;
+        }
+
+        $user->api_active = $new_status;
+        $user->save();
     }
 }

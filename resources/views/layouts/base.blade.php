@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <link rel="stylesheet" href="/css/base.css" />
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico" />
+
+    <script src='/js/constants.js'></script>
     <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     @yield('css')

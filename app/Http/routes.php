@@ -35,5 +35,5 @@ $app->post('/signup', ['as' => 'psignup', 'uses' => 'UserController@performSignu
 $app->post('/shorten', ['as' => 'shorten', 'uses' => 'LinkController@performShorten']);
 
 /* API endpoints */
-$app->post('/api/v2/link_avail_check', ['as' => 'link_check', 'uses' => 'AjaxController@checkLinkAvailability']);
-$app->post('/api/v2/admin/toggle_api_active', ['as' => 'link_check', 'uses' => 'AjaxController@toggleAPIActive']);
+$app->post('/api/v2/link_avail_check', ['as' => 'api_link_check', 'uses' => 'AjaxController@checkLinkAvailability']);
+$app->post('/api/v2/admin/toggle_api_active', ['as' => 'api_toggle_api_active', 'uses' => 'AjaxController@toggleAPIActive']);
