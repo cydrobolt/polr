@@ -11,12 +11,17 @@ class AdminController extends Controller {
      * @return Response
      */
     public function displayAdminPage(Request $request) {
-        $role = session('role');
+        if (!$this->isLoggedIn()) {
+            return view('errors.404');
+        }
+
         $username = session('username');
+        $role = session('role');
 
         $admin_users = null;
         $admin_links = null;
-        if ($role == 'admin') {
+
+        if ($this->currIsAdmin()) {
             $admin_users = User::paginate(15);
             $admin_links = Link::paginate(15);
         }

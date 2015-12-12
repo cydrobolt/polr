@@ -5,7 +5,7 @@ use App\Helpers\LinkHelper;
 
 class AjaxController extends Controller {
     /**
-     * Process non-admin AJAX requests.
+     * Process AJAX requests.
      *
      * @return Response
      */
@@ -22,6 +22,12 @@ class AjaxController extends Controller {
         }
         else {
             return "available";
+        }
+    }
+
+    public function toggleAPIActive(Request $request) {
+        if (!$this->currIsAdmin()) {
+            abort(401, 'User not admin.');
         }
     }
 }

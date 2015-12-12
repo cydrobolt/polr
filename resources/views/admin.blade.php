@@ -72,5 +72,6 @@
 
 {{-- Include extra JS --}}
 <script src='/js/handlebars-v4.0.5.min.js'></script>
+<script src='/js/api.js'></script>
 <script src='/js/admin.js'></script>
 @endsection

@@ -36,3 +36,4 @@ $app->post('/shorten', ['as' => 'shorten', 'uses' => 'LinkController@performShor
 
 /* API endpoints */
 $app->post('/api/v2/link_avail_check', ['as' => 'link_check', 'uses' => 'AjaxController@checkLinkAvailability']);
+$app->post('/api/v2/admin/toggle_api_active', ['as' => 'link_check', 'uses' => 'AjaxController@toggleAPIActive']);

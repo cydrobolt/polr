@@ -35,6 +35,7 @@ $(function () {
         var api_key = te.data('api-key');
         var api_active = te.data('api-active');
         var api_quota = te.data('api-quota');
+        var user_id = te.data('user-id');
 
         var markup = `
             <div>
@@ -45,7 +46,7 @@ $(function () {
                     {{else}}
                         False
                     {{/if}}
-                    - <a href='#' class='btn btn-xs btn-success'>Active (click to toggle)</a>
+                    - <a href='#' data-user-id='{{user_id}}' class='toggle-api-active' class='btn btn-xs btn-success'>Active (click to toggle)</a>
                 </p>
                 <p>
                     <span>API Key: <code>{{api_key}}</code></span>
@@ -72,6 +73,13 @@ $(function () {
 
     $('.activate-edit-modal').click(function () {
         // activate modal
+    });
+
+    $('.toggle-api-active').click(function () {
+        var toggle_user_id = $(this).data('user-id');
+        apiCall('admin/toggle_api_active', {
+            'user_id': toggle_user_id,
+        });
     });
 
 });

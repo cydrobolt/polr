@@ -15,20 +15,19 @@
         <td>{{$user->active}}</td>
         {{-- <td>Active: {{$user->api_active}}</td> --}}
         <td>
-            <a href='#'
-                class='activate-api-modal btn btn-sm btn-info'
+            <a  class='activate-api-modal btn btn-sm btn-info'
 
                 data-api-active='{{$user->api_active}}'
                 data-api-key='{{$user->api_key}}'
                 data-api-quota='{{$user->api_quota}}'
+                data-user-id='{{$user->id}}'
                 data-username='{{$user->username}}'>
                 API info
             </a>
         </td>
 
         <td>
-            <a href='#'
-                class='activate-edit-modal btn btn-sm btn-success'
+            <a  class='activate-edit-modal btn btn-sm btn-success'
 
                 data-username='{{$user->username}}'>
                 Edit
