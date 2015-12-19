@@ -41,15 +41,14 @@ $(function () {
             <div>
                 <p>
                     <span>API Active</span>:
-                    {{#if api_active}}
-                        True
-                    {{else}}
-                        False
-                    {{/if}}
-                    - <a data-user-id='{{user_id}}' class='toggle-api-active btn btn-xs btn-success'>Active (click to toggle)</a>
+
+                    <code class='status-display'>
+                        {{#if api_active}}True{{else}}False{{/if}}</code>
+
+                     - <a data-user-id='{{user_id}}' data-action='toggle-api-active' class='trigger-api-modal-action btn btn-xs btn-success'>toggle</a>
                 </p>
                 <p>
-                    <span>API Key: <code>{{api_key}}</code></span>
+                    <span>API Key: </span><code class='status-display'>{{api_key}}</code> - <a data-user-id='{{user_id}}' data-action='generate-new-api-key' class='trigger-api-modal-action btn btn-xs btn-danger'>reset</a>
                 </p>
                 <p>
                     <span>API Quota: <code>{{api_quota}}</code></span>
@@ -72,13 +71,29 @@ $(function () {
         appendModal(mt_html, modal_id);
     });
 
-    $('.activate-edit-modal').click(function () {
-        // activate modal
-    });
-    $('body').delegate('.toggle-api-active', 'click', function () {
-        var toggle_user_id = $(this).data('user-id');
-        apiCall('admin/toggle_api_active', {
-            'user_id': toggle_user_id,
+    $('body').delegate('.trigger-api-modal-action', 'click', function () {
+        var user_id = $(this).data('user-id');
+        var status_display_elem = $(this).prevAll('.status-display');
+
+        var action = $(this).data('action');
+
+        var api_endpoint = '';
+
+        if (action == 'toggle-api-active') {
+            api_endpoint = 'admin/toggle_api_active';
+        }
+        else if (action == 'generate-new-api-key') {
+            api_endpoint = 'admin/generate_new_api_key';
+        }
+
+        apiCall(api_endpoint, {
+            'user_id': user_id,
+        }, function (new_status) {
+            if (action == 'toggle-api-active') {
+                new_status = res_value_to_text(new_status);
+            }
+            console.log(status_display_elem.html());
+            status_display_elem.text(new_status);
         });
     });
 });

@@ -54,7 +54,7 @@ class UserHelper {
         $user = User::where('active', 1)
             ->where('username', $username)
             ->first();
-        
+
         if ($user == null) {
             return false;
         }
@@ -62,4 +62,12 @@ class UserHelper {
         $user->recovery_key = $recovery_key;
         $user->save();
     }
+
+    public static function getUserById($user_id) {
+        $user = User::where('id', $user_id)
+            ->where('active', 1)
+            ->first();
+        return $user;
+    }
+
 }
