@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Hash;
+
 use App\Models\Link;
 use App\Models\User;
 use App\Helpers\UserHelper;
@@ -48,14 +50,14 @@ class AdminController extends Controller {
 
         if (UserHelper::checkCredentials($username, $old_password) == false) {
             // Invalid credentials
-            return view('error', [
-                'message' => 'Current password invalid. Try again.'
-            ]);
+            return redirect('admin')->with('error', 'Current password invalid. Try again.');
         }
         else {
             // Credentials are correct
             $user = UserHelper::getUserByUsername($username);
-            $user->password = $new_password;
+            $user->password = Hash::make($new_password);
+            $user->save();
+
             $request->session()->flash('success', "Password changed successfully.");
             return redirect()->route('admin');
         }
