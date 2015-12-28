@@ -5,11 +5,13 @@ Setup
 @endsection
 
 @section('css')
-<link rel='stylesheet' href='/css/default-bootstrap.min.css' />
+<link rel='stylesheet' href='/css/setup.css'>
+
+<link rel='stylesheet' href='/css/default-bootstrap.min.css'>
 @endsection
 
 @section('content')
-<img src='/img/logo.png' />
+<img class='setup-logo' src='/img/logo.png' />
 <h1>Setup</h1>
 
 

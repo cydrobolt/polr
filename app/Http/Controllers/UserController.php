@@ -47,9 +47,7 @@ class UserController extends Controller {
 
     public function performSignup(Request $request) {
         if (env('POLR_ALLOW_ACCT_CREATION') == false) {
-            return view('error', [
-                'message' => 'Sorry, but registration is disabled.'
-            ]);
+            return redirect('index')->with('error', 'Sorry, but registration is disabled.');
         }
 
         $username = $request->input('username');
@@ -64,17 +62,13 @@ class UserController extends Controller {
 
         if ($user_exists || $email_exists) {
             // if user or email email
-            return view('signup', [
-                'error' => 'Sorry, your email or username already exists. Try again.'
-            ]);
+            return redirect('signup')->with('error', 'Sorry, your email or username already exists. Try again.');
         }
 
         $email_valid = UserHelper::validateEmail($email);
 
         if ($email_valid == false) {
-            return view('signup', [
-                'error' => 'Please use a valid email to sign up.'
-            ]);
+            return redirect('signup')->with('error', 'Please use a valid email to sign up.');
         }
 
         $recovery_key = CryptoHelper::generateRandomHex(50);
@@ -86,12 +80,11 @@ class UserController extends Controller {
         $user->ip = $ip;
 
         $acct_activation_needed = env('POLR_ACCT_ACTIVATION');
+
         if ($acct_activation_needed == false) {
             // if no activation is necessary
             $user->active = 1;
-            $response = view('notice', [
-                'message' => 'Thanks for signing up! You may now log in.'
-            ]);
+            $response = redirect('login')->with('success', 'Thanks for signing up! You may now log in.');
         }
         else {
             // email activation is necessary
@@ -100,9 +93,8 @@ class UserController extends Controller {
             ], function ($m) use ($user) {
                     $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
             });
-            $response = view('notice', [
-                'message' => 'Thanks for signing up! Please confirm your email to activate your account.'
-            ]);
+            $response = redirect('login')->with('success', 'Thanks for signing up! Please confirm your email to continue..');
+
         }
         $user->save();
 
