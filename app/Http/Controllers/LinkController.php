@@ -16,9 +16,7 @@ class LinkController extends Controller {
      */
 
     private function renderError($message) {
-        $this->request->session()->flash('error', $message);
-
-        return redirect()->route('index');
+        return redirect(route('index'))->with('error', $message);
     }
 
     private function formatAndRender($link_ending, $secret_ending=False) {
@@ -40,7 +38,7 @@ class LinkController extends Controller {
 
         $is_already_short = LinkHelper::checkIfAlreadyShortened($long_url);
         if ($is_already_short) {
-            return $this->renderError('Sorry, but your link already
+            return $this->renderError('Sorry, but your link already\
                 looks like a shortened URL.');
         }
 
@@ -54,7 +52,7 @@ class LinkController extends Controller {
             // has custom ending
             $ending_conforms = LinkHelper::validateEnding($custom_ending);
             if (!$ending_conforms) {
-                return $this->renderError('Sorry, but custom endings
+                return $this->renderError('Sorry, but custom endings\
                     can only contain alphanumeric characters');
             }
 

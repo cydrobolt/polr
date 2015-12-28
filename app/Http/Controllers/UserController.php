@@ -47,7 +47,7 @@ class UserController extends Controller {
 
     public function performSignup(Request $request) {
         if (env('POLR_ALLOW_ACCT_CREATION') == false) {
-            return redirect('index')->with('error', 'Sorry, but registration is disabled.');
+            return redirect(route('index'))->with('error', 'Sorry, but registration is disabled.');
         }
 
         $username = $request->input('username');
