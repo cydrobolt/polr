@@ -25,12 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- Load Stylesheets --}}
     <link rel="stylesheet" href="{{env('APP_STYLESHEET')}}" />
-
-    <link rel="stylesheet" href="/css/base.css" />
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/toastr.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="favicon.ico" />
 
+    <link rel="shortcut icon" href="favicon.ico">
+
+    {{-- Load header JavaScript --}}
     <script src='/js/constants.js'></script>
     <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -40,19 +43,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     @include('snippets.navbar')
     <div class="container">
         <div class="content-div @if (!isset($no_div_padding)) content-div-padding @endif @if (isset($large)) jumbotron large-content-div @endif">
-            @if (isset($error) || (null !== session('error')))
-            <div class='alert alert-danger error-alert alert-dismissable' role='alert'>
-                <b>Error</b>: {{session('error') ?: $error}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
-
             @yield('content')
         </div>
     </div>
+
+    <script src='/js/toastr.min.js'></script>
     <script src='/js/base.js'></script>
+    <script>
+    @if (Session::has('info'))
+        toastr["info"]("{{session('infoo')}}", "Info")
+    @endif
+    @if (Session::has('error'))
+        toastr["error"]("{{session('error')}}", "Error")
+    @endif
+    @if (Session::has('warning'))
+        toastr["warning"]("{{session('warning')}}", "Warning")
+    @endif
+    @if (Session::has('success'))
+        toastr["success"]("{{session('success')}}", "Success")
+    @endif
+    </script>
+
     @yield('js')
 </body>
 </html>

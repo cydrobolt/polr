@@ -23,11 +23,11 @@ class CreateLinkTable extends Migration
             $table->longText('long_url');
             $table->string('ip');
             $table->string('creator');
-            $table->string('clicks');
+            $table->string('clicks')->default(0);
             $table->string('secret_key');
 
-            $table->boolean('is_disabled');
-            $table->boolean('is_custom');
+            $table->boolean('is_disabled')->default(0);
+            $table->boolean('is_custom')->default(0);
 
             $table->timestamps();
         });

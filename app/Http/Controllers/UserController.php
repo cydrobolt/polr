@@ -41,9 +41,7 @@ class UserController extends Controller {
             return redirect()->route('index');
         }
         else {
-            return view('login', [
-                'error' => 'Invalid password or inactivated account. Try again.'
-            ]);
+            return redirect('login')->with('error', 'Invalid password or inactivated account. Try again.');
         }
     }
 

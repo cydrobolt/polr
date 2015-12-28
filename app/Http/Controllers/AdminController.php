@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Link;
 use App\Models\User;
+use App\Helpers\UserHelper;
 
 class AdminController extends Controller {
     /**
@@ -35,5 +36,28 @@ class AdminController extends Controller {
             'admin_links' => $admin_links,
             'user_links' => $user_links
         ]);
+    }
+
+    public function changePassword(Request $request) {
+        if (!$this->isLoggedIn()) {
+            return view('errors.404');
+        }
+        $username = session('username');
+        $old_password = $request->input('current_password');
+        $new_password = $request->input('new_password');
+
+        if (UserHelper::checkCredentials($username, $old_password) == false) {
+            // Invalid credentials
+            return view('error', [
+                'message' => 'Current password invalid. Try again.'
+            ]);
+        }
+        else {
+            // Credentials are correct
+            $user = UserHelper::getUserByUsername($username);
+            $user->password = $new_password;
+            $request->session()->flash('success', "Password changed successfully.");
+            return redirect()->route('admin');
+        }
     }
 }

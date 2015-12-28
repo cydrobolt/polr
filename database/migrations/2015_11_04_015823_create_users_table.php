@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
         {
             $table->increments('id');
 
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password');
             $table->string('email');
             $table->text('ip');
@@ -27,8 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('active');
 
             $table->string('api_key');
-            $table->boolean('api_active');
-            $table->string('api_quota');
+            $table->boolean('api_active')->default(0);
+            $table->string('api_quota')->default(60);
 
             $table->timestamps();
         });

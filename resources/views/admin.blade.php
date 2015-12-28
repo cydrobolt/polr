@@ -37,6 +37,7 @@
             <form action='/admin/action/change_password' method='POST'>
                 Old Password: <input class="form-control password-box" type='password' name='current_password' />
                 New Password: <input class="form-control password-box" type='password' name='new_password' />
+                <input type="hidden" name='_token' value='{{csrf_token()}}' />
                 <input type='submit' class='btn btn-success change-password-btn'/>
             </form>
         </div>

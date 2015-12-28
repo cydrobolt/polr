@@ -5,8 +5,8 @@ use Hash;
 
 class UserHelper {
     public static function userExists($username) {
-        $user = User::where('active', 1)
-            ->where('username', $username)
+        $user = User::where('username', $username)
+            // ->where('active', 1)
             ->first();
 
         return ($user ? true : false);
@@ -65,6 +65,13 @@ class UserHelper {
 
     public static function getUserById($user_id) {
         $user = User::where('id', $user_id)
+            ->where('active', 1)
+            ->first();
+        return $user;
+    }
+
+    public static function getUserByUsername($username) {
+        $user = User::where('username', $username)
             ->where('active', 1)
             ->first();
         return $user;

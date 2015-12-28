@@ -33,6 +33,7 @@ $app->get('/{short_url}/{secret_key}', ['uses' => 'LinkController@performRedirec
 $app->post('/login', ['as' => 'plogin', 'uses' => 'UserController@performLogin']);
 $app->post('/signup', ['as' => 'psignup', 'uses' => 'UserController@performSignup']);
 $app->post('/shorten', ['as' => 'shorten', 'uses' => 'LinkController@performShorten']);
+$app->post('/admin/change_password', ['as' => 'change_password', 'uses' => 'AdminController@changePassword']);
 
 /* API endpoints */
 $app->post('/api/v2/link_avail_check', ['as' => 'api_link_check', 'uses' => 'AjaxController@checkLinkAvailability']);
