@@ -41,7 +41,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if (!env('APP_DEBUG')) {
+        if (env('APP_DEBUG') != true) {
             // Render nice error pages if debug is off
             if ($e instanceof NotFoundHttpException){
                 return view('errors.404');
