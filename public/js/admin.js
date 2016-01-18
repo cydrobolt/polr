@@ -29,6 +29,18 @@ $(function () {
         syncHash();
     });
 
+    $('.delete-user').click(function () {
+        var te = $(this);
+        var user_id = te.data('user-id');
+
+        apiCall('admin/delete_user', {
+            'user_id': user_id,
+        }, function (new_status) {
+            te.text('Deleted!');
+            te.addClass('btn-disabled');
+        });
+    });
+
     $('.activate-api-modal').click(function () {
         var te = $(this);
         var username = te.data('username');
@@ -92,7 +104,6 @@ $(function () {
             if (action == 'toggle-api-active') {
                 new_status = res_value_to_text(new_status);
             }
-            console.log(status_display_elem.html());
             status_display_elem.text(new_status);
         });
     });

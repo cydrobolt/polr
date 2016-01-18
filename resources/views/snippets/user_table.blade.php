@@ -30,10 +30,10 @@
         </td>
 
         <td>
-            <a  class='activate-edit-modal btn btn-sm btn-success'
+            <a  class='delete-user btn btn-sm btn-danger'
 
-                data-username='{{$user->username}}'>
-                Edit
+                data-user-id='{{$user->id}}'>
+                Delete
             </a>
         </td>
 

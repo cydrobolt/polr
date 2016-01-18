@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('api_quota')->default(60);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

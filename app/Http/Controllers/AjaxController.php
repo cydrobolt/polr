@@ -72,4 +72,19 @@ class AjaxController extends Controller {
 
         return $user->api_key;
     }
+
+    public function deleteUser(Request $request) {
+        if (!$this->currIsAdmin()) {
+            abort(401, 'User not admin.');
+        }
+
+        $user_id = $request->input('user_id');
+        $user = UserHelper::getUserById($user_id);
+
+        if (!$user) {
+            abort(404, 'User not found.');
+        }
+        $user->delete();
+        return "OK";
+    }
 }
