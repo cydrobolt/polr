@@ -54,8 +54,6 @@ class UserController extends Controller {
         $email = $request->input('email');
         $ip = $request->ip();
 
-        $hashed_password = Hash::make($password);
-
         $user_exists = UserHelper::userExists($username);
         $email_exists = UserHelper::emailExists($email);
 
@@ -70,13 +68,11 @@ class UserController extends Controller {
             return redirect('signup')->with('error', 'Please use a valid email to sign up.');
         }
 
-        $user = UserFactory::createUser($username, $email, $password, $active, $ip);
-
         $acct_activation_needed = env('POLR_ACCT_ACTIVATION');
 
         if ($acct_activation_needed == false) {
             // if no activation is necessary
-            $user->active = 1;
+            $active = 1;
             $response = redirect('login')->with('success', 'Thanks for signing up! You may now log in.');
         }
         else {
@@ -87,8 +83,9 @@ class UserController extends Controller {
                     $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
             });
             $response = redirect('login')->with('success', 'Thanks for signing up! Please confirm your email to continue..');
-
+            $active = 0;
         }
+        $user = UserFactory::createUser($username, $email, $password, $active, $ip);
 
         return $response;
     }
