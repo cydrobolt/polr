@@ -26,7 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Load Stylesheets --}}
-    <link rel="stylesheet" href="{{env('APP_STYLESHEET')}}" />
+
+    @if (env('APP_STYLESHEET'))
+    <link rel="stylesheet" href="{{env('APP_STYLESHEET')}}">
+    @else
+    <link rel="stylesheet" href="/css/default-bootstrap.min.css">
+    @endif
+
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/toastr.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">

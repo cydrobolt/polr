@@ -40,7 +40,8 @@ body {
 
 .setup-form-buttons {
     margin-top: 40px;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
+    text-align: center;
 }
 
 .setup-form-buttons > input {

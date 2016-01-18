@@ -28,6 +28,9 @@ Setup
             <p>Database Host:</p>
             <input type='text' class='form-control' name='db:host' value='localhost'>
 
+            <p>Database Port:</p>
+            <input type='text' class='form-control' name='db:port' value='3306'>
+
             <p>Database Username:</p>
             <input type='text' class='form-control' name='db:username' value='root'>
 
@@ -42,6 +45,9 @@ Setup
 
             <p>Application Name:</p>
             <input type='text' class='form-control' name='app:name' value='Polr'>
+
+            <p>Application protocol:</p>
+            <input type='text' class='form-control' name='app:protocol' value='http://'>
 
             <p>Application URL (path to Polr, no http://, or trailing slash):</p>
             <input type='text' class='form-control' name='app:external_url' value='yoursite.com'>
@@ -61,15 +67,18 @@ Setup
             <p>If public interface is hidden, redirect index page to:</p>
             <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
             <p class='text-muted'>
-                If a redirect is enabled you will need to go to
+                If a redirect is enabled, you will need to go to
                 http://PATHTOPOLR/login before you can access the index
                 page. Leave the redirect blank to show a generic index page.
             </p>
 
-            <h4>Admin Account Settings</h4>
+            <p>URL Ending Base:</p>
+            <select name='setting:base' class='form-control'>
+                <option value='32' selected='selected'>32 -- lowercase letters & numbers (default)</option>
+                <option value='62'>62 -- lowercase, uppercase letters & numbers</option>
+            </select>
 
-            <p>Setup Access Password:</p>
-            <input type='text' class='form-control' name='app:setup_password' value='password123'>
+            <h4>Admin Account Settings</h4>
 
             <p>Admin Username:</p>
             <input type='text' class='form-control' name='acct:username' value='polr'>
@@ -81,12 +90,10 @@ Setup
             <input type='password' class='form-control' name='acct:password' value='polr'>
 
             <h4>SMTP Settings</h4>
-
             <p class='text-muted'>(leave blank if you are not using email verification/password recovery)</p>
 
-            <p>SMTP Servers (semicolon separated):</p>
-
-            <input type='text' class='form-control' name='app:smtp_servers' placeholder='smtp.gmail.com'>
+            <p>SMTP Server:</p>
+            <input type='text' class='form-control' name='app:smtp_server' placeholder='smtp.gmail.com'>
 
             <p>SMTP Username:</p>
             <input type='text' class='form-control' name='app:smtp_username' placeholder='example@gmail.com'>
@@ -96,6 +103,8 @@ Setup
 
             <p>SMTP From:</p>
             <input type='text' class='form-control' name='app:smtp_from' placeholder='example@gmail.com'>
+            <p>SMTP From Name:</p>
+            <input type='text' class='form-control' name='app:smtp_from_name' placeholder='noreply'>
 
             <h4>Other Settings</h4>
 
@@ -103,7 +112,7 @@ Setup
             <select name='setting:registration_permission' class='form-control'>
                 <option value='none'>No registration</option>
                 <option value='email'>Email verification required</option>
-                <option value='free'>No email verification required</option>
+                <option value='no-verification'>No email verification required</option>
             </select>
 
             <p>Password Recovery:</p>
@@ -118,29 +127,29 @@ Setup
             <p>Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/):</p>
             <input type='text' class='form-control' name='path' placeholder='/polr/' value=''>
 
-            Theme (click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots:
-            <select name='t' class='form-control'>
+            <p>Theme (click <a href='https://github.com/cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots:</p>
+            <select name='app:stylesheet' class='form-control'>
                 <option value=''>Modern (default)</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css'>Midnight Black</option>
-                <option value='/css/install-bootstrap.css'>Cheery (deprecated)</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/united/bootstrap.min.css'>Orange</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/simplex/bootstrap.min.css'>Crisp White</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/darkly/bootstrap.min.css'>Cloudy Night</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cerulean/bootstrap.min.css'>Calm Skies</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css'>Android Material Design</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/superhero/bootstrap.min.css'>Blue Metro</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/sandstone/bootstrap.min.css'>Sandstone</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css'>Jet Black</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/lumen/bootstrap.min.css'>Newspaper</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css'>Midnight Black</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/united/bootstrap.min.css'>Orange</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/simplex/bootstrap.min.css'>Crisp White</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/darkly/bootstrap.min.css'>Cloudy Night</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css'>Calm Skies</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css'>Android Material Design</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css'>Blue Metro</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/sandstone/bootstrap.min.css'>Sandstone</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css'>Jet Black</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css'>Newspaper</option>
             </select>
 
             <div class='setup-form-buttons'>
                 <input type='submit' class='btn btn-success' value='Install'>
-
                 <input type='reset' class='btn btn-warning' value='Clear Fields'>
             </div>
+            <input type="hidden" name='_token' value='{{csrf_token()}}' />
         </form>
     </div>
+
     <div class='col-md-3'></div>
 </div>
 
