@@ -11,8 +11,15 @@
 
 .setup-logo {
     height: 70px;
-    margin-top: 60px;
     margin-bottom: 40px;
+}
+
+body {
+    background-size: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(/img/2.0.0-alpha-setup.jpg);
 }
 
 .setup-center {
@@ -20,8 +27,7 @@
 }
 
 .setup-form {
-    margin:0 auto;
-    width: 650px;
+    margin: 0 auto;
 }
 
 .setup-item {
@@ -29,7 +35,7 @@
 }
 
 .setup-body {
-    margin-top: 5%;
+    margin-top: 100px;
 }
 
 .setup-form-buttons {
@@ -44,6 +50,14 @@
 
 .setup-footer {
     text-align: center;
+}
+
+.footer-link {
+    color: grey;
+}
+
+.footer-link:hover {
+    color: grey;
 }
 
 h4, p {

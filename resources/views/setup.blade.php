@@ -11,12 +11,13 @@ Setup
 
 @section('content')
 <div class="navbar navbar-default navbar-fixed-top">
-    <a class="navbar-brand" href="/">Polr 2</a>
+    <a class="navbar-brand" href="/">Polr</a>
 </div>
 
 <div class='row'>
     <div class='col-md-3'></div>
-    <div class='col-md-6 setup-body'>
+
+    <div class='col-md-6 setup-body well'>
         <div class='setup-center'>
             <img class='setup-logo' src='/img/logo.png'>
         </div>
@@ -42,8 +43,7 @@ Setup
             <p>Application Name:</p>
             <input type='text' class='form-control' name='app:name' value='Polr'>
 
-            <p>Application URL (path to Polr, no http://, www., or trailing slash):</p>
-
+            <p>Application URL (path to Polr, no http://, or trailing slash):</p>
             <input type='text' class='form-control' name='app:external_url' value='yoursite.com'>
 
             <p>Shortening Permissions:</p>
@@ -107,7 +107,6 @@ Setup
             </select>
 
             <p>Password Recovery:</p>
-
             <select name='setting:password_recovery' class='form-control'>
                 <option value='false'>No (default)</option>
                 <option value='true'>Yes</option>
@@ -119,7 +118,7 @@ Setup
             <p>Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/):</p>
             <input type='text' class='form-control' name='path' placeholder='/polr/' value=''>
 
-            <br />Theme (click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots:
+            Theme (click <a href='https://github.com/Cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots:
             <select name='t' class='form-control'>
                 <option value=''>Modern (default)</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css'>Midnight Black</option>
@@ -154,10 +153,10 @@ Setup
         Polr Version {{env('VERSION')}} released {{env('VERSION_RELMONTH')}} {{env('VERSION_RELDAY')}}, {{env('VERSION_RELYEAR')}} -
         <a href='//github.com/cydrobolt/polr'>Github</a></div></div><br />
 
-        <span>
+        <span style='font-weight:bold;'>
             &copy; Copyright {{env('VERSION_RELYEAR')}}
-            <a href='//cydrobolt.com'>Chaoyi Zha</a> &
-            <a href='//github.com/Cydrobolt/polr/graphs/contributors'>Other Polr Contributors</a>
+            <a class='footer-link' href='//cydrobolt.com'>Chaoyi Zha</a> &
+            <a class='footer-link' href='//github.com/Cydrobolt/polr/graphs/contributors'>Other Polr Contributors</a>
         </span>
     </div>
 </div>
