@@ -2,12 +2,15 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Redirect;
-use Illuminate\Console\Application\Artisan;
+use Illuminate\Support\Facades\Artisan;
 
 use App\Helpers\CryptoHelper;
+use App\Models\User;
+use App\Factories\UserFactory;
+use Cache;
 
 class SetupController extends Controller {
-    protected function parseExitCode($exitCode) {
+    protected static function parseExitCode($exitCode) {
         if ($exitCode == 0) {
             return true;
         }
@@ -16,7 +19,7 @@ class SetupController extends Controller {
         }
     }
 
-    private function setupAlreadyRan() {
+    private static function setupAlreadyRan() {
         return view('error', [
             'message' => 'Sorry, but you have already ran the setup script previously.'
         ]);
@@ -26,17 +29,17 @@ class SetupController extends Controller {
         $exitCode = Artisan::call('migrate:refresh', [
             '--force' => true,
         ]);
-        return $this->parseExitCode($exitCode);
+        return self::parseExitCode($exitCode);
     }
 
-    private function createDatabase() {
+    private static function createDatabase() {
         $exitCode = Artisan::call('migrate');
-        return $this->parseExitCode($exitCode);
+        return self::parseExitCode($exitCode);
     }
 
     public static function displaySetupPage(Request $request) {
         if (env('POLR_SETUP_RAN')) {
-            return $this->setupAlreadyRan();
+            return self::setupAlreadyRan();
         }
 
         return view('setup');
@@ -44,10 +47,10 @@ class SetupController extends Controller {
 
     public static function performSetup(Request $request) {
         if (env('POLR_SETUP_RAN')) {
-            return $this->setupAlreadyRan();
+            return self::setupAlreadyRan();
         }
 
-        $app_key = CryptoHelper::generateRandomHex(32);
+        $app_key = CryptoHelper::generateRandomHex(16);
         $app_name = $request->input('app:name');
         $app_protocol = $request->input('app:protocol');
 
@@ -86,6 +89,11 @@ class SetupController extends Controller {
                 'message' => 'Invalid registration settings'
             ]);
         }
+
+        $acct_username = $request->input('acct:username');
+        $acct_email = $request->input('acct:email');
+        $acct_password = $request->input('acct:password');
+        $acct_group = "admin";
 
         // if true, only logged in users can shorten
         $st_shorten_permission = $request->input('setting:shorten_permission');
@@ -142,12 +150,34 @@ class SetupController extends Controller {
 
         $handle = fopen('../.env', 'w');
         if (fwrite($handle, $compiled_configuration) === FALSE) {
-            return view('error', [
+            $response = view('error', [
                 'message' => 'Could not write configuration to disk.'
             ]);
         } else {
-            return redirect(route('index'))->with('success', 'Set up completed! Thanks for using Polr!');
+
+            $response = redirect(route('setup_finish'))->with(
+                'acct_username', $acct_username)->with(
+                'acct_email', $acct_email)->with(
+                'acct_password', $acct_password);
+
+
         }
         fclose($handle);
+
+        return $response;
+
+    }
+    public static function finishSetup(Request $request) {
+        $database_created = self::createDatabase();
+        if (!$database_created) {
+            return redirect(route('setup'))->with('error', 'Could not create database. Perhaps some credentials were incorrect?');
+        }
+
+        $user = UserFactory::createUser(session('acct_username'), session('acct_email'), session('acct_password'), 1, $request->ip());
+        $user->role = 'admin';
+        $user->save();
+        Cache::flush();
+
+        return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');
     }
 }

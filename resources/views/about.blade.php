@@ -25,7 +25,7 @@
 </div>
 <a href='#' class='btn btn-success license-btn'>More Information</a>
 <pre class="license" id="gpl-license">
-Copyright (C) 2013-2015 Chaoyi Zha
+Copyright (C) 2013-2016 Chaoyi Zha
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

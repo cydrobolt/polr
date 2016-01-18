@@ -23,6 +23,8 @@ $app->get('/admin', ['as' => 'admin', 'uses' => 'AdminController@displayAdminPag
 
 $app->get('/setup', ['as' => 'setup', 'uses' => 'SetupController@displaySetupPage']);
 $app->post('/setup', ['as' => 'psetup', 'uses' => 'SetupController@performSetup']);
+$app->get('/setup_finish', ['as' => 'setup_finish', 'uses' => 'SetupController@finishSetup']);
+
 
 $app->get('/{short_url}', ['uses' => 'LinkController@performRedirect']);
 $app->get('/{short_url}/{secret_key}', ['uses' => 'LinkController@performRedirect']);

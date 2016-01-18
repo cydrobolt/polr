@@ -10,7 +10,9 @@ class IndexController extends Controller {
      * @return Response
      */
     public function showIndexPage(Request $request) {
-        $random_key = CryptoHelper::generateRandomHex(50);
+        if (env('POLR_SETUP_RAN') != true) {
+            return redirect(route('setup'));
+        }
         return view('index', ['large' => true]);
     }
 }

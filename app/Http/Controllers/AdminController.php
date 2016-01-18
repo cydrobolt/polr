@@ -59,7 +59,7 @@ class AdminController extends Controller {
             $user->save();
 
             $request->session()->flash('success', "Password changed successfully.");
-            return redirect()->route('admin');
+            return redirect(route('admin'));
         }
     }
 }

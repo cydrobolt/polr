@@ -1,11 +1,10 @@
 <?php
 namespace App\Http\Controllers;
-use Hash;
 use Mail;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Helpers\CryptoHelper;
 use App\Helpers\UserHelper;
+use App\Factories\UserFactory;
 
 class UserController extends Controller {
     /**
@@ -71,13 +70,7 @@ class UserController extends Controller {
             return redirect('signup')->with('error', 'Please use a valid email to sign up.');
         }
 
-        $recovery_key = CryptoHelper::generateRandomHex(50);
-        $user = new User;
-        $user->username = $username;
-        $user->password = $hashed_password;
-        $user->recovery_key = $recovery_key;
-        $user->active = 0;
-        $user->ip = $ip;
+        $user = UserFactory::createUser($username, $email, $password, $active, $ip);
 
         $acct_activation_needed = env('POLR_ACCT_ACTIVATION');
 
@@ -89,14 +82,13 @@ class UserController extends Controller {
         else {
             // email activation is necessary
             Mail::send('emails.activation', [
-                'username' => $username, 'recovery_key' => $recovery_key, 'ip' => $ip
+                'username' => $username, 'recovery_key' => $user->recovery_key, 'ip' => $ip
             ], function ($m) use ($user) {
                     $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
             });
             $response = redirect('login')->with('success', 'Thanks for signing up! Please confirm your email to continue..');
 
         }
-        $user->save();
 
         return $response;
     }
