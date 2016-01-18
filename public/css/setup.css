@@ -1,3 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.navbar-brand {
+    font-family: "Lobster";
+}
+
+.setup-body {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .setup-logo {
     height: 70px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.setup-center {
+    text-align: center;
+}
+
+.setup-form {
+    margin:0 auto;
+    width: 650px;
+}
+
+.setup-item {
+    width: 650px;
+}
+
+.setup-body {
+    margin-top: 5%;
+}
+
+.setup-form-buttons {
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+.setup-form-buttons > input {
+    width: 150px;
+    margin-right: 20px;
+}
+
+.setup-footer {
+    text-align: center;
+}
+
+h4, p {
+    margin-top: 20px;
 }
