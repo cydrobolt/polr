@@ -92,6 +92,9 @@ upstream php {
 server {
     listen   *:80;
     listen   *:443 ssl;
+    ssl_certificate     /etc/ssl/my.crt;
+    ssl_certificate_key /etc/ssl/private/my.key;
+    root /var/www;
     server_name example.com; # Or whatever you want to use
     
     if ($scheme != "https") {
