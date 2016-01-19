@@ -1,4 +1,10 @@
-.idea
-config.php
-.nbproject
-.metadata
+#/vendor
+bootstrap/cache/
+storage/
+env.*.php
+env
+.env.php
+.env
+.env.example
+vendor/
+composer.phar

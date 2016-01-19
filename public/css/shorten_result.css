@@ -1,0 +1,14 @@
+.result-box {
+    width: 50%;
+    display: block;
+    margin : 0 auto;
+
+}
+
+.back-btn {
+    margin-top: 30px;
+}
+
+.content-div {
+    text-align: center;
+}

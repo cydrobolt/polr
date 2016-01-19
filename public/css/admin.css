@@ -1,0 +1,20 @@
+.admin-nav-item {
+    margin-bottom: 5px;
+}
+
+.change-password {
+    width: 150px;
+}
+
+.change-password-btn {
+    margin-top: 15px;
+}
+
+.password-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.hidden-metadata {
+    display: none;
+}

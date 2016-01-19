@@ -1,1 +1,0 @@
-function y(a){return btoa(a)}function z(a){return atob(a)}function t(a){y(z(y(a)))}$(function(){function a(a){return z(a)}var b=$("#j").val(),c=a(b),d=$("#k").val(),e=a(d),f=a("aHR0cDovLw=="),g=z("Lw==");$("#i").val(f+e+g+c)});

@@ -1,0 +1,20 @@
+.content-div {
+    padding-top: 20px;
+    text-align: left;
+}
+
+.license {
+    font-size: 80%;
+    margin-top: 40px;
+    width: auto;
+    color: black;
+}
+
+.license-btn {
+    margin-top: 30px;
+    width: 20%;
+}
+
+.logo-img {
+    height: 100px;
+}
