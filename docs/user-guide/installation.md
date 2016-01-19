@@ -108,7 +108,7 @@ server {
     
     location ~ \.php$ { 
             try_files $uri =404;
-            include /usr/local/etc/nginx/fastcgi_params;
+            include /etc/nginx/fastcgi_params;
     
             fastcgi_pass    php;
             fastcgi_index   index.php;
