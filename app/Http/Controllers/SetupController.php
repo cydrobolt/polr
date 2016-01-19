@@ -142,6 +142,7 @@ class SetupController extends Controller {
             'MAIL_HOST' => $mail_host,
             'MAIL_PORT' => $mail_port,
             'MAIL_USERNAME' => $mail_username,
+            'MAIL_PASSWORD' => $mail_password,
             'MAIL_FROM_ADDRESS' => $mail_from,
             'MAIL_FROM_NAME' => $mail_from_name,
 
