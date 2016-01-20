@@ -11,23 +11,22 @@ you may be interested in looking at a [legacy 1.x release](https://github.com/cy
 
  - Apache, nginx, IIS, or lighttpd (Apache preferred)
  - PHP >= 5.5.9
- - MariaDB >= 10.0 or MySQL >= 5.5, SQLite alternatively
+ - MariaDB or MySQL >= 5.5, SQLite alternatively
  - Composer (optional)
  - PHP requirements:
     - OpenSSL PHP Extension
     - PDO PHP Extension
+    - PDO MySQL Driver (php5-mysql on Debian & Ubuntu, php5x-pdo_mysql on FreeBSD)
     - Mbstring PHP Extension
     - Tokenizer PHP Extension
+    - JSON PHP Extension
 
 ## Downloading the source code
 
 ```bash
 $ sudo su
 $ cd /var/www
-$ git clone https://github.com/cydrobolt/polr.git
-$ cd polr
-
-$ git checkout 2.0-dev
+$ git clone https://github.com/cydrobolt/polr.git -b 2.0-dev --single-branch
 ```
 
 ## Installing using `composer`
@@ -86,14 +85,36 @@ Useful LEMP installation tutorial by [DigitalOcean](https://www.digitalocean.com
 ```nginx
 # Upstream to abstract backend connection(s) for php
 upstream php {
-    server unix:/tmp/php-cgi.socket;
+    server unix:/var/run/php-fpm.sock;
     server 127.0.0.1:9000;
 }
 
 server {
+    listen   *:80;
+#   listen   *:443 ssl;
+#   ssl_certificate     /etc/ssl/my.crt;
+#   ssl_certificate_key /etc/ssl/private/my.key;
+    root /var/www;
     server_name example.com; # Or whatever you want to use
-    listen 80 default;
-    rewrite ^(.*) https://example.com$1 permanent;
+    
+#   if ($scheme != "https") {
+#       return 301 https://$server_name$request_uri;
+#   }
+    
+    location / {
+            try_files $uri $uri/ /index.php?$query_string;
+            rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
+    }
+    
+    location ~ \.php$ { 
+            try_files $uri =404;
+            include /etc/nginx/fastcgi_params;
+    
+            fastcgi_pass    php;
+            fastcgi_index   index.php;
+            fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param   HTTP_HOST       $server_name
+    }
 }
 ```
 ### Shared hosting/other
