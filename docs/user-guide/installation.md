@@ -16,7 +16,7 @@ you may be interested in looking at a [legacy 1.x release](https://github.com/cy
  - PHP requirements:
     - OpenSSL PHP Extension
     - PDO PHP Extension
-    - PDO MySQL Driver (php-mysql on Debian & Ubuntu, php5x-pdo_mysql on FreeBSD)
+    - PDO MySQL Driver (php5-mysql on Debian & Ubuntu, php5x-pdo_mysql on FreeBSD)
     - Mbstring PHP Extension
     - Tokenizer PHP Extension
     - JSON PHP Extension
@@ -91,15 +91,15 @@ upstream php {
 
 server {
     listen   *:80;
-    listen   *:443 ssl;
-    ssl_certificate     /etc/ssl/my.crt;
-    ssl_certificate_key /etc/ssl/private/my.key;
+#   listen   *:443 ssl;
+#   ssl_certificate     /etc/ssl/my.crt;
+#   ssl_certificate_key /etc/ssl/private/my.key;
     root /var/www;
     server_name example.com; # Or whatever you want to use
     
-    if ($scheme != "https") {
-        return 301 https://$server_name$request_uri;
-    }
+#   if ($scheme != "https") {
+#       return 301 https://$server_name$request_uri;
+#   }
     
     location / {
             try_files $uri $uri/ /index.php?$query_string;
@@ -113,8 +113,7 @@ server {
             fastcgi_pass    php;
             fastcgi_index   index.php;
             fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            
-            fastcgi_param   HTTP_HOST       'example.com'; # Your site's domain name goes here.
+            fastcgi_param   HTTP_HOST       $server_name
     }
 }
 ```
