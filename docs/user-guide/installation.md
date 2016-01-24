@@ -89,33 +89,57 @@ upstream php {
     server 127.0.0.1:9000;
 }
 
+# HTTP
+
 server {
-    listen   *:80;
-#   listen   *:443 ssl;
-#   ssl_certificate     /etc/ssl/my.crt;
-#   ssl_certificate_key /etc/ssl/private/my.key;
-    root /var/www;
-    server_name example.com; # Or whatever you want to use
+    listen       *:80;
+    root         /var/www;
+    server_name  example.com; # Or whatever you want to use
     
-#   if ($scheme != "https") {
-#       return 301 https://$server_name$request_uri;
-#   }
-    
+#   return 301 https://$server_name$request_uri; # Forces HTTPS, which enables privacy for login credentials.
+                                                 # Recommended for public, internet-facing, websites.
+
     location / {
             try_files $uri $uri/ /index.php?$query_string;
             rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
     }
-    
+
     location ~ \.php$ { 
             try_files $uri =404;
             include /etc/nginx/fastcgi_params;
-    
+
             fastcgi_pass    php;
             fastcgi_index   index.php;
             fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
             fastcgi_param   HTTP_HOST       $server_name
     }
 }
+
+
+# HTTPS
+
+#server {
+#   listen              *:443 ssl;
+#   ssl_certificate     /etc/ssl/my.crt;
+#   ssl_certificate_key /etc/ssl/private/my.key;
+#   root                /var/www;
+#   server_name         example.com;
+#    
+#   location / {
+#           try_files $uri $uri/ /index.php?$query_string;
+#           rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
+#   }
+#
+#   location ~ \.php$ { 
+#           try_files $uri =404;
+#           include /etc/nginx/fastcgi_params;
+#    
+#           fastcgi_pass    php;
+#           fastcgi_index   index.php;
+#           fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#           fastcgi_param   HTTP_HOST       $server_name
+#   }
+#}
 ```
 ### Shared hosting/other
 
