@@ -5,6 +5,7 @@ env.*.php
 env
 .env.php
 .env
+.env.bak
 .env.example
 vendor/
 composer.phar

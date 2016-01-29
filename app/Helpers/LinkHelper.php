@@ -36,14 +36,15 @@ class LinkHelper {
     static public function linkExists($link_ending) {
         /**
          * Provided a link ending (string),
-         * check whether the ending is in use.
-         * @return boolean
+         * return the link object, or false.
+         * @return Link model instance
          */
+
         $link = Link::where('short_url', $link_ending)
             ->first();
 
         if ($link == null) {
-            return false;
+            return $link;
         }
         else {
             return true;
@@ -71,6 +72,14 @@ class LinkHelper {
         $is_alphanum = ctype_alnum($link_ending);
 
         return $is_alphanum;
+    }
+
+    static public function processPostClick($link) {
+        /**
+         * Given a Link model instance, process post click operations.
+         * @param Link model instance $link
+         * @return boolean
+         */
     }
 
     static public function findSuitableEnding() {

@@ -57,16 +57,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <script src='/js/base.js'></script>
     <script>
     @if (Session::has('info'))
-        toastr["info"]("{{session('infoo')}}", "Info")
+        toastr["info"](`{{session('infoo')}}`, "Info")
     @endif
     @if (Session::has('error'))
-        toastr["error"]("{{session('error')}}", "Error")
+        toastr["error"](`{{session('error')}}`, "Error")
     @endif
     @if (Session::has('warning'))
-        toastr["warning"]("{{session('warning')}}", "Warning")
+        toastr["warning"](`{{session('warning')}}`, "Warning")
     @endif
     @if (Session::has('success'))
-        toastr["success"]("{{session('success')}}", "Success")
+        toastr["success"](`{{session('success')}}`, "Success")
     @endif
     </script>
 

@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Helpers\LinkHelper;
 use App\Helpers\CryptoHelper;

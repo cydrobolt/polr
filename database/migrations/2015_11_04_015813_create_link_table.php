@@ -28,6 +28,7 @@ class CreateLinkTable extends Migration
 
             $table->boolean('is_disabled')->default(0);
             $table->boolean('is_custom')->default(0);
+            $table->boolean('is_api')->default(0);
 
             $table->timestamps();
         });

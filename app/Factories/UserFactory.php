@@ -4,7 +4,8 @@ namespace App\Factories;
 use Hash;
 use App\Models\User;
 use App\Helpers\CryptoHelper;
-class UserFactory {
+
+class UserFactory {    
     public static function createUser($username, $email, $password, $active=0, $ip='127.0.0.1') {
         $hashed_password = Hash::make($password);
 
