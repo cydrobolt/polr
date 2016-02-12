@@ -43,11 +43,11 @@ class LinkHelper {
         $link = Link::where('short_url', $link_ending)
             ->first();
 
-        if ($link == null) {
+        if ($link != null) {
             return $link;
         }
         else {
-            return true;
+            return false;
         }
     }
 

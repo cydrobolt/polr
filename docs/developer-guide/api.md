@@ -33,20 +33,28 @@ Example `json` responses:
 ```
 {
     "action": "shorten",
-    "result": "https://PATHTOPOLR/5kq"
+    "result": "https://example.com/5kq"
 }
 ```
 
 ```
 {
-    "action": "lookup",
-    "result": "https://google.com"
+    "action":"lookup",
+    "result": {
+        "long_url": "https:\/\/google.com",
+        "created_at": {
+            "date":"2016-02-12 15:20:34.000000",
+            "timezone_type":3,
+            "timezone":"UTC"
+        },
+        "clicks":"0"
+    }
 }
 ```
 
 Example `plain_text` responses:
 
-```https://PATHTOPOLR/5kq```
+```https://example.com/5kq```
 
 ```https://google.com```
 
@@ -63,12 +71,12 @@ Arguments:
 
 Response: A JSON or plain text representation of the shortened URL.
 
-Example: GET `http://PATHTOPOLR/api/v2/action/shorten?key=API_KEY_HERE&url=https://google.com&custom_ending=CUSTOM_ENDING&is_secret=false`
+Example: GET `http://example.com/api/v2/action/shorten?key=API_KEY_HERE&url=https://google.com&custom_ending=CUSTOM_ENDING&is_secret=false`
 Response:
 ```
 {
     "action": "shorten",
-    "result": "https://PATHTOPOLR/5kq"
+    "result": "https://example.com/5kq"
 }
 ```
 
@@ -82,10 +90,11 @@ it does not exist, the API will return with the status code 404 (Not Found).
 Arguments:
 
  - `url_ending`: the link ending for the URL to look up. (e.g `5ga`)
+ - `url_key` (optional): optional URL ending key for lookups against secret URLs
 
 Remember that the `url` argument must be URL encoded.
 
-Example: GET `http://PATHTOPOLR/api/v2/action/lookup?key=API_KEY_HERE&ending=2`
+Example: GET `http://example.com/api/v2/action/lookup?key=API_KEY_HERE&ending=2`
 Response:
 ```
 {
@@ -114,6 +123,9 @@ This status code is returned in the following circumstances:
 
  - By any endpoint
     - You are unauthorized to make the transaction. This is most likely due to an API token mismatch, or your API token has not be set to active.
+ - By the `lookup` endpoint
+    - You have not provided the valid `url_key` for a secret URL lookup.
+
 
 ### HTTP 404 Not Found
 

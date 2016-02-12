@@ -44,5 +44,10 @@ $app->post('/api/v2/admin/toggle_api_active', ['as' => 'api_toggle_api_active', 
 $app->post('/api/v2/admin/generate_new_api_key', ['as' => 'api_generate_new_api_key', 'uses' => 'AjaxController@generateNewAPIKey']);
 $app->post('/api/v2/admin/delete_user', ['as' => 'api_generate_new_api_key', 'uses' => 'AjaxController@deleteUser']);
 
+/* API shorten */
 $app->post('/api/v2/action/shorten', ['as' => 'api_shorten_url', 'uses' => 'Api\ApiLinkController@shortenLink']);
+$app->get('/api/v2/action/shorten', ['as' => 'api_shorten_url', 'uses' => 'Api\ApiLinkController@shortenLink']);
+
+/* API lookup */
 $app->post('/api/v2/action/lookup', ['as' => 'api_lookup_url', 'uses' => 'Api\ApiLinkController@lookupLink']);
+$app->get('/api/v2/action/lookup', ['as' => 'api_lookup_url', 'uses' => 'Api\ApiLinkController@lookupLink']);

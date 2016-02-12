@@ -1,12 +1,8 @@
 <?php
-namespace App\Http\Controllers\Api;
-
-use App\Models\User;
-use App\Helpers\ApiHelper;
+namespace App\Helpers;
 
 class ApiHelper {
     public static function checkUserApiQuota($username) {
-        // pass
-        return true;
+        return false;
     }
 }
