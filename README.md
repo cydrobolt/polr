@@ -1,4 +1,4 @@
-# [![Logo](http://i.imgur.com/aOtrJNz.png)]()
+# [![Logo](http://i.imgur.com/aOtrJNz.png)](https://project.polr.me)
 #####v2 Devel
 
 :aerial_tramway: A modern, minimalist, and lightweight URL shortener.
@@ -8,15 +8,24 @@
 [![GitHub release](https://img.shields.io/badge/stable-1.4.1-blue.svg)]()
 [![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat)](http://polr.readthedocs.org/en/2.0-dev/)
 
-
 Welcome to Polr's 2.0 development branch.
-Please keep in mind 2.0 is pre-alpha, and should not be used in production. This version of Polr break existing 0.x and 1.x installations, but migrations will be provided.
+Please keep in mind 2.0 is currently unstable, and should not be used in production. 
 
-Once 2.0 is complete, it will supercede the current stable version of Polr, but the latest 1.x version will continue to be available as a legacy release for users who cannot make the switch to 2.0 due to their host or do not meet the new server requirements.
+Polr is an enterprise-class open-source link shortening web application designed to operate at many scales, built on the Software-as-a-Service paradigm. It allows you to host your own URL shortener, to brand your URLs, and to gain control over your data. Polr is especially easy to use, and provides a modern, themable feel.
 
-Polr 2.0 moves away from `mysqli`, rather taking on `PDO` with `Eloquent`. Routing and autoloading will be done with `composer` and the Lumen web framework. Although unlikely, this change may cause those on shared hosting to be unable to install Polr.
+[Getting Started](http://docs.polr.me/en/2.0-dev/user-guide/installation/) - [API Documentation](http://docs.polr.me/en/2.0-dev/developer-guide/api/) - [Contributing](https://github.com/cydrobolt/polr/blob/2.0-dev/CONTRIBUTING.md) - [Bugs](https://github.com/cydrobolt/polr/issues) - [IRC](http://webchat.freenode.net/?channels=#polr)
 
-#### [Installation Instructions](http://docs.polr.me/en/2.0-dev/user-guide/installation/)
+#### Quickstart
+
+Polr is written in PHP and Laravel, using MySQL as its primary database.
+
+To get started with Polr on your server, check out the [installation guide](http://docs.polr.me/en/2.0-dev/user-guide/installation/). You can clone this repository, or download a [release](https://github.com/cydrobolt/polr/releases). 
+
+To get started with the Polr API, check out the [API guide](http://docs.polr.me/en/2.0-dev/developer-guide/api/).
+
+####Versioning
+
+Polr uses [Semantic Versioning](http://semver.org/)
 
 ####License
 
