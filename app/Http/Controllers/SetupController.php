@@ -155,12 +155,11 @@ class SetupController extends Controller {
                 'message' => 'Could not write configuration to disk.'
             ]);
         } else {
-
             $response = redirect(route('setup_finish'))->with(
                 'acct_username', $acct_username)->with(
                 'acct_email', $acct_email)->with(
-                'acct_password', $acct_password);
-
+                'acct_password', $acct_password)->with(
+                'setup_transaction', true);
 
         }
         fclose($handle);
@@ -169,6 +168,12 @@ class SetupController extends Controller {
 
     }
     public static function finishSetup(Request $request) {
+        $transaction_authorised = session('setup_transaction');
+
+        if ($transaction_authorised != true) {
+            abort(403, 'Transaction unauthorised.');
+        }
+
         $database_created = self::createDatabase();
         if (!$database_created) {
             return redirect(route('setup'))->with('error', 'Could not create database. Perhaps some credentials were incorrect?');
