@@ -72,13 +72,13 @@ class LinkController extends Controller {
         }
 
         $long_url = $link->long_url;
+        $clicks = intval($link->clicks);
 
-        if (is_int($link->clicks)) {
-            $link->clicks += 1;
+        if (is_int($clicks)) {
+            $clicks += 1;
         }
-        else {
-            $link->clicks = 1;
-        }
+
+        $link->clicks = $clicks;
 
         $link->save();
 

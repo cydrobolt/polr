@@ -1,11 +1,13 @@
 <?php
 namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Helpers\ApiHelper;
 
-class ApiController {
+class ApiController extends Controller {
     protected static function getApiUserInfo(Request $request) {
         $api_key = $request->input('key');
         $user = User::where('active', 1)
@@ -42,16 +44,5 @@ class ApiController {
             // assume plain text if json not requested
             return $result;
         }
-    }
-
-    protected static function checkRequiredArgs($required_args=[]) {
-        array_push($required_args, NULL);
-        if (count(array_unique($required_args)) < count($required_args)) {
-            return false;
-        }
-        else {
-            return true;
-        }
-
     }
 }

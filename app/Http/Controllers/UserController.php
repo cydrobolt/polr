@@ -52,6 +52,12 @@ class UserController extends Controller {
         $username = $request->input('username');
         $password = $request->input('password');
         $email = $request->input('email');
+
+        if (!self::checkRequiredArgs([$username, $password, $email])) {
+            // missing a required argument
+            return redirect(route('signup'))->with('error', 'Please fill in all required fields.');
+        }
+
         $ip = $request->ip();
 
         $user_exists = UserHelper::userExists($username);
@@ -59,13 +65,13 @@ class UserController extends Controller {
 
         if ($user_exists || $email_exists) {
             // if user or email email
-            return redirect('signup')->with('error', 'Sorry, your email or username already exists. Try again.');
+            return redirect(route('signup'))->with('error', 'Sorry, your email or username already exists. Try again.');
         }
 
         $email_valid = UserHelper::validateEmail($email);
 
         if ($email_valid == false) {
-            return redirect('signup')->with('error', 'Please use a valid email to sign up.');
+            return redirect(route('signup'))->with('error', 'Please use a valid email to sign up.');
         }
 
         $acct_activation_needed = env('POLR_ACCT_ACTIVATION');
@@ -73,7 +79,7 @@ class UserController extends Controller {
         if ($acct_activation_needed == false) {
             // if no activation is necessary
             $active = 1;
-            $response = redirect('login')->with('success', 'Thanks for signing up! You may now log in.');
+            $response = redirect(route('login'))->with('success', 'Thanks for signing up! You may now log in.');
         }
         else {
             // email activation is necessary
@@ -82,7 +88,7 @@ class UserController extends Controller {
             ], function ($m) use ($user) {
                     $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
             });
-            $response = redirect('login')->with('success', 'Thanks for signing up! Please confirm your email to continue..');
+            $response = redirect(route('login'))->with('success', 'Thanks for signing up! Please confirm your email to continue..');
             $active = 0;
         }
         $user = UserFactory::createUser($username, $email, $password, $active, $ip);

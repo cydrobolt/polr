@@ -27,4 +27,16 @@ class Controller extends BaseController {
             return true;
         }
     }
+
+    protected static function checkRequiredArgs($required_args=[]) {
+        array_push($required_args, NULL);
+
+        if (count(array_unique($required_args)) < count($required_args)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
 }

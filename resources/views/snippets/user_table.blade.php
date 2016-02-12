@@ -30,7 +30,7 @@
         </td>
 
         <td>
-            <a  class='delete-user btn btn-sm btn-danger @if (session('username') == $user->username)btn-disabled @endif'
+            <a  class='delete-user btn btn-sm btn-danger @if (session('username') == $user->username)disabled @endif'
 
                 data-user-id='{{$user->id}}'>
                 Delete
