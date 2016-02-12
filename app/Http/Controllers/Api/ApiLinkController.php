@@ -12,8 +12,12 @@ class ApiLinkController extends ApiController {
         $user = self::getApiUserInfo($request);
 
         /* */
-        $long_url = $request->input('url');
-        $is_secret = ($request->input('is_secret') == 'false' ? false : true);
+        $long_url = $request->input('url'); // * required
+        $is_secret = ($request->input('is_secret') == 'true' ? true : false);
+
+        if (!self::checkRequiredArgs([$long_url])) {
+            abort(400, "Missing required arguments.");
+        }
 
         $link_ip = $request->ip();
         $custom_ending = $request->input('custom_ending');
@@ -29,7 +33,12 @@ class ApiLinkController extends ApiController {
 
         /* */
 
-        $url_ending = $request->input('url_ending');
+        $url_ending = $request->input('url_ending'); // * required
+
+        if (!self::checkRequiredArgs([$url_ending])) {
+            abort(400, "Missing required arguments.");
+        }
+
         // "secret" key required for lookups on secret URLs
         $url_key = $request->input('url_key');
 
