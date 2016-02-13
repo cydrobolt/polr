@@ -60,8 +60,8 @@ Setup
 
             <p>Show Public Interface:</p>
             <select name='setting:public_interface' class='form-control'>
-                <option value='false' selected='selected'>Show public interface (default)</option>
-                <option value='true'>Hide public interface (for private shorteners)</option>
+                <option value='true' selected='selected'>Show public interface (default)</option>
+                <option value='false'>Hide public interface (for private shorteners)</option>
             </select>
 
             <p>If public interface is hidden, redirect index page to:</p>
