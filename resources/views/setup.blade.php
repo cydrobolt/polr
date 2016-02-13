@@ -68,8 +68,8 @@ Setup
             <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
             <p class='text-muted'>
                 If a redirect is enabled, you will need to go to
-                http://PATHTOPOLR/login before you can access the index
-                page. Leave the redirect blank to show a generic index page.
+                http://example.com/login before you can access the index
+                page.
             </p>
 
             <p>URL Ending Base:</p>

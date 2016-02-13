@@ -22,8 +22,13 @@ class ApiLinkController extends ApiController {
         $link_ip = $request->ip();
         $custom_ending = $request->input('custom_ending');
 
+        try {
+            $formatted_link = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $user->username);
+        }
+        catch (\Exception $e) {
+            abort(400, $e->getMessage());
+        }
 
-        $formatted_link = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $user->username);
         return self::encodeResponse($formatted_link, 'shorten', $response_type);
     }
 

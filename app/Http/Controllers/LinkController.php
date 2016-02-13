@@ -20,6 +20,10 @@ class LinkController extends Controller {
     }
 
     public function performShorten(Request $request) {
+        if (env('SETTING_SHORTEN_PERMISSION') && !self::isLoggedIn()) {
+            return redirect(route('index'))->with('error', 'You must be logged in to shorten links.');
+        }
+
         $this->request = $request;
 
         $long_url = $request->input('link-url');
