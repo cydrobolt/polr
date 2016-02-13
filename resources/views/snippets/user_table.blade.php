@@ -15,15 +15,15 @@
         <td>{{$user->active}}</td>
         <td>
         @if ($user->active)
-                <a  class='activate-api-modal btn btn-sm btn-info'
+            <a  class='activate-api-modal btn btn-sm btn-info'
 
-                    data-api-active='{{$user->api_active}}'
-                    data-api-key='{{$user->api_key}}'
-                    data-api-quota='{{$user->api_quota}}'
-                    data-user-id='{{$user->id}}'
-                    data-username='{{$user->username}}'>
-                    API info
-                </a>
+                data-api-active='{{$user->api_active}}'
+                data-api-key='{{$user->api_key}}'
+                data-api-quota='{{$user->api_quota}}'
+                data-user-id='{{$user->id}}'
+                data-username='{{$user->username}}'>
+                API info
+            </a>
         @else
             N/A
         @endif

@@ -30,9 +30,7 @@ class AjaxController extends Controller {
     }
 
     public function toggleAPIActive(Request $request) {
-        if (!$this->currIsAdmin()) {
-            abort(401, 'User not admin.');
-        }
+        self::ensureAdmin();
 
         $user_id = $request->input('user_id');
         $user = UserHelper::getUserById($user_id);
@@ -56,9 +54,7 @@ class AjaxController extends Controller {
     }
 
     public function generateNewAPIKey(Request $request) {
-        if (!$this->currIsAdmin()) {
-            abort(401, 'User not admin.');
-        }
+        self::ensureAdmin();
 
         $user_id = $request->input('user_id');
         $user = UserHelper::getUserById($user_id);
@@ -75,9 +71,7 @@ class AjaxController extends Controller {
     }
 
     public function deleteUser(Request $request) {
-        if (!$this->currIsAdmin()) {
-            abort(401, 'User not admin.');
-        }
+        self::ensureAdmin();
 
         $user_id = $request->input('user_id');
         $user = UserHelper::getUserById($user_id);
@@ -87,5 +81,31 @@ class AjaxController extends Controller {
         }
         $user->delete();
         return "OK";
+    }
+
+    public function toggleLink(Request $request) {
+        self::ensureAdmin();
+
+        $link_ending = $request->input('link_ending');
+        $link = LinkHelper::linkExists($link_ending);
+
+        if (!$link) {
+            abort(404, 'Link not found.');
+        }
+
+        $current_status = $link->is_disabled;
+
+        $new_status = 1;
+
+        if ($current_status == 1) {
+            // if currently disabled, then enable
+            $new_status = 0;
+        }
+
+        $link->is_disabled = $new_status;
+
+        $link->save();
+
+        return ($new_status ? "Enable" : "Disable");
     }
 }

@@ -41,6 +41,28 @@ $(function () {
         });
     });
 
+    $('.toggle-link').click(function () {
+        var te = $(this);
+        var link_ending = te.data('link-ending');
+        var curr_action = te.text();
+
+        apiCall('admin/toggle_link', {
+            'link_ending': link_ending,
+        }, function (next_action) {
+            toastr.success(curr_action + " was successful.", "Success");
+            if (next_action == 'Disable') {
+                te.removeClass('btn-success');
+                te.addClass('btn-danger');
+            }
+            else {
+                te.removeClass('btn-danger');
+                te.addClass('btn-success');
+            }
+
+            te.text(next_action);
+        });
+    });
+
     $('.activate-api-modal').click(function () {
         var te = $(this);
         var username = te.data('username');

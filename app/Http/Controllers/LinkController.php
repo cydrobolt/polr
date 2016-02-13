@@ -54,7 +54,7 @@ class LinkController extends Controller {
 
         $link_secret_key = $link->secret_key;
 
-        if ($link->disabled == 1) {
+        if ($link->is_disabled == 1) {
             return view('error', [
                 'message' => 'Sorry, but this link has been disabled by an administrator.'
             ]);
