@@ -1,0 +1,14 @@
+language: php
+php:
+  - '5.4'
+  - '5.5'
+  - '5.6'
+  - '7.0'
+services:
+  - mysql
+script:
+  - phpunit
+before_script:
+  - mv tests/test_env .env
+  - mysql -e 'CREATE DATABASE polrci;'
+  - composer install
