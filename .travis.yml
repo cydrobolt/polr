@@ -7,6 +7,7 @@ services:
 before_script:
   - mv tests/test_env .env
   - mysql -e 'CREATE DATABASE polrci;'
+  - php artisan migrate
   - composer install
 notifications:
   email: false
