@@ -61,24 +61,66 @@ EOTXT
         );
     }
 
+    public function testReflectionParameter()
+    {
+        $var = new \ReflectionParameter(__NAMESPACE__.'\reflectionParameterFixture', 0);
+
+        $this->assertDumpMatchesFormat(
+            <<<'EOTXT'
+ReflectionParameter {
+  +name: "arg1"
+  position: 0
+  typeHint: "Symfony\Component\VarDumper\Tests\Caster\NotExistingClass"
+  default: null
+}
+EOTXT
+            , $var
+        );
+    }
+
+    /**
+     * @requires PHP 7.0
+     */
+    public function testReflectionParameterScalar()
+    {
+        $f = eval('return function (int $a) {};');
+        $var = new \ReflectionParameter($f, 0);
+
+        $this->assertDumpMatchesFormat(
+            <<<'EOTXT'
+ReflectionParameter {
+  +name: "a"
+  position: 0
+  typeHint: "int"
+}
+EOTXT
+            , $var
+        );
+    }
+
     /**
      * @requires PHP 7.0
      */
     public function testReturnType()
     {
         $f = eval('return function ():int {};');
+        $line = __LINE__ - 1;
 
         $this->assertDumpMatchesFormat(
-            <<<'EOTXT'
+            <<<EOTXT
 Closure {
   returnType: "int"
   class: "Symfony\Component\VarDumper\Tests\Caster\ReflectionCasterTest"
   this: Symfony\Component\VarDumper\Tests\Caster\ReflectionCasterTest { …}
-  file: "%sReflectionCasterTest.php(69) : eval()'d code"
+  file: "%sReflectionCasterTest.php($line) : eval()'d code"
   line: "1 to 1"
 }
 EOTXT
             , $f
         );
     }
+}
+
+function reflectionParameterFixture(NotExistingClass $arg1 = null, $arg2)
+{
 }

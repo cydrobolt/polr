@@ -9,11 +9,14 @@ use CachingIterator;
 use JsonSerializable;
 use IteratorAggregate;
 use InvalidArgumentException;
+use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate, Jsonable, JsonSerializable
 {
+    use Macroable;
+
     /**
      * The items contained in the collection.
      *
@@ -159,6 +162,19 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         }
 
         return new static($new);
+    }
+
+    /**
+     * Get all items except for those with the specified keys.
+     *
+     * @param  mixed  $keys
+     * @return static
+     */
+    public function except($keys)
+    {
+        $keys = is_array($keys) ? $keys : func_get_args();
+
+        return new static(Arr::except($this->items, $keys));
     }
 
     /**
@@ -417,10 +433,10 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
-     * Get an array with the values of a given key.
+     * Get the values of a given key.
      *
      * @param  string  $value
-     * @param  string  $key
+     * @param  string|null  $key
      * @return static
      */
     public function pluck($value, $key = null)
@@ -432,7 +448,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * Alias for the "pluck" method.
      *
      * @param  string  $value
-     * @param  string  $key
+     * @param  string|null  $key
      * @return static
      */
     public function lists($value, $key = null)
@@ -453,6 +469,17 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         $items = array_map($callback, $this->items, $keys);
 
         return new static(array_combine($keys, $items));
+    }
+
+    /**
+     * Map a collection and flatten the result by a single level.
+     *
+     * @param  callable  $callback
+     * @return static
+     */
+    public function flatMap(callable $callback)
+    {
+        return $this->map($callback)->collapse();
     }
 
     /**
@@ -497,6 +524,19 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
+     * Get the items with the specified keys.
+     *
+     * @param  mixed  $keys
+     * @return static
+     */
+    public function only($keys)
+    {
+        $keys = is_array($keys) ? $keys : func_get_args();
+
+        return new static(Arr::only($this->items, $keys));
+    }
+
+    /**
      * "Paginate" the collection by slicing it into a smaller collection.
      *
      * @param  int  $page
@@ -522,11 +562,12 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * Push an item onto the beginning of the collection.
      *
      * @param  mixed  $value
+     * @param  mixed  $key
      * @return $this
      */
-    public function prepend($value)
+    public function prepend($value, $key = null)
     {
-        array_unshift($this->items, $value);
+        $this->items = Arr::prepend($this->items, $value, $key);
 
         return $this;
     }

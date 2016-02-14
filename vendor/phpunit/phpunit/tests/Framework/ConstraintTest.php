@@ -23,12 +23,12 @@ class Framework_ConstraintTest extends PHPUnit_Framework_TestCase
     {
         $constraint = PHPUnit_Framework_Assert::arrayHasKey(0);
 
-        $this->assertFalse($constraint->evaluate(array(), '', true));
+        $this->assertFalse($constraint->evaluate([], '', true));
         $this->assertEquals('has the key 0', $constraint->toString());
         $this->assertEquals(1, count($constraint));
 
         try {
-            $constraint->evaluate(array());
+            $constraint->evaluate([]);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(<<<EOF
 Failed asserting that an array has the key 0.
@@ -54,7 +54,7 @@ EOF
         $constraint = PHPUnit_Framework_Assert::arrayHasKey(0);
 
         try {
-            $constraint->evaluate(array(), 'custom message');
+            $constraint->evaluate([], 'custom message');
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -84,12 +84,12 @@ EOF
           PHPUnit_Framework_Assert::arrayHasKey(0)
         );
 
-        $this->assertFalse($constraint->evaluate(array(0 => 1), '', true));
+        $this->assertFalse($constraint->evaluate([0 => 1], '', true));
         $this->assertEquals('does not have the key 0', $constraint->toString());
         $this->assertEquals(1, count($constraint));
 
         try {
-            $constraint->evaluate(array(0 => 1));
+            $constraint->evaluate([0 => 1]);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -120,7 +120,7 @@ EOF
         );
 
         try {
-            $constraint->evaluate(array(0), 'custom message');
+            $constraint->evaluate([0], 'custom message');
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -625,7 +625,7 @@ EOF
         $c               = new stdClass;
         $c->foo          = 'bar';
         $c->int          = 1;
-        $c->array        = array(0, array(1), array(2), 3);
+        $c->array        = [0, [1], [2], 3];
         $c->related      = new stdClass;
         $c->related->foo = "a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk";
         $c->self         = $c;
@@ -633,7 +633,7 @@ EOF
         $d               = new stdClass;
         $d->foo          = 'bar';
         $d->int          = 2;
-        $d->array        = array(0, array(4), array(2), 3);
+        $d->array        = [0, [4], [2], 3];
         $d->related      = new stdClass;
         $d->related->foo = "a\np\nc\nd\ne\nf\ng\nh\ni\nw\nk";
         $d->self         = $d;
@@ -654,18 +654,18 @@ EOF
         $dom2->preserveWhiteSpace = false;
         $dom2->loadXML('<root><foo/></root>');
 
-        $data = array(
-            array(1, 0, <<<EOF
+        $data = [
+            [1, 0, <<<EOF
 Failed asserting that 0 matches expected 1.
 
 EOF
-            ),
-            array(1.1, 0, <<<EOF
+            ],
+            [1.1, 0, <<<EOF
 Failed asserting that 0 matches expected 1.1.
 
 EOF
-            ),
-            array('a', 'b', <<<EOF
+            ],
+            ['a', 'b', <<<EOF
 Failed asserting that two strings are equal.
 --- Expected
 +++ Actual
@@ -674,8 +674,8 @@ Failed asserting that two strings are equal.
 +'b'
 
 EOF
-            ),
-            array("a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk", "a\np\nc\nd\ne\nf\ng\nh\ni\nw\nk", <<<EOF
+            ],
+            ["a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk", "a\np\nc\nd\ne\nf\ng\nh\ni\nw\nk", <<<EOF
 Failed asserting that two strings are equal.
 --- Expected
 +++ Actual
@@ -691,18 +691,18 @@ Failed asserting that two strings are equal.
  k'
 
 EOF
-            ),
-            array(1, array(0), <<<EOF
+            ],
+            [1, [0], <<<EOF
 Array (...) does not match expected type "integer".
 
 EOF
-            ),
-            array(array(0), 1, <<<EOF
+            ],
+            [[0], 1, <<<EOF
 1 does not match expected type "array".
 
 EOF
-            ),
-            array(array(0), array(1), <<<EOF
+            ],
+            [[0], [1], <<<EOF
 Failed asserting that two arrays are equal.
 --- Expected
 +++ Actual
@@ -713,8 +713,8 @@ Failed asserting that two arrays are equal.
  )
 
 EOF
-            ),
-            array(array(true), array('true'), <<<EOF
+            ],
+            [[true], ['true'], <<<EOF
 Failed asserting that two arrays are equal.
 --- Expected
 +++ Actual
@@ -725,8 +725,8 @@ Failed asserting that two arrays are equal.
  )
 
 EOF
-            ),
-            array(array(0, array(1), array(2), 3), array(0, array(4), array(2), 3), <<<EOF
+            ],
+            [[0, [1], [2], 3], [0, [4], [2], 3], <<<EOF
 Failed asserting that two arrays are equal.
 --- Expected
 +++ Actual
@@ -742,18 +742,18 @@ Failed asserting that two arrays are equal.
  )
 
 EOF
-            ),
-            array($a, array(0), <<<EOF
+            ],
+            [$a, [0], <<<EOF
 Array (...) does not match expected type "object".
 
 EOF
-            ),
-            array(array(0), $a, <<<EOF
+            ],
+            [[0], $a, <<<EOF
 stdClass Object (...) does not match expected type "array".
 
 EOF
-            ),
-            array($a, $b, <<<EOF
+            ],
+            [$a, $b, <<<EOF
 Failed asserting that two objects are equal.
 --- Expected
 +++ Actual
@@ -763,8 +763,8 @@ Failed asserting that two objects are equal.
  )
 
 EOF
-            ),
-            array($c, $d, <<<EOF
+            ],
+            [$c, $d, <<<EOF
 Failed asserting that two objects are equal.
 --- Expected
 +++ Actual
@@ -795,8 +795,8 @@ Failed asserting that two objects are equal.
  )
 
 EOF
-            ),
-            array($dom1, $dom2, <<<EOF
+            ],
+            [$dom1, $dom2, <<<EOF
 Failed asserting that two DOM documents are equal.
 --- Expected
 +++ Actual
@@ -808,8 +808,8 @@ Failed asserting that two DOM documents are equal.
 +</root>
 
 EOF
-            ),
-            array(
+            ],
+            [
               new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
               new DateTime('2013-03-29 04:13:35', new DateTimeZone('America/Chicago')),
               <<<EOF
@@ -821,11 +821,11 @@ Failed asserting that two DateTime objects are equal.
 +2013-03-29T04:13:35-0500
 
 EOF
-            ),
-        );
+            ],
+        ];
 
         if (PHP_MAJOR_VERSION < 7) {
-            $data[] = array($storage1, $storage2, <<<EOF
+            $data[] = [$storage1, $storage2, <<<EOF
 Failed asserting that two objects are equal.
 --- Expected
 +++ Actual
@@ -844,9 +844,9 @@ Failed asserting that two objects are equal.
  )
 
 EOF
-            );
+            ];
         } else {
-            $data[] = array($storage1, $storage2, <<<EOF
+            $data[] = [$storage1, $storage2, <<<EOF
 Failed asserting that two objects are equal.
 --- Expected
 +++ Actual
@@ -865,7 +865,7 @@ Failed asserting that two objects are equal.
  )
 
 EOF
-            );
+            ];
         }
 
         return $data;
@@ -1358,10 +1358,10 @@ EOF
         $fh = fopen(__FILE__, 'r');
         fclose($fh);
 
-        return array(
-            'open resource'     => array(fopen(__FILE__, 'r')),
-            'closed resource'   => array($fh),
-        );
+        return [
+            'open resource'     => [fopen(__FILE__, 'r')],
+            'closed resource'   => [$fh],
+        ];
     }
 
     /**
@@ -1754,11 +1754,11 @@ EOF
         $this->assertTrue($constraint->evaluate(true, '', true));
         $this->assertFalse($constraint->evaluate(false, '', true));
 
-        $callback   = array($this, 'callbackReturningTrue');
+        $callback   = [$this, 'callbackReturningTrue'];
         $constraint = PHPUnit_Framework_Assert::callback($callback);
         $this->assertTrue($constraint->evaluate(false,  '', true));
 
-        $callback   = array('Framework_ConstraintTest', 'staticCallbackReturningTrue');
+        $callback   = ['Framework_ConstraintTest', 'staticCallbackReturningTrue'];
         $constraint = PHPUnit_Framework_Assert::callback($callback);
         $this->assertTrue($constraint->evaluate(null, '', true));
 
@@ -2872,14 +2872,14 @@ EOF
         // Check for primitive type.
         $constraint = new PHPUnit_Framework_Constraint_TraversableContains('foo', true, true);
 
-        $this->assertFalse($constraint->evaluate(array(0), '', true));
-        $this->assertFalse($constraint->evaluate(array(true), '', true));
+        $this->assertFalse($constraint->evaluate([0], '', true));
+        $this->assertFalse($constraint->evaluate([true], '', true));
 
         // Default case.
         $constraint = new PHPUnit_Framework_Constraint_TraversableContains('foo');
 
-        $this->assertTrue($constraint->evaluate(array(0), '', true));
-        $this->assertTrue($constraint->evaluate(array(true), '', true));
+        $this->assertTrue($constraint->evaluate([0], '', true));
+        $this->assertTrue($constraint->evaluate([true], '', true));
     }
 
     /**
@@ -2891,13 +2891,13 @@ EOF
     {
         $constraint = new PHPUnit_Framework_Constraint_TraversableContains('foo');
 
-        $this->assertFalse($constraint->evaluate(array('bar'), '', true));
-        $this->assertTrue($constraint->evaluate(array('foo'), '', true));
+        $this->assertFalse($constraint->evaluate(['bar'], '', true));
+        $this->assertTrue($constraint->evaluate(['foo'], '', true));
         $this->assertEquals("contains 'foo'", $constraint->toString());
         $this->assertEquals(1, count($constraint));
 
         try {
-            $constraint->evaluate(array('bar'));
+            $constraint->evaluate(['bar']);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -2923,7 +2923,7 @@ EOF
         $constraint = new PHPUnit_Framework_Constraint_TraversableContains('foo');
 
         try {
-            $constraint->evaluate(array('bar'), 'custom message');
+            $constraint->evaluate(['bar'], 'custom message');
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -2953,13 +2953,13 @@ EOF
           new PHPUnit_Framework_Constraint_TraversableContains('foo')
         );
 
-        $this->assertTrue($constraint->evaluate(array('bar'), '', true));
-        $this->assertFalse($constraint->evaluate(array('foo'), '', true));
+        $this->assertTrue($constraint->evaluate(['bar'], '', true));
+        $this->assertFalse($constraint->evaluate(['foo'], '', true));
         $this->assertEquals("does not contain 'foo'", $constraint->toString());
         $this->assertEquals(1, count($constraint));
 
         try {
-            $constraint->evaluate(array('foo'));
+            $constraint->evaluate(['foo']);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -2989,7 +2989,7 @@ EOF
         );
 
         try {
-            $constraint->evaluate(array('foo'), 'custom message');
+            $constraint->evaluate(['foo'], 'custom message');
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -3217,15 +3217,15 @@ EOF
     {
         $constraint = new PHPUnit_Framework_Constraint_IsEmpty;
 
-        $this->assertFalse($constraint->evaluate(array('foo'), '', true));
-        $this->assertTrue($constraint->evaluate(array(), '', true));
-        $this->assertFalse($constraint->evaluate(new ArrayObject(array('foo')), '', true));
-        $this->assertTrue($constraint->evaluate(new ArrayObject(array()), '', true));
+        $this->assertFalse($constraint->evaluate(['foo'], '', true));
+        $this->assertTrue($constraint->evaluate([], '', true));
+        $this->assertFalse($constraint->evaluate(new ArrayObject(['foo']), '', true));
+        $this->assertTrue($constraint->evaluate(new ArrayObject([]), '', true));
         $this->assertEquals('is empty', $constraint->toString());
         $this->assertEquals(1, count($constraint));
 
         try {
-            $constraint->evaluate(array('foo'));
+            $constraint->evaluate(['foo']);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -3251,7 +3251,7 @@ EOF
         $constraint = new PHPUnit_Framework_Constraint_IsEmpty;
 
         try {
-            $constraint->evaluate(array('foo'), 'custom message');
+            $constraint->evaluate(['foo'], 'custom message');
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -3275,8 +3275,8 @@ EOF
     {
         $constraint = new PHPUnit_Framework_Constraint_Count(5);
 
-        $this->assertTrue($constraint->evaluate(array(1, 2, 3, 4, 5), '', true));
-        $this->assertFalse($constraint->evaluate(array(1, 2, 3, 4), '', true));
+        $this->assertTrue($constraint->evaluate([1, 2, 3, 4, 5], '', true));
+        $this->assertFalse($constraint->evaluate([1, 2, 3, 4], '', true));
     }
 
     /**
@@ -3286,8 +3286,8 @@ EOF
     {
         $constraint = new PHPUnit_Framework_Constraint_Count(5);
 
-        $this->assertTrue($constraint->evaluate(new TestIterator(array(1, 2, 3, 4, 5)), '', true));
-        $this->assertFalse($constraint->evaluate(new TestIterator(array(1, 2, 3, 4)), '', true));
+        $this->assertTrue($constraint->evaluate(new TestIterator([1, 2, 3, 4, 5]), '', true));
+        $this->assertFalse($constraint->evaluate(new TestIterator([1, 2, 3, 4]), '', true));
     }
 
     /**
@@ -3297,8 +3297,8 @@ EOF
     {
         $constraint = new PHPUnit_Framework_Constraint_Count(5);
 
-        $this->assertTrue($constraint->evaluate(new ArrayObject(array(1, 2, 3, 4, 5)), '', true));
-        $this->assertFalse($constraint->evaluate(new ArrayObject(array(1, 2, 3, 4)), '', true));
+        $this->assertTrue($constraint->evaluate(new ArrayObject([1, 2, 3, 4, 5]), '', true));
+        $this->assertFalse($constraint->evaluate(new ArrayObject([1, 2, 3, 4]), '', true));
     }
 
     /**
@@ -3310,7 +3310,7 @@ EOF
         $constraint = new PHPUnit_Framework_Constraint_Count(5);
 
         try {
-            $constraint->evaluate(array(1, 2));
+            $constraint->evaluate([1, 2]);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -3340,7 +3340,7 @@ EOF
         );
 
         try {
-            $constraint->evaluate(array(1, 2));
+            $constraint->evaluate([1, 2]);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -3362,10 +3362,10 @@ EOF
      */
     public function testConstraintSameSizeWithAnArray()
     {
-        $constraint = new PHPUnit_Framework_Constraint_SameSize(array(1, 2, 3, 4, 5));
+        $constraint = new PHPUnit_Framework_Constraint_SameSize([1, 2, 3, 4, 5]);
 
-        $this->assertTrue($constraint->evaluate(array(6, 7, 8, 9, 10), '', true));
-        $this->assertFalse($constraint->evaluate(array(1, 2, 3, 4), '', true));
+        $this->assertTrue($constraint->evaluate([6, 7, 8, 9, 10], '', true));
+        $this->assertFalse($constraint->evaluate([1, 2, 3, 4], '', true));
     }
 
     /**
@@ -3373,10 +3373,10 @@ EOF
      */
     public function testConstraintSameSizeWithAnIteratorWhichDoesNotImplementCountable()
     {
-        $constraint = new PHPUnit_Framework_Constraint_SameSize(new TestIterator(array(1, 2, 3, 4, 5)));
+        $constraint = new PHPUnit_Framework_Constraint_SameSize(new TestIterator([1, 2, 3, 4, 5]));
 
-        $this->assertTrue($constraint->evaluate(new TestIterator(array(6, 7, 8, 9, 10)), '', true));
-        $this->assertFalse($constraint->evaluate(new TestIterator(array(1, 2, 3, 4)), '', true));
+        $this->assertTrue($constraint->evaluate(new TestIterator([6, 7, 8, 9, 10]), '', true));
+        $this->assertFalse($constraint->evaluate(new TestIterator([1, 2, 3, 4]), '', true));
     }
 
     /**
@@ -3384,10 +3384,10 @@ EOF
      */
     public function testConstraintSameSizeWithAnObjectImplementingCountable()
     {
-        $constraint = new PHPUnit_Framework_Constraint_SameSize(new ArrayObject(array(1, 2, 3, 4, 5)));
+        $constraint = new PHPUnit_Framework_Constraint_SameSize(new ArrayObject([1, 2, 3, 4, 5]));
 
-        $this->assertTrue($constraint->evaluate(new ArrayObject(array(6, 7, 8, 9, 10)), '', true));
-        $this->assertFalse($constraint->evaluate(new ArrayObject(array(1, 2, 3, 4)), '', true));
+        $this->assertTrue($constraint->evaluate(new ArrayObject([6, 7, 8, 9, 10]), '', true));
+        $this->assertFalse($constraint->evaluate(new ArrayObject([1, 2, 3, 4]), '', true));
     }
 
     /**
@@ -3396,10 +3396,10 @@ EOF
      */
     public function testConstraintSameSizeFailing()
     {
-        $constraint = new PHPUnit_Framework_Constraint_SameSize(array(1, 2, 3, 4, 5));
+        $constraint = new PHPUnit_Framework_Constraint_SameSize([1, 2, 3, 4, 5]);
 
         try {
-            $constraint->evaluate(array(1, 2));
+            $constraint->evaluate([1, 2]);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -3425,11 +3425,11 @@ EOF
     public function testConstraintNotSameSizeFailing()
     {
         $constraint = PHPUnit_Framework_Assert::logicalNot(
-          new PHPUnit_Framework_Constraint_SameSize(array(1, 2))
+          new PHPUnit_Framework_Constraint_SameSize([1, 2])
         );
 
         try {
-            $constraint->evaluate(array(3, 4));
+            $constraint->evaluate([3, 4]);
         } catch (PHPUnit_Framework_ExpectationFailedException $e) {
             $this->assertEquals(
               <<<EOF
@@ -3454,7 +3454,7 @@ EOF
     {
         $constraint = new PHPUnit_Framework_Constraint_Exception('FoobarException');
         $exception  = new DummyException('Test');
-        $stackTrace = $exception->getTraceAsString();
+        $stackTrace = PHPUnit_Util_Filter::getFilteredStacktrace($exception);
 
         try {
             $constraint->evaluate($exception);

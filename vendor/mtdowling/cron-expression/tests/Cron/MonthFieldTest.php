@@ -40,6 +40,25 @@ class MonthFieldTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Cron\MonthField::increment
      */
+    public function testIncrementsDateWithThirtyMinuteTimezone()
+    {
+        $tz = date_default_timezone_get();
+        date_default_timezone_set('America/St_Johns');
+        $d = new DateTime('2011-03-31 11:59:59');
+        $f = new MonthField();
+        $f->increment($d);
+        $this->assertEquals('2011-04-01 00:00:00', $d->format('Y-m-d H:i:s'));
+
+        $d = new DateTime('2011-03-15 11:15:00');
+        $f->increment($d, true);
+        $this->assertEquals('2011-02-28 23:59:00', $d->format('Y-m-d H:i:s'));
+        date_default_timezone_set($tz);
+    }
+
+
+    /**
+     * @covers Cron\MonthField::increment
+     */
     public function testIncrementsYearAsNeeded()
     {
         $f = new MonthField();

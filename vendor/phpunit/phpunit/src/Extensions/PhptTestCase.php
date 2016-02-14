@@ -21,9 +21,14 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
     private $filename;
 
     /**
+     * @var PHPUnit_Util_PHP
+     */
+    private $phpUtil;
+
+    /**
      * @var array
      */
-    private $settings = array(
+    private $settings = [
         'allow_url_fopen=1',
         'auto_append_file=',
         'auto_prepend_file=',
@@ -45,16 +50,17 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
         'safe_mode=0',
         'track_errors=1',
         'xdebug.default_enable=0'
-    );
+    ];
 
     /**
      * Constructs a test case with the given filename.
      *
-     * @param string $filename
+     * @param string           $filename
+     * @param PHPUnit_Util_PHP $phpUtil
      *
      * @throws PHPUnit_Framework_Exception
      */
-    public function __construct($filename)
+    public function __construct($filename, $phpUtil = null)
     {
         if (!is_string($filename)) {
             throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'string');
@@ -70,6 +76,7 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
         }
 
         $this->filename = $filename;
+        $this->phpUtil  = $phpUtil ?: PHPUnit_Util_PHP::factory();
     }
 
     /**
@@ -80,6 +87,32 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
     public function count()
     {
         return 1;
+    }
+
+    /**
+     * @param array  $sections
+     * @param string $output
+     */
+    private function assertPhptExpectation(array $sections, $output)
+    {
+        $assertions = [
+            'EXPECT'      => 'assertEquals',
+            'EXPECTF'     => 'assertStringMatchesFormat',
+            'EXPECTREGEX' => 'assertRegExp',
+        ];
+
+        $actual = preg_replace('/\r\n/', "\n", trim($output));
+        foreach ($assertions as $sectionName => $sectionAssertion) {
+            if (isset($sections[$sectionName])) {
+                $sectionContent = preg_replace('/\r\n/', "\n", trim($sections[$sectionName]));
+                $assertion      = $sectionAssertion;
+                $expected       = $sectionName == 'EXPECTREGEX' ? "/{$sectionContent}/" : $sectionContent;
+
+                break;
+            }
+        }
+
+        PHPUnit_Framework_Assert::$assertion($expected, $actual);
     }
 
     /**
@@ -98,7 +131,6 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
             $result = new PHPUnit_Framework_TestResult;
         }
 
-        $php      = PHPUnit_Util_PHP::factory();
         $skip     = false;
         $time     = 0;
         $settings = $this->settings;
@@ -109,8 +141,11 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
             $settings = array_merge($settings, $this->parseIniSection($sections['INI']));
         }
 
+        // Redirects STDERR to STDOUT
+        $this->phpUtil->setUseStderrRedirection(true);
+
         if (isset($sections['SKIPIF'])) {
-            $jobResult = $php->runJob($sections['SKIPIF'], $settings);
+            $jobResult = $this->phpUtil->runJob($sections['SKIPIF'], $settings);
 
             if (!strncasecmp('skip', ltrim($jobResult['stdout']), 4)) {
                 if (preg_match('/^\s*skip\s*(.+)\s*/i', $jobResult['stdout'], $message)) {
@@ -127,28 +162,24 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
 
         if (!$skip) {
             PHP_Timer::start();
-            $jobResult = $php->runJob($code, $settings);
+
+            $jobResult = $this->phpUtil->runJob($code, $settings);
             $time      = PHP_Timer::stop();
 
-            if (isset($sections['EXPECT'])) {
-                $assertion = 'assertEquals';
-                $expected  = $sections['EXPECT'];
-            } else {
-                $assertion = 'assertStringMatchesFormat';
-                $expected  = $sections['EXPECTF'];
-            }
-
-            $output   = preg_replace('/\r\n/', "\n", trim($jobResult['stdout']));
-            $expected = preg_replace('/\r\n/', "\n", trim($expected));
-
             try {
-                PHPUnit_Framework_Assert::$assertion($expected, $output);
+                $this->assertPhptExpectation($sections, $jobResult['stdout']);
             } catch (PHPUnit_Framework_AssertionFailedError $e) {
                 $result->addFailure($this, $e, $time);
             } catch (Throwable $t) {
                 $result->addError($this, $t, $time);
             } catch (Exception $e) {
                 $result->addError($this, $e, $time);
+            }
+
+            if (isset($sections['CLEAN'])) {
+                $cleanCode = $this->render($sections['CLEAN']);
+
+                $this->phpUtil->runJob($cleanCode, $this->settings);
             }
         }
 
@@ -184,13 +215,14 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
      */
     private function parse()
     {
-        $sections = array();
+        $sections = [];
         $section  = '';
 
         foreach (file($this->filename) as $line) {
             if (preg_match('/^--([_A-Z]+)--/', $line, $result)) {
                 $section            = $result[1];
                 $sections[$section] = '';
+
                 continue;
             } elseif (empty($section)) {
                 throw new PHPUnit_Framework_Exception('Invalid PHPT file');
@@ -200,7 +232,7 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
         }
 
         if (!isset($sections['FILE']) ||
-            (!isset($sections['EXPECT']) && !isset($sections['EXPECTF']))) {
+            (!isset($sections['EXPECT']) && !isset($sections['EXPECTF']) && !isset($sections['EXPECTREGEX']))) {
             throw new PHPUnit_Framework_Exception('Invalid PHPT file');
         }
 
@@ -215,14 +247,14 @@ class PHPUnit_Extensions_PhptTestCase implements PHPUnit_Framework_Test, PHPUnit
     private function render($code)
     {
         return str_replace(
-            array(
-            '__DIR__',
-            '__FILE__'
-            ),
-            array(
-            "'" . dirname($this->filename) . "'",
-            "'" . $this->filename . "'"
-            ),
+            [
+                '__DIR__',
+                '__FILE__'
+            ],
+            [
+                "'" . dirname($this->filename) . "'",
+                "'" . $this->filename . "'"
+            ],
             $code
         );
     }

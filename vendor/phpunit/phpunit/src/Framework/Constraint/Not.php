@@ -42,7 +42,7 @@ class PHPUnit_Framework_Constraint_Not extends PHPUnit_Framework_Constraint
     public static function negate($string)
     {
         return str_replace(
-            array(
+            [
             'contains ',
             'exists',
             'has ',
@@ -53,8 +53,8 @@ class PHPUnit_Framework_Constraint_Not extends PHPUnit_Framework_Constraint
             'ends with ',
             'reference ',
             'not not '
-            ),
-            array(
+            ],
+            [
             'does not contain ',
             'does not exist',
             'does not have ',
@@ -65,7 +65,7 @@ class PHPUnit_Framework_Constraint_Not extends PHPUnit_Framework_Constraint
             'ends not with ',
             'don\'t reference ',
             'not '
-            ),
+            ],
             $string
         );
     }

@@ -5,6 +5,7 @@ namespace Illuminate\Auth;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -52,7 +53,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function registerUserResolver()
     {
-        $this->app->bind('Illuminate\Contracts\Auth\Authenticatable', function ($app) {
+        $this->app->bind(AuthenticatableContract::class, function ($app) {
             return $app['auth']->user();
         });
     }
@@ -65,7 +66,9 @@ class AuthServiceProvider extends ServiceProvider
     protected function registerAccessGate()
     {
         $this->app->singleton(GateContract::class, function ($app) {
-            return new Gate($app, function () use ($app) { return $app['auth']->user(); });
+            return new Gate($app, function () use ($app) {
+                return $app['auth']->user();
+            });
         });
     }
 

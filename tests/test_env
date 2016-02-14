@@ -7,7 +7,7 @@ APP_DEBUG=false
 APP_KEY=a5bd6a61b1327670bedd712a358d9c2b
 
 # Your app's name (shown on interface)
-APP_NAME=Polr
+APP_NAME=Polr CI
 
 # Protocol to access your app. e.g https://
 APP_PROTOCOL=http://

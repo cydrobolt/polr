@@ -22,12 +22,12 @@ class PHP_CodeCoverage_Driver_Xdebug implements PHP_CodeCoverage_Driver
     public function __construct()
     {
         if (!extension_loaded('xdebug')) {
-            throw new PHP_CodeCoverage_Exception('This driver requires Xdebug');
+            throw new PHP_CodeCoverage_RuntimeException('This driver requires Xdebug');
         }
 
-        if (version_compare(phpversion('xdebug'), '2.2.0-dev', '>=') &&
+        if (version_compare(phpversion('xdebug'), '2.2.1', '>=') &&
             !ini_get('xdebug.coverage_enable')) {
-            throw new PHP_CodeCoverage_Exception(
+            throw new PHP_CodeCoverage_RuntimeException(
                 'xdebug.coverage_enable=On has to be set in php.ini'
             );
         }
@@ -68,7 +68,7 @@ class PHP_CodeCoverage_Driver_Xdebug implements PHP_CodeCoverage_Driver
                 $numLines = $this->getNumberOfLinesInFile($file);
 
                 foreach (array_keys($data[$file]) as $line) {
-                    if (isset($data[$file][$line]) && $line > $numLines) {
+                    if ($line > $numLines) {
                         unset($data[$file][$line]);
                     }
                 }

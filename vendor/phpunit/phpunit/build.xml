@@ -91,8 +91,7 @@
         <exec executable="php">
             <arg value="composer.phar"/>
             <arg value="require"/>
-            <arg value="phpunit/dbunit:~1.4"/>
-            <arg value="phpunit/phpunit-selenium:~1.4"/>
+            <arg value="phpunit/dbunit:~2.0"/>
             <arg value="phpunit/php-invoker:~1.1"/>
         </exec>
 
@@ -143,6 +142,13 @@
             </fileset>
         </copy>
 
+        <copy file="${basedir}/vendor/sebastian/code-unit-reverse-lookup/LICENSE" tofile="${basedir}/build/phar/sebastian-code-unit-reverse-lookup/LICENSE"/>
+        <copy todir="${basedir}/build/phar/sebastian-code-unit-reverse-lookup">
+            <fileset dir="${basedir}/vendor/sebastian/code-unit-reverse-lookup/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
         <copy file="${basedir}/vendor/sebastian/comparator/LICENSE" tofile="${basedir}/build/phar/sebastian-comparator/LICENSE"/>
         <copy todir="${basedir}/build/phar/sebastian-comparator">
             <fileset dir="${basedir}/vendor/sebastian/comparator/src">
@@ -178,6 +184,13 @@
             </fileset>
         </copy>
 
+        <copy file="${basedir}/vendor/sebastian/resource-operations/LICENSE" tofile="${basedir}/build/phar/sebastian-resource-operations/LICENSE"/>
+        <copy todir="${basedir}/build/phar/sebastian-resource-operations">
+            <fileset dir="${basedir}/vendor/sebastian/resource-operations/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
         <copy file="${basedir}/vendor/sebastian/global-state/LICENSE" tofile="${basedir}/build/phar/sebastian-global-state/LICENSE"/>
         <copy todir="${basedir}/build/phar/sebastian-global-state">
             <fileset dir="${basedir}/vendor/sebastian/global-state/src">
@@ -208,22 +221,14 @@
         </copy>
 
         <copy todir="${basedir}/build/phar/dbunit">
-            <fileset dir="${basedir}/vendor/phpunit/dbunit/PHPUnit">
+            <fileset dir="${basedir}/vendor/phpunit/dbunit/src">
                 <include name="**/*.php" />
-                <exclude name="**/Autoload.*" />
             </fileset>
         </copy>
 
         <copy todir="${basedir}/build/phar/php-invoker">
             <fileset dir="${basedir}/vendor/phpunit/php-invoker/src">
                 <include name="**/*.php" />
-            </fileset>
-        </copy>
-
-        <copy todir="${basedir}/build/phar/phpunit-selenium">
-            <fileset dir="${basedir}/vendor/phpunit/phpunit-selenium/PHPUnit">
-                <include name="**/*.php" />
-                <exclude name="**/Autoload.*" />
             </fileset>
         </copy>
 
@@ -237,6 +242,13 @@
         <copy file="${basedir}/vendor/phpspec/prophecy/LICENSE" tofile="${basedir}/build/phar/phpspec-prophecy/LICENSE"/>
         <copy todir="${basedir}/build/phar/phpspec-prophecy">
             <fileset dir="${basedir}/vendor/phpspec/prophecy/src">
+                <include name="**/*.php" />
+            </fileset>
+        </copy>
+
+        <copy file="${basedir}/vendor/myclabs/deep-copy/LICENSE" tofile="${basedir}/build/phar/myclabs-deep-copy/LICENSE"/>
+        <copy todir="${basedir}/build/phar/myclabs-deep-copy">
+            <fileset dir="${basedir}/vendor/myclabs/deep-copy/src">
                 <include name="**/*.php" />
             </fileset>
         </copy>
@@ -259,6 +271,8 @@
             <arg value="--static" />
             <arg value="--once" />
             <arg value="--phar" />
+            <arg value="--hash" />
+            <arg value="SHA-1" />
             <arg value="--output" />
             <arg path="${basedir}/build/phpunit-library-${_version}.phar" />
             <arg value="--template" />
@@ -268,8 +282,11 @@
 
         <exec executable="${basedir}/build/bin/phpab">
             <arg value="--all" />
+            <arg value="--nolower" />
             <arg value="--static" />
             <arg value="--phar" />
+            <arg value="--hash" />
+            <arg value="SHA-1" />
             <arg value="--output" />
             <arg path="${basedir}/build/phpunit-${_version}.phar" />
             <arg value="--template" />

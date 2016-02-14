@@ -9,6 +9,7 @@ use Cron\CronExpression;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Contracts\Mail\Mailer;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessUtils;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -205,18 +206,20 @@ class Event
     }
 
     /**
-     * Build the comand string.
+     * Build the command string.
      *
      * @return string
      */
     public function buildCommand()
     {
+        $output = ProcessUtils::escapeArgument($this->output);
+
         $redirect = $this->shouldAppendOutput ? ' >> ' : ' > ';
 
         if ($this->withoutOverlapping) {
-            $command = '(touch '.$this->mutexPath().'; '.$this->command.'; rm '.$this->mutexPath().')'.$redirect.$this->output.' 2>&1 &';
+            $command = '(touch '.$this->mutexPath().'; '.$this->command.'; rm '.$this->mutexPath().')'.$redirect.$output.' 2>&1 &';
         } else {
-            $command = $this->command.$redirect.$this->output.' 2>&1 &';
+            $command = $this->command.$redirect.$output.' 2>&1 &';
         }
 
         return $this->user ? 'sudo -u '.$this->user.' '.$command : $command;
@@ -731,7 +734,9 @@ class Event
      */
     public function pingBefore($url)
     {
-        return $this->before(function () use ($url) { (new HttpClient)->get($url); });
+        return $this->before(function () use ($url) {
+            (new HttpClient)->get($url);
+        });
     }
 
     /**
@@ -755,7 +760,9 @@ class Event
      */
     public function thenPing($url)
     {
-        return $this->then(function () use ($url) { (new HttpClient)->get($url); });
+        return $this->then(function () use ($url) {
+            (new HttpClient)->get($url);
+        });
     }
 
     /**

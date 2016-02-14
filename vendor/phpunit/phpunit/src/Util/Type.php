@@ -19,7 +19,7 @@ class PHPUnit_Util_Type
     {
         return in_array(
             $type,
-            array(
+            [
             'numeric',
             'integer',
             'int',
@@ -32,7 +32,7 @@ class PHPUnit_Util_Type
             'object',
             'resource',
             'scalar'
-            )
+            ]
         );
     }
 }

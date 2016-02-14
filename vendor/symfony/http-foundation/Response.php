@@ -329,15 +329,15 @@ class Response
             return $this;
         }
 
-        // status
-        header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText), true, $this->statusCode);
-
         // headers
         foreach ($this->headers->allPreserveCase() as $name => $values) {
             foreach ($values as $value) {
-                header($name.': '.$value, false, $this->statusCode);
+                header($name.': '.$value, false);
             }
         }
+
+        // status
+        header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText), true, $this->statusCode);
 
         // cookies
         foreach ($this->headers->getCookies() as $cookie) {
@@ -455,7 +455,7 @@ class Response
         }
 
         if (null === $text) {
-            $this->statusText = isset(self::$statusTexts[$code]) ? self::$statusTexts[$code] : '';
+            $this->statusText = isset(self::$statusTexts[$code]) ? self::$statusTexts[$code] : 'unknown status';
 
             return $this;
         }
@@ -972,7 +972,7 @@ class Response
      * Sets the Vary header.
      *
      * @param string|array $headers
-     * @param bool         $replace Whether to replace the actual value of not (true by default)
+     * @param bool         $replace Whether to replace the actual value or not (true by default)
      *
      * @return Response
      */

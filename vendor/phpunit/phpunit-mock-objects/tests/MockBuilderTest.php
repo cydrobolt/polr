@@ -31,7 +31,7 @@ class Framework_MockBuilderTest extends PHPUnit_Framework_TestCase
     public function testMethodsToMockCanBeSpecified()
     {
         $spec = $this->getMockBuilder('Mockable');
-        $spec->setMethods(array('mockableMethod'));
+        $spec->setMethods(['mockableMethod']);
         $mock = $spec->getMock();
         $this->assertNull($mock->mockableMethod());
         $this->assertTrue($mock->anotherMockableMethod());
@@ -41,7 +41,7 @@ class Framework_MockBuilderTest extends PHPUnit_Framework_TestCase
     {
         $spec = $this->getMockBuilder('Mockable');
         $mock = $spec->getMock();
-        $this->assertEquals(array(null, null), $mock->constructorArgs);
+        $this->assertEquals([null, null], $mock->constructorArgs);
     }
 
     public function testMockClassNameCanBeSpecified()
@@ -55,7 +55,7 @@ class Framework_MockBuilderTest extends PHPUnit_Framework_TestCase
     public function testConstructorArgumentsCanBeSpecified()
     {
         $spec = $this->getMockBuilder('Mockable');
-        $spec->setConstructorArgs($expected = array(23, 42));
+        $spec->setConstructorArgs($expected = [23, 42]);
         $mock = $spec->getMock();
         $this->assertEquals($expected, $mock->constructorArgs);
     }
@@ -70,8 +70,8 @@ class Framework_MockBuilderTest extends PHPUnit_Framework_TestCase
 
     public function testByDefaultOriginalCloneIsPreserved()
     {
-        $spec = $this->getMockBuilder('Mockable');
-        $mock = $spec->getMock();
+        $spec   = $this->getMockBuilder('Mockable');
+        $mock   = $spec->getMock();
         $cloned = clone $mock;
         $this->assertTrue($cloned->cloned);
     }
@@ -80,9 +80,9 @@ class Framework_MockBuilderTest extends PHPUnit_Framework_TestCase
     {
         $spec = $this->getMockBuilder('Mockable');
         $spec->disableOriginalClone();
-        $mock = $spec->getMock();
+        $mock         = $spec->getMock();
         $mock->cloned = false;
-        $cloned = clone $mock;
+        $cloned       = clone $mock;
         $this->assertFalse($cloned->cloned);
     }
 
@@ -96,8 +96,8 @@ class Framework_MockBuilderTest extends PHPUnit_Framework_TestCase
     public function testProvidesAFluentInterface()
     {
         $spec = $this->getMockBuilder('Mockable')
-                     ->setMethods(array('mockableMethod'))
-                     ->setConstructorArgs(array())
+                     ->setMethods(['mockableMethod'])
+                     ->setConstructorArgs([])
                      ->setMockClassName('DummyClassName')
                      ->disableOriginalConstructor()
                      ->disableOriginalClone()

@@ -1,9 +1,5 @@
 --TEST--
-PHPUnit_Framework_MockObject_Generator::generate('ClassWithMethodWithVariadicArguments', array(), 'MockFoo', TRUE, TRUE)
---SKIPIF--
-<?php
-if (version_compare(PHP_VERSION, '5.6.0', '<')) print 'skip: PHP >= 5.6.0 required';
-?>
+PHPUnit_Framework_MockObject_Generator::generate('ClassWithMethodWithVariadicArguments', array(), 'MockFoo', true, true)
 --FILE--
 <?php
 class ClassWithMethodWithVariadicArguments
@@ -18,11 +14,11 @@ require __DIR__ . '/../../vendor/autoload.php';
 $generator = new PHPUnit_Framework_MockObject_Generator;
 
 $mock = $generator->generate(
-  'ClassWithMethodWithVariadicArguments',
-  array(),
-  'MockFoo',
-  TRUE,
-  TRUE
+    'ClassWithMethodWithVariadicArguments',
+    array(),
+    'MockFoo',
+    true,
+    true
 );
 
 print $mock['code'];
@@ -52,9 +48,9 @@ class MockFoo extends ClassWithMethodWithVariadicArguments implements PHPUnit_Fr
         }
 
         $result = $this->__phpunit_getInvocationMocker()->invoke(
-          new PHPUnit_Framework_MockObject_Invocation_Object(
-            'ClassWithMethodWithVariadicArguments', 'methodWithVariadicArguments', $arguments, $this, TRUE
-          )
+            new PHPUnit_Framework_MockObject_Invocation_Object(
+                'ClassWithMethodWithVariadicArguments', 'methodWithVariadicArguments', $arguments, '', $this, true
+            )
         );
 
         return $result;
@@ -79,7 +75,7 @@ class MockFoo extends ClassWithMethodWithVariadicArguments implements PHPUnit_Fr
 
     public function __phpunit_getInvocationMocker()
     {
-        if ($this->__phpunit_invocationMocker === NULL) {
+        if ($this->__phpunit_invocationMocker === null) {
             $this->__phpunit_invocationMocker = new PHPUnit_Framework_MockObject_InvocationMocker;
         }
 
@@ -91,9 +87,12 @@ class MockFoo extends ClassWithMethodWithVariadicArguments implements PHPUnit_Fr
         return $this->__phpunit_getInvocationMocker()->hasMatchers();
     }
 
-    public function __phpunit_verify()
+    public function __phpunit_verify($unsetInvocationMocker = true)
     {
         $this->__phpunit_getInvocationMocker()->verify();
-        $this->__phpunit_invocationMocker = NULL;
+
+        if ($unsetInvocationMocker) {
+            $this->__phpunit_invocationMocker = null;
+        }
     }
 }

@@ -18,7 +18,7 @@ abstract class PHPUnit_Extensions_TicketListener implements PHPUnit_Framework_Te
     /**
      * @var array
      */
-    protected $ticketCounts = array();
+    protected $ticketCounts = [];
 
     /**
      * @var bool
@@ -113,7 +113,7 @@ abstract class PHPUnit_Extensions_TicketListener implements PHPUnit_Framework_Te
      */
     public function startTest(PHPUnit_Framework_Test $test)
     {
-        if (!$test instanceof PHPUnit_Framework_Warning) {
+        if (!$test instanceof PHPUnit_Framework_WarningTestCase) {
             if ($this->ran) {
                 return;
             }
@@ -137,15 +137,15 @@ abstract class PHPUnit_Extensions_TicketListener implements PHPUnit_Framework_Te
      */
     public function endTest(PHPUnit_Framework_Test $test, $time)
     {
-        if (!$test instanceof PHPUnit_Framework_Warning) {
+        if (!$test instanceof PHPUnit_Framework_WarningTestCase) {
             if ($test->getStatus() == PHPUnit_Runner_BaseTestRunner::STATUS_PASSED) {
-                $ifStatus   = array('assigned', 'new', 'reopened');
+                $ifStatus   = ['assigned', 'new', 'reopened'];
                 $newStatus  = 'closed';
                 $message    = 'Automatically closed by PHPUnit (test passed).';
                 $resolution = 'fixed';
                 $cumulative = true;
             } elseif ($test->getStatus() == PHPUnit_Runner_BaseTestRunner::STATUS_FAILURE) {
-                $ifStatus   = array('closed');
+                $ifStatus   = ['closed'];
                 $newStatus  = 'reopened';
                 $message    = 'Automatically reopened by PHPUnit (test failed).';
                 $resolution = '';

@@ -571,9 +571,11 @@ class Guard implements GuardContract
     {
         $this->session->remove($this->getName());
 
-        $recaller = $this->getRecallerName();
+        if (! is_null($this->getRecaller())) {
+            $recaller = $this->getRecallerName();
 
-        $this->getCookieJar()->queue($this->getCookieJar()->forget($recaller));
+            $this->getCookieJar()->queue($this->getCookieJar()->forget($recaller));
+        }
     }
 
     /**

@@ -58,10 +58,8 @@ class InlineTest extends \PHPUnit_Framework_TestCase
 
             $this->assertEquals('1.2', Inline::dump(1.2));
             $this->assertContains('fr', strtolower(setlocale(LC_NUMERIC, 0)));
+        } finally {
             setlocale(LC_NUMERIC, $locale);
-        } catch (\Exception $e) {
-            setlocale(LC_NUMERIC, $locale);
-            throw $e;
         }
     }
 
@@ -70,6 +68,23 @@ class InlineTest extends \PHPUnit_Framework_TestCase
         $value = '686e444';
 
         $this->assertSame($value, Inline::parse(Inline::dump($value)));
+    }
+
+    /**
+     * @expectedException        \Symfony\Component\Yaml\Exception\ParseException
+     * @expectedExceptionMessage Found unknown escape character "\V".
+     */
+    public function testParseScalarWithNonEscapedBlackslashShouldThrowException()
+    {
+        Inline::parse('"Foo\Var"');
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Yaml\Exception\ParseException
+     */
+    public function testParseScalarWithNonEscapedBlackslashAtTheEndShouldThrowException()
+    {
+        Inline::parse('"Foo\\"');
     }
 
     /**
@@ -171,6 +186,36 @@ class InlineTest extends \PHPUnit_Framework_TestCase
     public function testParseUnquotedAsteriskFollowedByAComment()
     {
         Inline::parse('{ foo: * #foo }');
+    }
+
+    /**
+     * @dataProvider getReservedIndicators
+     * @expectedException Symfony\Component\Yaml\Exception\ParseException
+     * @expectedExceptionMessage cannot start a plain scalar; you need to quote the scalar.
+     */
+    public function testParseUnquotedScalarStartingWithReservedIndicator($indicator)
+    {
+        Inline::parse(sprintf('{ foo: %sfoo }', $indicator));
+    }
+
+    public function getReservedIndicators()
+    {
+        return array(array('@'), array('`'));
+    }
+
+    /**
+     * @dataProvider getScalarIndicators
+     * @expectedException Symfony\Component\Yaml\Exception\ParseException
+     * @expectedExceptionMessage cannot start a plain scalar; you need to quote the scalar.
+     */
+    public function testParseUnquotedScalarStartingWithScalarIndicator($indicator)
+    {
+        Inline::parse(sprintf('{ foo: %sfoo }', $indicator));
+    }
+
+    public function getScalarIndicators()
+    {
+        return array(array('|'), array('>'));
     }
 
     public function getTestsForParse()

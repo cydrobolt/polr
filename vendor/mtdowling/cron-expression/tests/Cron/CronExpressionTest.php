@@ -278,6 +278,27 @@ class CronExpressionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Cron\CronExpression::getMultipleRunDates
+     * @covers Cron\CronExpression::setMaxIterationCount
+     */
+    public function testProvidesMultipleRunDatesForTheFarFuture() {
+        // Fails with the default 1000 iteration limit
+        $cron = CronExpression::factory('0 0 12 1 * */2');
+        $cron->setMaxIterationCount(2000);
+        $this->assertEquals(array(
+            new DateTime('2016-01-12 00:00:00'),
+            new DateTime('2018-01-12 00:00:00'),
+            new DateTime('2020-01-12 00:00:00'),
+            new DateTime('2022-01-12 00:00:00'),
+            new DateTime('2024-01-12 00:00:00'),
+            new DateTime('2026-01-12 00:00:00'),
+            new DateTime('2028-01-12 00:00:00'),
+            new DateTime('2030-01-12 00:00:00'),
+            new DateTime('2032-01-12 00:00:00'),
+        ), $cron->getMultipleRunDates(9, '2015-04-28 00:00:00', false, true));
+    }
+
+    /**
      * @covers Cron\CronExpression
      */
     public function testCanIterateOverNextRuns()
@@ -372,5 +393,20 @@ class CronExpressionTest extends \PHPUnit_Framework_TestCase
         $cron = CronExpression::factory('0 0 * * *');
         $cron->getPreviousRunDate($now);
         $this->assertEquals($strNow, $now->format(\DateTime::ISO8601));
+    }
+
+    /**
+     * @covers Cron\CronExpression::__construct
+     * @covers Cron\CronExpression::factory
+     * @covers Cron\CronExpression::isValidExpression
+     * @covers Cron\CronExpression::setExpression
+     * @covers Cron\CronExpression::setPart
+     */
+    public function testValidationWorks()
+    {
+        // Invalid. Only four values
+        $this->assertFalse(CronExpression::isValidExpression('* * * 1'));
+        // Valid
+        $this->assertTrue(CronExpression::isValidExpression('* * * * 1'));
     }
 }

@@ -28,7 +28,7 @@ class PHPUnit_Util_TestDox_NamePrettifier
     /**
      * @var array
      */
-    protected $strings = array();
+    protected $strings = [];
 
     /**
      * Prettifies the name of a test class.

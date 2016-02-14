@@ -39,13 +39,11 @@ class PHP_CodeCoverage_Report_Clover
 
         $xmlCoverage->appendChild($xmlProject);
 
-        $packages = array();
+        $packages = [];
         $report   = $coverage->getReport();
         unset($coverage);
 
         foreach ($report as $item) {
-            $namespace = 'global';
-
             if (!$item instanceof PHP_CodeCoverage_Report_Node_File) {
                 continue;
             }
@@ -53,9 +51,10 @@ class PHP_CodeCoverage_Report_Clover
             $xmlFile = $xmlDocument->createElement('file');
             $xmlFile->setAttribute('name', $item->getPath());
 
-            $classes  = $item->getClassesAndTraits();
-            $coverage = $item->getCoverageData();
-            $lines    = array();
+            $classes   = $item->getClassesAndTraits();
+            $coverage  = $item->getCoverageData();
+            $lines     = [];
+            $namespace = 'global';
 
             foreach ($classes as $className => $class) {
                 $classStatements        = 0;
@@ -84,12 +83,14 @@ class PHP_CodeCoverage_Report_Clover
                         }
                     }
 
-                    $lines[$method['startLine']] = array(
-                        'count' => $methodCount,
-                        'crap'  => $method['crap'],
-                        'type'  => 'method',
-                        'name'  => $methodName
-                    );
+                    $lines[$method['startLine']] = [
+                        'ccn'         => $method['ccn'],
+                        'count'       => $methodCount,
+                        'crap'        => $method['crap'],
+                        'type'        => 'method',
+                        'visibility'  => $method['visibility'],
+                        'name'        => $methodName
+                    ];
                 }
 
                 if (!empty($class['package']['namespace'])) {
@@ -131,6 +132,7 @@ class PHP_CodeCoverage_Report_Clover
                 $xmlFile->appendChild($xmlClass);
 
                 $xmlMetrics = $xmlDocument->createElement('metrics');
+                $xmlMetrics->setAttribute('complexity', $class['ccn']);
                 $xmlMetrics->setAttribute('methods', $classMethods);
                 $xmlMetrics->setAttribute('coveredmethods', $coveredMethods);
                 $xmlMetrics->setAttribute('conditionals', 0);
@@ -160,9 +162,9 @@ class PHP_CodeCoverage_Report_Clover
                     continue;
                 }
 
-                $lines[$line] = array(
+                $lines[$line] = [
                     'count' => count($data), 'type' => 'stmt'
-                );
+                ];
             }
 
             ksort($lines);
@@ -174,6 +176,14 @@ class PHP_CodeCoverage_Report_Clover
 
                 if (isset($data['name'])) {
                     $xmlLine->setAttribute('name', $data['name']);
+                }
+
+                if (isset($data['visibility'])) {
+                    $xmlLine->setAttribute('visibility', $data['visibility']);
+                }
+
+                if (isset($data['ccn'])) {
+                    $xmlLine->setAttribute('complexity', $data['ccn']);
                 }
 
                 if (isset($data['crap'])) {

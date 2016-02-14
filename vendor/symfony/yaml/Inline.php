@@ -52,7 +52,7 @@ class Inline
             return '';
         }
 
-        if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
+        if (2 /* MB_OVERLOAD_STRING */ & (int) ini_get('mbstring.func_overload')) {
             $mbEncoding = mb_internal_encoding();
             mb_internal_encoding('ASCII');
         }
@@ -105,7 +105,7 @@ class Inline
                 return 'null';
             case is_object($value):
                 if ($objectSupport) {
-                    return '!!php/object:'.serialize($value);
+                    return '!php/object:'.serialize($value);
                 }
 
                 if ($exceptionOnInvalidType) {
@@ -204,6 +204,8 @@ class Inline
      * @return string A YAML string
      *
      * @throws ParseException When malformed inline YAML string is parsed
+     *
+     * @internal
      */
     public static function parseScalar($scalar, $delimiters = null, $stringDelimiters = array('"', "'"), &$i = 0, $evaluate = true, $references = array())
     {
@@ -232,6 +234,11 @@ class Inline
                 $i += strlen($output);
             } else {
                 throw new ParseException(sprintf('Malformed inline YAML string (%s).', $scalar));
+            }
+
+            // a non-quoted string cannot start with @ or ` (reserved) nor with a scalar indicator (| or >)
+            if ($output && ('@' === $output[0] || '`' === $output[0] || '|' === $output[0] || '>' === $output[0])) {
+                throw new ParseException(sprintf('The reserved indicator "%s" cannot start a plain scalar; you need to quote the scalar.', $output[0]));
             }
 
             if ($evaluate) {
@@ -469,6 +476,16 @@ class Inline
                         return (string) substr($scalar, 5);
                     case 0 === strpos($scalar, '! '):
                         return (int) self::parseScalar(substr($scalar, 2));
+                    case 0 === strpos($scalar, '!php/object:'):
+                        if (self::$objectSupport) {
+                            return unserialize(substr($scalar, 12));
+                        }
+
+                        if (self::$exceptionOnInvalidType) {
+                            throw new ParseException('Object support when parsing a YAML file has been disabled.');
+                        }
+
+                        return;
                     case 0 === strpos($scalar, '!!php/object:'):
                         if (self::$objectSupport) {
                             return unserialize(substr($scalar, 13));

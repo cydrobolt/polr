@@ -64,7 +64,7 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
     /**
      * @var bool
      */
-    private $disallowChangesToGlobalState = null;
+    private $beStrictAboutChangesToGlobalState = null;
 
     /**
      * @var bool
@@ -83,14 +83,14 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
      *
      * @var array
      */
-    protected $groups = array();
+    protected $groups = [];
 
     /**
      * The tests in the test suite.
      *
      * @var array
      */
-    protected $tests = array();
+    protected $tests = [];
 
     /**
      * The number of tests in the test suite.
@@ -107,7 +107,7 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
     /**
      * @var array
      */
-    protected $foundClasses = array();
+    protected $foundClasses = [];
 
     /**
      * @var PHPUnit_Runner_Filter_Factory
@@ -225,7 +225,7 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
      * @param PHPUnit_Framework_Test $test
      * @param array                  $groups
      */
-    public function addTest(PHPUnit_Framework_Test $test, $groups = array())
+    public function addTest(PHPUnit_Framework_Test $test, $groups = [])
     {
         $class = new ReflectionClass($test);
 
@@ -239,12 +239,12 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
             }
 
             if (empty($groups)) {
-                $groups = array('default');
+                $groups = ['default'];
             }
 
             foreach ($groups as $group) {
                 if (!isset($this->groups[$group])) {
-                    $this->groups[$group] = array($test);
+                    $this->groups[$group] = [$test];
                 } else {
                     $this->groups[$group][] = $test;
                 }
@@ -306,7 +306,7 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
      * as well as the separate import statements for the user's convenience.
      *
      * If the named file cannot be read or there are no new tests that can be
-     * added, a <code>PHPUnit_Framework_Warning</code> will be created instead,
+     * added, a <code>PHPUnit_Framework_WarningTestCase</code> will be created instead,
      * leaving the current test run untouched.
      *
      * @param string $filename
@@ -358,7 +358,7 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
                 $class = new ReflectionClass($className);
 
                 if ($class->getFileName() == $filename) {
-                    $newClasses = array($className);
+                    $newClasses = [$className];
                     unset($this->foundClasses[$i]);
                     break;
                 }
@@ -547,7 +547,7 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
 
                     $groups = PHPUnit_Util_Test::getGroups($className, $name);
 
-                    if ($data instanceof PHPUnit_Framework_Warning ||
+                    if ($data instanceof PHPUnit_Framework_WarningTestCase ||
                         $data instanceof PHPUnit_Framework_SkippedTestCase ||
                         $data instanceof PHPUnit_Framework_IncompleteTestCase) {
                         $test->addTest($data, $groups);
@@ -694,7 +694,7 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
                         $this->markTestSuiteSkipped(implode(PHP_EOL, $missingRequirements));
                     }
 
-                    call_user_func(array($this->name, $beforeClassMethod));
+                    call_user_func([$this->name, $beforeClassMethod]);
                 }
             }
         } catch (PHPUnit_Framework_SkippedTestSuiteError $e) {
@@ -738,7 +738,7 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
 
             if ($test instanceof PHPUnit_Framework_TestCase ||
                 $test instanceof self) {
-                $test->setDisallowChangesToGlobalState($this->disallowChangesToGlobalState);
+                $test->setbeStrictAboutChangesToGlobalState($this->beStrictAboutChangesToGlobalState);
                 $test->setBackupGlobals($this->backupGlobals);
                 $test->setBackupStaticAttributes($this->backupStaticAttributes);
                 $test->setRunTestInSeparateProcess($this->runTestInSeparateProcess);
@@ -749,7 +749,7 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
 
         foreach ($hookMethods['afterClass'] as $afterClassMethod) {
             if ($this->testCase === true && class_exists($this->name, false) && method_exists($this->name, $afterClassMethod)) {
-                call_user_func(array($this->name, $afterClassMethod));
+                call_user_func([$this->name, $afterClassMethod]);
             }
         }
 
@@ -914,11 +914,11 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
     /**
      * @param string $message
      *
-     * @return PHPUnit_Framework_Warning
+     * @return PHPUnit_Framework_WarningTestCase
      */
     protected static function warning($message)
     {
-        return new PHPUnit_Framework_Warning($message);
+        return new PHPUnit_Framework_WarningTestCase($message);
     }
 
     /**
@@ -950,14 +950,14 @@ class PHPUnit_Framework_TestSuite implements PHPUnit_Framework_Test, PHPUnit_Fra
     }
 
     /**
-     * @param bool $disallowChangesToGlobalState
+     * @param bool $beStrictAboutChangesToGlobalState
      *
      * @since  Method available since Release 4.6.0
      */
-    public function setDisallowChangesToGlobalState($disallowChangesToGlobalState)
+    public function setbeStrictAboutChangesToGlobalState($beStrictAboutChangesToGlobalState)
     {
-        if (is_null($this->disallowChangesToGlobalState) && is_bool($disallowChangesToGlobalState)) {
-            $this->disallowChangesToGlobalState = $disallowChangesToGlobalState;
+        if (is_null($this->beStrictAboutChangesToGlobalState) && is_bool($beStrictAboutChangesToGlobalState)) {
+            $this->beStrictAboutChangesToGlobalState = $beStrictAboutChangesToGlobalState;
         }
     }
 

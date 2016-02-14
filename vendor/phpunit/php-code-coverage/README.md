@@ -7,11 +7,11 @@
 
 ## Requirements
 
-PHP 5.3.3 is required but using the latest version of PHP is highly recommended
+PHP 5.6 is required but using the latest version of PHP is highly recommended
 
 ### PHP 5
 
-[Xdebug](http://xdebug.org/) is the only source of raw code coverage data supported for PHP 5. Version 2.1.3 of Xdebug is required but using the latest version is highly recommended.
+[Xdebug](http://xdebug.org/) is the only source of raw code coverage data supported for PHP 5. Version 2.2.1 of Xdebug is required but using the latest version is highly recommended.
 
 ### PHP 7
 
@@ -23,11 +23,11 @@ A version of HHVM that implements the Xdebug API for code coverage (`xdebug_*_co
 
 ## Installation
 
-To add PHP_CodeCoverage as a local, per-project dependency to your project, simply add a dependency on `phpunit/php-code-coverage` to your project's `composer.json` file. Here is a minimal example of a `composer.json` file that just defines a dependency on PHP_CodeCoverage 2.0:
+To add PHP_CodeCoverage as a local, per-project dependency to your project, simply add a dependency on `phpunit/php-code-coverage` to your project's `composer.json` file. Here is a minimal example of a `composer.json` file that just defines a dependency on PHP_CodeCoverage 3.0:
 
     {
         "require": {
-            "phpunit/php-code-coverage": "^2"
+            "phpunit/php-code-coverage": "^3"
         }
     }
 

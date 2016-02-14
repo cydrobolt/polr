@@ -54,7 +54,9 @@ class SQLiteGrammar extends Grammar
     {
         $columns = implode(', ', $this->getColumns($blueprint));
 
-        $sql = 'create table '.$this->wrapTable($blueprint)." ($columns";
+        $sql = $blueprint->temporary ? 'create temporary' : 'create';
+
+        $sql .= ' table '.$this->wrapTable($blueprint)." ($columns";
 
         // SQLite forces primary keys to be added when the table is initially created
         // so we will need to check for a primary key commands and add the columns
@@ -435,7 +437,7 @@ class SQLiteGrammar extends Grammar
      */
     protected function typeBoolean(Fluent $column)
     {
-        return 'tinyint';
+        return 'tinyint(1)';
     }
 
     /**
@@ -537,6 +539,10 @@ class SQLiteGrammar extends Grammar
      */
     protected function typeTimestamp(Fluent $column)
     {
+        if ($column->useCurrent) {
+            return 'datetime default CURRENT_TIMESTAMP';
+        }
+
         return 'datetime';
     }
 
@@ -548,6 +554,10 @@ class SQLiteGrammar extends Grammar
      */
     protected function typeTimestampTz(Fluent $column)
     {
+        if ($column->useCurrent) {
+            return 'datetime default CURRENT_TIMESTAMP';
+        }
+
         return 'datetime';
     }
 

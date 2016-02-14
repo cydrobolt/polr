@@ -6,6 +6,8 @@ use Closure;
 use Aws\S3\S3Client;
 use OpenCloud\Rackspace;
 use Illuminate\Support\Arr;
+use InvalidArgumentException;
+use League\Flysystem\AdapterInterface;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\Adapter\Ftp as FtpAdapter;
@@ -88,6 +90,8 @@ class FilesystemManager implements FactoryContract
      *
      * @param  string  $name
      * @return \Illuminate\Contracts\Filesystem\Filesystem
+     *
+     * @throws \InvalidArgumentException
      */
     protected function resolve($name)
     {
@@ -97,7 +101,13 @@ class FilesystemManager implements FactoryContract
             return $this->callCustomCreator($config);
         }
 
-        return $this->{'create'.ucfirst($config['driver']).'Driver'}($config);
+        $driverMethod = 'create'.ucfirst($config['driver']).'Driver';
+
+        if (method_exists($this, $driverMethod)) {
+            return $this->{$driverMethod}($config);
+        } else {
+            throw new InvalidArgumentException("Driver [{$config['driver']}] not supported.");
+        }
     }
 
     /**
@@ -127,9 +137,13 @@ class FilesystemManager implements FactoryContract
     {
         $permissions = isset($config['permissions']) ? $config['permissions'] : [];
 
-        return $this->adapt(new Flysystem(new LocalAdapter(
-            $config['root'], LOCK_EX, LocalAdapter::DISALLOW_LINKS, $permissions
-        )));
+        $links = Arr::get($config, 'links') === 'skip'
+            ? LocalAdapter::SKIP_LINKS
+            : LocalAdapter::DISALLOW_LINKS;
+
+        return $this->adapt($this->createFlysystem(new LocalAdapter(
+            $config['root'], LOCK_EX, $links, $permissions
+        ), $config));
     }
 
     /**
@@ -144,7 +158,9 @@ class FilesystemManager implements FactoryContract
             'host', 'username', 'password', 'port', 'root', 'passive', 'ssl', 'timeout',
         ]);
 
-        return $this->adapt(new Flysystem(new FtpAdapter($ftpConfig)));
+        return $this->adapt($this->createFlysystem(
+            new FtpAdapter($ftpConfig), $config
+        ));
     }
 
     /**
@@ -155,13 +171,13 @@ class FilesystemManager implements FactoryContract
      */
     public function createS3Driver(array $config)
     {
-        $config = $this->formatS3Config($config);
+        $s3Config = $this->formatS3Config($config);
 
-        $root = isset($config['root']) ? $config['root'] : null;
+        $root = isset($s3Config['root']) ? $s3Config['root'] : null;
 
-        return $this->adapt(
-            new Flysystem(new S3Adapter(new S3Client($config), $config['bucket'], $root))
-        );
+        return $this->adapt($this->createFlysystem(
+            new S3Adapter(new S3Client($s3Config), $s3Config['bucket'], $root), $config
+        ));
     }
 
     /**
@@ -193,8 +209,8 @@ class FilesystemManager implements FactoryContract
             'username' => $config['username'], 'apiKey' => $config['key'],
         ]);
 
-        return $this->adapt(new Flysystem(
-            new RackspaceAdapter($this->getRackspaceContainer($client, $config))
+        return $this->adapt($this->createFlysystem(
+            new RackspaceAdapter($this->getRackspaceContainer($client, $config)), $config
         ));
     }
 
@@ -212,6 +228,20 @@ class FilesystemManager implements FactoryContract
         $store = $client->objectStoreService('cloudFiles', $config['region'], $urlType);
 
         return $store->getContainer($config['container']);
+    }
+
+    /**
+     * Create a Flysystem instance with the given adapter.
+     *
+     * @param  \League\Flysystem\AdapterInterface  $adapter
+     * @param  array  $config
+     * @return \Leage\Flysystem\FlysystemInterface
+     */
+    protected function createFlysystem(AdapterInterface $adapter, array $config)
+    {
+        $config = Arr::only($config, ['visibility']);
+
+        return new Flysystem($adapter, count($config) > 0 ? $config : null);
     }
 
     /**

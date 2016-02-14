@@ -56,11 +56,12 @@ class Inflector
             '/(p)erson$/i' => '\1eople',
             '/(m)an$/i' => '\1en',
             '/(c)hild$/i' => '\1hildren',
-            '/(buffal|tomat)o$/i' => '\1\2oes',
+            '/(f)oot$/i' => '\1eet',
+            '/(buffal|her|potat|tomat|volcan)o$/i' => '\1\2oes',
             '/(alumn|bacill|cact|foc|fung|nucle|radi|stimul|syllab|termin|vir)us$/i' => '\1i',
             '/us$/i' => 'uses',
             '/(alias)$/i' => '\1es',
-            '/(ax|cris|test)is$/i' => '\1es',
+            '/(analys|ax|cris|test|thes)is$/i' => '\1es',
             '/s$/' => 's',
             '/^$/' => '',
             '/$/' => 's',
@@ -70,27 +71,42 @@ class Inflector
         ),
         'irregular' => array(
             'atlas' => 'atlases',
+            'axe' => 'axes',
             'beef' => 'beefs',
             'brother' => 'brothers',
             'cafe' => 'cafes',
+            'chateau' => 'chateaux',
             'child' => 'children',
             'cookie' => 'cookies',
             'corpus' => 'corpuses',
             'cow' => 'cows',
-            'criteria' => 'criterion',
+            'criterion' => 'criteria',
+            'curriculum' => 'curricula',
+            'demo' => 'demos',
+            'domino' => 'dominoes',
+            'echo' => 'echoes',
+            'foot' => 'feet',
+            'fungus' => 'fungi',
             'ganglion' => 'ganglions',
             'genie' => 'genies',
             'genus' => 'genera',
             'graffito' => 'graffiti',
+            'hippopotamus' => 'hippopotami',
             'hoof' => 'hoofs',
             'human' => 'humans',
+            'iris' => 'irises',
+            'leaf' => 'leaves',
             'loaf' => 'loaves',
             'man' => 'men',
+            'medium' => 'media',
+            'memorandum' => 'memoranda',
             'money' => 'monies',
             'mongoose' => 'mongooses',
+            'motto' => 'mottoes',
             'move' => 'moves',
             'mythos' => 'mythoi',
             'niche' => 'niches',
+            'nucleus' => 'nuclei',
             'numen' => 'numina',
             'occiput' => 'occiputs',
             'octopus' => 'octopuses',
@@ -98,11 +114,19 @@ class Inflector
             'ox' => 'oxen',
             'penis' => 'penises',
             'person' => 'people',
+            'plateau' => 'plateaux',
+            'runner-up' => 'runners-up',
             'sex' => 'sexes',
             'soliloquy' => 'soliloquies',
+            'son-in-law' => 'sons-in-law',
+            'syllabus' => 'syllabi',
             'testis' => 'testes',
+            'thief' => 'thieves',
+            'tooth' => 'teeth',
+            'tornado' => 'tornadoes',
             'trilby' => 'trilbys',
             'turf' => 'turfs',
+            'volcano' => 'volcanoes',
         )
     );
 
@@ -120,9 +144,10 @@ class Inflector
             '/(vert|ind)ices$/i' => '\1ex',
             '/^(ox)en/i' => '\1',
             '/(alias)(es)*$/i' => '\1',
+            '/(buffal|her|potat|tomat|volcan)oes$/i' => '\1o',
             '/(alumn|bacill|cact|foc|fung|nucle|radi|stimul|syllab|termin|viri?)i$/i' => '\1us',
             '/([ftw]ax)es/i' => '\1',
-            '/(cris|ax|test)es$/i' => '\1is',
+            '/(analys|ax|cris|test|thes)es$/i' => '\1is',
             '/(shoe|slave)s$/i' => '\1',
             '/(o)es$/i' => '\1',
             '/ouses$/' => 'ouse',
@@ -143,6 +168,7 @@ class Inflector
             '/(p)eople$/i' => '\1\2erson',
             '/(m)en$/i' => '\1an',
             '/(c)hildren$/i' => '\1\2hild',
+            '/(f)eet$/i' => '\1oot',
             '/(n)ews$/i' => '\1\2ews',
             '/eaus$/' => 'eau',
             '/^(.*us)$/' => '\\1',
@@ -159,10 +185,15 @@ class Inflector
             '.*ss',
         ),
         'irregular' => array(
-            'criterion' => 'criteria',
-            'curves' => 'curve',
-            'foes' => 'foe',
-            'waves' => 'wave',
+            'criteria'  => 'criterion',
+            'curves'    => 'curve',
+            'emphases'  => 'emphasis',
+            'foes'      => 'foe',
+            'hoaxes'    => 'hoax',
+            'media'     => 'medium',
+            'neuroses'  => 'neurosis',
+            'waves'     => 'wave',
+            'oases'     => 'oasis',
         )
     );
 
@@ -234,6 +265,42 @@ class Inflector
     public static function camelize($word)
     {
         return lcfirst(self::classify($word));
+    }
+
+    /**
+     * Uppercases words with configurable delimeters between words.
+     *
+     * Takes a string and capitalizes all of the words, like PHP's built-in
+     * ucwords function.  This extends that behavior, however, by allowing the
+     * word delimeters to be configured, rather than only separating on
+     * whitespace.
+     *
+     * Here is an example:
+     * <code>
+     * <?php
+     * $string = 'top-o-the-morning to all_of_you!';
+     * echo \Doctrine\Common\Inflector\Inflector::ucwords($string);
+     * // Top-O-The-Morning To All_of_you!
+     *
+     * echo \Doctrine\Common\Inflector\Inflector::ucwords($string, '-_ ');
+     * // Top-O-The-Morning To All_Of_You!
+     * ?>
+     * </code>
+     *
+     * @param string $string The string to operate on.
+     * @param string $delimiters A list of word separators.
+     *
+     * @return string The string with all delimeter-separated words capitalized.
+     */
+    public static function ucwords($string, $delimiters = " \n\t\r\0\x0B-")
+    {
+        return preg_replace_callback(
+            '/[^' . preg_quote($delimiters, '/') . ']+/',
+            function($matches) {
+                return ucfirst($matches[0]);
+            },
+            $string
+        );
     }
 
     /**

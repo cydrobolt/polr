@@ -36,7 +36,10 @@ class DayOfWeekField extends AbstractField
             $tdate = clone $date;
             $tdate->setDate($currentYear, $currentMonth, $lastDayOfMonth);
             while ($tdate->format('w') != $weekday) {
-                $tdate->setDate($currentYear, $currentMonth, --$lastDayOfMonth);
+                $tdateClone = new \DateTime();
+                $tdate = $tdateClone
+                    ->setTimezone($tdate->getTimezone())
+                    ->setDate($currentYear, $currentMonth, --$lastDayOfMonth);
             }
 
             return $date->format('j') == $lastDayOfMonth;

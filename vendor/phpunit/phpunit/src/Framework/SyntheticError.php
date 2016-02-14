@@ -34,7 +34,7 @@ class PHPUnit_Framework_SyntheticError extends PHPUnit_Framework_AssertionFailed
      *
      * @var array
      */
-    protected $syntheticTrace = array();
+    protected $syntheticTrace = [];
 
     /**
      * Constructor.
