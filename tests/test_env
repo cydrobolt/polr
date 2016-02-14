@@ -13,7 +13,7 @@ APP_NAME=Polr CI
 APP_PROTOCOL=http://
 
 # Your app's external address (e.g example.com)
-APP_ADDRESS=localhost:5000
+APP_ADDRESS=travis.polr.me
 
 # Your app's bootstrap stylesheet
 # e.g https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css

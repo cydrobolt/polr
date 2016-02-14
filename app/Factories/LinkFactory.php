@@ -24,7 +24,7 @@ class LinkFactory {
         return $short_url;
     }
 
-    public static function createLink($long_url, $is_secret=false, $custom_ending=null, $link_ip='127.0.0.1', $creator=false) {
+    public static function createLink($long_url, $is_secret=false, $custom_ending=null, $link_ip='127.0.0.1', $creator=false, $return_object=false) {
         /**
         * Given parameters needed to create a link, generate appropriate ending and
         * return formatted link.
@@ -93,6 +93,10 @@ class LinkFactory {
         $link->save();
 
         $formatted_link = self::formatLink($link_ending, $secret_key);
+
+        if ($return_object) {
+            return $link;
+        }
 
         return $formatted_link;
     }
