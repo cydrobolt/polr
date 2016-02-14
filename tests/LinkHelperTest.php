@@ -36,11 +36,10 @@ class LinkHelperTest extends TestCase
     }
 
     public function testLinkExists() {
-        $link = LinkFactory::createLink('http://example.com/ci', $is_secret=false, $custom_ending=null, $link_ip='127.0.0.1', $creator=false, $return_object=true);
+        $link = LinkFactory::createLink('http://example.com/ci', true, null, '127.0.0.1', false, true);
         // assert that existent link ending returns true
-        $this->assertEquals(LinkHelper::linkExists($link->short_url), true);
+        $this->assertNotEquals(LinkHelper::linkExists($link->short_url), false);
         // assert that nonexistent link ending returns false
         $this->assertEquals(LinkHelper::linkExists('nonexistent'), false);
-
     }
 }
