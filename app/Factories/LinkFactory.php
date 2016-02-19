@@ -20,7 +20,7 @@ class LinkFactory {
         if ($secret_ending) {
             $short_url .= '/' . $secret_ending;
         }
-        return 'aaa';
+
         return $short_url;
     }
 
