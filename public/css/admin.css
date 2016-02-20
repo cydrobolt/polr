@@ -18,3 +18,7 @@
 .hidden-metadata {
     display: none;
 }
+
+.api-quota {
+    display: inline;
+}

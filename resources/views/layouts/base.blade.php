@@ -38,11 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <link href="/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="favicon.ico">
-
-    {{-- Load header JavaScript --}}
-    <script src='/js/constants.js'></script>
-    <script src="/js/jquery-1.11.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
     @yield('css')
 </head>
 <body>
@@ -52,6 +47,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
             @yield('content')
         </div>
     </div>
+
+    {{-- Load header JavaScript --}}
+    <script src='/js/constants.js'></script>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
     <script src='/js/toastr.min.js'></script>
     <script src='/js/base.js'></script>

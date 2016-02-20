@@ -15,7 +15,7 @@
 }
 
 body {
-    background-size: 100%;
+    background-size: 100% 100%;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -59,6 +59,10 @@ body {
 
 .footer-link:hover {
     color: grey;
+}
+
+.footer-well {
+    margin-top: 30px;
 }
 
 h4, p {

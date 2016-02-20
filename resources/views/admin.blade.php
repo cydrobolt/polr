@@ -14,6 +14,10 @@
         @if ($role == 'admin')
         <li role='presentation' class='admin-nav-item'><a href='#admin'>Admin</a></li>
         @endif
+
+        @if ($api_active == 1)
+        <li role='presentation' class='admin-nav-item'><a href='#developer'>Developer</a></li>
+        @endif
     </ul>
 </div>
 <div class='col-md-9'>
@@ -61,7 +65,27 @@
 
         </div>
         @endif
+
+        @if ($api_active == 1)
+        <div role="tabpanel" class="tab-pane" id="developer">
+            <h3>Developer</h3>
+
+            <p>API keys and documentation for developers.</p>
+            <p>
+                Documentation:
+                <a href='http://docs.polr.me/en/latest/developer-guide/api/'>http://docs.polr.me/en/latest/developer-guide/api/</a>
+            </p>
+
+            <h4>API Key: </h4>
+            <input class='form-control' disabled type='text' value='{{$api_key}}'>
+
+            <h4>API Quota: </h4>
+            <h2 class='api-quota'><code>{{$api_quota}}</code></h2>
+            <span> requests per minute</span>
+        </div>
+        @endif
     </div>
+</div>
 </div>
 
 

@@ -29,6 +29,12 @@ class AdminController extends Controller {
             $admin_links = Link::paginate(15);
         }
 
+        $user = UserHelper::getUserByUsername($username);
+
+        if (!$user) {
+            return redirect(route('index'))->with('error', 'Invalid or disabled account.');
+        }
+
         $user_links = Link::where('creator', $username)
             ->paginate(15);
 
@@ -36,7 +42,10 @@ class AdminController extends Controller {
             'role' => $role,
             'admin_users' => $admin_users,
             'admin_links' => $admin_links,
-            'user_links' => $user_links
+            'user_links' => $user_links,
+            'api_key' => $user->api_key,
+            'api_active' => $user->api_active,
+            'api_quota' => $user->api_quota
         ]);
     }
 

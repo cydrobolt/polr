@@ -3,7 +3,10 @@ namespace App\Http\Controllers;
 use Mail;
 use App\Models\User;
 use Illuminate\Http\Request;
+
+use App\Helpers\CryptoHelper;
 use App\Helpers\UserHelper;
+
 use App\Factories\UserFactory;
 
 class UserController extends Controller {
@@ -91,8 +94,17 @@ class UserController extends Controller {
             $response = redirect(route('login'))->with('success', 'Thanks for signing up! Please confirm your email to continue..');
             $active = 0;
         }
-        $user = UserFactory::createUser($username, $email, $password, $active, $ip);
 
+        $api_active = false;
+        $api_key = null;
+        if (env('SETTING_AUTO_API') == 'on') {
+            // if automatic API key assignment is on
+            $api_active = 1;
+            $api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
+        }
+
+
+        $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active);
         return $response;
     }
 

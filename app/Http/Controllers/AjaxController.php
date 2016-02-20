@@ -63,7 +63,7 @@ class AjaxController extends Controller {
             abort(404, 'User not found.');
         }
 
-        $new_api_key = CryptoHelper::generateRandomHex(15);
+        $new_api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
         $user->api_key = $new_api_key;
         $user->save();
 

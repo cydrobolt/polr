@@ -6,6 +6,7 @@
         <th>Date</th>
         <th>Secret</th>
         @if ($role == 'admin')
+        <th>Creator</th>
         <th>Disable</th>
         @endif
 
@@ -18,8 +19,9 @@
         <td>{{$link->clicks}}</td>
         <td>{{$link->created_at}}</td>
         <td>{{isset($link->secret_key)}}</td>
-        @if ($role == 'admin')
 
+        @if ($role == 'admin')
+        <td>{{$link->creator}}</td>
         <td>
             <a data-link-ending='{{$link->short_url}}' class='btn btn-sm @if($link->is_disabled) btn-success @else btn-danger @endif toggle-link'>
                 @if ($link->is_disabled)

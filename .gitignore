@@ -1,9 +1,7 @@
 #/vendor
 bootstrap/cache/
 storage/
-env.*.php
 env
-.env.php
 .env
 .env.bak
 .env.example

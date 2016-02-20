@@ -106,6 +106,20 @@ Setup
             <p>SMTP From Name:</p>
             <input type='text' class='form-control' name='app:smtp_from_name' placeholder='noreply'>
 
+            <h4>API Settings</h4>
+
+            <p>Anonymous API:</p>
+            <select name='setting:anon_api' class='form-control'>
+                <option selected value='off'>Off -- only registered users can use API</option>
+                <option value='on'>On -- empty key API requests are allowed</option>
+            </select>
+
+            <p>Automatic API Assignment:</p>
+            <select name='setting:auto_api_key' class='form-control'>
+                <option selected value='off'>Off -- admins must manually enable API for each user</option>
+                <option value='on'>On -- each user receives an API key</option>
+            </select>
+
             <h4>Other Settings</h4>
 
             <p>Registration:</p>
@@ -124,8 +138,8 @@ Setup
                 Please ensure SMTP is properly set up before enabling password recovery.
             </p>
 
-            <p>Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/):</p>
-            <input type='text' class='form-control' name='path' placeholder='/polr/' value=''>
+            {{-- <p>Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/):</p>
+            <input type='text' class='form-control' name='path' placeholder='/polr/' value=''> --}}
 
             <p>Theme (click <a href='https://github.com/cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots:</p>
             <select name='app:stylesheet' class='form-control'>
@@ -160,13 +174,13 @@ Setup
 
     <div>
         Polr Version {{env('VERSION')}} released {{env('VERSION_RELMONTH')}} {{env('VERSION_RELDAY')}}, {{env('VERSION_RELYEAR')}} -
-        <a href='//github.com/cydrobolt/polr'>Github</a></div></div><br />
+        <a href='//github.com/cydrobolt/polr'>Github</a>
 
-        <span style='font-weight:bold;'>
+        <div class='footer-well'>
             &copy; Copyright {{env('VERSION_RELYEAR')}}
             <a class='footer-link' href='//cydrobolt.com'>Chaoyi Zha</a> &
             <a class='footer-link' href='//github.com/Cydrobolt/polr/graphs/contributors'>Other Polr Contributors</a>
-        </span>
+        </div>
     </div>
 </div>
 

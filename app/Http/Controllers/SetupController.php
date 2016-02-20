@@ -102,6 +102,9 @@ class SetupController extends Controller {
 
         $st_base = $request->input('setting:base');
 
+        $st_auto_api_key = $request->input('setting:auto_api_key');
+        $st_anon_api = $request->input('setting:anon_api');
+
         $mail_host = $request->input('app:smtp_server');
         $mail_port = $request->input('app:smtp_port');
         $mail_username = $request->input('app:smtp_username');
@@ -147,6 +150,8 @@ class SetupController extends Controller {
             'MAIL_FROM_NAME' => $mail_from_name,
 
             'ST_BASE' => $st_base,
+            'ST_AUTO_API' => $st_auto_api_key,
+            'ST_ANON_API' => $st_anon_api
         ])->render();
 
         $handle = fopen('../.env', 'w');

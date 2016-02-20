@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('role');
             $table->string('active');
 
-            $table->string('api_key');
+            $table->string('api_key')->nullable();
             $table->boolean('api_active')->default(0);
             $table->string('api_quota')->default(60);
 
