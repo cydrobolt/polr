@@ -95,7 +95,7 @@ server {
     listen       *:80;
     root         /var/www;
     server_name  example.com; # Or whatever you want to use
-    
+
 #   return 301 https://$server_name$request_uri; # Forces HTTPS, which enables privacy for login credentials.
                                                  # Recommended for public, internet-facing, websites.
 
@@ -104,7 +104,7 @@ server {
             rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
     }
 
-    location ~ \.php$ { 
+    location ~ \.php$ {
             try_files $uri =404;
             include /etc/nginx/fastcgi_params;
 
@@ -124,16 +124,16 @@ server {
 #   ssl_certificate_key /etc/ssl/private/my.key;
 #   root                /var/www;
 #   server_name         example.com;
-#    
+#
 #   location / {
 #           try_files $uri $uri/ /index.php?$query_string;
 #           rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
 #   }
 #
-#   location ~ \.php$ { 
+#   location ~ \.php$ {
 #           try_files $uri =404;
 #           include /etc/nginx/fastcgi_params;
-#    
+#
 #           fastcgi_pass    php;
 #           fastcgi_index   index.php;
 #           fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -183,13 +183,12 @@ any other actions.
 If you wish to configure and initialize Polr manually, you may do so using
 your command line.
 
-Rename `.env.example` to `.env` and update the values appropriately.
-You may then run the following `artisan` command to populate the database.
-You will also need to insert a admin user into the `users` table through `mysql`
-or a graphical `sql` interface.
+Rename copy `resources/views/env.blade.php` to `.env` at the root directory
+and update the values appropriately. You may then run the following `artisan`
+command to populate the database. You will also need to insert a admin user into the `users` table through `mysql` or a graphical `sql` interface.
 
 ```bash
-php artisan migrate
+php artisan migrate --force
 ```
 
 This should create the necessary databases.
