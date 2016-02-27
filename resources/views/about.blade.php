@@ -13,7 +13,7 @@
         <p>Build Information</p>
         <dt>Version: {{env('POLR_VERSION')}}</dt>
         <dt>Release date: {{env('POLR_RELDATE')}}</dt>
-        <dt>App Install : {{env('APP_NAME')}} on {{env('APP_ADDRESS')}} on {{env('POLR_GENERATED_AT')}}<dt>
+        <dt>App Install: {{env('APP_NAME')}} on {{env('APP_ADDRESS')}} on {{env('POLR_GENERATED_AT')}}<dt>
     </dl>
     <p>You are seeing the information above because you are logged in as an administrator.</p>
     @endif
