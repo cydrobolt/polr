@@ -33,7 +33,9 @@ class SetupController extends Controller {
     }
 
     private static function createDatabase() {
-        $exitCode = Artisan::call('migrate');
+        $exitCode = Artisan::call('migrate', [
+            '--force' => true,
+        ]);
         return self::parseExitCode($exitCode);
     }
 
