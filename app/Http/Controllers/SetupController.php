@@ -51,6 +51,8 @@ class SetupController extends Controller {
         }
 
         $app_key = CryptoHelper::generateRandomHex(16);
+        $setup_auth_key = CryptoHelper::generateRandomHex(16);
+
         $app_name = $request->input('app:name');
         $app_protocol = $request->input('app:protocol');
 
@@ -151,7 +153,9 @@ class SetupController extends Controller {
 
             'ST_BASE' => $st_base,
             'ST_AUTO_API' => $st_auto_api_key,
-            'ST_ANON_API' => $st_anon_api
+            'ST_ANON_API' => $st_anon_api,
+
+            'TMP_SETUP_AUTH_KEY' => $setup_auth_key
         ])->render();
 
         $handle = fopen('../.env', 'w');
@@ -160,20 +164,41 @@ class SetupController extends Controller {
                 'message' => 'Could not write configuration to disk.'
             ]);
         } else {
-            $response = redirect(route('setup_finish'))->with(
-                'acct_username', $acct_username)->with(
-                'acct_email', $acct_email)->with(
-                'acct_password', $acct_password)->with(
-                'setup_transaction', true);
+            Cache::flush();
 
+            $setup_finish_arguments = json_encode([
+                'acct_username' => $acct_username,
+                'acct_email' => $acct_email,
+                'acct_password' => $acct_password,
+                'setup_auth_key' => $setup_auth_key
+            ]);
+
+            $response = redirect(route('setup_finish'));
+
+            // set cookie with information needed for finishSetup, expire in 60 seconds
+            // we use PHP's setcookie rather than Laravel's cookie capabilities because
+            // our app key changes and Laravel encrypts cookies.
+            setcookie('setup_arguments', $setup_finish_arguments, time()+60);
         }
         fclose($handle);
 
         return $response;
 
     }
+
     public static function finishSetup(Request $request) {
-        $transaction_authorised = session('setup_transaction');
+        // get data from cookie, decode JSON
+        if (!isset($_COOKIE['setup_arguments'])) {
+            abort(404);
+        }
+
+        $setup_finish_args_raw = $_COOKIE['setup_arguments'];
+        $setup_finish_args = json_decode($setup_finish_args_raw);
+
+        // unset cookie
+        setcookie('setup_arguments', '', time()-3600);
+
+        $transaction_authorised = env('TMP_SETUP_AUTH_KEY') == $setup_finish_args->setup_auth_key;
 
         if ($transaction_authorised != true) {
             abort(403, 'Transaction unauthorised.');
@@ -184,10 +209,9 @@ class SetupController extends Controller {
             return redirect(route('setup'))->with('error', 'Could not create database. Perhaps some credentials were incorrect?');
         }
 
-        $user = UserFactory::createUser(session('acct_username'), session('acct_email'), session('acct_password'), 1, $request->ip());
+        $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip());
         $user->role = 'admin';
         $user->save();
-        Cache::flush();
 
         return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');
     }
