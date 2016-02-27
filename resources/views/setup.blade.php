@@ -68,7 +68,7 @@ Setup
             <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
             <p class='text-muted'>
                 If a redirect is enabled, you will need to go to
-                http://example.com/login before you can access the index
+                http://yoursite.com/login before you can access the index
                 page.
             </p>
 
