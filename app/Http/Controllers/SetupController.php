@@ -113,8 +113,8 @@ class SetupController extends Controller {
         $mail_port = $request->input('app:smtp_port');
         $mail_username = $request->input('app:smtp_username');
         $mail_password = $request->input('app:smtp_password');
-        $mail_from = $request->input('app:smtp_from_name');
-        $mail_from_name = $request->input('app:smtp_from');
+        $mail_from = $request->input('app:smtp_from');
+        $mail_from_name = $request->input('app:smtp_from_name');
 
         if ($mail_host) {
             $mail_enabled = true;
