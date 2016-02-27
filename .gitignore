@@ -5,5 +5,4 @@ env
 .env
 .env.bak
 .env.example
-vendor/
 composer.phar
