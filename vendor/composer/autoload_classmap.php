@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AuthTest' => $baseDir . '/tests/AuthTest.php',
+    'BaseHelperTest' => $baseDir . '/tests/BaseHelperTest.php',
     'CreateLinkTable' => $baseDir . '/database/migrations/2015_11_04_015813_create_link_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2015_11_04_015823_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
@@ -20,6 +21,7 @@ return array(
     'Illuminate\\Foundation\\Testing\\DatabaseTransactions' => $vendorDir . '/laravel/lumen-framework/src/Foundation/Testing/DatabaseTransactions.php',
     'Illuminate\\Foundation\\Testing\\WithoutMiddleware' => $vendorDir . '/laravel/lumen-framework/src/Foundation/Testing/WithoutMiddleware.php',
     'IndexTest' => $baseDir . '/tests/IndexTest.php',
+    'LinkHelperTest' => $baseDir . '/tests/LinkHelperTest.php',
     'PHPUnit_Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit_Extensions_GroupTestSuite' => $vendorDir . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
     'PHPUnit_Extensions_PhptTestCase' => $vendorDir . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',
@@ -465,4 +467,5 @@ return array(
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Resources/stubs/SessionHandlerInterface.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'UserHelperTest' => $baseDir . '/tests/UserHelperTest.php',
 );

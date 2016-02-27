@@ -30,6 +30,7 @@ return array(
     'Illuminate\\Queue\\' => array($vendorDir . '/illuminate/queue'),
     'Illuminate\\Pipeline\\' => array($vendorDir . '/illuminate/pipeline'),
     'Illuminate\\Pagination\\' => array($vendorDir . '/illuminate/pagination'),
+    'Illuminate\\Mail\\' => array($vendorDir . '/illuminate/mail'),
     'Illuminate\\Http\\' => array($vendorDir . '/illuminate/http'),
     'Illuminate\\Hashing\\' => array($vendorDir . '/illuminate/hashing'),
     'Illuminate\\Filesystem\\' => array($vendorDir . '/illuminate/filesystem'),
