@@ -79,7 +79,22 @@ class AjaxController extends Controller {
         if (!$user) {
             abort(404, 'User not found.');
         }
+        
         $user->delete();
+        return "OK";
+    }
+
+    public function deleteLink(Request $request) {
+        self::ensureAdmin();
+
+        $link_ending = $request->input('link_ending');
+        $link = LinkHelper::linkExists($link_ending);
+
+        if (!$link) {
+            abort(404, 'Link not found.');
+        }
+
+        $link->delete();
         return "OK";
     }
 

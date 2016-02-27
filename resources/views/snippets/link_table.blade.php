@@ -8,6 +8,7 @@
         @if ($role == 'admin')
         <th>Creator</th>
         <th>Disable</th>
+        <th>Delete</th>
         @endif
 
     </tr>
@@ -22,6 +23,7 @@
 
         @if ($role == 'admin')
         <td>{{$link->creator}}</td>
+
         <td>
             <a data-link-ending='{{$link->short_url}}' class='btn btn-sm @if($link->is_disabled) btn-success @else btn-danger @endif toggle-link'>
                 @if ($link->is_disabled)
@@ -31,6 +33,13 @@
                 @endif
             </a>
         </td>
+
+        <td>
+            <a data-link-ending='{{$link->short_url}}' class='btn btn-sm btn-danger delete-link'>
+                Delete
+            </a>
+        </td>
+
         @endif
 
     </tr>

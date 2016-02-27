@@ -41,6 +41,19 @@ $(function () {
         });
     });
 
+    $('.delete-link').click(function () {
+        var te = $(this);
+        var link_ending = te.data('link-ending');
+
+        apiCall('admin/delete_link', {
+            'link_ending': link_ending,
+        }, function (new_status) {
+            te.text('Deleted!');
+            te.addClass('btn-disabled');
+        });
+    });
+
+
     $('.toggle-link').click(function () {
         var te = $(this);
         var link_ending = te.data('link-ending');
