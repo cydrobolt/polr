@@ -86,11 +86,6 @@ class UserController extends Controller {
         }
         else {
             // email activation is necessary
-            Mail::send('emails.activation', [
-                'username' => $username, 'recovery_key' => $user->recovery_key, 'ip' => $ip
-            ], function ($m) use ($user) {
-                    $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
-            });
             $response = redirect(route('login'))->with('success', 'Thanks for signing up! Please confirm your email to continue..');
             $active = 0;
         }
@@ -105,6 +100,17 @@ class UserController extends Controller {
 
 
         $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active);
+
+        if ($acct_activation_needed) {
+            Mail::send('emails.activation', [
+                'username' => $username, 'recovery_key' => $user->recovery_key, 'ip' => $ip
+            ], function ($m) use ($user) {
+                $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+
+                $m->to($email, $username)->subject(env('APP_NAME') . ' account activation');
+            });
+        }
+
         return $response;
     }
 
