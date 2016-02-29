@@ -1,0 +1,65 @@
+APP_ENV=production
+
+# Set to true if debugging
+APP_DEBUG=false
+
+# 32-character key (e.g 3EWBLwxTfh%*f&xRBqdGEIUVvn4%$Hfi)
+APP_KEY=a5bd6a61b1327670bedd712a358d9c2b
+
+# Your app's name (shown on interface)
+APP_NAME=Polr CI
+
+# Protocol to access your app. e.g https://
+APP_PROTOCOL=http://
+
+# Your app's external address (e.g example.com)
+APP_ADDRESS=travis.polr.me
+
+# Your app's bootstrap stylesheet
+# e.g https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css
+APP_STYLESHEET=//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/united/bootstrap.min.css
+
+# Set to today's date (e.g November 3, 2015)
+POLR_GENERATED_AT=Travis CI
+
+# Set to true after running setup script
+# e.g true
+POLR_SETUP_RAN=true
+
+DB_CONNECTION=mysql
+# Set to your DB host (e.g localhost)
+DB_HOST=localhost
+# DB port (e.g 3306)
+DB_PORT=3306
+# Set to your DB name (e.g polr)
+DB_DATABASE=polrci
+# DB credentials
+# e.g root
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Polr Settings
+SETTING_PUBLIC_INTERFACE=true
+
+# Set to true to allow signups, false to disable (e.g true/false)
+POLR_ALLOW_ACCT_CREATION=
+
+# Set to true to require activation by email (e.g true/false)
+POLR_ACCT_ACTIVATION=
+
+SETTING_SHORTEN_PERMISSION=false
+SETTING_INDEX_REDIRECT=
+SETTING_PASSWORD_RECOV=false
+
+APP_LOCALE=en
+APP_FALLBACK_LOCALE=en
+
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+QUEUE_DRIVER=database
+
+# Do not touch
+POLR_RELDATE=February 14, 2016
+POLR_VERSION=Travis CI
+POLR_BASE=32
+POLR_SECRET_BYTES=2

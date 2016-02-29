@@ -1,0 +1,42 @@
+body {
+    padding-top: 60px;
+}
+
+.login-dropdown-menu {
+    padding: 15px;
+    padding-bottom: 0px;
+}
+
+.login-form-field {
+    margin-bottom: 15px;
+}
+
+.login-form-submit {
+    clear: left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.content-div-padding {
+    padding-top: 65px;
+}
+.content-div {
+    text-align: left;
+    background-color: rgba(0,0,0,0);
+}
+
+.large-content-div {
+    text-align: center;
+}
+
+.login-name {
+    padding-right: 10px;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.error-alert {
+    text-align: left;
+}

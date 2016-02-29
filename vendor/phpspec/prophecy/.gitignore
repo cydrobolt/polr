@@ -1,0 +1,4 @@
+*.tgz
+*.phar
+bin
+vendor

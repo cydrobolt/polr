@@ -1,0 +1,117 @@
+<?php
+namespace App\Helpers;
+use App\Models\Link;
+use App\Helpers\BaseHelper;
+
+class LinkHelper {
+    static public function checkIfAlreadyShortened($long_link) {
+        /**
+         * Provided a long link (string),
+         * detect whether the link belongs to an URL shortener.
+         * @return boolean
+         */
+        $shortener_domains = [
+            'polr.me',
+            'bit.ly',
+            'is.gd',
+            'tiny.cc',
+            'adf.ly',
+            'ur1.ca',
+            'goo.gl',
+            'ow.ly',
+            'j.mp',
+            't.co',
+            env('APP_ADDRESS')
+        ];
+
+        foreach ($shortener_domains as $shortener_domain) {
+            $url_segment = ('://' . $shortener_domain);
+            if (strstr($long_link, $url_segment)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static public function linkExists($link_ending) {
+        /**
+         * Provided a link ending (string),
+         * return the link object, or false.
+         * @return Link model instance
+         */
+
+        $link = Link::where('short_url', $link_ending)
+            ->first();
+
+        if ($link != null) {
+            return $link;
+        }
+        else {
+            return false;
+        }
+    }
+
+    static public function longLinkExists($long_url) {
+        /**
+         * Provided a long link (string),
+         * check whether the link is in the DB.
+         * @return boolean
+         */
+        $link = Link::where('long_url', $long_url)
+            ->where('is_custom', 0)
+            ->first();
+        if ($link == null) {
+            return false;
+        }
+        else {
+            return $link->short_url;
+        }
+    }
+
+    static public function validateEnding($link_ending) {
+        $is_alphanum = ctype_alnum($link_ending);
+
+        return $is_alphanum;
+    }
+
+    static public function processPostClick($link) {
+        /**
+         * Given a Link model instance, process post click operations.
+         * @param Link model instance $link
+         * @return boolean
+         */
+    }
+
+    static public function findSuitableEnding() {
+        /**
+         * Provided an in-use link ending (string),
+         * find the next available base-32/62 ending.
+         * @return string
+         */
+        $base = env('POLR_BASE');
+
+        $link = Link::where('is_custom', 0)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if ($link == null) {
+            $base10_val = 0;
+            $base_x_val = 0;
+        }
+        else {
+            $latest_link_ending = $link->short_url;
+            $base10_val = BaseHelper::toBase10($latest_link_ending, $base);
+            $base10_val++;
+        }
+
+
+        $base_x_val = null;
+
+        while (LinkHelper::linkExists($base_x_val) || $base_x_val == null) {
+            $base_x_val = BaseHelper::toBase($base10_val, $base);
+            $base10_val++;
+        }
+
+        return $base_x_val;
+    }
+}
