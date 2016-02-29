@@ -1,5 +1,4 @@
 # [![Logo](http://i.imgur.com/aOtrJNz.png)](https://project.polr.me)
-#####v2 Devel
 
 :aerial_tramway: A modern, minimalist, and lightweight URL shortener.
 
@@ -7,12 +6,9 @@
 [![Builds status](https://travis-ci.org/cydrobolt/polr.svg)](https://travis-ci.org/cydrobolt/polr) 
 [![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat)](http://polr.readthedocs.org/en/2.0-dev/)
 
-Welcome to Polr's 2.0 development branch.
-Please keep in mind 2.0 is currently unstable, and should not be used in production. 
-
 Polr is an enterprise-class open-source link shortening web application designed to operate at many scales, built on the Software-as-a-Service paradigm. It allows you to host your own URL shortener, to brand your URLs, and to gain control over your data. Polr is especially easy to use, and provides a modern, themable feel.
 
-[Getting Started](http://docs.polr.me/en/2.0-dev/user-guide/installation/) - [API Documentation](http://docs.polr.me/en/2.0-dev/developer-guide/api/) - [Contributing](https://github.com/cydrobolt/polr/blob/2.0-dev/CONTRIBUTING.md) - [Bugs](https://github.com/cydrobolt/polr/issues) - [IRC](http://webchat.freenode.net/?channels=#polr)
+[Getting Started](http://docs.polr.me/en/latest/user-guide/installation/) - [API Documentation](http://docs.polr.me/en/latest/developer-guide/api/) - [Contributing](https://github.com/cydrobolt/polr/blob/master/CONTRIBUTING.md) - [Bugs](https://github.com/cydrobolt/polr/issues) - [IRC](http://webchat.freenode.net/?channels=#polr)
 
 #### Quickstart
 
