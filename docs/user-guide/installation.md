@@ -26,7 +26,7 @@ you may be interested in looking at a [legacy 1.x release](https://github.com/cy
 ```bash
 $ sudo su
 $ cd /var/www
-$ git clone https://github.com/cydrobolt/polr.git -b 2.0-dev --single-branch
+$ git clone https://github.com/cydrobolt/polr.git
 ```
 
 ## Installing using `composer`
