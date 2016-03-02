@@ -1,8 +1,8 @@
 ![Polr Logo](logo.png)
 
 [![GitHub license](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)](about/license)
-[![2.0 status](https://img.shields.io/badge/devel-2.0-red.svg)](https://github.com/cydrobolt/polr/tree/2.0-dev)
-[![GitHub release](https://img.shields.io/badge/stable-1.4.1-blue.svg)](https://github.com/cydrobolt/polr/releases)
+[![2.0 status](https://img.shields.io/badge/beta-2.0-yellow.svg)](https://github.com/cydrobolt/polr/tree/2.0-dev)
+[![GitHub release](https://img.shields.io/badge/stable-1.5.1-blue.svg)](https://github.com/cydrobolt/polr/releases)
 
 Welcome to Polr's 2.0 development branch.
 Please keep in mind 2.0 is pre-alpha, and should not be used in production.
