@@ -10,6 +10,13 @@ Polr is an enterprise-class open-source link shortening web application designed
 
 [Getting Started](http://docs.polr.me/en/latest/user-guide/installation/) - [API Documentation](http://docs.polr.me/en/latest/developer-guide/api/) - [Contributing](https://github.com/cydrobolt/polr/blob/master/CONTRIBUTING.md) - [Bugs](https://github.com/cydrobolt/polr/issues) - [IRC](http://webchat.freenode.net/?channels=#polr)
 
+### Upgrading from 1.x
+
+**Please do not attempt to upgrade directly to 2.x.**
+
+Polr 1.x currently cannot be upgraded to 2.x automatically. There are breaking changes in the API, configuration files, and database structure. A migration will be provided once 2.0 stable is officially released. In the meantime, it is okay to upgrade between different versions in the 1.x arch, which do not have breaking changes.
+
+
 #### Quickstart
 
 Polr is written in PHP and Laravel, using MySQL as its primary database.
