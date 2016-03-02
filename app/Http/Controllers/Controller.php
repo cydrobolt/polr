@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -29,14 +28,13 @@ class Controller extends BaseController {
     }
 
     protected static function checkRequiredArgs($required_args=[]) {
-        array_push($required_args, NULL);
+        foreach($required_args as $arg) {
+            if ($arg == NULL) {
+                return false;
+            }
+        }
+        return true;
 
-        if (count(array_unique($required_args)) < count($required_args)) {
-            return false;
-        }
-        else {
-            return true;
-        }
     }
 
     protected static function ensureAdmin() {

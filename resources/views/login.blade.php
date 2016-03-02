@@ -14,9 +14,12 @@
             <input type="password" placeholder="password" name="password" class="form-control login-field" />
             <input type="hidden" name='_token' value='{{csrf_token()}}' />
             <input type="submit" value="Login" class="login-submit btn btn-success" />
-            <p class='signup-prompt'>
-                <small>Don't have an account? <a href='{{route('signup')}}'>Register</a></small>
-            </p>
+
+            @if (env('POLR_ALLOW_ACCT_CREATION') == true)
+                <p class='signup-prompt'>
+                    <small>Don't have an account? <a href='{{route('signup')}}'>Register</a></small>
+                </p>
+            @endif    
         </form>
     </div>
     <div class="col-md-3"></div>
