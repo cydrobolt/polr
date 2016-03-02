@@ -45,15 +45,16 @@ php composer.phar install --no-dev -o
 To run Polr on Apache, you will need to add a virtual host to your
 `httpd-vhosts.conf` like so:
 
-Replace `example.com` with your server's external address.
+Replace `example.com` with your server's external address. 
 
 ```apache
 <VirtualHost *:80>
-    ServerName example.com # Your external address
-    ServerAlias example.com # Make this the same as ServerName
+    ServerName example.com
+    ServerAlias example.com
+
     DocumentRoot "/var/www/polr/public"
     <Directory "/var/www/polr/public">
-        Require all granted # Used by Apache 2.4
+        Require all granted
         Options Indexes FollowSymLinks
         AllowOverride All
         Order allow,deny
