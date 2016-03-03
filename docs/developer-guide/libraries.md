@@ -9,5 +9,5 @@ that you take a look at the [API documentation](api/) to integrate Polr into you
 - there are no official libraries for Polr 2.0 yet.
 
 ### Unofficial libraries
-- there are no unofficial ibraries for Polr 2.0 yet.
+- there are no unofficial libraries for Polr 2.0 yet.
 - perhaps you'd like to write one? Send a PR to add your library to this page.
