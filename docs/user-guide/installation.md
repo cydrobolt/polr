@@ -25,8 +25,17 @@ you may be interested in looking at a [legacy 1.x release](https://github.com/cy
 
 ```bash
 $ sudo su
+# switch to Polr directory (replace with other directory path if applicable)
 $ cd /var/www
+# clone Polr
 $ git clone https://github.com/cydrobolt/polr.git
+# set correct permissions
+$ chmod -R 755 polr
+
+# run only if on Ubuntu-based systems
+$ chown -R www-data polr
+# run only if on Fedora-based systems
+$ chown -R apache polr
 ```
 
 ## Installing using `composer`
@@ -45,7 +54,7 @@ php composer.phar install --no-dev -o
 To run Polr on Apache, you will need to add a virtual host to your
 `httpd-vhosts.conf` like so:
 
-Replace `example.com` with your server's external address. 
+Replace `example.com` with your server's external address.
 
 ```apache
 <VirtualHost *:80>
@@ -94,7 +103,7 @@ upstream php {
 
 server {
     listen       *:80;
-    root         /var/www;
+    root         /var/www/polr/public;
     server_name  example.com; # Or whatever you want to use
 
 #   return 301 https://$server_name$request_uri; # Forces HTTPS, which enables privacy for login credentials.
