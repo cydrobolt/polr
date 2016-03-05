@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class 1xTo2xLinks extends Migration
+class Migrate1xTo2xLinks extends Migration
 {
     /**
      * Run the migrations.
