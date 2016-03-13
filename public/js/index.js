@@ -54,12 +54,9 @@ $(function() {
     function changeTips(tcase) {
         switch (tcase) {
             case 1:
-                setTip('Want to see the stats for an URL? Simply add a + to the URL (site.com/+url)');
-                break;
-            case 2:
                 setTip('Create an account to keep track of your links');
                 break;
-            case 3:
+            case 2:
                 setTip('Did you know you can change the URL ending by clicking on "Link Options"?');
                 i = 1;
                 break;
