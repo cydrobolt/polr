@@ -39,7 +39,7 @@ $(function() {
         });
     });
     min = 1;
-    max = 3;
+    max = 2;
     var i = Math.floor(Math.random() * (max - min + 1)) + min;
     changeTips(i);
     var tipstimer = setInterval(function() {
