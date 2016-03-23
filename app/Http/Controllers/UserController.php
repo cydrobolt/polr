@@ -107,7 +107,7 @@ class UserController extends Controller {
             ], function ($m) use ($user) {
                 $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
 
-                $m->to($email, $username)->subject(env('APP_NAME') . ' account activation');
+                $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
             });
         }
 
@@ -115,7 +115,28 @@ class UserController extends Controller {
     }
 
     public static function performActivation(Request $request, $username, $recovery_key) {
-        // TODO process activation
+        $user = UserHelper::getUserByUsername($username, $inactive=true);
+
+        if ($user) {
+            $user_recovery_key = $user->recovery_key;
+
+            if ($recovery_key == $user_recovery_key) {
+                // Key is correct
+                // Activate account and reset recovery key
+                $user->active = 1;
+                $user->save();
+
+                UserHelper::resetRecoveryKey($username);
+                return redirect(route('login'))->with('success', 'Account activated. You may now login.');
+            }
+            else {
+                return $user->recovery_key;
+                // return redirect(route('index'))->with('error', 'Username or activation key incorrect.');
+            }
+        }
+        else {
+            return redirect(route('index'))->with('error', 'Username or activation key incorrect.');
+        }
     }
 
 }

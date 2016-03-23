@@ -1,21 +1,23 @@
 <?php
 namespace App\Helpers;
+
 use App\Models\User;
+use App\Helpers\CryptoHelper;
 use Hash;
 
 class UserHelper {
     public static function userExists($username) {
-        $user = User::where('username', $username)
-            // ->where('active', 1)
-            ->first();
+        /* XXX: used primarily with test cases */
+
+        $user = self::getUserByUsername($username, $inactive=true);
 
         return ($user ? true : false);
     }
 
     public static function emailExists($email) {
-        $user = User::where('active', 1)
-            ->where('email', $email)
-            ->first();
+        /* XXX: used primarily with test cases */
+
+        $user = self::getUserByEmail($email, $inactive=true);
 
         return ($user ? true : false);
     }
@@ -48,19 +50,19 @@ class UserHelper {
         }
     }
 
-    public static function createNewRecoveryKey($username) {
+    public static function resetRecoveryKey($username) {
         $recovery_key = CryptoHelper::generateRandomHex(50);
 
-        $user = User::where('active', 1)
-            ->where('username', $username)
-            ->first();
+        $user = self::getUserByUsername($username);
 
-        if ($user == null) {
+        if (!$user) {
             return false;
         }
 
         $user->recovery_key = $recovery_key;
         $user->save();
+
+        return true;
     }
 
     public static function getUserById($user_id) {
@@ -70,9 +72,16 @@ class UserHelper {
         return $user;
     }
 
-    public static function getUserByUsername($username) {
+    public static function getUserByUsername($username, $inactive=false) {
         $user = User::where('username', $username)
-            ->where('active', 1)
+            ->where('active', (!$inactive))
+            ->first();
+        return $user;
+    }
+
+    public static function getUserByEmail($email, $inactive=false) {
+        $user = User::where('email', $email)
+            ->where('active', (!$inactive))
             ->first();
         return $user;
     }

@@ -95,6 +95,9 @@ Setup
             <p>SMTP Server:</p>
             <input type='text' class='form-control' name='app:smtp_server' placeholder='smtp.gmail.com'>
 
+            <p>SMTP Port:</p>
+            <input type='text' class='form-control' name='app:smtp_port' placeholder='25'>
+
             <p>SMTP Username:</p>
             <input type='text' class='form-control' name='app:smtp_username' placeholder='example@gmail.com'>
 

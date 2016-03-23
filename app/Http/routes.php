@@ -19,6 +19,8 @@ $app->get('/logout', ['as' => 'logout', 'uses' => 'UserController@logoutUser']);
 $app->get('/login', ['as' => 'login', 'uses' => 'UserController@displayLoginPage']);
 $app->get('/about', ['as' => 'about', 'uses' => 'StaticPageController@displayAbout']);
 $app->get('/signup', ['as' => 'signup', 'uses' => 'UserController@displaySignupPage']);
+$app->get('/activate/{username}/{recovery_key}', ['as' => 'activate', 'uses' => 'UserController@performActivation']);
+
 $app->get('/admin', ['as' => 'admin', 'uses' => 'AdminController@displayAdminPage']);
 
 $app->get('/setup', ['as' => 'setup', 'uses' => 'SetupController@displaySetupPage']);
