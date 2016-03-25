@@ -36,6 +36,9 @@ $ chmod -R 755 polr
 $ chown -R www-data polr
 # run only if on Fedora-based systems
 $ chown -R apache polr
+
+# run only if on recent Fedora, or other system, with SELinux enforcing
+$ chcon -R -t httpd_sys_rw_content_t polr/storage polr/.env
 ```
 
 ## Installing using `composer`
