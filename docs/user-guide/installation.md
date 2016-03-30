@@ -9,6 +9,8 @@ The following software is required on your server to run Polr 2.0.
 In the case that you cannot fulfill the following requirements (e.g free shared hosting),
 you may be interested in looking at a [legacy 1.x release](https://github.com/cydrobolt/polr/releases) of Polr (now unsupported).
 
+If you would like to download a stable version of Polr, you may check out [the releases page](https://github.com/cydrobolt/polr/releases).
+
  - Apache, nginx, IIS, or lighttpd (Apache preferred)
  - PHP >= 5.5.9
  - MariaDB or MySQL >= 5.5, SQLite alternatively
