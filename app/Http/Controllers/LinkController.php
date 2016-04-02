@@ -63,13 +63,13 @@ class LinkController extends Controller {
         if ($link_secret_key) {
             if (!$secret_key) {
                 // if we do not receieve a secret key
-                // when we are expecting one, return a 404
-                return abort(404);
+                // when we are expecting one, return a 403
+                return abort(403);
             }
             else {
                 if ($link_secret_key != $secret_key) {
                     // a secret key is provided, but it is incorrect
-                    return abort(404);
+                    return abort(403);
                 }
             }
 

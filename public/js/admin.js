@@ -15,6 +15,11 @@ function appendModal(html, id) {
     });
 }
 
+function hideRow(te, msg) {
+    te.text(msg);
+    te.parent().parent().slideUp();
+}
+
 $(function () {
     var modal_source   = $("#modal-template").html();
     var modal_template = Handlebars.compile(modal_source);
@@ -36,8 +41,7 @@ $(function () {
         apiCall('admin/delete_user', {
             'user_id': user_id,
         }, function (new_status) {
-            te.text('Deleted!');
-            te.addClass('btn-disabled');
+            hideRow(te, 'Deleted!');
         });
     });
 
@@ -48,10 +52,10 @@ $(function () {
         apiCall('admin/delete_link', {
             'link_ending': link_ending,
         }, function (new_status) {
-            te.text('Deleted!');
-            te.addClass('btn-disabled');
+            hideRow(te, 'Deleted!');
         });
     });
+
 
 
     $('.toggle-link').click(function () {
@@ -122,6 +126,10 @@ $(function () {
         var user_id = $(this).data('user-id');
         var status_display_elem = $(this).prevAll('.status-display');
 
+        if ($(this).data('developer-tab')) {
+            status_display_elem = $(this).parent().prev().children();
+        }
+
         var action = $(this).data('action');
 
         var api_endpoint = '';
@@ -139,7 +147,13 @@ $(function () {
             if (action == 'toggle-api-active') {
                 new_status = res_value_to_text(new_status);
             }
-            status_display_elem.text(new_status);
+
+            if (status_display_elem.is('input')) {
+                status_display_elem.val(new_status);
+            }
+            else {
+                status_display_elem.text(new_status);
+            }
         });
     });
 });

@@ -65,25 +65,28 @@ class UserHelper {
         return true;
     }
 
-    public static function getUserById($user_id) {
-        $user = User::where('id', $user_id)
-            ->where('active', 1)
-            ->first();
-        return $user;
+    public static function getUserBy($attr, $value, $inactive=false) {
+        $user = User::where($attr, $value);
+
+        if (!$inactive) {
+            // if user must be active
+            $user = $user
+                ->where('active', 1);
+        }
+
+        return $user->first();
+    }
+
+    public static function getUserById($user_id, $inactive=false) {
+        return self::getUserBy('id', $user_id, $inactive);
     }
 
     public static function getUserByUsername($username, $inactive=false) {
-        $user = User::where('username', $username)
-            ->where('active', (!$inactive))
-            ->first();
-        return $user;
+        return self::getUserBy('username', $username, $inactive);
     }
 
     public static function getUserByEmail($email, $inactive=false) {
-        $user = User::where('email', $email)
-            ->where('active', (!$inactive))
-            ->first();
-        return $user;
+        return self::getUserBy('email', $email, $inactive);
     }
 
 }

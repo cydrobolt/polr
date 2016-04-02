@@ -54,13 +54,37 @@ class AjaxController extends Controller {
     }
 
     public function generateNewAPIKey(Request $request) {
-        self::ensureAdmin();
+        /**
+         * If user is an admin, allow resetting of any API key
+         *
+         * If user is not an admin, allow resetting of own key only, and only if
+         * API is enabled for the account.
+         * @return string; new API key
+         */
+
 
         $user_id = $request->input('user_id');
         $user = UserHelper::getUserById($user_id);
 
+        $username_user_requesting = session('username');
+        $user_requesting = UserHelper::getUserByUsername($username_user_requesting);
+
         if (!$user) {
             abort(404, 'User not found.');
+        }
+
+        if ($user != $user_requesting) {
+            // if user is attempting to reset another user's API key,
+            // ensure they are an admin
+            self::ensureAdmin();
+        }
+        else {
+            // user is attempting to reset own key
+            // ensure that user is permitted to access the API
+            $user_api_enabled = $user->api_active;
+            if (!$user_api_enabled) {
+                abort(403, 'API access not authorized.');
+            }
         }
 
         $new_api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
@@ -74,12 +98,12 @@ class AjaxController extends Controller {
         self::ensureAdmin();
 
         $user_id = $request->input('user_id');
-        $user = UserHelper::getUserById($user_id);
+        $user = UserHelper::getUserById($user_id, true);
 
         if (!$user) {
             abort(404, 'User not found.');
         }
-        
+
         $user->delete();
         return "OK";
     }

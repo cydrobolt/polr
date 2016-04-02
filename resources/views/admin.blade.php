@@ -77,7 +77,15 @@
             </p>
 
             <h4>API Key: </h4>
-            <input class='form-control' disabled type='text' value='{{$api_key}}'>
+            <div class='row'>
+                <div class='col-md-8'>
+                    <input class='form-control status-display' disabled type='text' value='{{$api_key}}'>
+                </div>
+                <div class='col-md-4'>
+                    <a href='#' data-developer-tab='true' data-user-id="{{$user_id}}" data-action='generate-new-api-key' id='api-reset-key' class='btn btn-danger trigger-api-modal-action'>Reset</a>
+                </div>
+            </div>
+
 
             <h4>API Quota: </h4>
             <h2 class='api-quota'><code>{{$api_quota}}</code></h2>

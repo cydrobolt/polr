@@ -35,7 +35,7 @@
         </td>
 
         <td>
-            <a data-link-ending='{{$link->short_url}}' class='btn btn-sm btn-danger delete-link'>
+            <a data-link-ending='{{$link->short_url}}' class='btn btn-sm btn-warning delete-link'>
                 Delete
             </a>
         </td>

@@ -45,7 +45,8 @@ class AdminController extends Controller {
             'user_links' => $user_links,
             'api_key' => $user->api_key,
             'api_active' => $user->api_active,
-            'api_quota' => $user->api_quota
+            'api_quota' => $user->api_quota,
+            'user_id' => $user->id
         ]);
     }
 
