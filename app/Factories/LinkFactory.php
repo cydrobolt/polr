@@ -24,7 +24,7 @@ class LinkFactory {
         return $short_url;
     }
 
-    public static function createLink($long_url, $is_secret=false, $custom_ending=null, $link_ip='127.0.0.1', $creator=false, $return_object=false) {
+    public static function createLink($long_url, $is_secret=false, $custom_ending=null, $link_ip='127.0.0.1', $creator=false, $return_object=false, $is_api=false) {
         /**
         * Given parameters needed to create a link, generate appropriate ending and
         * return formatted link.
@@ -34,6 +34,8 @@ class LinkFactory {
         * @param string (optional) $custom_ending
         * @param string $link_ip
         * @param string $creator
+        * @param bool $return_object
+        * @param bool $is_api
         * @return string $formatted_link
         */
 
@@ -75,6 +77,8 @@ class LinkFactory {
         $link->long_url  = $long_url;
         $link->ip        = $link_ip;
         $link->is_custom = $custom_ending != null;
+
+        $link->is_api    = $is_api;
 
         if ($creator) {
             // if user is logged in, save user as creator
