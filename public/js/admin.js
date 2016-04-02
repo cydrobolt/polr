@@ -156,4 +156,8 @@ $(function () {
             }
         });
     });
+
+    $("a[href^=#]").on("click", function(e) {
+        history.pushState({}, '', this.href);
+    });
 });
