@@ -28,15 +28,15 @@ POLR_SETUP_RAN={{$POLR_SETUP_RAN}}
 
 DB_CONNECTION=mysql
 # Set to your DB host (e.g localhost)
-DB_HOST={{$DB_HOST}}
+DB_HOST={{{$DB_HOST}}}
 # DB port (e.g 3306)
 DB_PORT={{$DB_PORT}}
 # Set to your DB name (e.g polr)
-DB_DATABASE={{$DB_DATABASE}}
+DB_DATABASE={{{$DB_DATABASE}}}
 # DB credentials
 # e.g root
-DB_USERNAME={{$DB_USERNAME}}
-DB_PASSWORD={{$DB_PASSWORD}}
+DB_USERNAME={{{$DB_USERNAME}}}
+DB_PASSWORD={{{$DB_PASSWORD}}}
 
 # Polr Settings
 SETTING_PUBLIC_INTERFACE={{$ST_PUBLIC_INTERFACE}}
