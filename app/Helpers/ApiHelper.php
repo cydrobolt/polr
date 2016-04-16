@@ -16,11 +16,21 @@ class ApiHelper {
 
         $user = UserHelper::getUserByUsername($username);
 
+        if ($user) {
+            $api_quota = $user->api_quota;
+        }
+        else {
+            // TODO add option to change default quota for anonymous
+            // API users
+
+            $api_quota = 5;
+        }
+
         $links_last_minute = Link::where('is_api', 1)
             ->where('creator', $username)
             ->where('created_at', '>=', $last_minute)
             ->count();
 
-        return ($user->api_quota > -1 && $links_last_minute >= $user->api_quota);
+        return ($api_quota > -1 && $links_last_minute >= $api_quota);
     }
 }
