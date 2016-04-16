@@ -39,6 +39,10 @@ DB_USERNAME={{$DB_USERNAME}}
 DB_PASSWORD={{$DB_PASSWORD}}
 
 # Polr Settings
+
+# Set to true to show an interface to logged off users
+# If false, set the SETTING_INDEX_REDIRECT
+# You may login by heading to /login if the public interface is off
 SETTING_PUBLIC_INTERFACE={{$ST_PUBLIC_INTERFACE}}
 
 # Set to true to allow signups, false to disable (e.g true/false)
@@ -47,13 +51,23 @@ POLR_ALLOW_ACCT_CREATION={{$POLR_ALLOW_ACCT_CREATION}}
 # Set to true to require activation by email (e.g true/false)
 POLR_ACCT_ACTIVATION={{$POLR_ACCT_ACTIVATION}}
 
+# Set to true to require users to be logged in before shortening URLs
 SETTING_SHORTEN_PERMISSION={{$ST_SHORTEN_PERMISSION}}
+
+# You must set SETTING_INDEX_REDIRETC if SETTING_PUBLIC_INTERFACE is false
+# Polr will redirect logged off users to this URL
 SETTING_INDEX_REDIRECT={{$ST_INDEX_REDIRECT}}
+
+# Set to true to enable password recovery
 SETTING_PASSWORD_RECOV={{$ST_PASSWORD_RECOV}}
 
+# Set to true to generate API keys for each user on registration
 SETTING_AUTO_API={{$ST_AUTO_API}}
+
+# Set to true to allow anonymous API access
 SETTING_ANON_API={{$ST_ANON_API}}
 
+# Set each to blank to disable mail
 @if($MAIL_ENABLED)
 MAIL_DRIVER=smtp
 # e.g mailtrap.io
@@ -89,10 +103,12 @@ _API_KEY_LENGTH=15
 # RACKSPACE_CONTAINER=null
 # RACKSPACE_REGION=null
 
+# Set to 32 or 62 -- do not touch after initial configuration
+POLR_BASE={{$ST_BASE}}
+
 # Do not touch
 POLR_RELDATE={{env('VERSION_RELMONTH')}} {{env('VERSION_RELDAY')}}, {{env('VERSION_RELYEAR')}}
 POLR_VERSION={{env('VERSION')}}
-POLR_BASE={{$ST_BASE}}
 POLR_SECRET_BYTES=2
 
 TMP_SETUP_AUTH_KEY={{$TMP_SETUP_AUTH_KEY}}
