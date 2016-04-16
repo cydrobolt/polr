@@ -21,6 +21,6 @@ class ApiHelper {
             ->where('created_at', '>=', $last_minute)
             ->count();
 
-        return ($links_last_minute >= $user->api_quota);
+        return ($user->api_quota > -1 && $links_last_minute >= $user->api_quota);
     }
 }
