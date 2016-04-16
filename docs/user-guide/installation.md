@@ -185,10 +185,14 @@ You may also use SQLite in place of MySQL for Polr. However, SQLite is not recom
 Once your server is properly set up, you will need to configure Polr and
 enable it to access the database.
 
-Head over to your new Polr instance, at the path `/setup/` to configure
+Copy the `.env.setup` file to `.env` in your website's root directory.
+
+`$ cp .env.setup .env`
+
+Then, head over to your new Polr instance, at the path `/setup/` to configure
 your instance with the correct information.
 
-This will automatically create your databases and write a configuration file to disk, `.env`. You may make changes later on by editing this file.
+This will automatically create your databases and write a new configuration file to disk, `.env`. You may make changes later on by editing this file.
 
 You should be set. You may go back to your Polr homepage and log in to perform
 any other actions.
@@ -199,8 +203,11 @@ If you wish to configure and initialize Polr manually, you may do so using
 your command line.
 
 Rename copy `resources/views/env.blade.php` to `.env` at the root directory
-and update the values appropriately. You may then run the following `artisan`
-command to populate the database. You will also need to insert a admin user into the `users` table through `mysql` or a graphical `sql` interface.
+and update the values appropriately. Do not leave any curly braces in your new `.env`. You may leave
+certain sections empty to use the defaults.
+
+You may then run the following `artisan` command to populate the database.
+You will also need to insert a admin user into the `users` table through `mysql` or a graphical `sql` interface.
 
 ```bash
 php artisan migrate --force
