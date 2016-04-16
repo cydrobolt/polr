@@ -22,3 +22,13 @@
 .api-quota {
     display: inline;
 }
+
+.wrap-text {
+    word-wrap: break-word;
+}
+
+@media (min-width: 700px) {
+    table {
+        table-layout: fixed;
+    }
+}

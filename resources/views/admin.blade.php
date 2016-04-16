@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class='col-md-3'>
+<div class='col-md-2'>
     <ul class='nav nav-pills nav-stacked admin-nav' role='tablist'>
         <li role='presentation' aria-controls="home" class='admin-nav-item active'><a href='#home'>Home</a></li>
         <li role='presentation' aria-controls="links" class='admin-nav-item'><a href='#links'>Links</a></li>
@@ -20,7 +20,7 @@
         @endif
     </ul>
 </div>
-<div class='col-md-9'>
+<div class='col-md-10'>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
             <h2>Welcome to your {{env('APP_NAME')}} dashboard!</h2>

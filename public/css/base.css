@@ -17,9 +17,6 @@ body {
     margin-bottom: 15px;
 }
 
-.content-div-padding {
-    padding-top: 65px;
-}
 .content-div {
     text-align: left;
     background-color: rgba(0,0,0,0);
@@ -39,4 +36,16 @@ body {
 
 .error-alert {
     text-align: left;
+}
+
+@media (min-width: 768px) {
+    .content-div-padding {
+        padding-top: 4em;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-div-padding {
+        padding-top: 1em;
+    }
 }
