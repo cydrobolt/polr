@@ -15,11 +15,14 @@
     @foreach ($links as $link)
     <tr>
         <td>{{$link->short_url}}</td>
-        {{-- TODO truncate long link --}}
-        <td>{{$link->long_url}}</td>
+        <td class='wrap-text'>
+            <a href='{{$link->long_url}}'>
+                {{str_limit($link->long_url, 50, '...')}}
+            </a>
+        </td>
         <td>{{$link->clicks}}</td>
         <td>{{$link->created_at}}</td>
-        <td>{{isset($link->secret_key)}}</td>
+        <td>{{empty($link->secret_key) ? 'false' : 'true'}}</td>
 
         @if ($role == 'admin')
         <td>{{$link->creator}}</td>

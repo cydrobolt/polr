@@ -15,7 +15,7 @@ class AdminController extends Controller {
      */
     public function displayAdminPage(Request $request) {
         if (!$this->isLoggedIn()) {
-            return abort(404);
+            return redirect(route('login'))->with('error', 'Please login to access your dashboard.');
         }
 
         $username = session('username');

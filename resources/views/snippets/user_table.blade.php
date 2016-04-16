@@ -12,7 +12,7 @@
         <td>{{$user->username}}</td>
         <td>{{$user->email}}</td>
         <td>{{$user->created_at}}</td>
-        <td>{{$user->active}}</td>
+        <td>{{$user->active ? 'true' : 'false'}}</td>
         <td>
         @if ($user->active)
             <a  class='activate-api-modal btn btn-sm btn-info'
