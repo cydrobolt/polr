@@ -23,7 +23,11 @@ class UserController extends Controller {
         return view('signup');
     }
 
-    public function logoutUser(Request $request) {
+    public function displayLostPasswordPage(Request $request) {
+        return view('lost_password');
+    }
+
+    public function performLogoutUser(Request $request) {
         $request->session()->forget('username');
         return redirect()->route('index');
     }
@@ -114,7 +118,7 @@ class UserController extends Controller {
         return $response;
     }
 
-    public static function performActivation(Request $request, $username, $recovery_key) {
+    public function performActivation(Request $request, $username, $recovery_key) {
         $user = UserHelper::getUserByUsername($username, $inactive=true);
 
         if ($user) {
@@ -137,6 +141,58 @@ class UserController extends Controller {
         else {
             return redirect(route('index'))->with('error', 'Username or activation key incorrect.');
         }
+    }
+
+    public function performSendPasswordResetCode(Request $request) {
+        if (!env('SETTING_PASSWORD_RECOV')) {
+            return redirect(route('index'))->with('error', 'Password recovery is disabled.');
+        }
+
+        UserHelper::resetRecoveryKey($username);
+
+        $email = $request->input('email');
+        $ip = $request->ip();
+        $user = UserHelper::getUserByEmail($email);
+
+
+        Mail::send('emails.lost_password', [
+            'username' => $user->username, 'recovery_key' => $user->recovery_key, 'ip' => $ip
+        ], function ($m) use ($user) {
+            $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+
+            $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' password reset');
+        });
+
+        return redirect(route('index'))->with('success', 'Password reset email sent. Check your inbox for details.');
+    }
+
+    public function performPasswordReset(Request $request, $username, $recovery_key) {
+        if (!$request->input('new_password')) {
+            return view('reset_password');
+        }
+
+        $user = UserHelper::getUserByUsername($username);
+
+        if ($user) {
+            $user_recovery_key = $user->recovery_key;
+
+            if ($recovery_key == $user_recovery_key) {
+                // Key is correct
+                // Reset password
+                $user->password = $new_password;
+                $user->save();
+
+                UserHelper::resetRecoveryKey($username);
+                return redirect(route('login'))->with('success', 'Password reset. You may now login.');
+            }
+            else {
+                return redirect(route('index'))->with('error', 'Username or activation key incorrect.');
+            }
+        }
+        else {
+            return redirect(route('index'))->with('error', 'Username or reset key incorrect.');
+        }
+
     }
 
 }
