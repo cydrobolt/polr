@@ -6,6 +6,10 @@
     margin-bottom: 20px;
 }
 
-.signup-prompt {
+.login-prompts {
     padding-top: 15px;
+}
+
+.login-prompts small {
+    display: block;
 }

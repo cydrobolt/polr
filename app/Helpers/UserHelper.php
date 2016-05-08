@@ -62,6 +62,22 @@ class UserHelper {
         $user->recovery_key = $recovery_key;
         $user->save();
 
+        return $recovery_key;
+    }
+
+    public static function userResetKeyCorrect($username, $recovery_key, $inactive=false) {
+        // Given a username and a recovery key, return true if they match.
+
+        $user = self::getUserByUsername($username, $inactive);
+
+        if ($user) {
+            if ($recovery_key != $user->recovery_key) {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
         return true;
     }
 

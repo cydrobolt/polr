@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Mail;
+use Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,11 @@ class UserController extends Controller {
         return view('signup');
     }
 
-    public function logoutUser(Request $request) {
+    public function displayLostPasswordPage(Request $request) {
+        return view('lost_password');
+    }
+
+    public function performLogoutUser(Request $request) {
         $request->session()->forget('username');
         return redirect()->route('index');
     }
@@ -114,29 +119,70 @@ class UserController extends Controller {
         return $response;
     }
 
-    public static function performActivation(Request $request, $username, $recovery_key) {
-        $user = UserHelper::getUserByUsername($username, $inactive=true);
+    public function performSendPasswordResetCode(Request $request) {
+        if (!env('SETTING_PASSWORD_RECOV')) {
+            return redirect(route('index'))->with('error', 'Password recovery is disabled.');
+        }
 
-        if ($user) {
-            $user_recovery_key = $user->recovery_key;
+        $email = $request->input('email');
+        $ip = $request->ip();
+        $user = UserHelper::getUserByEmail($email);
 
-            if ($recovery_key == $user_recovery_key) {
-                // Key is correct
-                // Activate account and reset recovery key
-                $user->active = 1;
-                $user->save();
+        if (!$user) {
+            return redirect(route('lost_password'))->with('error', 'Email is not associated with a user.');
+        }
 
-                UserHelper::resetRecoveryKey($username);
-                return redirect(route('login'))->with('success', 'Account activated. You may now login.');
-            }
-            else {
-                return $user->recovery_key;
-                // return redirect(route('index'))->with('error', 'Username or activation key incorrect.');
-            }
+        $recovery_key = UserHelper::resetRecoveryKey($user->username);
+
+        Mail::send('emails.lost_password', [
+            'username' => $user->username, 'recovery_key' => $recovery_key, 'ip' => $ip
+        ], function ($m) use ($user) {
+            $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+
+            $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' Password Reset');
+        });
+
+        return redirect(route('index'))->with('success', 'Password reset email sent. Check your inbox for details.');
+    }
+
+    public function performActivation(Request $request, $username, $recovery_key) {
+        $user = UserHelper::getUserByUsername($username, true);
+
+        if (UserHelper::userResetKeyCorrect($username, $recovery_key, true)) {
+            // Key is correct
+            // Activate account and reset recovery key
+            $user->active = 1;
+            $user->save();
+
+            UserHelper::resetRecoveryKey($username);
+            return redirect(route('login'))->with('success', 'Account activated. You may now login.');
         }
         else {
             return redirect(route('index'))->with('error', 'Username or activation key incorrect.');
         }
+    }
+
+    public function performPasswordReset(Request $request, $username, $recovery_key) {
+        $new_password = $request->input('new_password');
+        $user = UserHelper::getUserByUsername($username);
+
+        if (UserHelper::userResetKeyCorrect($username, $recovery_key)) {
+            if (!$new_password) {
+                return view('reset_password');
+            }
+
+            // Key is correct
+            // Reset password
+            $user->password = Hash::make($new_password);
+            $user->save();
+
+            UserHelper::resetRecoveryKey($username);
+            return redirect(route('login'))->with('success', 'Password reset. You may now login.');
+        }
+        else {
+            return redirect(route('index'))->with('error', 'Username or reset key incorrect.');
+        }
+
     }
 
 }
