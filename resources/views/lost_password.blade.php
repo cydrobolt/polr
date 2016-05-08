@@ -9,7 +9,7 @@
 
 <div class='col-md-6 col-md-offset-3'>
     <form action='/lost_password' method='POST'>
-        <input type='email' placeholder='Email' class='form-control email-input-pd'>
+        <input type='email' name='email' placeholder='Email' class='form-control email-input-pd'>
         <input type="hidden" name='_token' value='{{csrf_token()}}' />
         <input type='submit' value='Send a password reset email' class='form-control'>
     </form>

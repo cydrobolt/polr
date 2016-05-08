@@ -15,11 +15,15 @@
             <input type="hidden" name='_token' value='{{csrf_token()}}' />
             <input type="submit" value="Login" class="login-submit btn btn-success" />
 
+            <p class='login-prompts'>
             @if (env('POLR_ALLOW_ACCT_CREATION') == true)
-                <p class='signup-prompt'>
-                    <small>Don't have an account? <a href='{{route('signup')}}'>Register</a></small>
-                </p>
-            @endif    
+                <small>Don't have an account? <a href='{{route('signup')}}'>Register</a></small>
+            @endif
+
+            @if (env('SETTING_PASSWORD_RECOV') == true)
+                <small>Forgot your password? <a href='{{route('lost_password')}}'>Reset</a></small>
+            @endif
+            </p>
         </form>
     </div>
     <div class="col-md-3"></div>

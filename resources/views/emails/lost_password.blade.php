@@ -5,8 +5,6 @@
     account at {{env('APP_NAME')}}.
 </p>
 
-<br />
-
 <a href='{{env('APP_PROTOCOL')}}{{env('APP_ADDRESS')}}/reset_password/{{$username}}/{{$recovery_key}}'>
     {{env('APP_PROTOCOL')}}{{env('APP_ADDRESS')}}/reset_password/{{$username}}/{{$recovery_key}}
 </a>
