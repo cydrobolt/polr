@@ -15,7 +15,12 @@ class IndexController extends Controller {
         }
 
         if (!env('SETTING_PUBLIC_INTERFACE') && !self::isLoggedIn()) {
-            return redirect()->to(env('SETTING_INDEX_REDIRECT'));
+            if (env('SETTING_INDEX_REDIRECT')) {
+                return redirect()->to(env('SETTING_INDEX_REDIRECT'));
+            }
+            else {
+                return redirect()->to(route('login'));
+            }
         }
 
         return view('index', ['large' => true]);
