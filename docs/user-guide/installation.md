@@ -9,7 +9,6 @@ The following software is required on your server to run Polr 2.0.
 In the case that you cannot fulfill the following requirements (e.g free shared hosting),
 you may be interested in looking at a [legacy 1.x release](https://github.com/cydrobolt/polr/releases) of Polr (now unsupported).
 
-If you would like to download a stable version of Polr, you may check out [the releases page](https://github.com/cydrobolt/polr/releases).
 
  - Apache, nginx, IIS, or lighttpd (Apache preferred)
  - PHP >= 5.5.9
@@ -25,6 +24,8 @@ If you would like to download a stable version of Polr, you may check out [the r
 
 ## Downloading the source code
 
+If you would like to download a stable version of Polr, you may check out [the releases page](https://github.com/cydrobolt/polr/releases).
+
 ```bash
 $ sudo su
 # switch to Polr directory (replace with other directory path if applicable)
@@ -33,6 +34,10 @@ $ cd /var/www
 $ git clone https://github.com/cydrobolt/polr.git
 # set correct permissions
 $ chmod -R 755 polr
+
+# if you would like to use a specific release, check out
+# the tag associated with the release. see link above.
+$ # git checkout <tag>
 
 # run only if on Ubuntu-based systems
 $ chown -R www-data polr
