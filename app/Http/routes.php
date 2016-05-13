@@ -38,7 +38,7 @@ $app->post('/reset_password/{username}/{recovery_key}', ['as' => 'preset_passwor
 
 $app->post('/admin/action/change_password', ['as' => 'change_password', 'uses' => 'AdminController@changePassword']);
 
-$app->group(['prefix' => '/api/v2'], function ($app) {
+$app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], function ($app) {
     /* API internal endpoints */
     $app->post('link_avail_check', ['as' => 'api_link_check', 'uses' => 'AjaxController@checkLinkAvailability']);
     $app->post('admin/toggle_api_active', ['as' => 'api_toggle_api_active', 'uses' => 'AjaxController@toggleAPIActive']);
