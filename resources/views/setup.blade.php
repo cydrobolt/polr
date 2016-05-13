@@ -113,14 +113,14 @@ Setup
 
             <p>Anonymous API:</p>
             <select name='setting:anon_api' class='form-control'>
-                <option selected value='off'>Off -- only registered users can use API</option>
-                <option value='on'>On -- empty key API requests are allowed</option>
+                <option selected value='false'>Off -- only registered users can use API</option>
+                <option value='true'>On -- empty key API requests are allowed</option>
             </select>
 
             <p>Automatic API Assignment:</p>
             <select name='setting:auto_api_key' class='form-control'>
-                <option selected value='off'>Off -- admins must manually enable API for each user</option>
-                <option value='on'>On -- each user receives an API key</option>
+                <option selected value='false'>Off -- admins must manually enable API for each user</option>
+                <option value='true'>On -- each user receives an API key</option>
             </select>
 
             <h4>Other Settings</h4>

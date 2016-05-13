@@ -13,9 +13,8 @@ class ApiController extends Controller {
 
         if (!$api_key) {
             // no API key provided -- check whether anonymous API is on
-            // TODO: throttle requests from anonymous API
 
-            if (env('SETTING_ANON_API') == 'on') {
+            if (env('SETTING_ANON_API')) {
                 $username = 'ANONIP-' . $request->ip();
             }
             else {

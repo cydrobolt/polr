@@ -97,7 +97,8 @@ class UserController extends Controller {
 
         $api_active = false;
         $api_key = null;
-        if (env('SETTING_AUTO_API') == 'on') {
+
+        if (env('SETTING_AUTO_API')) {
             // if automatic API key assignment is on
             $api_active = 1;
             $api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
