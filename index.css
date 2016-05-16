@@ -40,6 +40,7 @@ a:hover {
 }
 a {
     color: #364c62;
+    text-decoration: underline;
 }
 footer {
     margin-top: 2em;
