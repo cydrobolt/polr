@@ -1,0 +1,47 @@
+body {
+    font-family: 'Georgia', serif !important;
+    font-size: 17px;
+    color: #000;
+}
+h2, h3, h4 {
+    font-family: 'Garamond', 'Georgia', serif;
+    font-weight: normal;
+}
+.center-nav {
+    text-align: center;
+    display: block;
+}
+.center-nav a {
+    margin-right: 0.3em;
+    margin-left: 0.3em;
+}
+.center-img {
+    text-align: center;
+}
+em {
+    /*font-size: 105%;*/
+    font-size: 1.05em;
+}
+ul li:before {
+    content: "\00BB \0020";
+    color: #888;
+    position: absolute;
+    margin-left: -19px;
+}
+ul {
+    margin: 15px 0 15px 0;
+    margin-left: 1.5em;
+    padding: 0;
+    list-style: none;
+    line-height: 1.4;
+}
+a:hover {
+    color: #2980b9;
+}
+a {
+    color: #364c62;
+}
+footer {
+    margin-top: 2em;
+    font-size: 0.8em;
+}
