@@ -131,7 +131,7 @@ server {
             fastcgi_pass    php;
             fastcgi_index   index.php;
             fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            fastcgi_param   HTTP_HOST       $server_name
+            fastcgi_param   HTTP_HOST       $server_name;
     }
 }
 
