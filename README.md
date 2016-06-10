@@ -35,6 +35,9 @@ Admin username: demo-admin (password is same as username)
 
 Normal user username: demo-user (password is same as username)
 
+#### Browser Extensions
+
+* Safari - [Polr.safariextension](https://github.com/cleverdevil/Polr.safariextension).
 
 ####Versioning
 
