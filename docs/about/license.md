@@ -4,7 +4,7 @@
 Polr is licensed under the GPLv2+
 
 <pre>
-Copyright (C) 2013-2015 Chaoyi Zha &lt;me [at] cydrobolt [dot] com&gt;
+Copyright (C) 2013-2016 Chaoyi Zha
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

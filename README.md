@@ -26,9 +26,23 @@ Polr is written in PHP and Laravel, using MySQL as its primary database.
 
 
 _Installation TL;DR: clone or download this repository, set document root to `public/`, MySQL create database, go to `yoursite.com/setup`_
+
+#### Demo
+
+Polr operates a demo instance at [demo.polr.me](http://demo.polr.me). You can use the demo instance to develop your API implementation, try out the admin panel, or simply experience the app without needing to install it on your own servers. The demo instance may be periodically reset, so please do not use the demo as a production URL shortener.
+
+Admin username: demo-admin (password is same as username)
+
+Normal user username: demo-user (password is same as username)
+
+#### Browser Extensions
+
+* Safari - [Polr.safariextension](https://github.com/cleverdevil/Polr.safariextension).
+
 ####Versioning
 
 Polr uses [Semantic Versioning](http://semver.org/)
+
 
 ####License
 
