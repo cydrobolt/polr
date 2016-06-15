@@ -2,10 +2,13 @@
 
 @section('css')
 <link rel='stylesheet' href='/css/about.css' />
+<link rel='stylesheet' href='/css/effects.css' />
 @endsection
 
 @section('content')
-<img class='logo-img' src='/img/logo.png' />
+<div class='well logo-well'>
+    <img class='logo-img' src='/img/logo.png' />
+</div>
 
 <div class='about-contents'>
     @if ($role == "admin")

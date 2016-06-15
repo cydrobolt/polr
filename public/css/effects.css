@@ -1,0 +1,27 @@
+@-webkit-keyframes colorpulse {
+  0% {
+    background: #0bc0c2; }
+  25% {
+    background: #f863f3; }
+  50% {
+    background: #fc5843; }
+  100% {
+    background: #0bc0c2; } }
+@keyframes colorpulse {
+  0% {
+    background: #0bc0c2; }
+  25% {
+    background: #f863f3; }
+  50% {
+    background: #fc5843; }
+  100% {
+    background: #0bc0c2; } }
+@-moz-keyframes colorpulse {
+  0% {
+    background: #0bc0c2; }
+  25% {
+    background: #f863f3; }
+  50% {
+    background: #fc5843; }
+  100% {
+    background: #0bc0c2; } }

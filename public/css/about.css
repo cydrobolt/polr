@@ -16,5 +16,13 @@
 }
 
 .logo-img {
-    height: 100px;
+    width: 18em;
+}
+
+.logo-well {
+    width: 19em;
+
+    -webkit-animation: colorpulse 20s infinite;
+    animation: colorpulse 20s infinite;
+    -moz-animation: colorpulse 20s infinite;
 }
