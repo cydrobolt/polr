@@ -9,7 +9,7 @@
     </tr>
     @foreach ($users as $user)
     <tr>
-        <td>{{$user->username}}</td>
+        <td class='wrap-text'>{{$user->username}}</td>
         <td class='wrap-text'>{{$user->email}}</td>
         <td>{{$user->created_at}}</td>
         <td>{{$user->active ? 'true' : 'false'}}</td>

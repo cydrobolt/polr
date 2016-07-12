@@ -6,6 +6,8 @@ function syncHash() {
 }
 
 function appendModal(html, id) {
+    id = esc_selector(id);
+
     $('body').append(html);
     var modal_ele = $('#' + id);
     modal_ele.append(html);
