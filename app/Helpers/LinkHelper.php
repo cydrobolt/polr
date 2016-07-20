@@ -69,9 +69,8 @@ class LinkHelper {
     }
 
     static public function validateEnding($link_ending) {
-        $is_alphanum = ctype_alnum($link_ending);
-
-        return $is_alphanum;
+        $is_valid_ending = preg_match('/^[a-zA-Z0-9-]+$/', $link_ending);
+        return $is_valid_ending;
     }
 
     static public function processPostClick($link) {
