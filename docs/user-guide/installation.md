@@ -105,7 +105,7 @@ Useful LEMP installation tutorial by [DigitalOcean](https://www.digitalocean.com
 ```nginx
 # Upstream to abstract backend connection(s) for php
 upstream php {
-    server unix:/var/run/php-fpm.sock;
+    server unix:/var/run/php5-fpm.sock;
     server 127.0.0.1:9000;
 }
 
@@ -157,7 +157,7 @@ server {
 #           fastcgi_pass    php;
 #           fastcgi_index   index.php;
 #           fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#           fastcgi_param   HTTP_HOST       $server_name
+#           fastcgi_param   HTTP_HOST       $server_name;
 #   }
 #}
 ```
