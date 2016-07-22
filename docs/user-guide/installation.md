@@ -105,7 +105,7 @@ Useful LEMP installation tutorial by [DigitalOcean](https://www.digitalocean.com
 ```nginx
 # Upstream to abstract backend connection(s) for php
 upstream php {
-    server unix:/var/run/php5-fpm.sock;
+    server unix:/var/run/php-fpm.sock;
     server 127.0.0.1:9000;
 }
 
