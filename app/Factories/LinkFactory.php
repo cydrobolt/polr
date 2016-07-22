@@ -46,9 +46,10 @@ class LinkFactory {
                 looks like a shortened URL.');
         }
 
-        if (!$is_secret && !$custom_ending && ($existing_link = LinkHelper::longLinkExists($long_url)) !== false) {
+        if (!$is_secret && !$custom_ending && (LinkHelper::longLinkExists($long_url) !== false)) {
             // if link is not specified as secret, is non-custom, and
             // already exists in Polr, lookup the value and return
+            $existing_link = LinkHelper::longLinkExists($long_url);
             return self::formatLink($existing_link);
         }
 
@@ -57,7 +58,7 @@ class LinkFactory {
             $ending_conforms = LinkHelper::validateEnding($custom_ending);
             if (!$ending_conforms) {
                 throw new \Exception('Sorry, but custom endings
-                    can only contain alphanumeric characters');
+                    can only contain alphanumeric characters, hyphens, and underscores.');
             }
 
             $ending_in_use = LinkHelper::linkExists($custom_ending);
