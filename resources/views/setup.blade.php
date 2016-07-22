@@ -74,8 +74,8 @@ Setup
 
             <p>URL Ending Base:</p>
             <select name='setting:base' class='form-control'>
-                <option value='32' selected='selected'>32 -- lowercase letters, numbers, underscores & hyphens (default)</option>
-                <option value='62'>62 -- lowercase, uppercase letters, numbers, underscores & hyphens</option>
+                <option value='32' selected='selected'>32 -- lowercase letters & numbers (default)</option>
+                <option value='62'>62 -- lowercase, uppercase letters & numbers</option>
             </select>
 
             <h4>Admin Account Settings</h4>
