@@ -57,7 +57,7 @@ class LinkFactory {
             $ending_conforms = LinkHelper::validateEnding($custom_ending);
             if (!$ending_conforms) {
                 throw new \Exception('Sorry, but custom endings
-                    can only contain alphanumeric characters');
+                    can only contain alphanumeric characters, hyphens, and underscores.');
             }
 
             $ending_in_use = LinkHelper::linkExists($custom_ending);
