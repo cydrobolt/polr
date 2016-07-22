@@ -59,7 +59,9 @@ class LinkHelper {
          */
         $link = Link::where('long_url', $long_url)
             ->where('is_custom', 0)
+            ->where('secret_key', '')
             ->first();
+
         if ($link == null) {
             return false;
         }
