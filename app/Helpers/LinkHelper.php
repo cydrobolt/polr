@@ -69,7 +69,7 @@ class LinkHelper {
     }
 
     static public function validateEnding($link_ending) {
-        $is_valid_ending = preg_match('/^[a-zA-Z0-9-]+$/', $link_ending);
+        $is_valid_ending = preg_match('/^[a-zA-Z0-9-_]+$/', $link_ending);
         return $is_valid_ending;
     }
 
