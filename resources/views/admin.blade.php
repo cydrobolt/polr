@@ -88,7 +88,13 @@
 
 
             <h4>API Quota: </h4>
-            <h2 class='api-quota'><code>{{$api_quota}}</code></h2>
+            <h2 class='api-quota'>
+                @if ($api_quota == -1)
+                    unlimited
+                @else
+                    <code>{{$api_quota}}</code>
+                @endif
+            </h2>
             <span> requests per minute</span>
         </div>
         @endif
