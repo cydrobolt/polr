@@ -16,12 +16,7 @@
         <td>
         @if ($user->active)
             <a  class='activate-api-modal btn btn-sm btn-info'
-
-                data-api-active='{{$user->api_active}}'
-                data-api-key='{{$user->api_key}}'
-                data-api-quota='{{$user->api_quota}}'
-                data-user-id='{{$user->id}}'
-                data-username='{{$user->username}}'>
+                ng-click="openAPIModal($event, '{{$user->username}}', '{{$user->api_key}}', '{{$user->api_active}}', '{{$user->api_quota}}', '{{$user->id}}')">
                 API info
             </a>
         @else
@@ -30,8 +25,7 @@
         </td>
 
         <td>
-            <a  class='delete-user btn btn-sm btn-danger @if (session('username') == $user->username)disabled @endif'
-
+            <a  ng-click="deleteUser($event)" class='btn btn-sm btn-danger @if (session('username') == $user->username)disabled @endif'
                 data-user-id='{{$user->id}}'>
                 Delete
             </a>
