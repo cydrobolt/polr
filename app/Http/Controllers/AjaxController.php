@@ -83,7 +83,9 @@ class AjaxController extends Controller {
             // ensure that user is permitted to access the API
             $user_api_enabled = $user->api_active;
             if (!$user_api_enabled) {
-                abort(403, 'API access not authorized.');
+                // if the user does not have API access toggled on, 
+                // allow only if user is an admin
+                self::ensureAdmin();
             }
         }
 
