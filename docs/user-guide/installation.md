@@ -120,8 +120,8 @@ server {
                                                  # Recommended for public, internet-facing, websites.
 
     location / {
-            try_files $uri $uri/ /index.php?$query_string;
-            rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
+            try_files $uri $uri/ /index.php$is_args$args;
+            # rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
     }
 
     location ~ \.php$ {
@@ -146,8 +146,8 @@ server {
 #   server_name         example.com;
 #
 #   location / {
-#           try_files $uri $uri/ /index.php?$query_string;
-#           rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
+#           try_files $uri $uri/ /index.php$is_args$args;
+#           # rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
 #   }
 #
 #   location ~ \.php$ {
