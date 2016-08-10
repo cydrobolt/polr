@@ -23,6 +23,13 @@
     display: inline;
 }
 
+input.api-quota {
+    display: inline;
+    width: 9em;
+    font-size: .85em;
+    height: .85em;
+}
+
 .wrap-text {
     word-wrap: break-word;
 }

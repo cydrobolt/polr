@@ -83,7 +83,7 @@
                         <input class='form-control status-display' disabled type='text' value='{{$api_key}}'>
                     </div>
                     <div class='col-md-4'>
-                        <a href='#' ng-click="generateNewAPIKey(event, '{{$user_id}}', true)" id='api-reset-key' class='btn btn-danger'>Reset</a>
+                        <a href='#' ng-click="generateNewAPIKey($event, '{{$user_id}}', true)" id='api-reset-key' class='btn btn-danger'>Reset</a>
                     </div>
                 </div>
 
