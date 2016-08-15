@@ -105,9 +105,9 @@ class SetupController extends Controller {
         $st_password_recov = $request->input('setting:password_recovery');
 
         $st_base = $request->input('setting:base');
-
         $st_auto_api_key = $request->input('setting:auto_api_key');
         $st_anon_api = $request->input('setting:anon_api');
+        $st_pseudor_ending = $request->input('setting:pseudor_ending');
 
         $mail_host = $request->input('app:smtp_server');
         $mail_port = $request->input('app:smtp_port');
@@ -156,6 +156,7 @@ class SetupController extends Controller {
             'ST_BASE' => $st_base,
             'ST_AUTO_API' => $st_auto_api_key,
             'ST_ANON_API' => $st_anon_api,
+            'ST_PSEUDOR_ENDING' => $st_pseudor_ending,
 
             'TMP_SETUP_AUTH_KEY' => $setup_auth_key
         ])->render();

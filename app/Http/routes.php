@@ -43,9 +43,11 @@ $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], func
     $app->post('link_avail_check', ['as' => 'api_link_check', 'uses' => 'AjaxController@checkLinkAvailability']);
     $app->post('admin/toggle_api_active', ['as' => 'api_toggle_api_active', 'uses' => 'AjaxController@toggleAPIActive']);
     $app->post('admin/generate_new_api_key', ['as' => 'api_generate_new_api_key', 'uses' => 'AjaxController@generateNewAPIKey']);
+    $app->post('admin/edit_api_quota', ['as' => 'api_edit_quota', 'uses' => 'AjaxController@editAPIQuota']);
     $app->post('admin/delete_user', ['as' => 'api_generate_new_api_key', 'uses' => 'AjaxController@deleteUser']);
     $app->post('admin/toggle_link', ['as' => 'api_toggle_link', 'uses' => 'AjaxController@toggleLink']);
     $app->post('admin/delete_link', ['as' => 'api_delete_link', 'uses' => 'AjaxController@deleteLink']);
+
 
     /* API shorten endpoints */
     $app->post('action/shorten', ['as' => 'api_shorten_url', 'uses' => 'Api\ApiLinkController@shortenLink']);

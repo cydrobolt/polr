@@ -69,8 +69,14 @@ class LinkFactory {
             $link_ending = $custom_ending;
         }
         else {
-            // no custom ending
-            $link_ending = LinkHelper::findSuitableEnding();
+            if (env('SETTING_PSEUDORANDOM_ENDING')) {
+                // generate a pseudorandom ending
+                $link_ending = LinkHelper::findPseudoRandomEnding();
+            }
+            else {
+                // generate a counter-based ending or use existing ending if possible
+                $link_ending = LinkHelper::findSuitableEnding();
+            }
         }
 
         $link = new Link;

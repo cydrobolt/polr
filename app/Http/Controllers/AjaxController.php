@@ -83,7 +83,9 @@ class AjaxController extends Controller {
             // ensure that user is permitted to access the API
             $user_api_enabled = $user->api_active;
             if (!$user_api_enabled) {
-                abort(403, 'API access not authorized.');
+                // if the user does not have API access toggled on,
+                // allow only if user is an admin
+                self::ensureAdmin();
             }
         }
 
@@ -92,6 +94,26 @@ class AjaxController extends Controller {
         $user->save();
 
         return $user->api_key;
+    }
+
+    public function editAPIQuota(Request $request) {
+        /**
+         * If user is an admin, allow the user to edit the per minute API quota of
+         * any user.
+         */
+
+        self::ensureAdmin();
+
+        $user_id = $request->input('user_id');
+        $new_quota = $request->input('new_quota');
+        $user = UserHelper::getUserById($user_id);
+
+        if (!$user) {
+            abort(404, 'User not found.');
+        }
+        $user->api_quota = $new_quota;
+        $user->save();
+        return "OK";
     }
 
     public function deleteUser(Request $request) {

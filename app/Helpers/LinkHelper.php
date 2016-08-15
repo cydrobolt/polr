@@ -83,6 +83,27 @@ class LinkHelper {
          */
     }
 
+    static public function findPseudoRandomEnding() {
+        /**
+         * Return an available pseudorandom string of length _PSEUDO_RANDOM_KEY_LENGTH,
+         * as defined in .env
+         * Edit _PSEUDO_RANDOM_KEY_LENGTH in .env if you wish to increase the length
+         * of the pseudorandom string generated.
+         * @return string
+         */
+
+        $pr_str = '';
+        $in_use = true;
+
+        while ($in_use) {
+            // Generate a new string until the ending is not in use
+            $pr_str = str_random(env('_PSEUDO_RANDOM_KEY_LENGTH'));
+            $in_use = LinkHelper::linkExists($pr_str);
+        }
+
+        return $pr_str;
+    }
+
     static public function findSuitableEnding() {
         /**
          * Provided an in-use link ending (string),

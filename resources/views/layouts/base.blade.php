@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
 
 <!DOCTYPE html>
-<html>
+<html ng-app="polr">
 <head>
     <title>@section('title'){{env('APP_NAME')}}@show</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- Leave this for stats --}}
+    <meta name="generator" content="Polr {{env('POLR_VERSION')}}" />
 
     {{-- Load Stylesheets --}}
-
     @if (env('APP_STYLESHEET'))
     <link rel="stylesheet" href="{{env('APP_STYLESHEET')}}">
     @else
@@ -52,9 +53,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <script src='/js/constants.js'></script>
     <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-
+    <script src='/js/angular.min.js'></script>
     <script src='/js/toastr.min.js'></script>
     <script src='/js/base.js'></script>
+
     <script>
     @if (Session::has('info'))
         toastr["info"](`{{session('info')}}`, "Info")

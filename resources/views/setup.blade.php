@@ -37,7 +37,10 @@ Setup
             <p>Database Password:</p>
             <input type='password' class='form-control' name='db:password' value='password'>
 
-            <p>Database Name:</p>
+            <p>
+                Database Name:
+                <button data-content="Name of existing database. You must create the Polr database manually." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
             <input type='text' class='form-control' name='db:name' value='polr'>
 
 
@@ -54,7 +57,7 @@ Setup
 
             <p>Shortening Permissions:</p>
             <select name='setting:shorten_permission' class='form-control'>
-                <option value='false' selected='selected'>All users can shorten URLs</option>
+                <option value='false' selected='selected'>Anyone can shorten URLs</option>
                 <option value='true'>Only logged in users may shorten URLs</option>
             </select>
 
@@ -64,7 +67,10 @@ Setup
                 <option value='false'>Hide public interface (for private shorteners)</option>
             </select>
 
-            <p>If public interface is hidden, redirect index page to:</p>
+            <p>
+                If public interface is hidden, redirect index page to:
+                <button data-content="Required if public interface is hidden. To use Polr, login by directly heading to yoursite.com/login first." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
             <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
             <p class='text-muted'>
                 If a redirect is enabled, you will need to go to
@@ -72,13 +78,28 @@ Setup
                 page.
             </p>
 
-            <p>URL Ending Base:</p>
+            <p>
+                Default URL Ending Type:
+                <button data-content="If you choose to use pseudorandom strings, you will not have the option to use a counter-based ending." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
+            <select name='setting:pseudor_ending' class='form-control'>
+                <option value='false' selected='selected'>Use base62 or base32 counter (shorter but more predictable, e.g 5a)</option>
+                <option value='true'>Use pseudorandom strings (longer but less predictable, e.g 6LxZ3j)</option>
+            </select>
+
+            <p>
+                URL Ending Base:
+                <button data-content="This will have no effect if you choose to use pseudorandom endings." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
             <select name='setting:base' class='form-control'>
                 <option value='32' selected='selected'>32 -- lowercase letters & numbers (default)</option>
                 <option value='62'>62 -- lowercase, uppercase letters & numbers</option>
             </select>
 
-            <h4>Admin Account Settings</h4>
+            <h4>
+                Admin Account Settings
+                <button data-content="These credentials will be used for your admin account in Polr." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </h4>
 
             <p>Admin Username:</p>
             <input type='text' class='form-control' name='acct:username' value='polr'>
@@ -89,8 +110,10 @@ Setup
             <p>Admin Password:</p>
             <input type='password' class='form-control' name='acct:password' value='polr'>
 
-            <h4>SMTP Settings</h4>
-            <p class='text-muted'>(leave blank if you are not using email verification/password recovery)</p>
+            <h4>
+                SMTP Settings
+                <button data-content="Required only if the email verification or password recovery features are enabled." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </h4>
 
             <p>SMTP Server:</p>
             <input type='text' class='form-control' name='app:smtp_server' placeholder='smtp.gmail.com'>
@@ -120,22 +143,28 @@ Setup
             <p>Automatic API Assignment:</p>
             <select name='setting:auto_api_key' class='form-control'>
                 <option selected value='false'>Off -- admins must manually enable API for each user</option>
-                <option value='true'>On -- each user receives an API key</option>
+                <option value='true'>On -- each user receives an API key on signup</option>
             </select>
 
             <h4>Other Settings</h4>
 
-            <p>Registration:</p>
+            <p>
+                Registration:
+                <button data-content="Enabling registration allows any user to create an account." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
             <select name='setting:registration_permission' class='form-control'>
-                <option value='none'>No registration</option>
-                <option value='email'>Email verification required</option>
-                <option value='no-verification'>No email verification required</option>
+                <option value='none'>Registration disabled</option>
+                <option value='email'>Enabled, email verification required</option>
+                <option value='no-verification'>Enabled, no email verification required</option>
             </select>
 
-            <p>Password Recovery:</p>
+            <p>
+                Password Recovery:
+                <button data-content="Password recovery allows users to reset their password through email." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
             <select name='setting:password_recovery' class='form-control'>
-                <option value='false'>No (default)</option>
-                <option value='true'>Yes</option>
+                <option value='false'>Password recovery disabled</option>
+                <option value='true'>Password recovery enabled</option>
             </select>
             <p class='text-muted'>
                 Please ensure SMTP is properly set up before enabling password recovery.
@@ -144,7 +173,7 @@ Setup
             {{-- <p>Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/):</p>
             <input type='text' class='form-control' name='path' placeholder='/polr/' value=''> --}}
 
-            <p>Theme (click <a href='https://github.com/cydrobolt/polr/wiki/Themes-Screenshots'>here</a> for screenshots:</p>
+            <p>Theme (<a href='https://github.com/cydrobolt/polr/wiki/Themes-Screenshots'>screenshots</a>):</p>
             <select name='app:stylesheet' class='form-control'>
                 <option value=''>Modern (default)</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css'>Midnight Black</option>
@@ -171,20 +200,25 @@ Setup
 </div>
 
 <div class='setup-footer well'>
-    Polr is <a href='http://en.wikipedia.org/wiki/Open-source_software'>open-source
+    Polr is <a href='https://opensource.org/osd' target='_blank'>open-source
     software</a> licensed under the <a href='//www.gnu.org/copyleft/gpl.html'>GPLv2+
-    License</a>. By continuing to use Polr, you agree to the terms of the GPL License.
+    License</a>.
 
     <div>
         Polr Version {{env('VERSION')}} released {{env('VERSION_RELMONTH')}} {{env('VERSION_RELDAY')}}, {{env('VERSION_RELYEAR')}} -
-        <a href='//github.com/cydrobolt/polr'>Github</a>
+        <a href='//github.com/cydrobolt/polr' target='_blank'>Github</a>
 
         <div class='footer-well'>
             &copy; Copyright {{env('VERSION_RELYEAR')}}
-            <a class='footer-link' href='//cydrobolt.com'>Chaoyi Zha</a> &
-            <a class='footer-link' href='//github.com/Cydrobolt/polr/graphs/contributors'>Other Polr Contributors</a>
+            <a class='footer-link' href='//cydrobolt.com' target='_blank'>Chaoyi Zha</a> &amp;
+            <a class='footer-link' href='//github.com/Cydrobolt/polr/graphs/contributors' target='_blank'>other Polr contributors</a>
         </div>
     </div>
 </div>
 
+@endsection
+
+@section('js')
+<script src="/js/bootstrap.min.js"></script>
+<script src='/js/setup.js'></script>
 @endsection
