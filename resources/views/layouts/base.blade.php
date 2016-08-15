@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- Leave this for stats --}}
+    <meta name="generator" content="Polr {{env('POLR_VERSION')}}" />
 
     {{-- Load Stylesheets --}}
-
     @if (env('APP_STYLESHEET'))
     <link rel="stylesheet" href="{{env('APP_STYLESHEET')}}">
     @else
