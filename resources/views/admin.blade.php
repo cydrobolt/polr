@@ -114,4 +114,27 @@
 <script src='/js/handlebars-v4.0.5.min.js'></script>
 <script src='/js/api.js'></script>
 <script src='/js/AdminCtrl.js'></script>
+
+{{-- Extra templating --}}
+<script id="api-modal-template" type="text/x-handlebars-template">
+    <div>
+        <p>
+            <span>API Active</span>:
+
+            <code class='status-display'>
+                @{{#if api_active}}True@{{else}}False@{{/if}}</code>
+
+            <a ng-click="toggleAPIStatus($event, '@{{user_id}}')" class='btn btn-xs btn-success'>toggle</a>
+        </p>
+        <p>
+            <span>API Key: </span><code class='status-display'>@{{api_key}}</code>
+            <a ng-click="generateNewAPIKey($event, '@{{user_id}}', false)" class='btn btn-xs btn-danger'>reset</a>
+        </p>
+        <p>
+            <span>API Quota (req/min, -1 for unlimited):</span> <input type='number' class='form-control api-quota' value='@{{api_quota}}'>
+            <a ng-click="updateAPIQuota($event, '@{{user_id}}')" class='btn btn-xs btn-warning'>change</a>
+        </p>
+    </div>
+</script>
+
 @endsection

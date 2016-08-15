@@ -114,26 +114,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
     $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
         var el = $($event.target);
 
-        var markup = `
-            <div>
-                <p>
-                    <span>API Active</span>:
+        var markup = $('#api-modal-template').html();
 
-                    <code class='status-display'>
-                        {{#if api_active}}True{{else}}False{{/if}}</code>
-
-                    <a ng-click="toggleAPIStatus($event, '{{user_id}}')" class='btn btn-xs btn-success'>toggle</a>
-                </p>
-                <p>
-                    <span>API Key: </span><code class='status-display'>{{api_key}}</code>
-                    <a ng-click="generateNewAPIKey($event, '{{user_id}}', false)" class='btn btn-xs btn-danger'>reset</a>
-                </p>
-                <p>
-                    <span>API Quota (req/min, -1 for unlimited):</span> <input type='number' class='form-control api-quota' value='{{api_quota}}'>
-                    <a ng-click="updateAPIQuota($event, '{{user_id}}')" class='btn btn-xs btn-warning'>change</a>
-                </p>
-            </div>
-        `;
         var modal_id = "api-modal-" + username;
         var modal_context = {
             id: modal_id,
