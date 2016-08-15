@@ -1,6 +1,7 @@
+@import 'https://fonts.googleapis.com/css?family=Rasa';
 body {
-    font-family: 'Georgia', serif !important;
-    font-size: 17px;
+    font-family: 'Rasa', serif !important;
+    font-size: 18px;
     color: #000;
 }
 h2, h3, h4 {
