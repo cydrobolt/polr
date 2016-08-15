@@ -27,7 +27,7 @@ See [API endpoints](#api-endpoints) for more information on the actions.
 ## Response Type
 The Polr API will reply in `plain_text` or `json`. The response type can be
 set by providing the `response_type` argument to the request. If not provided,
-the response type will default to `json`.
+the response type will default to `plain_text`.
 
 Example `json` responses:
 ```
