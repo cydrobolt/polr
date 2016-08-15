@@ -68,3 +68,12 @@ body {
 h4, p {
     margin-top: 20px;
 }
+
+.setup-qmark {
+    width: 2em;
+    display: inline;
+}
+
+.popover-content {
+    text-transform: none;
+}
