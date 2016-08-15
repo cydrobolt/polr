@@ -67,6 +67,9 @@ SETTING_AUTO_API={{$ST_AUTO_API}}
 # Set to true to allow anonymous API access
 SETTING_ANON_API={{$ST_ANON_API}}
 
+# Set to true to use pseudorandom strings rather than using a counter by default
+SETTING_PSEUDORANDOM_ENDING={{$ST_PSEUDOR_ENDING}}
+
 # Set each to blank to disable mail
 @if($MAIL_ENABLED)
 MAIL_DRIVER=smtp
@@ -89,6 +92,7 @@ SESSION_DRIVER=file
 QUEUE_DRIVER=database
 
 _API_KEY_LENGTH=15
+_PSEUDO_RANDOM_KEY_LENGTH=6
 
 # FILESYSTEM_DRIVER=local
 # FILESYSTEM_CLOUD=s3

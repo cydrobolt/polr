@@ -78,6 +78,12 @@ Setup
                 <option value='62'>62 -- lowercase, uppercase letters & numbers</option>
             </select>
 
+            <p>Default URL Ending Type:</p>
+            <select name='setting:pseudor_ending' class='form-control'>
+                <option value='false' selected='selected'>Use base62 or base32 counter (shortest, e.g 5a)</option>
+                <option value='true'>Use pseudorandom strings (e.g 6LxZ3j)</option>
+            </select>
+
             <h4>Admin Account Settings</h4>
 
             <p>Admin Username:</p>
