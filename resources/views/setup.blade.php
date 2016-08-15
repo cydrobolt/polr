@@ -69,7 +69,7 @@ Setup
 
             <p>
                 If public interface is hidden, redirect index page to:
-                <button data-content="Required if public interface is hidden. To use Polr, login by directly heading to example.com/login first." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                <button data-content="Required if public interface is hidden. To use Polr, login by directly heading to yoursite.com/login first." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
             </p>
             <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
             <p class='text-muted'>

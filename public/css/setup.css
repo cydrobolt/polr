@@ -71,6 +71,7 @@ h4, p {
 
 .setup-qmark {
     width: 2em;
+    margin-left: 0.3em;
     display: inline;
 }
 
