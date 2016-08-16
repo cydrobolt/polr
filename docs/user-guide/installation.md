@@ -61,10 +61,9 @@ php composer.phar install --no-dev -o
 
 ### Apache
 
-To run Polr on Apache, you will need to add a virtual host to your
-`httpd-vhosts.conf` like so:
+To run Polr on Apache, you will need to create a new Apache configuration file in your operating system's Apache configuration folder (e.g `/etc/apache2/sites-enabled` or `/etc/httpd/sites-enabled`) or add a virtual host to your `httpd-vhosts.conf` file like so:
 
-Replace `example.com` with your server's external address.
+Replace `example.com` with your server's external address and restart Apache when done.
 
 ```apache
 <VirtualHost *:80>
@@ -89,6 +88,7 @@ If `mod_rewrite` is not already enabled, you will need to enable it like so:
 a2enmod rewrite
 # restart apache on Ubuntu
 # sudo service apache2 restart
+
 # restart apache on Fedora/CentOS
 # sudo service httpd restart
 ```
