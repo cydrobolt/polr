@@ -178,7 +178,7 @@ CREATE DATABASE polrdatabasename;
 ```
 
 Remember this database name, as you will need to provide it to Polr during setup.
-Additionally, if you wish to create a new user with access to soloely this database, please look into MySQL's [GRANT](https://dev.mysql.com/doc/refman/5.7/en/grant.html) directive.
+Additionally, if you wish to create a new user with access to solely this database, please look into MySQL's [GRANT](https://dev.mysql.com/doc/refman/5.7/en/grant.html) directive.
 
 ### SQLite
 
