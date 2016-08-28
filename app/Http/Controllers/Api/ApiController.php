@@ -51,15 +51,17 @@ class ApiController extends Controller {
         ];
 
         if ($response_type == 'json') {
-            return json_encode($response);
+            return response(json_encode($response))
+                ->header('Content-Type', 'application/json');
         }
         else {
             if ($plain_text_response) {
                 // return alternative plain text response if provided
-                return $plain_text_response;
+                $result = $plain_text_response;
             }
             // assume plain text if json not requested
-            return $result;
+            return response($result)
+                ->header('Content-Type', 'text/plain');
         }
     }
 }

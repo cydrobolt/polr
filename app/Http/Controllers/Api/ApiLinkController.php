@@ -60,7 +60,9 @@ class ApiLinkController extends ApiController {
             return self::encodeResponse([
                 'long_url' => $link['long_url'],
                 'created_at' => $link['created_at'],
-                'clicks' => $link['clicks']
+                'clicks' => $link['clicks'],
+                'updated_at' => $link['updated_at'],
+                'created_at' => $link['created_at']
             ], 'lookup', $response_type, $link['long_url']);
         }
         else {
