@@ -8,7 +8,9 @@
 <h1 class='title'>{{env('APP_NAME')}}</h1>
 
 <form method='POST' action='/shorten' role='form'>
-    <input type='text' autocomplete="off" class='form-control long-link-input' placeholder='http://' value='http://' name='link-url' />
+    <input type='url' autocomplete='off'
+        class='form-control long-link-input' placeholder='http://' value='http://' name='link-url' />
+
     <div class='row' id='options'>
         <p>Customize link</p>
 
@@ -39,7 +41,10 @@
     <a href='#' class='btn btn-warning' id='show-link-options'>Link Options</a>
     <input type="hidden" name='_token' value='{{csrf_token()}}' />
 </form>
-<div id='tips' class='text-muted tips'><i class='fa fa-spinner'></i> Loading Tips...</div>
+
+<div id='tips' class='text-muted tips'>
+    <i class='fa fa-spinner'></i> Loading Tips...
+</div>
 @endsection
 
 @section('js')
