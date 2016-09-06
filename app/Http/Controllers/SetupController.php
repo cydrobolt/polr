@@ -212,8 +212,12 @@ class SetupController extends Controller {
             return redirect(route('setup'))->with('error', 'Could not create database. Perhaps some credentials were incorrect?');
         }
 
-        $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip());
-        $user->role = 'admin';
+        $user = UserFactory::createUser(
+                $setup_finish_args->acct_username, 
+                $setup_finish_args->acct_email, 
+                $setup_finish_args->acct_password, 
+                1, 
+                $request->ip(), false, 0, true);
         $user->save();
 
         return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');
