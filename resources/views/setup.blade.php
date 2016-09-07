@@ -77,6 +77,20 @@ Setup
                 http://yoursite.com/login before you can access the index
                 page.
             </p>
+            
+            <p>
+                Short URL not exist handle type :
+            </p>
+            <select name='setting:url_not_exist_handle' class='form-control'>
+                <option value='false' selected='selected'>Show error message (Default)</option>
+                <option value='true'>Redirect to URL</option>
+            </select>
+            
+            <p>
+                If short URL not exist, redirect to :
+                <button data-content="This will be used if you handle not exist URL as redirect to URL" type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
+            <input type='text' class='form-control' name='setting:url_not_exist_redirect' placeholder='http://your-main-site.com'>
 
             <p>
                 Default URL Ending Type:
