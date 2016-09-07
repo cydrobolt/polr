@@ -14,4 +14,10 @@ class IndexTest extends TestCase
              ->see('>Sign In</a>') // Ensure log in buttons are shown when user is logged out
              ->dontSee('SQLSTATE'); // Ensure database connection is correct
     }
+    
+    public function testRequestGetNotExistShortUrl() {
+    	$response = $this->call('GET', '/notexist');
+    	$this->assertTrue($response->isRedirection());
+    	$this->assertRedirectedTo(env('SETTING_NOT_EXIST_REDIRECT'));
+    }
 }
