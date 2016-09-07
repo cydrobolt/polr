@@ -49,32 +49,30 @@ class LinkController extends Controller {
             ->first();
 
         if ($link == null) {
-            return abort(404);
+        	return $this->handleShortUrlNotExist();
         }
 
         $link_secret_key = $link->secret_key;
+        if ($link_secret_key) {
+        	if (!$secret_key) {
+        		// if we do not receieve a secret key
+        		// when we are expecting one, return a 403
+        		return abort(403);
+        	}
+        	else {
+        		if ($link_secret_key != $secret_key) {
+        			// a secret key is provided, but it is incorrect
+        			return abort(403);
+        		}
+        	}
+        }
 
         if ($link->is_disabled == 1) {
             return view('error', [
                 'message' => 'Sorry, but this link has been disabled by an administrator.'
             ]);
         }
-
-        if ($link_secret_key) {
-            if (!$secret_key) {
-                // if we do not receieve a secret key
-                // when we are expecting one, return a 403
-                return abort(403);
-            }
-            else {
-                if ($link_secret_key != $secret_key) {
-                    // a secret key is provided, but it is incorrect
-                    return abort(403);
-                }
-            }
-
-        }
-
+        
         $long_url = $link->long_url;
         $clicks = intval($link->clicks);
 
@@ -90,4 +88,15 @@ class LinkController extends Controller {
 
         return redirect()->to($long_url);
     }
+    
+    private function handleShortUrlNotExist() {
+    	$urlNotExistHandleType = env('SETTING_REDIRECT_URL_NOT_EXIST');
+    	$urlNotExistRedirect = env('SETTING_NOT_EXIST_REDIRECT');
+    	if (($urlNotExistHandleType == true) && ($urlNotExistRedirect)) {
+    		return redirect()->to($urlNotExistRedirect);
+    	} else {
+    		return abort(404);
+    	}
+    }
+      
 }

@@ -102,6 +102,8 @@ class SetupController extends Controller {
         // if true, only logged in users can shorten
         $st_shorten_permission = $request->input('setting:shorten_permission');
         $st_index_redirect = $request->input('setting:index_redirect');
+        $st_url_not_exist_handle_type = $request->input('setting:url_not_exist_handle');
+        $st_url_not_found_redirect = $request->input('setting:url_not_exist_redirect');
         $st_password_recov = $request->input('setting:password_recovery');
 
         $st_base = $request->input('setting:base');
@@ -143,6 +145,8 @@ class SetupController extends Controller {
             'POLR_ACCT_ACTIVATION' => $polr_acct_activation,
             'ST_SHORTEN_PERMISSION' => $st_shorten_permission,
             'ST_INDEX_REDIRECT' => $st_index_redirect,
+        	'ST_URL_NOT_EXIST_HANDLE_TYPE' => $st_url_not_exist_handle_type,
+        	'ST_URL_NOT_EXIST_REDIRECT' => $st_url_not_found_redirect,
             'ST_PASSWORD_RECOV' => $st_password_recov,
 
             'MAIL_ENABLED' => $mail_enabled,
