@@ -60,11 +60,9 @@ SETTING_INDEX_REDIRECT={{$ST_INDEX_REDIRECT}}
 
 # Set value to true if you want to redirect to specified URL
 # when requested short URL not exist   
+# The SETTING_INDEX_REDIRECT will be used as redirect URL, 
+# if it not set it will show as error message
 SETTING_REDIRECT_URL_NOT_EXIST={{$ST_URL_NOT_EXIST_HANDLE_TYPE}}
-
-# You must set SETTING_NOT_EXIST_REDIRECT if SETTING_REDIRECT_URL_NOT_EXIST is true
-# Polr will redirect to this URL if requested URL not exist
-SETTING_NOT_EXIST_REDIRECT={{$ST_URL_NOT_EXIST_REDIRECT}} 
 
 # Set to true to enable password recovery
 SETTING_PASSWORD_RECOV={{$ST_PASSWORD_RECOV}}

@@ -146,7 +146,6 @@ class SetupController extends Controller {
             'ST_SHORTEN_PERMISSION' => $st_shorten_permission,
             'ST_INDEX_REDIRECT' => $st_index_redirect,
         	'ST_URL_NOT_EXIST_HANDLE_TYPE' => $st_url_not_exist_handle_type,
-        	'ST_URL_NOT_EXIST_REDIRECT' => $st_url_not_found_redirect,
             'ST_PASSWORD_RECOV' => $st_password_recov,
 
             'MAIL_ENABLED' => $mail_enabled,

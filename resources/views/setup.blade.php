@@ -66,17 +66,6 @@ Setup
                 <option value='true' selected='selected'>Show public interface (default)</option>
                 <option value='false'>Hide public interface (for private shorteners)</option>
             </select>
-
-            <p>
-                If public interface is hidden, redirect index page to:
-                <button data-content="Required if public interface is hidden. To use Polr, login by directly heading to yoursite.com/login first." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
-            </p>
-            <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
-            <p class='text-muted'>
-                If a redirect is enabled, you will need to go to
-                http://yoursite.com/login before you can access the index
-                page.
-            </p>
             
             <p>
                 Short URL not exist handle type :
@@ -85,13 +74,18 @@ Setup
                 <option value='false' selected='selected'>Show error message (Default)</option>
                 <option value='true'>Redirect to URL</option>
             </select>
-            
-            <p>
-                If short URL not exist, redirect to :
-                <button data-content="This will be used if you handle not exist URL as redirect to URL" type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
-            </p>
-            <input type='text' class='form-control' name='setting:url_not_exist_redirect' placeholder='http://your-main-site.com'>
 
+            <p>
+                If public interface is hidden or short URL not exist handle type set to redirect to URL, redirect index page to:
+                <button data-content="Required if public interface is hidden or if you set handle not exist URL as redirect to URL. To use Polr, login by directly heading to yoursite.com/login first." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
+            <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
+            <p class='text-muted'>
+                If a redirect is enabled, you will need to go to
+                http://yoursite.com/login before you can access the index
+                page.
+            </p>
+            
             <p>
                 Default URL Ending Type:
                 <button data-content="If you choose to use pseudorandom strings, you will not have the option to use a counter-based ending." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
