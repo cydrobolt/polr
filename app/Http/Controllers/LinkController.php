@@ -29,15 +29,16 @@ class LinkController extends Controller {
         $long_url = $request->input('link-url');
         $custom_ending = $request->input('custom-ending');
         $is_secret = ($request->input('options') == "s" ? true : false);
-
-        $creator = session('username');
-
         $link_ip = $request->ip();
-
+        
         try {
-            $short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator);
-        }
-        catch (\Exception $e) {
+        	$username = session('username');
+        	if ($username) {
+            	$short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $username);
+        	} else {
+        		$short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip);
+        	}
+        } catch (\Exception $e) {
             return self::renderError($e->getMessage());
         }
 
