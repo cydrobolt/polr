@@ -91,9 +91,9 @@ class LinkController extends Controller {
     
     private function handleShortUrlNotExist() {
     	$urlNotExistHandleType = env('SETTING_REDIRECT_URL_NOT_EXIST');
-    	$urlNotExistRedirect = env('SETTING_NOT_EXIST_REDIRECT');
-    	if (($urlNotExistHandleType == true) && ($urlNotExistRedirect)) {
-    		return redirect()->to($urlNotExistRedirect);
+    	$urlRedirect = env('SETTING_INDEX_REDIRECT');
+    	if (($urlNotExistHandleType == true) && ($urlRedirect)) {
+    		return redirect()->to($urlRedirect);
     	} else {
     		return abort(404);
     	}

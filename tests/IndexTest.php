@@ -18,6 +18,7 @@ class IndexTest extends TestCase
     public function testRequestGetNotExistShortUrl() {
     	$response = $this->call('GET', '/notexist');
     	$this->assertTrue($response->isRedirection());
-    	$this->assertRedirectedTo(env('SETTING_NOT_EXIST_REDIRECT'));
+    	$this->assertRedirectedTo(env('SETTING_INDEX_REDIRECT'));
     }
 }
+	
