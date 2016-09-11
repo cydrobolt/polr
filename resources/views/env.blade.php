@@ -54,9 +54,13 @@ POLR_ACCT_ACTIVATION={{$POLR_ACCT_ACTIVATION}}
 # Set to true to require users to be logged in before shortening URLs
 SETTING_SHORTEN_PERMISSION={{$ST_SHORTEN_PERMISSION}}
 
-# You must set SETTING_INDEX_REDIRETC if SETTING_PUBLIC_INTERFACE is false
+# You must set SETTING_INDEX_REDIRECT if SETTING_PUBLIC_INTERFACE is false
 # Polr will redirect logged off users to this URL
 SETTING_INDEX_REDIRECT={{$ST_INDEX_REDIRECT}}
+
+# Set to true if you wish to redirect 404s to SETTING_INDEX_REDIRECT
+# Otherwise, an error message will be shown
+SETTING_REDIRECT_404={{$ST_REDIRECT_404}}
 
 # Set to true to enable password recovery
 SETTING_PASSWORD_RECOV={{$ST_PASSWORD_RECOV}}

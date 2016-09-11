@@ -48,46 +48,52 @@ class LinkController extends Controller {
         $link = Link::where('short_url', $short_url)
             ->first();
 
+        // Return 404 if link not found
         if ($link == null) {
-            return abort(404);
+        	return abort(404);
         }
 
-        $link_secret_key = $link->secret_key;
-
+        // Return an error if the link has been disabled
+        // or return a 404 if SETTING_REDIRECT_404 is set to true
         if ($link->is_disabled == 1) {
+            if (env('SETTING_REDIRECT_404')) {
+                return abort(404);
+            }
+
             return view('error', [
                 'message' => 'Sorry, but this link has been disabled by an administrator.'
             ]);
         }
 
+        // Return a 403 if the secret key is incorrect
+        $link_secret_key = $link->secret_key;
         if ($link_secret_key) {
-            if (!$secret_key) {
-                // if we do not receieve a secret key
-                // when we are expecting one, return a 403
-                return abort(403);
-            }
-            else {
-                if ($link_secret_key != $secret_key) {
-                    // a secret key is provided, but it is incorrect
-                    return abort(403);
-                }
-            }
-
+        	if (!$secret_key) {
+        		// if we do not receieve a secret key
+        		// when we are expecting one, return a 403
+        		return abort(403);
+        	}
+        	else {
+        		if ($link_secret_key != $secret_key) {
+        			// a secret key is provided, but it is incorrect
+        			return abort(403);
+        		}
+        	}
         }
 
+        // Increment click count
         $long_url = $link->long_url;
         $clicks = intval($link->clicks);
 
         if (is_int($clicks)) {
             $clicks += 1;
         }
-
         $link->clicks = $clicks;
-
         $link->save();
 
+        // Redirect to final destination
         LinkHelper::processPostClick($link);
-
         return redirect()->to($long_url);
     }
+
 }
