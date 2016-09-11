@@ -30,7 +30,7 @@ Normal user username: demo-user (password is same as username)
 
 ### Upgrading Polr
 
-**Please do not attempt to upgrade directly to 2.x.**
+Please do not attempt to upgrade directly to 2.x.
 
 Polr 1.x currently cannot be upgraded to 2.x automatically. There are breaking changes in the API, configuration files, and database structure. It is safe to upgrade between different versions in the 1.x arch, which do not have breaking changes. Always backup your database and configuration files before upgrading Polr.
 
