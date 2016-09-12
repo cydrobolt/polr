@@ -22,11 +22,10 @@ Installation TL;DR: clone or download this repository, set document root to `pub
 
 ### Demo
 
-Polr operates a demo instance at [demo.polr.me](http://demo.polr.me). You can use the demo instance to develop your API implementation, try out the admin panel, or simply experience the app without needing to install it on your own servers. The demo instance may be periodically reset, so please do not use the demo as a production URL shortener.
+To test out the demo, head to [demo.polr.me](http://demo.polr.me) and use the following credentials:
 
-Admin username: demo-admin (password is same as username)
-
-Normal user username: demo-user (password is same as username)
+- Username: `demo-admin`
+- Password: `demo-admin`
 
 ### Upgrading Polr
 
