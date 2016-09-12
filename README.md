@@ -12,13 +12,13 @@ Polr is an intrepid, self-hostable open-source link shortening web application w
 
 ### Quickstart
 
-Polr is written in PHP and Laravel, using MySQL as its primary database.
+Polr is written in PHP and Lumen, using MySQL as its primary database.
 
  - To get started with Polr on your server, check out the [installation guide](http://docs.polr.me/en/latest/user-guide/installation/). You can clone this repository, or download a [release](https://github.com/cydrobolt/polr/releases). 
  - To get started with the Polr API, check out the [API guide](http://docs.polr.me/en/latest/developer-guide/api/).
 
 
-Installation TL;DR: clone or download this repository, set document root to `public/`, create MySQL database, go to `yoursite.com/setup` and follow instructions`
+Installation TL;DR: clone or download this repository, set document root to `public/`, create MySQL database, go to `yoursite.com/setup` and follow instructions.
 
 ### Demo
 
