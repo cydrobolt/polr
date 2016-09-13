@@ -24,7 +24,7 @@ class LinkFactory {
         return $short_url;
     }
 
-    public static function createLink($long_url, $is_secret=false, $custom_ending=null, $link_ip='127.0.0.1', $creator='public', $return_object=false, $is_api=false) {
+    public static function createLink($long_url, $is_secret=false, $custom_ending=null, $link_ip='127.0.0.1', $creator='', $return_object=false, $is_api=false) {
         /**
         * Given parameters needed to create a link, generate appropriate ending and
         * return formatted link.
