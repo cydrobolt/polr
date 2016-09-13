@@ -49,10 +49,24 @@ class LinkController extends Controller {
         $link = Link::where('short_url', $short_url)
             ->first();
 
+        // Return 404 if link not found
         if ($link == null) {
-        	return $this->handleShortUrlNotExist();
+        	return abort(404);
         }
 
+        // Return an error if the link has been disabled
+        // or return a 404 if SETTING_REDIRECT_404 is set to true
+        if ($link->is_disabled == 1) {
+            if (env('SETTING_REDIRECT_404')) {
+                return abort(404);
+            }
+
+            return view('error', [
+                'message' => 'Sorry, but this link has been disabled by an administrator.'
+            ]);
+        }
+
+        // Return a 403 if the secret key is incorrect
         $link_secret_key = $link->secret_key;
         if ($link_secret_key) {
         	if (!$secret_key) {
@@ -68,36 +82,19 @@ class LinkController extends Controller {
         	}
         }
 
-        if ($link->is_disabled == 1) {
-            return view('error', [
-                'message' => 'Sorry, but this link has been disabled by an administrator.'
-            ]);
-        }
-        
+        // Increment click count
         $long_url = $link->long_url;
         $clicks = intval($link->clicks);
 
         if (is_int($clicks)) {
             $clicks += 1;
         }
-
         $link->clicks = $clicks;
-
         $link->save();
 
+        // Redirect to final destination
         LinkHelper::processPostClick($link);
-
         return redirect()->to($long_url);
     }
-    
-    private function handleShortUrlNotExist() {
-    	$urlNotExistHandleType = env('SETTING_REDIRECT_URL_NOT_EXIST');
-    	$urlRedirect = env('SETTING_INDEX_REDIRECT');
-    	if (($urlNotExistHandleType == true) && ($urlRedirect)) {
-    		return redirect()->to($urlRedirect);
-    	} else {
-    		return abort(404);
-    	}
-    }
-      
+
 }

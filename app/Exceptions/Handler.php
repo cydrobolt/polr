@@ -42,10 +42,15 @@ class Handler extends ExceptionHandler {
     {
         if (env('APP_DEBUG') != true) {
             // Render nice error pages if debug is off
-            if ($e instanceof NotFoundHttpException){
+            if ($e instanceof NotFoundHttpException) {
+                if (env('SETTING_REDIRECT_404')) {
+                    // Redirect 404s to SETTING_INDEX_REDIRECT
+                    return redirect()->to(env('SETTING_INDEX_REDIRECT'));
+                }
+                // Otherwise, show a nice error page
                 return view('errors.404');
             }
-            if ($e instanceof HttpException){
+            if ($e instanceof HttpException) {
                 $status_code = $e->getStatusCode();
                 $status_message = $e->getMessage();
 
@@ -54,7 +59,7 @@ class Handler extends ExceptionHandler {
                     return view('errors.500');
                 }
                 else {
-                    // If not 500, then render generic page
+                    // If not 500, render generic page
                     return response(view('errors.generic', ['status_code' => $status_code, 'status_message' => $status_message]), $status_code);
                 }
             }

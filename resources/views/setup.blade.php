@@ -58,7 +58,7 @@ Setup
             <p>Application protocol:</p>
             <input type='text' class='form-control' name='app:protocol' value='http://'>
 
-            <p>Application URL (path to Polr, no http://, or trailing slash):</p>
+            <p>Application URL (path to Polr; do not include http:// or trailing slash):</p>
             <input type='text' class='form-control' name='app:external_url' value='yoursite.com'>
 
             <p>Shortening Permissions:</p>
@@ -67,23 +67,21 @@ Setup
                 <option value='true'>Only logged in users may shorten URLs</option>
             </select>
 
-            <p>Show Public Interface:</p>
+            <p>Public Interface:</p>
             <select name='setting:public_interface' class='form-control'>
                 <option value='true' selected='selected'>Show public interface (default)</option>
-                <option value='false'>Hide public interface (for private shorteners)</option>
+                <option value='false'>Redirect index page to redirect URL</option>
             </select>
-            
-            <p>
-                Short URL not exist handle type :
-            </p>
-            <select name='setting:url_not_exist_handle' class='form-control'>
-                <option value='false' selected='selected'>Show error message (Default)</option>
-                <option value='true'>Redirect to URL</option>
+
+            <p>404s and Disabled Short Links:</p>
+            <select name='setting:redirect_404' class='form-control'>
+                <option value='false' selected='selected'>Show an error message (default)</option>
+                <option value='true'>Redirect to redirect URL</option>
             </select>
 
             <p>
-                If public interface is hidden or short URL not exist handle type set to redirect to URL, redirect index page to:
-                <button data-content="Required if public interface is hidden or if you set handle not exist URL as redirect to URL. To use Polr, login by directly heading to yoursite.com/login first." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                Redirect URL:
+                <button data-content="Required if you wish to redirect the index page or 404s to a different website. To use Polr, login by directly heading to yoursite.com/login first." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
             </p>
             <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
             <p class='text-muted'>
@@ -91,7 +89,7 @@ Setup
                 http://yoursite.com/login before you can access the index
                 page.
             </p>
-            
+
             <p>
                 Default URL Ending Type:
                 <button data-content="If you choose to use pseudorandom strings, you will not have the option to use a counter-based ending." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
@@ -195,7 +193,7 @@ Setup
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/simplex/bootstrap.min.css'>Crisp White</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/darkly/bootstrap.min.css'>Cloudy Night</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css'>Calm Skies</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css'>Android Material Design</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css'>Google Material Design</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css'>Blue Metro</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/sandstone/bootstrap.min.css'>Sandstone</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css'>Jet Black</option>
