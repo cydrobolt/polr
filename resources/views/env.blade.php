@@ -26,6 +26,7 @@ POLR_GENERATED_AT={{$POLR_GENERATED_AT}}
 # e.g true
 POLR_SETUP_RAN={{$POLR_SETUP_RAN}}
 
+# DB Connection (e.g mysql or pgsql)
 DB_CONNECTION={{{$DB_CONNECTION}}}
 # Set to your DB host (e.g localhost or IP address)
 DB_HOST={{{$DB_HOST}}}
