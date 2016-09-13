@@ -66,6 +66,7 @@ class SetupController extends Controller {
         $date_today = date('F jS, Y');
 
         $polr_setup_ran = 'true';
+        $db_connection = $request->input('db:connection');
         $db_host = $request->input('db:host');
         $db_port = $request->input('db:port');
         $db_name = $request->input('db:name');
@@ -133,6 +134,7 @@ class SetupController extends Controller {
             'POLR_GENERATED_AT' => $date_today,
             'POLR_SETUP_RAN' => $polr_setup_ran,
 
+        	'DB_CONNECTION' => $db_connection,
             'DB_HOST' => $db_host,
             'DB_PORT' => $db_port,
             'DB_USERNAME' => $db_username,
@@ -214,8 +216,12 @@ class SetupController extends Controller {
             return redirect(route('setup'))->with('error', 'Could not create database. Perhaps some credentials were incorrect?');
         }
 
-        $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip());
-        $user->role = 'admin';
+        $user = UserFactory::createUser(
+                $setup_finish_args->acct_username, 
+                $setup_finish_args->acct_email, 
+                $setup_finish_args->acct_password, 
+                1, 
+                $request->ip(), false, 0, true);
         $user->save();
 
         return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');

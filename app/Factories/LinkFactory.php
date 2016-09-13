@@ -24,7 +24,7 @@ class LinkFactory {
         return $short_url;
     }
 
-    public static function createLink($long_url, $is_secret=false, $custom_ending=null, $link_ip='127.0.0.1', $creator=false, $return_object=false, $is_api=false) {
+    public static function createLink($long_url, $is_secret=false, $custom_ending=null, $link_ip='127.0.0.1', $creator='public', $return_object=false, $is_api=false) {
         /**
         * Given parameters needed to create a link, generate appropriate ending and
         * return formatted link.
@@ -84,26 +84,19 @@ class LinkFactory {
         $link->long_url  = $long_url;
         $link->ip        = $link_ip;
         $link->is_custom = $custom_ending != null;
-
         $link->is_api    = $is_api;
-
-        if ($creator) {
-            // if user is logged in, save user as creator
-            $link->creator = $creator;
-        }
+		$link->creator   = $creator;
+		$link->secret_key = '';
 
         if ($is_secret) {
             $rand_bytes_num = intval(env('POLR_SECRET_BYTES'));
             $secret_key = CryptoHelper::generateRandomHex($rand_bytes_num);
             $link->secret_key = $secret_key;
         }
-        else {
-            $secret_key = false;
-        }
-
+        
         $link->save();
 
-        $formatted_link = self::formatLink($link_ending, $secret_key);
+        $formatted_link = self::formatLink($link_ending, ($link->secret_key != null));
 
         if ($return_object) {
             return $link;
