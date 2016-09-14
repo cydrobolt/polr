@@ -9,7 +9,7 @@
 
 <form method='POST' action='/shorten' role='form'>
     <input type='url' autocomplete='off'
-        class='form-control long-link-input' placeholder='http://' value='http://' name='link-url' />
+        class='form-control long-link-input' placeholder='http://' name='link-url' />
 
     <div class='row' id='options'>
         <p>Customize link</p>
