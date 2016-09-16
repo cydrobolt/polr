@@ -36,7 +36,7 @@ class AdminController extends Controller {
         }
 
         $user_links = Link::where('creator', $username)
-            ->paginate(15);
+            ->paginate(15, ['*'], 'userlinks');
 
         return view('admin', [
             'role' => $role,
