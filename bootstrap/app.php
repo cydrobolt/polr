@@ -60,7 +60,7 @@ $app->middleware([
     // Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
     Illuminate\Session\Middleware\StartSession::class,
     // Illuminate\View\Middleware\ShareErrorsFromSession::class,
-    Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
+	App\Http\Middleware\VerifyCsrfToken::class,
 ]);
 
 // $app->routeMiddleware([

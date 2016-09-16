@@ -64,4 +64,5 @@ class ApiController extends Controller {
                 ->header('Content-Type', 'text/plain');
         }
     }
+
 }
