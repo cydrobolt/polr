@@ -25,8 +25,8 @@ class AdminController extends Controller {
         $admin_links = null;
 
         if ($this->currIsAdmin()) {
-            $admin_users = User::paginate(15);
-            $admin_links = Link::paginate(15);
+            $admin_users = User::paginate(15, ['*'], 'users');
+            $admin_links = Link::paginate(15, ['*'], 'links');
         }
 
         $user = UserHelper::getUserByUsername($username);
