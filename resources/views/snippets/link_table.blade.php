@@ -15,9 +15,9 @@
     <tr>
         <td>
             @if (!empty($link->secret_key))
-                {{$link->short_url}}/{{$link->secret_key}}
+                <a href="{{ url($link->short_url . '/' . $link->secret_key) }}">{{$link->short_url}}/{{$link->secret_key}}</a>
             @else
-                {{$link->short_url}}
+                <a href="{{ url($link->short_url) }}">{{$link->short_url}}</a>
             @endif
 
         </td>
