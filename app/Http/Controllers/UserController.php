@@ -91,28 +91,26 @@ class UserController extends Controller {
         }
         else {
             // email activation is necessary
+        	$active = 0;
             $response = redirect(route('login'))->with('success', 'Thanks for signing up! Please confirm your email to continue..');
-            $active = 0;
         }
-
-        $api_active = false;
-        $api_key = null;
 
         if (env('SETTING_AUTO_API')) {
             // if automatic API key assignment is on
-            $api_active = 1;
+            $api_active = TRUE;
             $api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
+        } else {
+        	$api_active = FALSE;
+        	$api_key = null;
         }
 
-
-        $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active);
+        $user = UserFactory::createUser($username, $email, $password, $api_key, $active, $api_active, $ip);
 
         if ($acct_activation_needed) {
             Mail::send('emails.activation', [
                 'username' => $username, 'recovery_key' => $user->recovery_key, 'ip' => $ip
             ], function ($m) use ($user) {
                 $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-
                 $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
             });
         }

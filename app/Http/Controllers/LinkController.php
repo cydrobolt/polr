@@ -32,12 +32,7 @@ class LinkController extends Controller {
         $link_ip = $request->ip();
         
         try {
-        	$username = session('username');
-        	if ($username) {
-            	$short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $username);
-        	} else {
-        		$short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip);
-        	}
+           	$short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, session('username'));
         } catch (\Exception $e) {
             return self::renderError($e->getMessage());
         }

@@ -22,13 +22,13 @@ class CreateLinkTable extends Migration
             $table->string('short_url');
             $table->longText('long_url');
             $table->string('ip');
-            $table->string('creator');
+            $table->string('creator')->nullable();
             $table->string('clicks')->default(0);
-            $table->string('secret_key');
+            $table->string('secret_key')->nullable();
 
-            $table->boolean('is_disabled')->default(0);
-            $table->boolean('is_custom')->default(0);
-            $table->boolean('is_api')->default(0);
+            $table->boolean('is_disabled')->default(FALSE);
+            $table->boolean('is_custom')->default(FALSE);
+            $table->boolean('is_api')->default(FALSE);
 
             $table->timestamps();
         });
