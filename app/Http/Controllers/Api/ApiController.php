@@ -52,7 +52,8 @@ class ApiController extends Controller {
 
         if ($response_type == 'json') {
             return response(json_encode($response))
-                ->header('Content-Type', 'application/json');
+                ->header('Content-Type', 'application/json')
+                ->header('Access-Control-Allow-Origin', '*');
         }
         else {
             if ($plain_text_response) {
@@ -61,7 +62,9 @@ class ApiController extends Controller {
             }
             // assume plain text if json not requested
             return response($result)
-                ->header('Content-Type', 'text/plain');
+                ->header('Content-Type', 'text/plain')
+                ->header('Access-Control-Allow-Origin', '*');
+
         }
     }
 
