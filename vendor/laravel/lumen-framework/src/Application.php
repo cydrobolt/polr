@@ -1199,7 +1199,6 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
         } else {
             $method = $this->getMethod();
             $pathInfo = $this->getPathInfo();
-			$pathInfo = str_ireplace('polr/public/', '', $pathInfo);
         }
 
         try {

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Link;
 
-class ApiLinksController extends ApiController
+class ApiLinksEditController extends ApiController
 {
 	public static function listLinks(Request $request) {
 		/**
