@@ -18,7 +18,7 @@ class ApiLinksEditController extends ApiController
 		//
 		// Initialize incoming parameters
 		//
-		$response_type = $request->input('response_type', 'json');
+		$response_type = $request->input('response_type');
 
 		// Initialize user
 		$user = self::getApiUserInfo($request);
@@ -29,8 +29,9 @@ class ApiLinksEditController extends ApiController
 		$links = Link::where('creator', $user->username)->get();
 
 		$responseLinks = [];
+		$responseLinksText = '';
 		foreach ($links as $link) {
-			$responseLinks[] = [
+			$responseLink = [
 				'short_url' => $link['short_url'],
 				'long_url' => $link['long_url'],
 				'is_disabled' => ($link['is_disabled'] == 1),
@@ -38,10 +39,16 @@ class ApiLinksEditController extends ApiController
 				'updated_at' => $link['updated_at'],
 				'created_at' => $link['created_at']
 			];
+			$responseLinks[] = $responseLink;
+
+			if (empty($responseLinksText)) {
+				$responseLinksText = implode(",", array_keys($responseLink)) . PHP_EOL;
+			}
+			$responseLinksText .= '"' . implode('","', $responseLink) . '"' . PHP_EOL;
 		}
 
 		if (!empty($responseLinks)) {
-			return self::encodeResponse($responseLinks, 'listLinks', $response_type, $link['long_url']);
+			return self::encodeResponse($responseLinks, 'listLinks', $response_type, $responseLinksText);
 		} else {
 			abort(404, "No links found.");
 		}
@@ -57,7 +64,7 @@ class ApiLinksEditController extends ApiController
 		//
 		// Initialize incoming parameters
 		//
-		$response_type = $request->input('response_type', 'json');
+		$response_type = $request->input('response_type');
 		$content = $request->getContent();
 		$links = json_decode($content, true);
 

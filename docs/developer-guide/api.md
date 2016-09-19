@@ -15,11 +15,12 @@ Alternative method: You can also assign a user an API key by editing their entry
 `users` database table, editing the `api_key` value to the desired API key, `api_active` to the correct value (`1` for active, `0` for inactive), and `api_quota` to the desired API quota (see above).
 
 ## Actions
-Actions are passed as a segment in the URL. There are currently
-two actions implemented:
+Actions are passed as a segment in the URL. Following are the actions currently implemented:
 
 - `shorten` - shortens a URL
 - `lookup` - looks up the destination of a shortened URL
+- `listLinks` - lists all shortened URLs created by the authenticated user
+- `updateLinks` - updates shortened URLs
 
 Actions take arguments, which are passed as GET or POST parameters.
 See [API endpoints](#api-endpoints) for more information on the actions.
@@ -61,7 +62,7 @@ Example `plain_text` responses:
 ## API Endpoints
 All API calls will commence with the base URL, `/api/v2/`.
 
-### /api/v2/action/shorten
+### GET or POST /api/v2/action/shorten
 Arguments:
 
  - `url`: the URL to shorten (e.g `https://google.com`)
@@ -72,6 +73,7 @@ Arguments:
 Response: A JSON or plain text representation of the shortened URL.
 
 Example: GET `http://example.com/api/v2/action/shorten?key=API_KEY_HERE&url=https://google.com&custom_ending=CUSTOM_ENDING&is_secret=false`
+
 Response:
 ```
 {
@@ -82,7 +84,7 @@ Response:
 
 Remember that the `url` argument must be URL encoded.
 
-### /api/v2/action/lookup
+### GET or POST /api/v2/action/lookup
 The `lookup` action takes a single argument: `url_ending`. This is the URL to
 lookup. If it exists, the API will return with the destination of that URL. If
 it does not exist, the API will return with the status code 404 (Not Found).
@@ -95,6 +97,7 @@ Arguments:
 Remember that the `url` argument must be URL encoded.
 
 Example: GET `http://example.com/api/v2/action/lookup?key=API_KEY_HERE&ending=2`
+
 Response:
 ```
 {
@@ -103,8 +106,101 @@ Response:
 }
 ```
 
+### GET /api/v2/action/listLinks
+The `listLinks` action responds with a list of URLs that have been shortened and that are associated with authenticated user.
+If response-type is plain-text it will respond with a list in CSV format.
+
+Example: GET `http://example.com/api/v2/action/listLinks?key=API_KEY_HERE&response_type=json`
+
+Response:
+```
+{
+    "action": "listLinks",
+    "result": [
+        {
+            "short_url": "2",
+            "long_url": "https://google.com",
+            "is_disabled": false,
+            "clicks": 0,
+            "updated_at": {
+                "date": "2016-09-19 08:33:22.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "created_at": {
+                "date": "2016-09-16 08:21:56.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        {
+            "short_url": "3",
+            "long_url": "https://github.com/cydrobolt/polr/blob/master/docs/developer-guide/api.md",
+            "is_disabled": true,
+            "clicks": 0,
+            "updated_at": {
+                "date": "2016-09-19 08:28:48.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "created_at": {
+                "date": "2016-09-19 07:17:58.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        }
+    ]
+}
+```
+
+Example: GET `http://example.com/api/v2/action/listLinks?key=API_KEY_HERE&response_type=plain_text`
+
+Response:
+```
+short_url,long_url,is_disabled,clicks,updated_at,created_at
+"2","https://google.com","","0","2016-09-19 08:33:22","2016-09-16 08:21:56"
+"3","https://github.com/cydrobolt/polr/blob/master/docs/developer-guide/api.md","1","0","2016-09-19 08:28:48","2016-09-19 07:17:58"
+```
+
+### POST /api/v2/action/updateLinks
+The `updateLinks` action accepts URLs data in JSON format and will persist them in DB.
+It will try to match any saved URLs (created by the authenticated user) based on the `short_url` attribute and
+persist its passed attributes.
+
+The URL attributes that may currently be altered are:
+
+  - `long_url`: (string) the long URL
+  - `is_disabled`: (boolean) whether the shortened URL is disabled or not
+
+Example: POST `http://example.com/api/v2/action/listLinks?key=API_KEY_HERE&response_type=json`
+
+Request body:
+```
+[
+{
+            "short_url": "2",
+            "long_url": "https://google.com",
+            "is_disabled": false
+},
+{
+            "short_url": "3",
+            "long_url": "https://github.com/cydrobolt/polr/blob/master/docs/developer-guide/api.md",
+            "is_disabled": true
+}
+]
+```
+
+Response:
+```
+{
+    "action": "updateLinks",
+    "result": true
+}
+```
+
+
 ## HTTP Error Codes
-The API will return an error code if your request was malformed or another error occured while processing your request.
+The API will return an error code if your request was malformed or another error occurred while processing your request.
 
 ### HTTP 400 Bad Request
 This status code is returned in the following circumstances:

@@ -58,6 +58,6 @@ $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], func
     $app->get('action/lookup', ['as' => 'api_lookup_url', 'uses' => 'Api\ApiLinkController@lookupLink']);
 
 	/* API manage links endpoints */
-	$app->get('action/listLinks', ['as' => 'api_list_links_url', 'uses' => 'Api\ApiLinksEditController@listLinks']);
-	$app->post('action/updateLinks', ['as' => 'api_update_links_url', 'uses' => 'Api\ApiLinksEditController@updateLinks']);
+	$app->get('action/listLinks', ['as' => 'api_list_links', 'uses' => 'Api\ApiLinksEditController@listLinks']);
+	$app->post('action/updateLinks', ['as' => 'api_update_links', 'uses' => 'Api\ApiLinksEditController@updateLinks']);
 });
