@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Helpers\CryptoHelper;
 
 class UserFactory {
-    public static function createUser($username, $email, $password, $api_key, $active='0', $api_active=FALSE, $ip='127.0.0.1', $is_admin = FALSE) {
+    public static function createUser($username, $email, $password, $active='0', $ip='127.0.0.1', $api_key, $api_active=FALSE, $is_admin = FALSE) {
         $hashed_password = Hash::make($password);
         $recovery_key = CryptoHelper::generateRandomHex(50);
         $user = new User;

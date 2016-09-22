@@ -220,7 +220,7 @@ class SetupController extends Controller {
                 $setup_finish_args->acct_username, 
                 $setup_finish_args->acct_email, 
                 $setup_finish_args->acct_password, 
-                NULL, TRUE, FALSE, $request->ip(), TRUE);
+                TRUE, $request->ip(), NULL, FALSE, TRUE);
 
         return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');
     }

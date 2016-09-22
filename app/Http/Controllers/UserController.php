@@ -97,14 +97,14 @@ class UserController extends Controller {
 
         if (env('SETTING_AUTO_API')) {
             // if automatic API key assignment is on
-            $api_active = TRUE;
+            $api_active = true;
             $api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
         } else {
-        	$api_active = FALSE;
+        	$api_active = false;
         	$api_key = null;
         }
 
-        $user = UserFactory::createUser($username, $email, $password, $api_key, $active, $api_active, $ip);
+        $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active);
 
         if ($acct_activation_needed) {
             Mail::send('emails.activation', [
