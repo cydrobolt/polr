@@ -1,7 +1,9 @@
 /vendor
 bootstrap/cache/
 storage/
-.env.*.php
-.env.php
+env
 .env
-/.idea
+.env.bak
+.env.example
+composer.phar
+.idea/

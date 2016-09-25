@@ -42,7 +42,7 @@ class AdminPaginationController extends Controller {
     public function paginateAdminLinks(Request $request) {
         self::ensureAdmin();
 
-        $admin_links = Link::select(['short_url', 'long_url', 'clicks', 'created_at', 'creator', 'is_disabled']);
+        $admin_links = Link::all();
         return Datatables::of($admin_links)
             ->addColumn('disable', function ($link) {
                 // Add "Disable/Enable" action buttons
@@ -64,6 +64,24 @@ class AdminPaginationController extends Controller {
                     class="btn btn-sm btn-warning delete-link">
                     Delete
                 </a>';
+            })
+            ->addColumn('stats', function ($link) {
+                return '
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-info"><span class="badge">' . $link->clicks()->count() . '</span></button>
+                        <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="" ng-click="showStats($event, \'' . route('stats', ['link_id' => $link->id, 'type' => 'day']) . '\')">Clicks by day</a></li>
+                            <li><a href="" ng-click="showStats($event, \'' . route('stats', ['link_id' => $link->id, 'type' => 'country']) . '\')">Clicks by country</a></li>
+                            <li><a href="" ng-click="showStats($event, \'' . route('stats', ['link_id' => $link->id, 'type' => 'referer']) . '\')">Clicks by referer</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="'. route('clicks', ['link_id' => $link->id]) . '">List all</a></li>
+                        </ul>
+                    </div>
+                ';
             })
             ->make(true);
     }

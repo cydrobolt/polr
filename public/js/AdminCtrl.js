@@ -41,7 +41,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                 "columns": [
                     {className: 'wrap-text', data: 'short_url', name: 'short_url'},
                     {className: 'wrap-text', data: 'long_url', name: 'long_url'},
-                    {data: 'clicks', name: 'clicks'},
+                    {data: 'stats', name: 'clicks', orderable: false, searchable: false},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'creator', name: 'creator'},
 
@@ -196,6 +196,30 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         var compiled_mt = Handlebars.compile(mt_html);
         mt_html = compiled_mt(modal_context);
         $scope.appendModal(mt_html, modal_id);
+    };
+
+    $scope.showStats = function($event, path) {
+        $event.preventDefault();
+
+        $.ajax({
+            url: path,
+            method: 'GET'
+        }).done(function(res) {
+            var id = 'modal-stats';
+            res = $(res);
+            var title = res.find('h1:first').remove();
+
+            var html = $scope.modal_template({'id': id, 'title': title.html(), 'body': res.html()});
+
+            $(".ng-root").append(html);
+
+            var modal = $('#' + id);
+            modal.modal();
+
+            $("body").delegate('#' + id, "hidden.bs.modal", function() {
+                modal.remove();
+            });
+        });
     };
 
     // Initialise AdminCtrl

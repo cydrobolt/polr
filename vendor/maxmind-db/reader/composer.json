@@ -1,0 +1,28 @@
+{
+    "name": "maxmind-db/reader",
+    "description": "MaxMind DB Reader API",
+    "keywords": ["database", "geoip", "geoip2", "geolocation", "maxmind"],
+    "homepage": "https://github.com/maxmind/MaxMind-DB-Reader-php",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Gregory J. Oschwald",
+            "email": "goschwald@maxmind.com",
+            "homepage": "http://www.maxmind.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.2.*",
+        "satooshi/php-coveralls": "1.0.*",
+        "squizlabs/php_codesniffer": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "MaxMind": "src/"
+        }
+    }
+}

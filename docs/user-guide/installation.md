@@ -57,6 +57,12 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install --no-dev -o
 ```
 
+## Fetching Maxmind database - to determine countries by IP
+Fetch Maxmind DB in Maxmind format from:
+http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz
+
+Extract it to /storage/app directory
+
 ## Running Polr on...
 
 ### Apache
