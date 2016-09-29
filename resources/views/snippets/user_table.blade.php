@@ -26,7 +26,7 @@
 
         <td>
             <a  ng-click="deleteUser($event)" class='btn btn-sm btn-danger @if (session('username') == $user->username)disabled @endif'
-                data-user-id='{{$user->id}}'>
+                data-user-id='{{$user->id}}' data-user-name='{{$user->username}}'>
                 Delete
             </a>
         </td>

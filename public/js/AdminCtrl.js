@@ -29,6 +29,10 @@ polr.controller('AdminCtrl', function($scope, $compile) {
     $scope.deleteUser = function($event) {
         var el = $($event.target);
         var user_id = el.data('user-id');
+		var user_name = el.data('user-name');
+
+		var confirmation = confirm("User '" + user_name + "' will be deleted.\nAre you sure?");
+		if (!confirmation) return;
 
         apiCall('admin/delete_user', {
             'user_id': user_id,
