@@ -26,6 +26,24 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         el.parent().parent().slideUp();
     };
 
+    $scope.toggleUserActiveStatus = function($event) {
+        var el = $($event.target);
+        var user_id = el.data('user-id');
+
+        apiCall('admin/toggle_user_active', {
+            'user_id': user_id,
+        }, function(new_status) {
+            new_status = res_value_to_text(new_status);
+            el.text(new_status);
+			if (el.hasClass('btn-success')) {
+				el.removeClass('btn-success').addClass('btn-danger');
+			}
+			else {
+				el.removeClass('btn-danger').addClass('btn-success');
+			}
+        });
+	}
+
     $scope.deleteUser = function($event) {
         var el = $($event.target);
         var user_id = el.data('user-id');

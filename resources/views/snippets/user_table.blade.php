@@ -12,7 +12,11 @@
         <td class='wrap-text'>{{$user->username}}</td>
         <td class='wrap-text'>{{$user->email}}</td>
         <td>{{$user->created_at}}</td>
-        <td>{{$user->active ? 'true' : 'false'}}</td>
+        <td>
+            <a  ng-click="toggleUserActiveStatus($event)" class='btn btn-sm status-display @if ($user->active)btn-success @else btn-danger @endif @if (session('username') == $user->username)disabled @endif' data-user-id='{{$user->id}}'>
+                {{$user->active ? 'true' : 'false'}}
+            </a>
+        </td>
         <td>
         @if ($user->active)
             <a  class='activate-api-modal btn btn-sm btn-info'

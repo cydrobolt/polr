@@ -116,6 +116,30 @@ class AjaxController extends Controller {
         return "OK";
     }
 
+    public function toggleUserActive(Request $request) {
+        self::ensureAdmin();
+
+        $user_id = $request->input('user_id');
+        $user = UserHelper::getUserById($user_id, true);
+
+        if (!$user) {
+            abort(404, 'User not found.');
+        }
+        $current_status = $user->active;
+
+        if ($current_status == 1) {
+            $new_status = 0;
+        }
+        else {
+            $new_status = 1;
+        }
+
+        $user->active = $new_status;
+        $user->save();
+
+        return $user->active;
+    }
+
     public function deleteUser(Request $request) {
         self::ensureAdmin();
 
