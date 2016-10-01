@@ -140,6 +140,23 @@ class AjaxController extends Controller {
         return $user->active;
     }
 
+    public function changeUserRole(Request $request) {
+        self::ensureAdmin();
+
+        $user_id = $request->input('user_id');
+        $role = $request->input('role');
+        $user = UserHelper::getUserById($user_id, true);
+
+        if (!$user) {
+            abort(404, 'User not found.');
+        }
+
+        $user->role = $role;
+        $user->save();
+
+        return "OK";
+    }
+
     public function deleteUser(Request $request) {
         self::ensureAdmin();
 

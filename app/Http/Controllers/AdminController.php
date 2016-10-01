@@ -23,10 +23,12 @@ class AdminController extends Controller {
 
         $admin_users = null;
         $admin_links = null;
+        $user_roles = null;
 
         if ($this->currIsAdmin()) {
             $admin_users = User::paginate(15, ['*'], 'users_page');
             $admin_links = Link::paginate(15, ['*'], 'admin_links_page');
+            $user_roles = UserHelper::getUserRoles();
         }
 
         $user = UserHelper::getUserByUsername($username);
@@ -40,7 +42,9 @@ class AdminController extends Controller {
 
         return view('admin', [
             'role' => $role,
+            'admin_role' => UserHelper::UserRole('ADMIN'),
             'admin_users' => $admin_users,
+            'user_roles' => $user_roles,
             'admin_links' => $admin_links,
             'user_links' => $user_links,
             'api_key' => $user->api_key,

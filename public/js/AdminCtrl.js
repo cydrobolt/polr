@@ -175,3 +175,24 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
     $scope.init();
 });
+
+function changeUserRole(what) {
+    var user_id = what.attr('data-user-id');
+    var role = what.val();
+
+    apiCall('admin/change_user_role', {
+        'user_id': user_id,
+        'role': role,
+    }, function(result) {
+        if (result == 'OK') {
+            var parent_td = what.parent();
+            var add = '<div id="role_changed_' + user_id + '" style="display: none; color: #fff; background: #0a0; font-weight: bold; text-align: center;">Changed</div>';
+            parent_td.append(add);
+            $('#role_changed_' + user_id).fadeIn('normal', function() {
+                $(this).delay(1000).fadeOut('slow', function() {
+                    $('#role_changed_' + user_id).remove(); 
+                });
+            });
+        }
+    });
+}

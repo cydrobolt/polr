@@ -47,7 +47,7 @@
                 </form>
             </div>
 
-            @if ($role == 'admin')
+            @if ($role == $admin_role)
             <div role="tabpanel" class="tab-pane" id="admin">
                 <h3>Links</h3>
 
@@ -59,7 +59,8 @@
 
                 <h3>Users</h3>
                 @include('snippets.user_table', [
-                    'users' => $admin_users
+                    'users' => $admin_users,
+                    'roles' => $user_roles
                 ])
 
                 {!! $admin_users->fragment('admin')->render() !!}
