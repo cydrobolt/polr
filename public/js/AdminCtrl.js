@@ -44,6 +44,79 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
 	}
 
+    $scope.toggleNewUserBox = function($event) {
+        var el = $($event.target);
+        $('#add_user_box').toggle();
+        if (el.text() == 'Add New User') {
+            el.text('Cancel');
+            $('#new_user_name').focus();
+        }
+        else {
+            el.text('Add New User');
+            $scope.resetNewUserFields();
+        }
+    }
+
+    $scope.resetNewUserFields = function() {
+        $('#new_user_name').val('');
+        $('#new_user_password').val('');
+        $('#new_user_email').val('');
+        $("#new_user_role").val($("#new_user_role option:first").val());
+        $('#new_user_status').text('');
+        $('#new_user_status').css('color', '#000');
+    };
+
+    $scope.checkNewUserFiels = function() {
+        var user_name = $('#new_user_name').val();
+        var user_password = $('#new_user_password').val();
+        var user_email = $('#new_user_email').val();
+
+        if (user_name.trim() == ''  ||  user_password.trim() == ''  ||  user_email.trim() == '') return false;
+
+        return true;
+    }
+
+    $scope.addNewUser = function($event) {
+        const status_error1 = 'Fields cannot be empty !';
+        const status_error2 = 'Unknown Error !';
+        const status_ok = 'New User added !\nPlease refresh page to see all users.';
+
+        var user_name = $('#new_user_name').val();
+        var user_password = $('#new_user_password').val();
+        var user_email = $('#new_user_email').val();
+        var user_role = $('#new_user_role').val();
+
+        if (!$scope.checkNewUserFiels()) {
+            $('#new_user_status').text(status_error1);
+            $('#new_user_status').css('color', '#f00');
+            
+            return;
+        }
+
+        apiCall('admin/add_new_user', {
+            'user_name': user_name,
+            'user_password': user_password,
+            'user_email': user_email,
+            'user_role': user_role,
+        }, function(result) {
+            if (result == 'OK') {
+                $('#new_user_status').text(status_ok).css('color', '#325d88').hide();
+                $('#new_user_status').fadeIn('normal', function() {
+                    $(this).delay(3000).fadeOut('slow', function() {
+                        $('#add_user_box').toggle();
+                        $('#add_user_btn').text('Add New User');
+                        $('#new_user_status').show();
+                        $scope.resetNewUserFields();
+                    });
+                });
+            }
+            else {
+                $('#new_user_status').text(status_error2);
+                $('#new_user_status').css('color', '#f00');
+            }
+        });
+    }
+
     $scope.deleteUser = function($event) {
         var el = $($event.target);
         var user_id = el.data('user-id');

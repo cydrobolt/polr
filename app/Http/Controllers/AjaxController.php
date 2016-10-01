@@ -6,6 +6,7 @@ use App\Helpers\LinkHelper;
 use App\Helpers\CryptoHelper;
 use App\Helpers\UserHelper;
 use App\Models\User;
+use App\Factories\UserFactory;
 
 class AjaxController extends Controller {
     /**
@@ -153,6 +154,20 @@ class AjaxController extends Controller {
 
         $user->role = $role;
         $user->save();
+
+        return "OK";
+    }
+
+    public function addNewUser(Request $request) {
+        self::ensureAdmin();
+
+        $ip = $request->ip();
+        $user_name = $request->input('user_name');
+        $user_password = $request->input('user_password');
+        $user_email = $request->input('user_email');
+        $user_role = $request->input('user_role');
+
+        UserFactory::createUser($user_name, $user_email, $user_password, 1, $ip, false, 0, $user_role);
 
         return "OK";
     }
