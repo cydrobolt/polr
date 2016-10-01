@@ -6,6 +6,65 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }
     };
 
+    $scope.initTables = function () {
+        // Initialise Datatables elements
+        var datatables_config = {
+            'autoWidth': false,
+            'processing': true,
+            'serverSide': true,
+
+            'drawCallback': function () {
+                // Compile Angular bindings on each draw
+                $compile($(this))($scope);
+            }
+        };
+
+        if ($('#admin_users_table').length) {
+            var admin_users_table = $('#admin_users_table').DataTable($.extend({
+                "ajax": BASE_API_PATH + 'admin/get_admin_users',
+
+                "columns": [
+                    {data: 'username', name: 'username'},
+                    {data: 'email', name: 'email'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'active', name: 'active'},
+
+                    {data: 'api_action', name: 'api_action'},
+                    {data: 'delete', name: 'delete'}
+                ]
+            }, datatables_config));
+        }
+        if ($('#admin_links_table').length) {
+            var admin_links_table = $('#admin_links_table').DataTable($.extend({
+                "ajax": BASE_API_PATH + 'admin/get_admin_links',
+
+                "columns": [
+                    {className: 'wrap-text', data: 'short_url', name: 'short_url'},
+                    {className: 'wrap-text', data: 'long_url', name: 'long_url'},
+                    {data: 'clicks', name: 'clicks'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'creator', name: 'creator'},
+                    {data: 'disable', name: 'disable', orderable: false, searchable: false},
+                    {data: 'delete', name: 'delete', orderable: false, searchable: false}
+
+                ]
+            }, datatables_config));
+        }
+
+        // var user_links_table = $('#user_link_table').DataTable({
+        //     "processing": true,
+        //     "serverSide": true,
+        //     "ajax": BASE_API_PATH + 'admin/get_user_links',
+        //
+        //     "columns": [
+        //         {data: 'username', name: 'username'},
+        //         {data: 'email', name: 'email'},
+        //         {data: 'created_at', name: 'created_at'},
+        //         {data: 'active', name: 'active'}
+        //     ]
+        // });
+    };
+
     $scope.appendModal = function(html, id) {
         id = esc_selector(id);
 
@@ -45,7 +104,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }, function(new_status) {
             $scope.hideRow(el, 'Deleted!');
         });
-    }
+    };
 
     $scope.generateNewAPIKey = function($event, user_id, is_dev_tab) {
         var el = $($event.target);
@@ -108,7 +167,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }, function(next_action) {
             toastr.success("Quota successfully changed.", "Success");
         });
-    }
+    };
 
 
     $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
@@ -130,7 +189,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         var compiled_mt = Handlebars.compile(mt_html);
         mt_html = compiled_mt(modal_context);
         $scope.appendModal(mt_html, modal_id);
-    }
+    };
 
     $scope.init = function() {
         var modal_source = $("#modal-template").html();
@@ -149,7 +208,9 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         $("a[href^=#]").on("click", function(e) {
             history.pushState({}, '', this.href);
         });
-    }
+
+        $scope.initTables();
+    };
 
     $scope.init();
 });

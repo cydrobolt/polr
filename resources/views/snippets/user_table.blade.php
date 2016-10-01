@@ -1,4 +1,17 @@
-<table class="table table-hover">
+<table id="{{$table_id}}" class="table table-hover">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Created At</th>
+            <th>Activated</th>
+            <th>API</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+</table>
+
+{{-- <table class="table table-hover">
     <tr>
         <th>Username</th>
         <th>Email</th>
@@ -33,4 +46,4 @@
 
     </tr>
     @endforeach
-</table>
+</table> --}}
