@@ -14,7 +14,7 @@ $app->get('/logout', ['as' => 'logout', 'uses' => 'UserController@performLogoutU
 $app->get('/login', ['as' => 'login', 'uses' => 'UserController@displayLoginPage']);
 $app->get('/about', ['as' => 'about', 'uses' => 'StaticPageController@displayAbout']);
 if (env('POLR_ALLOW_ACCT_CREATION'))
-	$app->get('/signup', ['as' => 'signup', 'uses' => 'UserController@displaySignupPage']);
+    $app->get('/signup', ['as' => 'signup', 'uses' => 'UserController@displaySignupPage']);
 $app->get('/lost_password', ['as' => 'lost_password', 'uses' => 'UserController@displayLostPasswordPage']);
 $app->get('/activate/{username}/{recovery_key}', ['as' => 'activate', 'uses' => 'UserController@performActivation']);
 $app->get('/reset_password/{username}/{recovery_key}', ['as' => 'reset_password', 'uses' => 'UserController@performPasswordReset']);
@@ -33,7 +33,7 @@ $app->get('/{short_url}/{secret_key}', ['uses' => 'LinkController@performRedirec
 
 $app->post('/login', ['as' => 'plogin', 'uses' => 'UserController@performLogin']);
 if (env('POLR_ALLOW_ACCT_CREATION'))
-	$app->post('/signup', ['as' => 'psignup', 'uses' => 'UserController@performSignup']);
+    $app->post('/signup', ['as' => 'psignup', 'uses' => 'UserController@performSignup']);
 $app->post('/shorten', ['as' => 'pshorten', 'uses' => 'LinkController@performShorten']);
 $app->post('/lost_password', ['as' => 'plost_password', 'uses' => 'UserController@performSendPasswordResetCode']);
 $app->post('/reset_password/{username}/{recovery_key}', ['as' => 'preset_password', 'uses' => 'UserController@performPasswordReset']);

@@ -35,14 +35,14 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }, function(new_status) {
             new_status = res_value_to_text(new_status);
             el.text(new_status);
-			if (el.hasClass('btn-success')) {
-				el.removeClass('btn-success').addClass('btn-danger');
-			}
-			else {
-				el.removeClass('btn-danger').addClass('btn-success');
-			}
+            if (el.hasClass('btn-success')) {
+                el.removeClass('btn-success').addClass('btn-danger');
+            }
+            else {
+                el.removeClass('btn-danger').addClass('btn-success');
+            }
         });
-	}
+    }
 
     $scope.toggleNewUserBox = function($event) {
         var el = $($event.target);
@@ -120,10 +120,10 @@ polr.controller('AdminCtrl', function($scope, $compile) {
     $scope.deleteUser = function($event) {
         var el = $($event.target);
         var user_id = el.data('user-id');
-		var user_name = el.data('user-name');
+        var user_name = el.data('user-name');
 
-		var confirmation = confirm("User '" + user_name + "' will be deleted.\nAre you sure?");
-		if (!confirmation) return;
+        var confirmation = confirm("User '" + user_name + "' will be deleted.\nAre you sure?");
+        if (!confirmation) return;
 
         apiCall('admin/delete_user', {
             'user_id': user_id,

@@ -216,7 +216,6 @@ class SetupController extends Controller {
         }
 
         $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip(), false, 0, UserHelper::UserRole('ADMIN'));
-        $user->save();
 
         return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');
     }
