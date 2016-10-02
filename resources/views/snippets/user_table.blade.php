@@ -49,7 +49,7 @@
         <td>
         @if ($user->active)
             <a  class='activate-api-modal btn btn-sm btn-info'
-                ng-click="openAPIModal($event, '{{$user->username}}', '{{$user->api_key}}', '{{$user->api_active}}', '{{$user->api_quota}}', '{{$user->id}}')">
+                ng-click="openAPIModal($event, '{{$user->username}}', '{{$user->api_key}}', '', '{{$user->api_quota}}', '{{$user->id}}')" data-api-active="{{$user->api_active}}" id="api_info_btn_{{$user->id}}">
                 API info
             </a>
         @else

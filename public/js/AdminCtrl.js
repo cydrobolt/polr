@@ -168,6 +168,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         apiCall('admin/toggle_api_active', {
             'user_id': user_id,
         }, function(new_status) {
+            $('a#api_info_btn_' + user_id).attr('data-api-active', new_status);
             new_status = res_value_to_text(new_status);
             status_display_elem.text(new_status);
         });
@@ -208,6 +209,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
     $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
         var el = $($event.target);
+        
+        api_active = $('a#api_info_btn_' + user_id).attr('data-api-active');
 
         var markup = $('#api-modal-template').html();
 
