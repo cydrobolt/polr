@@ -6,8 +6,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }
     };
 
+    // Initialise Datatables elements
     $scope.initTables = function () {
-        // Initialise Datatables elements
         var datatables_config = {
             'autoWidth': false,
             'processing': true,
@@ -63,6 +63,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }, datatables_config));
     };
 
+    // Append modals to Angular root
     $scope.appendModal = function(html, id) {
         id = esc_selector(id);
 
@@ -78,11 +79,13 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Hide table rows
     $scope.hideRow = function(el, msg) {
         el.text(msg);
         el.parent().parent().slideUp();
     };
 
+    // Delete user
     $scope.deleteUser = function($event) {
         var el = $($event.target);
         var user_id = el.data('user-id');
@@ -94,6 +97,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Delete link
     $scope.deleteLink = function($event, link_ending) {
         var el = $($event.target);
 
@@ -104,6 +108,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Generate new API key for user_id
     $scope.generateNewAPIKey = function($event, user_id, is_dev_tab) {
         var el = $($event.target);
         var status_display_elem = el.prevAll('.status-display');
@@ -123,6 +128,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Toggle API access status
     $scope.toggleAPIStatus = function($event, user_id) {
         var el = $($event.target);
         var status_display_elem = el.prevAll('.status-display');
@@ -135,6 +141,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Disable and enable links
     $scope.toggleLink = function($event, link_ending) {
         var el = $($event.target);
         var curr_action = el.text();
@@ -155,6 +162,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Update user API quotas
     $scope.updateAPIQuota = function($event, user_id) {
         var el = $($event.target);
         var new_quota = el.prevAll('.api-quota').val();
@@ -167,7 +175,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
-
+    // Open user API settings menu
     $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
         var el = $($event.target);
 
@@ -189,6 +197,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         $scope.appendModal(mt_html, modal_id);
     };
 
+    // Initialise AdminCtrl
     $scope.init = function() {
         var modal_source = $("#modal-template").html();
         $scope.modal_template = Handlebars.compile(modal_source);
