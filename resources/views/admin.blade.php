@@ -12,7 +12,7 @@
             <li role='presentation' aria-controls="links" class='admin-nav-item'><a href='#links'>Links</a></li>
             <li role='presentation' aria-controls="settings" class='admin-nav-item'><a href='#settings'>Settings</a></li>
 
-            @if ($role == 'admin')
+            @if ($role == $admin_role)
             <li role='presentation' class='admin-nav-item'><a href='#admin'>Admin</a></li>
             @endif
 
