@@ -51,18 +51,16 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             }, datatables_config));
         }
 
-        // var user_links_table = $('#user_link_table').DataTable({
-        //     "processing": true,
-        //     "serverSide": true,
-        //     "ajax": BASE_API_PATH + 'admin/get_user_links',
-        //
-        //     "columns": [
-        //         {data: 'username', name: 'username'},
-        //         {data: 'email', name: 'email'},
-        //         {data: 'created_at', name: 'created_at'},
-        //         {data: 'active', name: 'active'}
-        //     ]
-        // });
+        var user_links_table = $('#user_links_table').DataTable($.extend({
+            "ajax": BASE_API_PATH + 'admin/get_user_links',
+
+            "columns": [
+                {className: 'wrap-text', data: 'short_url', name: 'short_url'},
+                {className: 'wrap-text', data: 'long_url', name: 'long_url'},
+                {data: 'clicks', name: 'clicks'},
+                {data: 'created_at', name: 'created_at'}
+            ]
+        }, datatables_config));
     };
 
     $scope.appendModal = function(html, id) {

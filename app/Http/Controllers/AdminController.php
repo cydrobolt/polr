@@ -72,8 +72,13 @@ class AdminController extends Controller {
 
     public function paginateUserLinks(Request $request) {
         self::ensureLoggedIn();
-        $username = session('username');
 
+        $username = session('username');
+        $user_links = Link::where('creator', $username)
+            ->select(['short_url', 'long_url', 'clicks', 'created_at']);
+
+        return Datatables::of($user_links)
+            ->make(true);
     }
 
     public function displayAdminPage(Request $request) {
@@ -97,9 +102,6 @@ class AdminController extends Controller {
         if (!$user) {
             return redirect(route('index'))->with('error', 'Invalid or disabled account.');
         }
-
-        $user_links = Link::where('creator', $username)
-            ->paginate(15, ['*'], 'links_page');
 
         return view('admin', [
             'role' => $role,
