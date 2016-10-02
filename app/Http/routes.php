@@ -48,6 +48,10 @@ $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], func
     $app->post('admin/toggle_link', ['as' => 'api_toggle_link', 'uses' => 'AjaxController@toggleLink']);
     $app->post('admin/delete_link', ['as' => 'api_delete_link', 'uses' => 'AjaxController@deleteLink']);
 
+    $app->get('admin/get_admin_users', ['as' => 'api_get_admin_users', 'uses' => 'AdminPaginationController@paginateAdminUsers']);
+    $app->get('admin/get_admin_links', ['as' => 'api_get_admin_links', 'uses' => 'AdminPaginationController@paginateAdminLinks']);
+    $app->get('admin/get_user_links', ['as' => 'api_get_user_links', 'uses' => 'AdminPaginationController@paginateUserLinks']);
+
 
     /* API shorten endpoints */
     $app->post('action/shorten', ['as' => 'api_shorten_url', 'uses' => 'Api\ApiLinkController@shortenLink']);

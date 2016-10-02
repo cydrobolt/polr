@@ -34,12 +34,18 @@ class Controller extends BaseController {
             }
         }
         return true;
-
     }
 
     protected static function ensureAdmin() {
         if (!self::currIsAdmin()) {
             abort(401, 'User not admin.');
+        }
+        return true;
+    }
+
+    protected static function ensureLoggedIn() {
+        if (!self::isLoggedIn()) {
+            abort (401, 'User must be authenticated.');
         }
         return true;
     }
