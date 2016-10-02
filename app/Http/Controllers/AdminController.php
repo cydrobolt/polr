@@ -23,14 +23,6 @@ class AdminController extends Controller {
         $username = session('username');
         $role = session('role');
 
-        $admin_users = null;
-        $admin_links = null;
-
-        if ($this->currIsAdmin()) {
-            $admin_users = User::paginate(15, ['*'], 'users_page');
-            $admin_links = Link::paginate(15, ['*'], 'admin_links_page');
-        }
-
         $user = UserHelper::getUserByUsername($username);
 
         if (!$user) {
@@ -50,6 +42,7 @@ class AdminController extends Controller {
         if (!$this->isLoggedIn()) {
             return abort(404);
         }
+        
         $username = session('username');
         $old_password = $request->input('current_password');
         $new_password = $request->input('new_password');
