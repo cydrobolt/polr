@@ -29,8 +29,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                     {data: 'created_at', name: 'created_at'},
                     {data: 'active', name: 'active'},
 
-                    {data: 'api_action', name: 'api_action'},
-                    {data: 'delete', name: 'delete'}
+                    {data: 'api_action', name: 'api_action', orderable: false, searchable: false},
+                    {data: 'delete', name: 'delete', orderable: false, searchable: false}
                 ]
             }, datatables_config));
         }
@@ -44,6 +44,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                     {data: 'clicks', name: 'clicks'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'creator', name: 'creator'},
+
                     {data: 'disable', name: 'disable', orderable: false, searchable: false},
                     {data: 'delete', name: 'delete', orderable: false, searchable: false}
 
