@@ -24,8 +24,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                 "ajax": BASE_API_PATH + 'admin/get_admin_users',
 
                 "columns": [
-                    {data: 'username', name: 'username'},
-                    {data: 'email', name: 'email'},
+                    {className: 'wrap-text', data: 'username', name: 'username'},
+                    {className: 'wrap-text', data: 'email', name: 'email'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'active', name: 'active'},
 
