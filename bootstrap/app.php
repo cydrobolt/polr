@@ -79,6 +79,7 @@ $app->middleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
+$app->register(Yajra\Datatables\DatatablesServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*

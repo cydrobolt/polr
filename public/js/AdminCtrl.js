@@ -6,6 +6,65 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }
     };
 
+    // Initialise Datatables elements
+    $scope.initTables = function () {
+        var datatables_config = {
+            'autoWidth': false,
+            'processing': true,
+            'serverSide': true,
+
+            'drawCallback': function () {
+                // Compile Angular bindings on each draw
+                $compile($(this))($scope);
+            }
+        };
+
+        if ($('#admin_users_table').length) {
+            var admin_users_table = $('#admin_users_table').DataTable($.extend({
+                "ajax": BASE_API_PATH + 'admin/get_admin_users',
+
+                "columns": [
+                    {data: 'username', name: 'username'},
+                    {data: 'email', name: 'email'},
+                    {data: 'created_at', name: 'created_at'},
+
+                    {data: 'toggle_active', name: 'toggle_active'},
+                    {data: 'api_action', name: 'api_action'},
+                    {data: 'change_role', name: 'change_role'},
+                    {data: 'delete', name: 'delete'}
+                ]
+            }, datatables_config));
+        }
+        if ($('#admin_links_table').length) {
+            var admin_links_table = $('#admin_links_table').DataTable($.extend({
+                "ajax": BASE_API_PATH + 'admin/get_admin_links',
+
+                "columns": [
+                    {className: 'wrap-text', data: 'short_url', name: 'short_url'},
+                    {className: 'wrap-text', data: 'long_url', name: 'long_url'},
+                    {data: 'clicks', name: 'clicks'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'creator', name: 'creator'},
+                    {data: 'disable', name: 'disable', orderable: false, searchable: false},
+                    {data: 'delete', name: 'delete', orderable: false, searchable: false}
+
+                ]
+            }, datatables_config));
+        }
+
+        var user_links_table = $('#user_links_table').DataTable($.extend({
+            "ajax": BASE_API_PATH + 'admin/get_user_links',
+
+            "columns": [
+                {className: 'wrap-text', data: 'short_url', name: 'short_url'},
+                {className: 'wrap-text', data: 'long_url', name: 'long_url'},
+                {data: 'clicks', name: 'clicks'},
+                {data: 'created_at', name: 'created_at'}
+            ]
+        }, datatables_config));
+    };
+
+    // Append modals to Angular root
     $scope.appendModal = function(html, id) {
         id = esc_selector(id);
 
@@ -21,6 +80,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Hide table rows
     $scope.hideRow = function(el, msg) {
         el.text(msg);
         el.parent().parent().slideUp();
@@ -33,8 +93,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         apiCall('admin/toggle_user_active', {
             'user_id': user_id,
         }, function(new_status) {
-            new_status = res_value_to_text(new_status);
-            el.text(new_status);
+            var text = (new_status == 1) ? 'Active' : 'Inactive';
+            el.text(text);
             if (el.hasClass('btn-success')) {
                 el.removeClass('btn-success').addClass('btn-danger');
             }
@@ -117,6 +177,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     }
 
+    // Delete user
     $scope.deleteUser = function($event) {
         var el = $($event.target);
         var user_id = el.data('user-id');
@@ -132,6 +193,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Delete link
     $scope.deleteLink = function($event, link_ending) {
         var el = $($event.target);
 
@@ -140,8 +202,9 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }, function(new_status) {
             $scope.hideRow(el, 'Deleted!');
         });
-    }
+    };
 
+    // Generate new API key for user_id
     $scope.generateNewAPIKey = function($event, user_id, is_dev_tab) {
         var el = $($event.target);
         var status_display_elem = el.prevAll('.status-display');
@@ -161,6 +224,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Toggle API access status
     $scope.toggleAPIStatus = function($event, user_id) {
         var el = $($event.target);
         var status_display_elem = el.prevAll('.status-display');
@@ -174,6 +238,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Disable and enable links
     $scope.toggleLink = function($event, link_ending) {
         var el = $($event.target);
         var curr_action = el.text();
@@ -194,6 +259,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Update user API quotas
     $scope.updateAPIQuota = function($event, user_id) {
         var el = $($event.target);
         var new_quota = el.prevAll('.api-quota').val();
@@ -204,9 +270,9 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }, function(next_action) {
             toastr.success("Quota successfully changed.", "Success");
         });
-    }
+    };
 
-
+    // Open user API settings menu
     $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
         var el = $($event.target);
         
@@ -228,8 +294,9 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         var compiled_mt = Handlebars.compile(mt_html);
         mt_html = compiled_mt(modal_context);
         $scope.appendModal(mt_html, modal_id);
-    }
+    };
 
+    // Initialise AdminCtrl
     $scope.init = function() {
         var modal_source = $("#modal-template").html();
         $scope.modal_template = Handlebars.compile(modal_source);
@@ -247,7 +314,9 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         $("a[href^=#]").on("click", function(e) {
             history.pushState({}, '', this.href);
         });
-    }
+
+        $scope.initTables();
+    };
 
     $scope.init();
 });
