@@ -1,4 +1,49 @@
-### Version 1.2.0 - 2015-02-05
+### Version 1.4.1 - 2016-03-18
+
+Update comment in random.php
+
+### Version 1.4.0 - 2016-03-18
+
+Restored OpenSSL in the version 1 branch in preparation to remove
+OpenSSL in version 2.
+
+### Version 1.3.1/1.2.3 - 2016-03-18
+
+* Add more possible values to `open_baseir` check.
+
+### Version 1.3.0 - 2016-03-17
+
+* Removed `openssl_random_pseudo_bytes()` entirely. If you are using
+  random_compat in PHP on a Unix-like OS but cannot access
+  `/dev/urandom`, version 1.3+ will throw an `Exception`. If you want to
+  trust OpenSSL, feel free to write your own fallback code. e.g.
+  
+  ```php
+  try {
+      $bytes = random_bytes(32);
+  } catch (Exception $ex) {
+      $strong = false;
+      $bytes = openssl_random_pseudo_bytes(32, $strong);
+      if (!$strong) {
+          throw $ex;
+      }
+  }
+  ```
+
+### Version 1.2.2 - 2016-03-11
+
+* To prevent applications from hanging, if `/dev/urandom` is not
+  accessible to PHP, skip mcrypt (which just fails before giving OpenSSL
+  a chance and was morally equivalent to not offering OpenSSL at all).
+
+### Version 1.2.1 - 2016-02-29
+
+* PHP 5.6.10 - 5.6.12 will hang when mcrypt is used on Unix-based operating 
+  systems ([PHP bug 69833](https://bugs.php.net/bug.php?id=69833)). If you are
+  running one of these versions, please upgrade (or make sure `/dev/urandom` is
+  readable) otherwise you're relying on OpenSSL.
+
+### Version 1.2.0 - 2016-02-05
 
 * Whitespace and other cosmetic changes
 * Added a changelog.
@@ -8,7 +53,7 @@
   Every time we publish a new release, we will also upload a .phar
   to Github. Our public key is signed by our GPG key.
 
-### Version 1.1.6 - 2015-01-29
+### Version 1.1.6 - 2016-01-29
 
 * Eliminate `open_basedir` warnings by detecting this configuration setting. 
   (Thanks [@oucil](https://github.com/oucil) for reporting this.)
