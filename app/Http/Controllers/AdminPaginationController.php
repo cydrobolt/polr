@@ -22,7 +22,7 @@ class AdminPaginationController extends Controller {
             ->addColumn('api_action', function ($user) {
                 // Add "API Info" action button
                 return '<a class="activate-api-modal btn btn-sm btn-info"
-                    ng-click="openAPIModal($event, \'' . $user->username . '\', \'' . $user->api_key . '\', \'' . $user->api_active . '\', \'' . $user->api_quota . '\', \'' . $user->id . '\')">
+                    ng-click="openAPIModal($event, \'' . $user->username . '\', \'' . $user->id . '\')" id="api_info_btn_' . $user->id . '" data-api-active="' . $user->api_active . '" data-api-key="' . $user->api_key . '" data-api-quota="' . $user->api_quota . '">
                     API info
                 </a>';
             })

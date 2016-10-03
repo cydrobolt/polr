@@ -221,6 +221,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             } else {
                 status_display_elem.text(new_status);
             }
+            $('a#api_info_btn_' + user_id).attr('data-api-key', new_status);
         });
     };
 
@@ -268,15 +269,18 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             'user_id': user_id,
             'new_quota': parseInt(new_quota)
         }, function(next_action) {
+            $('a#api_info_btn_' + user_id).attr('data-api-quota', new_quota);
             toastr.success("Quota successfully changed.", "Success");
         });
     };
 
     // Open user API settings menu
-    $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
+    $scope.openAPIModal = function($event, username, user_id) {
         var el = $($event.target);
         
         api_active = $('a#api_info_btn_' + user_id).attr('data-api-active');
+        api_key = $('a#api_info_btn_' + user_id).attr('data-api-key');
+        api_quota = $('a#api_info_btn_' + user_id).attr('data-api-quota');
 
         var markup = $('#api-modal-template').html();
 
