@@ -24,14 +24,14 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                 "ajax": BASE_API_PATH + 'admin/get_admin_users',
 
                 "columns": [
-                    {data: 'username', name: 'username'},
-                    {data: 'email', name: 'email'},
+                    {className: 'wrap-text', data: 'username', name: 'username'},
+                    {className: 'wrap-text', data: 'email', name: 'email'},
                     {data: 'created_at', name: 'created_at'},
 
                     {data: 'toggle_active', name: 'toggle_active'},
-                    {data: 'api_action', name: 'api_action'},
+                    {data: 'api_action', name: 'api_action', orderable: false, searchable: false},
                     {data: 'change_role', name: 'change_role'},
-                    {data: 'delete', name: 'delete'}
+                    {data: 'delete', name: 'delete', orderable: false, searchable: false}
                 ]
             }, datatables_config));
         }
@@ -45,6 +45,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                     {data: 'clicks', name: 'clicks'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'creator', name: 'creator'},
+
                     {data: 'disable', name: 'disable', orderable: false, searchable: false},
                     {data: 'delete', name: 'delete', orderable: false, searchable: false}
 
