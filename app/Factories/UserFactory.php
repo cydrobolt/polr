@@ -4,9 +4,10 @@ namespace App\Factories;
 use Hash;
 use App\Models\User;
 use App\Helpers\CryptoHelper;
+use App\Helpers\UserHelper;
 
 class UserFactory {
-    public static function createUser($username, $email, $password, $active=0, $ip='127.0.0.1', $api_key=false, $api_active=0) {
+    public static function createUser($username, $email, $password, $active=0, $ip='127.0.0.1', $api_key=false, $api_active=0, $role='') {
         $hashed_password = Hash::make($password);
 
         $recovery_key = CryptoHelper::generateRandomHex(50);
@@ -17,6 +18,8 @@ class UserFactory {
         $user->recovery_key = $recovery_key;
         $user->active = $active;
         $user->ip = $ip;
+        $role = ($role == '') ? UserHelper::UserRole('DEFAULT') : $role;
+        $user->role = $role;
 
         $user->api_key = $api_key;
         $user->api_active = $api_active;

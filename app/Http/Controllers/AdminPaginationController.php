@@ -5,6 +5,7 @@ use Yajra\Datatables\Facades\Datatables;
 
 use App\Models\Link;
 use App\Models\User;
+use App\Helpers\UserHelper;
 
 class AdminPaginationController extends Controller {
     /**
@@ -16,14 +17,47 @@ class AdminPaginationController extends Controller {
     public function paginateAdminUsers(Request $request) {
         self::ensureAdmin();
 
-        $admin_users = User::select(['username', 'email', 'created_at', 'active', 'api_key', 'api_active', 'api_quota', 'id']);
+        $admin_users = User::select(['username', 'email', 'created_at', 'active', 'api_key', 'api_active', 'api_quota', 'role', 'id']);
         return Datatables::of($admin_users)
             ->addColumn('api_action', function ($user) {
                 // Add "API Info" action button
                 return '<a class="activate-api-modal btn btn-sm btn-info"
-                    ng-click="openAPIModal($event, \'' . $user->username . '\', \'' . $user->api_key . '\', \'' . $user->api_active . '\', \'' . $user->api_quota . '\', \'' . $user->id . '\')">
+                    ng-click="openAPIModal($event, \'' . $user->username . '\', \'' . $user->id . '\')" id="api_info_btn_' . $user->id . '" data-api-active="' . $user->api_active . '" data-api-key="' . $user->api_key . '" data-api-quota="' . $user->api_quota . '">
                     API info
                 </a>';
+            })
+            ->addColumn('toggle_active', function ($user) {
+                // Toggle User Active status
+                $btn_class = '';
+                if (session('username') == $user->username) {
+                    $btn_class = ' disabled';
+                }
+
+                if ($user->active) {
+                    $active_text = 'Active';
+                    $btn_color_class = ' btn-success';
+                }
+                else {
+                    $active_text = 'Inactive';
+                    $btn_color_class = ' btn-danger';
+                }
+                
+                return '<a class="btn btn-sm status-display' . $btn_color_class . $btn_class . '" ng-click="toggleUserActiveStatus($event)" '
+                        . 'data-user-id="' . $user->id . '">' . $active_text . '</a>';
+            })
+            ->addColumn('change_role', function ($user) {
+                // Add "Change Role" Select Box
+                if (session('username') == $user->username) {
+                    return 'ADMIN';
+                }
+                $selectrole = '<select onchange="changeUserRole($(this));" id="user_roles" data-user-id=\'' . $user->id . '\' style="width: 100%; height: 85%;">';
+                foreach (UserHelper::getUserRoles() as $role_text => $role_val) {
+                    $selectrole .= '<option value="' . $role_val . '"';
+                    if ($user->role == $role_val) $selectrole .= ' selected';
+                    $selectrole .= '>' . $role_text . '</option>';
+                }
+                $selectrole .= '</select>';
+                return $selectrole;
             })
             ->addColumn('delete', function ($user) {
                 // Add "Delete" action button

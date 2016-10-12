@@ -27,9 +27,10 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                     {className: 'wrap-text', data: 'username', name: 'username'},
                     {className: 'wrap-text', data: 'email', name: 'email'},
                     {data: 'created_at', name: 'created_at'},
-                    {data: 'active', name: 'active'},
 
+                    {data: 'toggle_active', name: 'toggle_active'},
                     {data: 'api_action', name: 'api_action', orderable: false, searchable: false},
+                    {data: 'change_role', name: 'change_role'},
                     {data: 'delete', name: 'delete', orderable: false, searchable: false}
                 ]
             }, datatables_config));
@@ -86,10 +87,105 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         el.parent().parent().slideUp();
     };
 
+    $scope.toggleUserActiveStatus = function($event) {
+        var el = $($event.target);
+        var user_id = el.data('user-id');
+
+        apiCall('admin/toggle_user_active', {
+            'user_id': user_id,
+        }, function(new_status) {
+            var text = (new_status == 1) ? 'Active' : 'Inactive';
+            el.text(text);
+            if (el.hasClass('btn-success')) {
+                el.removeClass('btn-success').addClass('btn-danger');
+            }
+            else {
+                el.removeClass('btn-danger').addClass('btn-success');
+            }
+        });
+    }
+
+    $scope.toggleNewUserBox = function($event) {
+        var el = $($event.target);
+        $('#add_user_box').toggle();
+        if (el.text() == 'Add New User') {
+            el.text('Cancel');
+            $('#new_user_name').focus();
+        }
+        else {
+            el.text('Add New User');
+            $scope.resetNewUserFields();
+        }
+    }
+
+    $scope.resetNewUserFields = function() {
+        $('#new_user_name').val('');
+        $('#new_user_password').val('');
+        $('#new_user_email').val('');
+        $("#new_user_role").val($("#new_user_role option:first").val());
+        $('#new_user_status').text('');
+        $('#new_user_status').css('color', '#000');
+    };
+
+    $scope.checkNewUserFiels = function() {
+        var user_name = $('#new_user_name').val();
+        var user_password = $('#new_user_password').val();
+        var user_email = $('#new_user_email').val();
+
+        if (user_name.trim() == ''  ||  user_password.trim() == ''  ||  user_email.trim() == '') return false;
+
+        return true;
+    }
+
+    $scope.addNewUser = function($event) {
+        const status_error1 = 'Fields cannot be empty !';
+        const status_error2 = 'Unknown Error !';
+        const status_ok = 'New User added !\nPlease refresh page to see all users.';
+
+        var user_name = $('#new_user_name').val();
+        var user_password = $('#new_user_password').val();
+        var user_email = $('#new_user_email').val();
+        var user_role = $('#new_user_role').val();
+
+        if (!$scope.checkNewUserFiels()) {
+            $('#new_user_status').text(status_error1);
+            $('#new_user_status').css('color', '#f00');
+            
+            return;
+        }
+
+        apiCall('admin/add_new_user', {
+            'user_name': user_name,
+            'user_password': user_password,
+            'user_email': user_email,
+            'user_role': user_role,
+        }, function(result) {
+            if (result == 'OK') {
+                $('#new_user_status').text(status_ok).css('color', '#325d88').hide();
+                $('#new_user_status').fadeIn('normal', function() {
+                    $(this).delay(3000).fadeOut('slow', function() {
+                        $('#add_user_box').toggle();
+                        $('#add_user_btn').text('Add New User');
+                        $('#new_user_status').show();
+                        $scope.resetNewUserFields();
+                    });
+                });
+            }
+            else {
+                $('#new_user_status').text(status_error2);
+                $('#new_user_status').css('color', '#f00');
+            }
+        });
+    }
+
     // Delete user
     $scope.deleteUser = function($event) {
         var el = $($event.target);
         var user_id = el.data('user-id');
+        var user_name = el.data('user-name');
+
+        var confirmation = confirm("User '" + user_name + "' will be deleted.\nAre you sure?");
+        if (!confirmation) return;
 
         apiCall('admin/delete_user', {
             'user_id': user_id,
@@ -126,6 +222,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             } else {
                 status_display_elem.text(new_status);
             }
+            $('a#api_info_btn_' + user_id).attr('data-api-key', new_status);
         });
     };
 
@@ -137,6 +234,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         apiCall('admin/toggle_api_active', {
             'user_id': user_id,
         }, function(new_status) {
+            $('a#api_info_btn_' + user_id).attr('data-api-active', new_status);
             new_status = res_value_to_text(new_status);
             status_display_elem.text(new_status);
         });
@@ -172,13 +270,18 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             'user_id': user_id,
             'new_quota': parseInt(new_quota)
         }, function(next_action) {
+            $('a#api_info_btn_' + user_id).attr('data-api-quota', new_quota);
             toastr.success("Quota successfully changed.", "Success");
         });
     };
 
     // Open user API settings menu
-    $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
+    $scope.openAPIModal = function($event, username, user_id) {
         var el = $($event.target);
+        
+        api_active = $('a#api_info_btn_' + user_id).attr('data-api-active');
+        api_key = $('a#api_info_btn_' + user_id).attr('data-api-key');
+        api_quota = $('a#api_info_btn_' + user_id).attr('data-api-quota');
 
         var markup = $('#api-modal-template').html();
 
@@ -222,3 +325,24 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
     $scope.init();
 });
+
+function changeUserRole(what) {
+    var user_id = what.attr('data-user-id');
+    var role = what.val();
+
+    apiCall('admin/change_user_role', {
+        'user_id': user_id,
+        'role': role,
+    }, function(result) {
+        if (result == 'OK') {
+            var parent_td = what.parent();
+            var add = '<div id="role_changed_' + user_id + '" style="display: none; color: #fff; background: #0a0; font-weight: bold; text-align: center;">Changed</div>';
+            parent_td.append(add);
+            $('#role_changed_' + user_id).fadeIn('normal', function() {
+                $(this).delay(1000).fadeOut('slow', function() {
+                    $('#role_changed_' + user_id).remove(); 
+                });
+            });
+        }
+    });
+}
