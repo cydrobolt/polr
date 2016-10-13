@@ -1,31 +1,32 @@
-<div style="margin-bottom: 30px;">
-    <a ng-click="toggleNewUserBox($event)" id="add_user_btn" class='btn btn-primary btn-sm status-display'>Add New User</a>
-    <div id="add_user_box" style="display: none; margin-top: 10px;">
+<div>
+    <a ng-click="toggleNewUserBox($event)" class="btn btn-primary btn-sm status-display">New</a>
+    <div class="new-user-fields">
         <table class="table">
             <tr>
-                <th width="20%">Username</th>
-                <th width="20%">Password</th>
-                <th width="20%">Email</th>
-                <th width="10%">Role</th>
-                <th width="10%"></th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th></th>
             </tr>
             <tr>
-                <td><input id="new_user_name" /></td>
-                <td><input id="new_user_password" /></td>
-                <td><input id="new_user_email" /></td>
+                <td><input class="form-control" id="new-user-name"></td>
+                <td><input class="form-control" id="new-user-password"></td>
+                <td><input class="form-control" id="new-user-email"></td>
                 <td>
-                    <select id="new_user_role" style="width: 100%; height: 85%;">
+                    <select class="form-control new-user-role" id="new-user-role">
                         @foreach  ($roles as $role_text => $role_val)
                             <option value="{{$role_val}}">{{$role_text}}</option>
                         @endforeach
                     </select>
                 </td>
-                <td><a ng-click="addNewUser($event)" class='btn btn-primary btn-sm status-display' style="padding-left: 15px; padding-right: 15px;">Add</a></td>
+                <td><a ng-click="addNewUser($event)" class="btn btn-primary btn-sm status-display new-user-add">Add</a></td>
             </tr>
         </table>
-        <div id="new_user_status" style="text-align: center;"></div>
+        <div id="new-user-status"></div>
     </div>
 </div>
+
 <table id="{{$table_id}}" class="table table-hover">
     <thead>
         <tr>

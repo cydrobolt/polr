@@ -87,6 +87,9 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         el.parent().parent().slideUp();
     };
 
+    /*
+        User Management
+    */
     $scope.toggleUserActiveStatus = function($event) {
         var el = $($event.target);
         var user_id = el.data('user-id');
@@ -107,34 +110,30 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
     $scope.toggleNewUserBox = function($event) {
         var el = $($event.target);
-        $('#add_user_box').toggle();
-        if (el.text() == 'Add New User') {
+        $('.new-user-fields').toggle();
+
+        if ($('.new-user-fields').css('display') == 'block') {
             el.text('Cancel');
-            $('#new_user_name').focus();
         }
         else {
-            el.text('Add New User');
-            $scope.resetNewUserFields();
+            el.text('New');
+            $('.new-user-fields input').each(function () {
+                $(this).val('');
+            });
         }
     }
 
-    $scope.resetNewUserFields = function() {
-        $('#new_user_name').val('');
-        $('#new_user_password').val('');
-        $('#new_user_email').val('');
-        $("#new_user_role").val($("#new_user_role option:first").val());
-        $('#new_user_status').text('');
-        $('#new_user_status').css('color', '#000');
-    };
+    $scope.checkNewUserFields = function() {
+        var response = true;
 
-    $scope.checkNewUserFiels = function() {
-        var user_name = $('#new_user_name').val();
-        var user_password = $('#new_user_password').val();
-        var user_email = $('#new_user_email').val();
+        $('.new-user-fields input').each(function () {
+            console.log($(this).attr('id'));
+            if ($(this).val().trim() == '' || response == false) {
+                response = false;
+            }
+        });
 
-        if (user_name.trim() == ''  ||  user_password.trim() == ''  ||  user_email.trim() == '') return false;
-
-        return true;
+        return response;
     }
 
     $scope.addNewUser = function($event) {
@@ -147,10 +146,10 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         var user_email = $('#new_user_email').val();
         var user_role = $('#new_user_role').val();
 
-        if (!$scope.checkNewUserFiels()) {
-            $('#new_user_status').text(status_error1);
-            $('#new_user_status').css('color', '#f00');
-            
+        if (!$scope.checkNewUserFields()) {
+            $('#new-user-status').text(status_error1);
+            $('#new-user-status').css('color', '#f00');
+
             return;
         }
 
@@ -194,17 +193,6 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
-    // Delete link
-    $scope.deleteLink = function($event, link_ending) {
-        var el = $($event.target);
-
-        apiCall('admin/delete_link', {
-            'link_ending': link_ending,
-        }, function(new_status) {
-            $scope.hideRow(el, 'Deleted!');
-        });
-    };
-
     // Generate new API key for user_id
     $scope.generateNewAPIKey = function($event, user_id, is_dev_tab) {
         var el = $($event.target);
@@ -240,27 +228,6 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
-    // Disable and enable links
-    $scope.toggleLink = function($event, link_ending) {
-        var el = $($event.target);
-        var curr_action = el.text();
-
-        apiCall('admin/toggle_link', {
-            'link_ending': link_ending,
-        }, function(next_action) {
-            toastr.success(curr_action + " was successful.", "Success");
-            if (next_action == 'Disable') {
-                el.removeClass('btn-success');
-                el.addClass('btn-danger');
-            } else {
-                el.removeClass('btn-danger');
-                el.addClass('btn-success');
-            }
-
-            el.text(next_action);
-        });
-    };
-
     // Update user API quotas
     $scope.updateAPIQuota = function($event, user_id) {
         var el = $($event.target);
@@ -278,7 +245,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
     // Open user API settings menu
     $scope.openAPIModal = function($event, username, user_id) {
         var el = $($event.target);
-        
+
         api_active = $('a#api_info_btn_' + user_id).attr('data-api-active');
         api_key = $('a#api_info_btn_' + user_id).attr('data-api-key');
         api_quota = $('a#api_info_btn_' + user_id).attr('data-api-quota');
@@ -300,6 +267,46 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         mt_html = compiled_mt(modal_context);
         $scope.appendModal(mt_html, modal_id);
     };
+
+    /*
+        Link Management
+    */
+
+    // Delete link
+    $scope.deleteLink = function($event, link_ending) {
+        var el = $($event.target);
+
+        apiCall('admin/delete_link', {
+            'link_ending': link_ending,
+        }, function(new_status) {
+            $scope.hideRow(el, 'Deleted!');
+        });
+    };
+
+    // Disable and enable links
+    $scope.toggleLink = function($event, link_ending) {
+        var el = $($event.target);
+        var curr_action = el.text();
+
+        apiCall('admin/toggle_link', {
+            'link_ending': link_ending,
+        }, function(next_action) {
+            toastr.success(curr_action + " was successful.", "Success");
+            if (next_action == 'Disable') {
+                el.removeClass('btn-success');
+                el.addClass('btn-danger');
+            } else {
+                el.removeClass('btn-danger');
+                el.addClass('btn-success');
+            }
+
+            el.text(next_action);
+        });
+    };
+
+    /*
+        Initialisation
+    */
 
     // Initialise AdminCtrl
     $scope.init = function() {
@@ -340,7 +347,7 @@ function changeUserRole(what) {
             parent_td.append(add);
             $('#role_changed_' + user_id).fadeIn('normal', function() {
                 $(this).delay(1000).fadeOut('slow', function() {
-                    $('#role_changed_' + user_id).remove(); 
+                    $('#role_changed_' + user_id).remove();
                 });
             });
         }

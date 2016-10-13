@@ -39,3 +39,20 @@ input.api-quota {
         table-layout: fixed;
     }
 }
+
+/* User Management Styles */
+select.new-user-role {
+
+}
+
+a.new-user-add {
+    padding-left: 0.5em
+}
+
+.new-user-fields {
+    display: none;
+}
+
+.new-user-fields .form-input {
+    /*width: 1.5em;*/
+}
