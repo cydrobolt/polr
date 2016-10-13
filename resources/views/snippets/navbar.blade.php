@@ -12,14 +12,14 @@
         </div>
 
         <ul id="navbar" class="nav navbar-collapse collapse navbar-nav" id="nbc">
-			@if (empty(session('username')))
-				<li class="visible-xs"><a href="{{route('login')}}">Sign In</a></li>
-			@else
-				<li class="visible-xs"><a tabindex="-1" href="{{route('admin')}}">Dashboard</a></li>
-                <li class="visible-xs"><a tabindex="-1" href="{{route('admin')}}#settings">Settings</a></li>
-                <li class="visible-xs"><a tabindex="-1" href="{{route('logout')}}">Logout</a></li>
-			@endif
-			<li><a href="about">About</a></li>
+		<li><a href="about">About</a></li>
+		@if (empty(session('username')))
+			<li class="visible-xs"><a href="{{route('login')}}">Sign In</a></li>
+		@else
+			<li class="visible-xs"><a tabindex="-1" href="{{route('admin')}}">Dashboard</a></li>
+                	<li class="visible-xs"><a tabindex="-1" href="{{route('admin')}}#settings">Settings</a></li>
+                	<li class="visible-xs"><a tabindex="-1" href="{{route('logout')}}">Logout</a></li>
+		@endif
         </ul>
         <ul id="navbar" class="nav pull-right navbar-nav hidden-xs">
             <li class="divider-vertical"></li>
