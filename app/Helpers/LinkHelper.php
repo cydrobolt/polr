@@ -74,6 +74,16 @@ class LinkHelper {
         $is_valid_ending = preg_match('/^[a-zA-Z0-9-_]+$/', $link_ending);
         return $is_valid_ending;
     }
+    
+    /**
+     * Returns true if called links ends with "+" to show its statistic page
+     * @param $link_ending
+     * @return bool
+     */
+    static public function validatePlusEnding($link_ending) {
+        $is_plus_ending = Str::endsWith($link_ending, '+');
+        return $is_plus_ending;
+    }
 
     static public function processPostClick($link) {
         /**
