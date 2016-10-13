@@ -47,7 +47,12 @@ class LinkController extends Controller {
     public function performRedirect(Request $request, $short_url, $secret_key=false) {
         $link = Link::where('short_url', $short_url)
             ->first();
-
+        
+        // Calls the statistic page of the shortlink
+        if ( LinkHelper::validatePlusEnding($short_url) ) {
+            return view('statistic');
+        }
+        
         // Return 404 if link not found
         if ($link == null) {
         	return abort(404);
