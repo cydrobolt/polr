@@ -1,7 +1,8 @@
 @extends('layouts.base')
 
 @section('css')
-<link rel='stylesheet' href='/css/admin.css' />
+<link rel='stylesheet' href='/css/admin.css'>
+<link rel='stylesheet' href='/css/datatables.min.css'>
 @endsection
 
 @section('content')
@@ -30,11 +31,8 @@
 
             <div role="tabpanel" class="tab-pane" id="links">
                 @include('snippets.link_table', [
-                    'links' => $user_links
+                    'table_id' => 'user_links_table'
                 ])
-
-                {!! $user_links->fragment('links')->render() !!}
-                {{-- Add search functions --}}
             </div>
 
             <div role="tabpanel" class="tab-pane" id="settings">
@@ -50,19 +48,14 @@
             @if ($role == 'admin')
             <div role="tabpanel" class="tab-pane" id="admin">
                 <h3>Links</h3>
-
                 @include('snippets.link_table', [
-                    'links' => $admin_links
+                    'table_id' => 'admin_links_table'
                 ])
-
-                {!! $admin_links->fragment('admin')->render() !!}
 
                 <h3>Users</h3>
                 @include('snippets.user_table', [
-                    'users' => $admin_users
+                    'table_id' => 'admin_users_table'
                 ])
-
-                {!! $admin_users->fragment('admin')->render() !!}
 
             </div>
             @endif
@@ -112,6 +105,7 @@
 
 {{-- Include extra JS --}}
 <script src='/js/handlebars-v4.0.5.min.js'></script>
+<script src='/js/datatables.min.js'></script>
 <script src='/js/api.js'></script>
 <script src='/js/AdminCtrl.js'></script>
 
