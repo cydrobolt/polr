@@ -108,52 +108,68 @@ Response:
 
 ### GET /api/v2/action/listLinks
 The `listLinks` action responds with a list of URLs that have been shortened and that are associated with authenticated user.
-If response-type is plain-text it will respond with a list in CSV format.
+The list of URLs is paginated.
 
-Example: GET `http://example.com/api/v2/action/listLinks?key=API_KEY_HERE&response_type=json`
+Arguments:
+
+ - `per_page`: defines the count of lists per page. (Default is `15`)
+ - `page`: defines the page that should be displayed.
+ - `response-type`: `plain-text` or `json`. Whether the response will be a list in CSV or JSON format. 
+
+Example: GET `http://example.com/api/v2/action/listLinks?key=API_KEY_HERE&response_type=json&page=1&per_page=2`
 
 Response:
 ```
 {
     "action": "listLinks",
-    "result": [
-        {
-            "short_url": "2",
-            "long_url": "https://google.com",
-            "is_disabled": false,
-            "clicks": 0,
-            "updated_at": {
-                "date": "2016-09-19 08:33:22.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
-            },
-            "created_at": {
-                "date": "2016-09-16 08:21:56.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
-            }
-        },
-        {
-            "short_url": "3",
-            "long_url": "https://github.com/cydrobolt/polr/blob/master/docs/developer-guide/api.md",
-            "is_disabled": true,
-            "clicks": 0,
-            "updated_at": {
-                "date": "2016-09-19 08:28:48.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
-            },
-            "created_at": {
-                "date": "2016-09-19 07:17:58.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
-            }
-        }
-    ]
+    "result": {
+          "total": 4,
+          "per_page": 2,
+          "current_page": 1,
+          "last_page": 2,
+          "next_page_url": "http://example.com/api/v2/action/listLinks?page=2",
+          "prev_page_url": null,
+          "from": 1,
+          "to": 2,
+          "data": [
+              {
+                  "short_url": "2",
+                  "long_url": "https://google.com",
+                  "is_disabled": false,
+                  "clicks": 0,
+                  "updated_at": {
+                      "date": "2016-09-19 09:14:34.000000",
+                      "timezone_type": 3,
+                      "timezone": "UTC"
+                  },
+                  "created_at": {
+                      "date": "2016-09-16 08:21:56.000000",
+                      "timezone_type": 3,
+                      "timezone": "UTC"
+                  }
+              },
+              {
+                  "short_url": "3",
+                  "long_url": "https://github.com/cydrobolt/polr/blob/master/docs/developer-guide/api.md",
+                  "is_disabled": true,
+                  "clicks": 0,
+                  "updated_at": {
+                      "date": "2016-09-19 09:14:34.000000",
+                      "timezone_type": 3,
+                      "timezone": "UTC"
+                  },
+                  "created_at": {
+                      "date": "2016-09-19 07:17:58.000000",
+                      "timezone_type": 3,
+                      "timezone": "UTC"
+                  }
+              }
+          ]
+      }
 }
 ```
 
-Example: GET `http://example.com/api/v2/action/listLinks?key=API_KEY_HERE&response_type=plain_text`
+Example: GET `http://example.com/api/v2/action/listLinks?key=API_KEY_HERE&response_type=plain_text&page=1&per_page=2`
 
 Response:
 ```

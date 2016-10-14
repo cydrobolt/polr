@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-
 use App\Models\Link;
+use Illuminate\Support\Facades\Validator;
 
 class ApiLinksEditController extends ApiController
 {
@@ -16,9 +16,22 @@ class ApiLinksEditController extends ApiController
 		 * @return mixed
 		 */
 		//
+		// Validation
+		//
+		$validator = Validator::make($request->all(),
+			['per_page' => ['integer', 'max:100']]
+		);
+		if ($validator->fails()) {
+			// The given data did not pass validation
+			abort(400, $validator->messages());
+		}
+
+		//
 		// Initialize incoming parameters
 		//
 		$response_type = $request->input('response_type');
+		$per_page = (int) $request->input('per_page');
+
 
 		// Initialize user
 		$user = self::getApiUserInfo($request);
@@ -26,7 +39,12 @@ class ApiLinksEditController extends ApiController
 		//
 		// Fetch valid links belonging to the same user
 		//
-		$links = Link::where('creator', $user->username)->get();
+		$links = Link::where('creator', $user->username)->paginate($per_page);
+
+		// Fetch pagination meta
+		$paginationMeta = $links->toArray();
+		// Purge actual `links` data
+		unset($paginationMeta['data']);
 
 		$responseLinks = [];
 		$responseLinksText = '';
@@ -48,6 +66,8 @@ class ApiLinksEditController extends ApiController
 		}
 
 		if (!empty($responseLinks)) {
+			// Append pagination-meta
+			$responseLinks = array_merge($paginationMeta, ['data' => $responseLinks]);
 			return self::encodeResponse($responseLinks, 'listLinks', $response_type, $responseLinksText);
 		} else {
 			abort(404, "No links found.");
