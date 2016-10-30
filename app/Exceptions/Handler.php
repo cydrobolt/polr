@@ -41,33 +41,34 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof NotFoundHttpException) {
-            if (env('SETTING_REDIRECT_404')) {
-                // Redirect 404s to SETTING_INDEX_REDIRECT
-                return redirect()->to(env('SETTING_INDEX_REDIRECT'));
+        if (env('APP_DEBUG') === false) {
+            if ($e instanceof NotFoundHttpException) {
+                if (env('SETTING_REDIRECT_404')) {
+                    // Redirect 404s to SETTING_INDEX_REDIRECT
+                    return redirect()->to(env('SETTING_INDEX_REDIRECT'));
+                }
+                // Otherwise, show a nice error page
+                return view('errors.404');
             }
-            // Otherwise, show a nice error page
-            return view('errors.404');
-        }
-        if ($e instanceof HttpException) {
-            $status_code = $e->getStatusCode();
-            $status_message = $e->getMessage();
-            Log::critical("$status_code error: $status_message");
+            if ($e instanceof HttpException) {
+                $status_code = $e->getStatusCode();
+                $status_message = $e->getMessage();
+                Log::critical("$status_code error: $status_message");
 
-            if ($status_code == 500) {
-                // Render a nice error page for 500s
-                return view('errors.500');
-            } else {
-                // If not 500, render generic page
-                return response(
-                    view('errors.generic', [
-                        'status_code' => $status_code,
-                        'status_message' => $status_message
-                    ]),
-                    $status_code);
+                if ($status_code == 500) {
+                    // Render a nice error page for 500s
+                    return view('errors.500');
+                } else {
+                    // If not 500, render generic page
+                    return response(
+                        view('errors.generic', [
+                            'status_code' => $status_code,
+                            'status_message' => $status_message
+                        ]),
+                        $status_code);
+                }
             }
         }
-
         return parent::render($request, $e);
     }
 }
