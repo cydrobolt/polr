@@ -13,7 +13,7 @@
             <li role='presentation' aria-controls="links" class='admin-nav-item'><a href='#links'>Links</a></li>
             <li role='presentation' aria-controls="settings" class='admin-nav-item'><a href='#settings'>Settings</a></li>
 
-            @if ($role == 'admin')
+            @if ($role == $admin_role)
             <li role='presentation' class='admin-nav-item'><a href='#admin'>Admin</a></li>
             @endif
 
@@ -45,7 +45,7 @@
                 </form>
             </div>
 
-            @if ($role == 'admin')
+            @if ($role == $admin_role)
             <div role="tabpanel" class="tab-pane" id="admin">
                 <h3>Links</h3>
                 @include('snippets.link_table', [
@@ -54,7 +54,8 @@
 
                 <h3>Users</h3>
                 @include('snippets.user_table', [
-                    'table_id' => 'admin_users_table'
+                    'table_id' => 'admin_users_table',
+                    'roles' => $user_roles
                 ])
 
             </div>

@@ -105,4 +105,16 @@ class UserHelper {
         return self::getUserBy('email', $email, $inactive);
     }
 
+    public static function getUserRoles() { // Return Array: list of user roles
+        return array(
+                    'ADMIN'    => 'admin',
+                    'DEFAULT'  => '',
+                );
+    }
+
+    public static function UserRole($role) {
+        $userRoles = self::getUserRoles();
+
+        return $userRoles[$role];
+    }
 }

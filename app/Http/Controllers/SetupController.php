@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 
 use App\Helpers\CryptoHelper;
 use App\Models\User;
+use App\Helpers\UserHelper;
 use App\Factories\UserFactory;
 use Cache;
 
@@ -97,7 +98,7 @@ class SetupController extends Controller {
         $acct_username = $request->input('acct:username');
         $acct_email = $request->input('acct:email');
         $acct_password = $request->input('acct:password');
-        $acct_group = "admin";
+        $acct_group = UserHelper::UserRole('ADMIN');
 
         // if true, only logged in users can shorten
         $st_shorten_permission = $request->input('setting:shorten_permission');
@@ -214,9 +215,7 @@ class SetupController extends Controller {
             return redirect(route('setup'))->with('error', 'Could not create database. Perhaps some credentials were incorrect?');
         }
 
-        $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip());
-        $user->role = 'admin';
-        $user->save();
+        $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip(), false, 0, UserHelper::UserRole('ADMIN'));
 
         return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');
     }

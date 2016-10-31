@@ -6,6 +6,7 @@ use App\Helpers\LinkHelper;
 use App\Helpers\CryptoHelper;
 use App\Helpers\UserHelper;
 use App\Models\User;
+use App\Factories\UserFactory;
 
 class AjaxController extends Controller {
     /**
@@ -113,6 +114,61 @@ class AjaxController extends Controller {
         }
         $user->api_quota = $new_quota;
         $user->save();
+        return "OK";
+    }
+
+    public function toggleUserActive(Request $request) {
+        self::ensureAdmin();
+
+        $user_id = $request->input('user_id');
+        $user = UserHelper::getUserById($user_id, true);
+
+        if (!$user) {
+            abort(404, 'User not found.');
+        }
+        $current_status = $user->active;
+
+        if ($current_status == 1) {
+            $new_status = 0;
+        }
+        else {
+            $new_status = 1;
+        }
+
+        $user->active = $new_status;
+        $user->save();
+
+        return $user->active;
+    }
+
+    public function changeUserRole(Request $request) {
+        self::ensureAdmin();
+
+        $user_id = $request->input('user_id');
+        $role = $request->input('role');
+        $user = UserHelper::getUserById($user_id, true);
+
+        if (!$user) {
+            abort(404, 'User not found.');
+        }
+
+        $user->role = $role;
+        $user->save();
+
+        return "OK";
+    }
+
+    public function addNewUser(Request $request) {
+        self::ensureAdmin();
+
+        $ip = $request->ip();
+        $user_name = $request->input('user_name');
+        $user_password = $request->input('user_password');
+        $user_email = $request->input('user_email');
+        $user_role = $request->input('user_role');
+
+        UserFactory::createUser($user_name, $user_email, $user_password, 1, $ip, false, 0, $user_role);
+
         return "OK";
     }
 
