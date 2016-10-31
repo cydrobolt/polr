@@ -1,11 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Events\LinkWasResolved;
 use Illuminate\Http\Request;
-use Illuminate\Http\Redirect;
 
 use App\Models\Link;
 use App\Factories\LinkFactory;
+use Illuminate\Support\Facades\Cache;
 
 class LinkController extends Controller
 {
@@ -47,7 +48,9 @@ class LinkController extends Controller
 
     public function performRedirect(Request $request, $short_url, $secret_key = false)
     {
-        $link = Link::where('short_url', $short_url)->first();
+        $link = Cache::get("$short_url/$secret_key", function () use ($short_url) {
+            return Link::where('short_url', $short_url)->first();
+        });
 
         // Return 404 if link not found
         if ($link == null) {
@@ -70,11 +73,7 @@ class LinkController extends Controller
             return abort(403);
         }
 
-        // Increment click count
-        $link->clicks++; // ToDo Update the column to be an int instead of a varchar
-        $link->save();
-
-        // Redirect to final destination
+        event(new LinkWasResolved($link));
         return redirect()->to($link->long_url);
     }
 

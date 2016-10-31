@@ -17,4 +17,10 @@ class Link extends Model
         }
         return false;
     }
+
+    public function toggleStatus()
+    {
+        $this->is_disabled = !(bool)$this->is_disabled;
+        $this->save();
+    }
 }

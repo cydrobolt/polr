@@ -16,17 +16,23 @@ class LinkControllerTest extends TestCase
 
     public function testProtectedLinks()
     {
+        $this->expectsEvents(\App\Events\LinkWasResolved::class);
+
         $this->call('GET', '/amz');
         $this->assertResponseStatus(403);
+
         $this->call('GET', '/amz/wrong');
         $this->assertResponseStatus(403);
+
         $this->call('GET', '/amz/42');
         $this->assertResponseStatus(302);
         $this->assertRedirectedTo('http://amazon.com');
+
     }
 
     public function testUnProtectedLinks()
     {
+        $this->expectsEvents(\App\Events\LinkWasResolved::class);
         $this->call('GET', '/gogl');
         $this->assertResponseStatus(302);
         $this->assertRedirectedTo('http://google.com');

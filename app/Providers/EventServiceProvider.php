@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\LinkWasModified;
+use App\Events\LinkWasResolved;
+use App\Listeners\ExpireLinkCache;
+use App\Listeners\TrackLinkResolution;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -12,8 +16,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        LinkWasResolved::class => [
+            TrackLinkResolution::class,
         ],
+        LinkWasModified::class => [
+            ExpireLinkCache::class
+        ]
     ];
 }

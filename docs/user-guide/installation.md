@@ -10,7 +10,7 @@ In the case that you cannot fulfill the following requirements (e.g free shared 
 you may be interested in looking at a [legacy 1.x release](https://github.com/cydrobolt/polr/releases) of Polr (now unsupported).
 
 
- - Apache, nginx, IIS, or lighttpd (Apache preferred)
+ - Apache, Nginx, IIS, or lighttpd (Apache preferred)
  - PHP >= 5.5.9
  - MariaDB or MySQL >= 5.5, SQLite alternatively
  - Composer (optional)
