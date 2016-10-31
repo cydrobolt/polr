@@ -1,4 +1,4 @@
-#/vendor
+/vendor
 bootstrap/cache/
 storage/
 env
