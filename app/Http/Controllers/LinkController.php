@@ -1,25 +1,28 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Events\LinkWasResolved;
 use Illuminate\Http\Request;
-use Illuminate\Http\Redirect;
 
 use App\Models\Link;
 use App\Factories\LinkFactory;
-use App\Helpers\CryptoHelper;
-use App\Helpers\LinkHelper;
+use Illuminate\Support\Facades\Cache;
 
-class LinkController extends Controller {
+class LinkController extends Controller
+{
     /**
      * Show the admin panel, and process admin AJAX requests.
      *
      * @return Response
      */
 
-    private function renderError($message) {
+    private function renderError($message)
+    {
         return redirect(route('index'))->with('error', $message);
     }
 
-    public function performShorten(Request $request) {
+    public function performShorten(Request $request)
+    {
         if (env('SETTING_SHORTEN_PERMISSION') && !self::isLoggedIn()) {
             return redirect(route('index'))->with('error', 'You must be logged in to shorten links.');
         }
@@ -36,21 +39,22 @@ class LinkController extends Controller {
 
         try {
             $short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return self::renderError($e->getMessage());
         }
 
         return view('shorten_result', ['short_url' => $short_url]);
     }
 
-    public function performRedirect(Request $request, $short_url, $secret_key=false) {
-        $link = Link::where('short_url', $short_url)
-            ->first();
+    public function performRedirect(Request $request, $short_url, $secret_key = false)
+    {
+        $link = Cache::get("$short_url/$secret_key", function () use ($short_url) {
+            return Link::where('short_url', $short_url)->first();
+        });
 
         // Return 404 if link not found
         if ($link == null) {
-        	return abort(404);
+            return abort(404);
         }
 
         // Return an error if the link has been disabled
@@ -65,35 +69,12 @@ class LinkController extends Controller {
             ]);
         }
 
-        // Return a 403 if the secret key is incorrect
-        $link_secret_key = $link->secret_key;
-        if ($link_secret_key) {
-        	if (!$secret_key) {
-        		// if we do not receieve a secret key
-        		// when we are expecting one, return a 403
-        		return abort(403);
-        	}
-        	else {
-        		if ($link_secret_key != $secret_key) {
-        			// a secret key is provided, but it is incorrect
-        			return abort(403);
-        		}
-        	}
+        if (!$link->hasAccess($secret_key)) {
+            return abort(403);
         }
 
-        // Increment click count
-        $long_url = $link->long_url;
-        $clicks = intval($link->clicks);
-
-        if (is_int($clicks)) {
-            $clicks += 1;
-        }
-        $link->clicks = $clicks;
-        $link->save();
-
-        // Redirect to final destination
-        LinkHelper::processPostClick($link);
-        return redirect()->to($long_url);
+        event(new LinkWasResolved($link));
+        return redirect()->to($link->long_url);
     }
 
 }

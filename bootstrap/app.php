@@ -63,9 +63,9 @@ $app->middleware([
     Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
 ]);
 
-// $app->routeMiddleware([
-
-// ]);
+ $app->routeMiddleware([
+     'auth.api' => App\Http\Middleware\AuthenticateApi::class,
+ ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ $app->middleware([
 
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(Yajra\Datatables\DatatablesServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

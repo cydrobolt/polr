@@ -1,11 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Events\LinkWasModified;
+use App\Models\Link;
 use Illuminate\Http\Request;
 use App\Helpers\LinkHelper;
 use App\Helpers\CryptoHelper;
 use App\Helpers\UserHelper;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class AjaxController extends Controller {
     /**
@@ -141,32 +144,19 @@ class AjaxController extends Controller {
         }
 
         $link->delete();
+        event(new LinkWasModified($link));
         return "OK";
     }
 
-    public function toggleLink(Request $request) {
+    public function toggleLink(Request $request)
+    {
         self::ensureAdmin();
-
-        $link_ending = $request->input('link_ending');
-        $link = LinkHelper::linkExists($link_ending);
-
+        $link = LinkHelper::linkExists($request->input('link_ending'));
         if (!$link) {
             abort(404, 'Link not found.');
         }
-
-        $current_status = $link->is_disabled;
-
-        $new_status = 1;
-
-        if ($current_status == 1) {
-            // if currently disabled, then enable
-            $new_status = 0;
-        }
-
-        $link->is_disabled = $new_status;
-
-        $link->save();
-
-        return ($new_status ? "Enable" : "Disable");
+        $link->toggleStatus();
+        event(new LinkWasModified($link));
+        return ($link->is_disabled ? "Enable" : "Disable");
     }
 }
