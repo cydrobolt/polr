@@ -41,34 +41,39 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if (env('APP_DEBUG') === false) {
+        if ($request->wantsJson()) {
+            $response = [
+                'errors' => 'Whoops, something went wrong.'
+            ];
+
+            if (config('app.debug')) {
+                $response['exception'] = get_class($e);
+                $response['message'] = $e->getMessage();
+                $response['trace'] = $e->getTrace();
+            }
+
+            $status = 400;
+            if ($e instanceof HttpException) {
+                $status = $e->getStatusCode();
+            }
+
+            return response()->json($response, $status);
+        }
+
+        if (!config('app.debug') && $e instanceof HttpException) {
             if ($e instanceof NotFoundHttpException) {
                 if (env('SETTING_REDIRECT_404')) {
-                    // Redirect 404s to SETTING_INDEX_REDIRECT
                     return redirect()->to(env('SETTING_INDEX_REDIRECT'));
                 }
-                // Otherwise, show a nice error page
-                return view('errors.404');
-            }
-            if ($e instanceof HttpException) {
-                $status_code = $e->getStatusCode();
-                $status_message = $e->getMessage();
-                Log::critical("$status_code error: $status_message");
-
-                if ($status_code == 500) {
-                    // Render a nice error page for 500s
-                    return view('errors.500');
-                } else {
-                    // If not 500, render generic page
-                    return response(
-                        view('errors.generic', [
-                            'status_code' => $status_code,
-                            'status_message' => $status_message
-                        ]),
-                        $status_code);
-                }
+                return response(view('errors.404'), $e->getStatusCode());
+            } elseif ($e->getStatusCode() >= 500) {
+                return response(view('errors.500'), $e->getStatusCode());
+            } else {
+                $errorDetails = ['status_code' => $e->getStatusCode(), 'status_message' => $e->getMessage()];
+                return response(view('errors.generic', $errorDetails), $e->getStatusCode());
             }
         }
+
         return parent::render($request, $e);
     }
 }
