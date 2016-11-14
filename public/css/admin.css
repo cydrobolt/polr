@@ -39,3 +39,13 @@ input.api-quota {
         table-layout: fixed;
     }
 }
+
+#stats-chart {
+    height: 300px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+#stats-chart.daily {
+    width: 500px;
+}

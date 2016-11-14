@@ -10,7 +10,8 @@
         "vlucas/phpdotenv": "~1.0",
         "illuminate/mail": "~5.1",
         "yajra/laravel-datatables-oracle": "~6.0",
-        "paragonie/random_compat": "^1.0.6"
+        "paragonie/random_compat": "^1.0.6",
+        "maxmind-db/reader": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.0",

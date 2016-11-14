@@ -24,6 +24,7 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
+        <env name="APP_DEBUG" value="false" />
         <env name="SETTING_REDIRECT_404" value="true"/>
 		<env name="SETTING_INDEX_REDIRECT" value="http://redirect.polr.me/"/>
     </php>

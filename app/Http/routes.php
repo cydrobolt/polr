@@ -20,6 +20,9 @@ $app->get('/reset_password/{username}/{recovery_key}', ['as' => 'reset_password'
 
 $app->get('/admin', ['as' => 'admin', 'uses' => 'AdminController@displayAdminPage']);
 
+$app->get('/stats/{link_id}', ['as' => 'clicks', 'uses' => 'StatController@listClicks']);
+$app->get('/stats/{link_id}/{type}', ['as' => 'stats', 'uses' => 'StatController@makeReport']);
+
 $app->get('/setup', ['as' => 'setup', 'uses' => 'SetupController@displaySetupPage']);
 $app->post('/setup', ['as' => 'psetup', 'uses' => 'SetupController@performSetup']);
 $app->get('/setup/finish', ['as' => 'setup_finish', 'uses' => 'SetupController@finishSetup']);

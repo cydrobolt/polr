@@ -1,11 +1,12 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Helpers\ClickHelper;
+use App\Models\Click;
 use Illuminate\Http\Request;
-use Illuminate\Http\Redirect;
 
 use App\Models\Link;
 use App\Factories\LinkFactory;
-use App\Helpers\CryptoHelper;
 use App\Helpers\LinkHelper;
 
 class LinkController extends Controller {
@@ -82,18 +83,23 @@ class LinkController extends Controller {
         }
 
         // Increment click count
-        $long_url = $link->long_url;
-        $clicks = intval($link->clicks);
+        $referer = $request->server('HTTP_REFERER');
+        $ip = $request->getClientIp();
 
-        if (is_int($clicks)) {
-            $clicks += 1;
-        }
-        $link->clicks = $clicks;
+        $link->clicks += 1;
         $link->save();
+
+        Click::create([
+            'link_id' => $link->id,
+            'ip' => $ip,
+            'country' => ClickHelper::getCountry($ip),
+            'referer' => $referer,
+            'referer_host' => ClickHelper::getHost($referer),
+            'user_agent' => $request->server('HTTP_USER_AGENT'),
+        ]);
 
         // Redirect to final destination
         LinkHelper::processPostClick($link);
-        return redirect()->to($long_url);
+        return redirect()->to($link->long_url);
     }
-
 }

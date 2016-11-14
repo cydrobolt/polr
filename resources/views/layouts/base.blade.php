@@ -37,9 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/toastr.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
     <link rel="shortcut icon" href="favicon.ico">
     @yield('css')
+
+    <script src="/js/jquery-1.11.3.min.js"></script>
 </head>
 <body>
     @include('snippets.navbar')
@@ -51,11 +54,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
     {{-- Load header JavaScript --}}
     <script src='/js/constants.js'></script>
-    <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src='/js/angular.min.js'></script>
     <script src='/js/toastr.min.js'></script>
     <script src='/js/base.js'></script>
+    <script src="/js/raphael-min.js"></script>
+    <script src="/js/morris.min.js"></script>
 
     <script>
     @if (Session::has('info'))
