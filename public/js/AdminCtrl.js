@@ -1,4 +1,8 @@
 polr.controller('AdminCtrl', function($scope, $compile) {
+    $scope.state = {
+        showNewUserWell: false
+    };
+
     $scope.syncHash = function() {
         var url = document.location.toString();
         if (url.match('#')) {
@@ -108,21 +112,6 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     }
 
-    $scope.toggleNewUserBox = function($event) {
-        var el = $($event.target);
-        $('.new-user-fields').toggle();
-
-        if ($('.new-user-fields').css('display') == 'block') {
-            el.text('Cancel');
-        }
-        else {
-            el.text('New');
-            $('.new-user-fields input').each(function () {
-                $(this).val('');
-            });
-        }
-    }
-
     $scope.checkNewUserFields = function() {
         var response = true;
 
@@ -137,54 +126,40 @@ polr.controller('AdminCtrl', function($scope, $compile) {
     }
 
     $scope.addNewUser = function($event) {
-        const status_error1 = 'Fields cannot be empty !';
-        const status_error2 = 'Unknown Error !';
-        const status_ok = 'New User added !\nPlease refresh page to see all users.';
+        // Create a new user
 
-        var user_name = $('#new_user_name').val();
-        var user_password = $('#new_user_password').val();
-        var user_email = $('#new_user_email').val();
-        var user_role = $('#new_user_role').val();
+        var username = $('#new-username').val();
+        var user_password = $('#new-user-password').val();
+        var user_email = $('#new-user-email').val();
+        var user_role = $('#new-user-role').val();
 
         if (!$scope.checkNewUserFields()) {
-            $('#new-user-status').text(status_error1);
-            $('#new-user-status').css('color', '#f00');
-
-            return;
+            $('#new-user-status').text('Fields cannot be empty.');
+            return false;
         }
 
         apiCall('admin/add_new_user', {
-            'user_name': user_name,
+            'username': username,
             'user_password': user_password,
             'user_email': user_email,
             'user_role': user_role,
         }, function(result) {
-            if (result == 'OK') {
-                $('#new_user_status').text(status_ok).css('color', '#325d88').hide();
-                $('#new_user_status').fadeIn('normal', function() {
-                    $(this).delay(3000).fadeOut('slow', function() {
-                        $('#add_user_box').toggle();
-                        $('#add_user_btn').text('Add New User');
-                        $('#new_user_status').show();
-                        $scope.resetNewUserFields();
-                    });
-                });
-            }
-            else {
-                $('#new_user_status').text(status_error2);
-                $('#new_user_status').css('color', '#f00');
-            }
+            $('#new-user-status').text('New user successfully added; refresh the page to view updates.').show();
+
+            $(this).delay(3000).fadeOut('slow', function() {
+                $('#add_user_box').toggle();
+                $('#add_user_btn').text('Add New User');
+                $('#new-user-status').show();
+                $scope.resetNewUserFields();
+            });
+        }, function () {
+            $('#new-user-status').text('An error occurred. Try again later.').show();
         });
     }
 
     // Delete user
-    $scope.deleteUser = function($event) {
+    $scope.deleteUser = function($event, user_id) {
         var el = $($event.target);
-        var user_id = el.data('user-id');
-        var user_name = el.data('user-name');
-
-        var confirmation = confirm("User '" + user_name + "' will be deleted.\nAre you sure?");
-        if (!confirmation) return;
 
         apiCall('admin/delete_user', {
             'user_id': user_id,
@@ -192,6 +167,19 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             $scope.hideRow(el, 'Deleted!');
         });
     };
+
+    $scope.changeUserRole = function(el, user_id) {
+        // var el = $($event.target);
+        var role = $(el).val();
+
+        apiCall('admin/change_user_role', {
+            'user_id': user_id,
+            'role': role,
+        }, function(result) {
+            toastr.success("User role successfully changed.", "Success");
+        });
+    };
+
 
     // Generate new API key for user_id
     $scope.generateNewAPIKey = function($event, user_id, is_dev_tab) {
@@ -332,24 +320,3 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
     $scope.init();
 });
-
-function changeUserRole(what) {
-    var user_id = what.attr('data-user-id');
-    var role = what.val();
-
-    apiCall('admin/change_user_role', {
-        'user_id': user_id,
-        'role': role,
-    }, function(result) {
-        if (result == 'OK') {
-            var parent_td = what.parent();
-            var add = '<div id="role_changed_' + user_id + '" style="display: none; color: #fff; background: #0a0; font-weight: bold; text-align: center;">Changed</div>';
-            parent_td.append(add);
-            $('#role_changed_' + user_id).fadeIn('normal', function() {
-                $(this).delay(1000).fadeOut('slow', function() {
-                    $('#role_changed_' + user_id).remove();
-                });
-            });
-        }
-    });
-}

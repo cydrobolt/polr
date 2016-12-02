@@ -23,6 +23,12 @@
     display: inline;
 }
 
+.users-heading {
+    display: inline-block;
+    margin-bottom: 0.9em;
+    margin-right: 0.5em;
+}
+
 input.api-quota {
     display: inline;
     width: 9em;
@@ -47,12 +53,4 @@ select.new-user-role {
 
 a.new-user-add {
     padding-left: 0.5em
-}
-
-.new-user-fields {
-    display: none;
-}
-
-.new-user-fields .form-input {
-    /*width: 1.5em;*/
 }

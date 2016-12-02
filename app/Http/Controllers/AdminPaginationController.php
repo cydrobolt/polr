@@ -27,7 +27,7 @@ class AdminPaginationController extends Controller {
                 </a>';
             })
             ->addColumn('toggle_active', function ($user) {
-                // Toggle User Active status
+                // Add user account active state toggle buttons
                 $btn_class = '';
                 if (session('username') == $user->username) {
                     $btn_class = ' disabled';
@@ -41,23 +41,33 @@ class AdminPaginationController extends Controller {
                     $active_text = 'Inactive';
                     $btn_color_class = ' btn-danger';
                 }
-                
+
                 return '<a class="btn btn-sm status-display' . $btn_color_class . $btn_class . '" ng-click="toggleUserActiveStatus($event)" '
                         . 'data-user-id="' . $user->id . '">' . $active_text . '</a>';
             })
             ->addColumn('change_role', function ($user) {
-                // Add "Change Role" Select Box
+                // Add "change role" select box
+                // FIXME <select> field does not use Angular bindings
+                // because of an issue afflicting fields with duplicate names.
+                $select_role = '<select class="form-control"';
                 if (session('username') == $user->username) {
-                    return 'ADMIN';
+                    // Do not allow user to change own role
+                    $select_role .= ' disabled';
                 }
-                $selectrole = '<select onchange="changeUserRole($(this));" id="user_roles" data-user-id=\'' . $user->id . '\' style="width: 100%; height: 85%;">';
-                foreach (UserHelper::getUserRoles() as $role_text => $role_val) {
-                    $selectrole .= '<option value="' . $role_val . '"';
-                    if ($user->role == $role_val) $selectrole .= ' selected';
-                    $selectrole .= '>' . $role_text . '</option>';
+                $select_role .= '>';
+
+                foreach (UserHelper::USER_ROLES as $role_text => $role_val) {
+                    $select_role .= '<option ng-click="alert(\'hi\')" value="' . $role_val . '"';
+
+                    if ($user->role == $role_val) {
+                        $select_role .= ' selected';
+                    }
+
+                    $select_role .= '>' . $role_text . '</option>';
                 }
-                $selectrole .= '</select>';
-                return $selectrole;
+
+                $select_role .= '</select>';
+                return $select_role;
             })
             ->addColumn('delete', function ($user) {
                 // Add "Delete" action button
@@ -65,8 +75,7 @@ class AdminPaginationController extends Controller {
                 if (session('username') == $user->username) {
                     $btn_class = 'disabled';
                 }
-                return '<a ng-click="deleteUser($event)" class="btn btn-sm btn-danger ' . $btn_class . '"
-                    data-user-id="' . $user->id . '">
+                return '<a ng-click="deleteUser($event, \''. $user->id .'\')" class="btn btn-sm btn-danger ' . $btn_class . '">
                     Delete
                 </a>';
             })

@@ -18,7 +18,7 @@ class UserFactory {
         $user->recovery_key = $recovery_key;
         $user->active = $active;
         $user->ip = $ip;
-        $role = ($role == '') ? UserHelper::UserRole('DEFAULT') : $role;
+        $role = ($role == '') ? UserHelper::USER_ROLES['default'] : $role;
         $user->role = $role;
 
         $user->api_key = $api_key;

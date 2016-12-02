@@ -6,6 +6,11 @@ use App\Helpers\CryptoHelper;
 use Hash;
 
 class UserHelper {
+    const USER_ROLES = [
+        'admin'    => 'admin',
+        'default'  => '',
+    ];
+
     public static function userExists($username) {
         /* XXX: used primarily with test cases */
 
@@ -105,16 +110,7 @@ class UserHelper {
         return self::getUserBy('email', $email, $inactive);
     }
 
-    public static function getUserRoles() { // Return Array: list of user roles
-        return array(
-                    'ADMIN'    => 'admin',
-                    'DEFAULT'  => '',
-                );
-    }
-
-    public static function UserRole($role) {
-        $userRoles = self::getUserRoles();
-
-        return $userRoles[$role];
+    public static function canonicalUserRole($role) {
+        return self::USER_ROLES[$role];
     }
 }

@@ -162,12 +162,12 @@ class AjaxController extends Controller {
         self::ensureAdmin();
 
         $ip = $request->ip();
-        $user_name = $request->input('user_name');
+        $username = $request->input('username');
         $user_password = $request->input('user_password');
         $user_email = $request->input('user_email');
         $user_role = $request->input('user_role');
 
-        UserFactory::createUser($user_name, $user_email, $user_password, 1, $ip, false, 0, $user_role);
+        UserFactory::createUser($username, $user_email, $user_password, 1, $ip, false, 0, $user_role);
 
         return "OK";
     }

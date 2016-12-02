@@ -1,4 +1,4 @@
-function apiCall(path, data, callback) {
+function apiCall(path, data, callback, fail_callback) {
     var base_api_path = BASE_API_PATH;
     var api_path = base_api_path + path;
     $.ajax({
@@ -8,6 +8,10 @@ function apiCall(path, data, callback) {
     }).done(function(res) {
         if (callback) {
             callback(res);
+        }
+    }).fail(function (err) {
+        if (fail_callback) {
+            fail_callback(err);
         }
     });
 }
