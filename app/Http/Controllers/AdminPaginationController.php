@@ -49,7 +49,11 @@ class AdminPaginationController extends Controller {
                 // Add "change role" select box
                 // FIXME <select> field does not use Angular bindings
                 // because of an issue afflicting fields with duplicate names.
-                $select_role = '<select class="form-control"';
+
+                $select_role = '<select ng-init="changeUserRole.u'.$user->id.' = \''.$user->role.'\'"
+                    ng-model="changeUserRole.u'.$user->id.'" ng-change="changeUserRole(changeUserRole.u'.$user->id.', '.$user->id.')"
+                    class="form-control"';
+
                 if (session('username') == $user->username) {
                     // Do not allow user to change own role
                     $select_role .= ' disabled';
@@ -57,7 +61,8 @@ class AdminPaginationController extends Controller {
                 $select_role .= '>';
 
                 foreach (UserHelper::USER_ROLES as $role_text => $role_val) {
-                    $select_role .= '<option ng-click="alert(\'hi\')" value="' . $role_val . '"';
+                    // Iterate over each available role and output option
+                    $select_role .= '<option value="' . $role_val . '"';
 
                     if ($user->role == $role_val) {
                         $select_role .= ' selected';

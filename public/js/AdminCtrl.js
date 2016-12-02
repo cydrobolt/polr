@@ -168,10 +168,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
-    $scope.changeUserRole = function(el, user_id) {
-        // var el = $($event.target);
-        var role = $(el).val();
-
+    $scope.changeUserRole = function(role, user_id) {
         apiCall('admin/change_user_role', {
             'user_id': user_id,
             'role': role,
