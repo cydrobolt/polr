@@ -33,9 +33,9 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                     {className: 'wrap-text', data: 'email', name: 'email'},
                     {data: 'created_at', name: 'created_at'},
 
-                    {data: 'toggle_active', name: 'toggle_active'},
+                    {data: 'toggle_active', name: 'toggle_active', orderable: false, searchable: false},
                     {data: 'api_action', name: 'api_action', orderable: false, searchable: false},
-                    {data: 'change_role', name: 'change_role'},
+                    {data: 'change_role', name: 'change_role', orderable: false, searchable: false},
                     {data: 'delete', name: 'delete', orderable: false, searchable: false}
                 ]
             }, datatables_config));
