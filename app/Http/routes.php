@@ -48,10 +48,10 @@ $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], func
     $app->post('admin/toggle_api_active', ['as' => 'api_toggle_api_active', 'uses' => 'AjaxController@toggleAPIActive']);
     $app->post('admin/generate_new_api_key', ['as' => 'api_generate_new_api_key', 'uses' => 'AjaxController@generateNewAPIKey']);
     $app->post('admin/edit_api_quota', ['as' => 'api_edit_quota', 'uses' => 'AjaxController@editAPIQuota']);
-    $app->post('admin/toggle_user_active', ['as' => 'api_generate_new_api_key', 'uses' => 'AjaxController@toggleUserActive']);
-    $app->post('admin/change_user_role', ['as' => 'api_generate_new_api_key', 'uses' => 'AjaxController@changeUserRole']);
-    $app->post('admin/add_new_user', ['as' => 'api_generate_new_api_key', 'uses' => 'AjaxController@addNewUser']);
-    $app->post('admin/delete_user', ['as' => 'api_generate_new_api_key', 'uses' => 'AjaxController@deleteUser']);
+    $app->post('admin/toggle_user_active', ['as' => 'api_toggle_user_active', 'uses' => 'AjaxController@toggleUserActive']);
+    $app->post('admin/change_user_role', ['as' => 'api_change_user_role', 'uses' => 'AjaxController@changeUserRole']);
+    $app->post('admin/add_new_user', ['as' => 'api_add_new_user', 'uses' => 'AjaxController@addNewUser']);
+    $app->post('admin/delete_user', ['as' => 'api_delete_user', 'uses' => 'AjaxController@deleteUser']);
     $app->post('admin/toggle_link', ['as' => 'api_toggle_link', 'uses' => 'AjaxController@toggleLink']);
     $app->post('admin/delete_link', ['as' => 'api_delete_link', 'uses' => 'AjaxController@deleteLink']);
 
