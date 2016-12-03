@@ -46,11 +46,6 @@ input.api-quota {
     }
 }
 
-/* User Management Styles */
-select.new-user-role {
-
-}
-
 a.new-user-add {
     padding-left: 0.5em
 }

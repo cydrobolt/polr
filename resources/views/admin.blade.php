@@ -80,7 +80,6 @@
                             </td>
                         </tr>
                     </table>
-                    <div id="new-user-status"></div>
                 </div>
 
                 @include('snippets.user_table', [

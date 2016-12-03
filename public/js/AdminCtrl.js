@@ -134,7 +134,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         var user_role = $('#new-user-role').val();
 
         if (!$scope.checkNewUserFields()) {
-            $('#new-user-status').text('Fields cannot be empty.');
+            toastr.error("Fields cannot be empty.", "Error");
             return false;
         }
 
@@ -148,7 +148,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             $('#new-user-form').clearForm();
             $scope.datatables['admin_users_table'].ajax.reload();
         }, function () {
-            $('#new-user-status').text('An error occurred. Try again later.').show();
+            toastr.error("An error occured while creating the user.", "Error");
         });
     }
 

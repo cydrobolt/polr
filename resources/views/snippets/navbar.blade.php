@@ -20,7 +20,7 @@
             <li class="divider-vertical"></li>
 
             @if (empty(session('username')))
-                @if (env('POLR_ALLOW_ACCT_CREATION') == true)
+                @if (env('POLR_ALLOW_ACCT_CREATION'))
                     <li><a href="{{route('signup')}}">Sign Up</a></li>
                 @endif
             <li class="dropdown">
@@ -36,7 +36,7 @@
                 </div>
             </li>
             @else
-            <div class='nav pull-right navbar-nav' style='color: white'>
+            <div class='nav pull-right navbar-nav'>
                 <li class='dropdown'>
                 <a class="dropdown-toggle login-name" href="#" data-toggle="dropdown">{{session('username')}} <strong class="caret"></strong></a>
                     <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">

@@ -47,7 +47,7 @@ class AdminPaginationController extends Controller {
             ->addColumn('change_role', function ($user) {
                 // Add "change role" select box
                 // FIXME <select> field does not use Angular bindings
-                // because of an issue afflicting fields with duplicate names.
+                // because of an issue affecting fields with duplicate names.
 
                 $select_role = '<select ng-init="changeUserRole.u'.$user->id.' = \''.$user->role.'\'"
                     ng-model="changeUserRole.u'.$user->id.'" ng-change="changeUserRole(changeUserRole.u'.$user->id.', '.$user->id.')"
