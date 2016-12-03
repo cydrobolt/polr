@@ -127,6 +127,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
     $scope.addNewUser = function($event) {
         // Create a new user
+        // FIXME could use Angular models in the future
+        // instead of relying on .val()
 
         var username = $('#new-username').val();
         var user_password = $('#new-user-password').val();

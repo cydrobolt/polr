@@ -83,8 +83,7 @@
                 </div>
 
                 @include('snippets.user_table', [
-                    'table_id' => 'admin_users_table',
-                    'roles' => $user_roles
+                    'table_id' => 'admin_users_table'
                 ])
 
             </div>
