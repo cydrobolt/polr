@@ -98,7 +98,7 @@ class SetupController extends Controller {
         $acct_username = $request->input('acct:username');
         $acct_email = $request->input('acct:email');
         $acct_password = $request->input('acct:password');
-        $acct_group = UserHelper::USER_ROLES('admin');
+        $acct_group = UserHelper::USER_ROLES['admin'];
 
         // if true, only logged in users can shorten
         $st_shorten_permission = $request->input('setting:shorten_permission');
@@ -215,7 +215,7 @@ class SetupController extends Controller {
             return redirect(route('setup'))->with('error', 'Could not create database. Perhaps some credentials were incorrect?');
         }
 
-        $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip(), false, 0, UserHelper::USER_ROLES('admin'));
+        $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip(), false, 0, UserHelper::USER_ROLES['admin']);
 
         return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');
     }
