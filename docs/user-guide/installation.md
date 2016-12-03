@@ -13,7 +13,7 @@ you may be interested in looking at a [legacy 1.x release](https://github.com/cy
  - Apache, nginx, IIS, or lighttpd (Apache preferred)
  - PHP >= 5.5.9
  - MariaDB or MySQL >= 5.5, SQLite alternatively
- - Composer (optional)
+ - composer
  - PHP requirements:
     - OpenSSL PHP Extension
     - PDO PHP Extension
