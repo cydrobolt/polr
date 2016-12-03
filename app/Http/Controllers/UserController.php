@@ -57,14 +57,16 @@ class UserController extends Controller {
             return redirect(route('index'))->with('error', 'Sorry, but registration is disabled.');
         }
 
+        // Validate signup form data
+        $this->validate($request, [
+            'username' => 'required|alpha_dash',
+            'password' => 'required',
+            'email' => 'required|email'
+        ]);
+
         $username = $request->input('username');
         $password = $request->input('password');
         $email = $request->input('email');
-
-        if (!self::checkRequiredArgs([$username, $password, $email])) {
-            // missing a required argument
-            return redirect(route('signup'))->with('error', 'Please fill in all required fields.');
-        }
 
         $ip = $request->ip();
 

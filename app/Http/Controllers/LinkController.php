@@ -24,14 +24,15 @@ class LinkController extends Controller {
             return redirect(route('index'))->with('error', 'You must be logged in to shorten links.');
         }
 
-        $this->request = $request;
+        // Validate URL form data
+        $this->validate($request, [
+            'link-url' => 'required|url'
+        ]);
 
         $long_url = $request->input('link-url');
         $custom_ending = $request->input('custom-ending');
         $is_secret = ($request->input('options') == "s" ? true : false);
-
         $creator = session('username');
-
         $link_ip = $request->ip();
 
         try {

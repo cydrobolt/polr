@@ -70,6 +70,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     @if (Session::has('success'))
         toastr["success"](`{{session('success')}}`, "Success")
     @endif
+
+    @if (count($errors) > 0)
+        // Handle Lumen validation errors
+        @foreach ($errors->all() as $error)
+            toastr["error"](`{{$error}}`, "Error")
+        @endforeach
+    @endif
     </script>
 
     @yield('js')

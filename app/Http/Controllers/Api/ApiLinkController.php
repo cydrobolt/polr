@@ -7,17 +7,20 @@ use App\Factories\LinkFactory;
 use App\Helpers\LinkHelper;
 
 class ApiLinkController extends ApiController {
-    public static function shortenLink(Request $request) {
+    public function shortenLink(Request $request) {
         $response_type = $request->input('response_type');
         $user = self::getApiUserInfo($request);
 
-        /* */
+        // Validate parameters
+        $validator = \Validator::make($request->all(), [
+            'url' => 'required|url'
+        ]);
+        if ($validator->fails()) {
+            return abort(400, 'Parameters invalid or missing.');
+        }
+
         $long_url = $request->input('url'); // * required
         $is_secret = ($request->input('is_secret') == 'true' ? true : false);
-
-        if (!self::checkRequiredArgs([$long_url])) {
-            abort(400, "Missing required arguments.");
-        }
 
         $link_ip = $request->ip();
         $custom_ending = $request->input('custom_ending');
@@ -32,17 +35,20 @@ class ApiLinkController extends ApiController {
         return self::encodeResponse($formatted_link, 'shorten', $response_type);
     }
 
-    public static function lookupLink(Request $request) {
+    public function lookupLink(Request $request) {
         $response_type = $request->input('response_type');
         $user = self::getApiUserInfo($request);
 
-        /* */
+        // Validate URL form data
+        $validator = Validator::make($request, [
+            'url_ending' => 'required|alpha_dash'
+        ]);
 
-        $url_ending = $request->input('url_ending'); // * required
-
-        if (!self::checkRequiredArgs([$url_ending])) {
-            abort(400, "Missing required arguments.");
+        if ($validator->fails()) {
+            return abort(400, 'Parameters invalid or missing.');
         }
+
+        $url_ending = $request->input('url_ending');
 
         // "secret" key required for lookups on secret URLs
         $url_key = $request->input('url_key');
@@ -54,7 +60,6 @@ class ApiLinkController extends ApiController {
                 abort(401, "Invalid URL code for secret URL.");
             }
         }
-
 
         if ($link) {
             return self::encodeResponse([
