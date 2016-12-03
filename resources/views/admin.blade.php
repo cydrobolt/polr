@@ -64,7 +64,7 @@
                             <th>Role</th>
                             <th></th>
                         </tr>
-                        <tr>
+                        <tr id="new-user-form">
                             <td><input type="text" class="form-control" id="new-username"></td>
                             <td><input type="password" class="form-control" id="new-user-password"></td>
                             <td><input type="email" class="form-control" id="new-user-email"></td>
@@ -75,7 +75,9 @@
                                     @endforeach
                                 </select>
                             </td>
-                            <td><a ng-click="addNewUser($event)" class="btn btn-primary btn-sm status-display new-user-add">Add</a></td>
+                            <td>
+                                <a ng-click="addNewUser($event)" class="btn btn-primary btn-sm status-display new-user-add">Add</a>
+                            </td>
                         </tr>
                     </table>
                     <div id="new-user-status"></div>

@@ -2,6 +2,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
     $scope.state = {
         showNewUserWell: false
     };
+    $scope.datatables = {};
 
     $scope.syncHash = function() {
         var url = document.location.toString();
@@ -24,7 +25,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         };
 
         if ($('#admin_users_table').length) {
-            var admin_users_table = $('#admin_users_table').DataTable($.extend({
+            $scope.datatables['admin_users_table'] = $('#admin_users_table').DataTable($.extend({
                 "ajax": BASE_API_PATH + 'admin/get_admin_users',
 
                 "columns": [
@@ -40,7 +41,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             }, datatables_config));
         }
         if ($('#admin_links_table').length) {
-            var admin_links_table = $('#admin_links_table').DataTable($.extend({
+            $scope.datatables['admin_links_table'] = $('#admin_links_table').DataTable($.extend({
                 "ajax": BASE_API_PATH + 'admin/get_admin_links',
 
                 "columns": [
@@ -57,7 +58,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             }, datatables_config));
         }
 
-        var user_links_table = $('#user_links_table').DataTable($.extend({
+        $scope.datatables['user_links_table'] = $('#user_links_table').DataTable($.extend({
             "ajax": BASE_API_PATH + 'admin/get_user_links',
 
             "columns": [
@@ -87,8 +88,9 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
     // Hide table rows
     $scope.hideRow = function(el, msg) {
-        el.text(msg);
-        el.parent().parent().slideUp();
+        var row = el.parent().parent();
+        toastr.success(msg, "Success");
+        row.fadeOut('slow');
     };
 
     /*
@@ -144,14 +146,9 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             'user_email': user_email,
             'user_role': user_role,
         }, function(result) {
-            $('#new-user-status').text('New user successfully added; refresh the page to view updates.').show();
-
-            $(this).delay(3000).fadeOut('slow', function() {
-                $('#add_user_box').toggle();
-                $('#add_user_btn').text('Add New User');
-                $('#new-user-status').show();
-                $scope.resetNewUserFields();
-            });
+            toastr.success("User " + username + " successfully created.", "Success");
+            $('#new-user-form').clearForm();
+            $scope.datatables['admin_users_table'].ajax.reload();
         }, function () {
             $('#new-user-status').text('An error occurred. Try again later.').show();
         });
@@ -164,7 +161,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         apiCall('admin/delete_user', {
             'user_id': user_id,
         }, function(new_status) {
-            $scope.hideRow(el, 'Deleted!');
+            $scope.hideRow(el, 'User successfully deleted.');
         });
     };
 
@@ -264,7 +261,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         apiCall('admin/delete_link', {
             'link_ending': link_ending,
         }, function(new_status) {
-            $scope.hideRow(el, 'Deleted!');
+            $scope.hideRow(el, 'Link successfully deleted.');
         });
     };
 
