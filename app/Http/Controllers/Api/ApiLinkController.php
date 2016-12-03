@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
-
 use App\Factories\LinkFactory;
 use App\Helpers\LinkHelper;
 
@@ -12,9 +11,13 @@ class ApiLinkController extends ApiController {
         $user = self::getApiUserInfo($request);
 
         // Validate parameters
-        $validator = \Validator::make($request->all(), [
+        // Encode spaces as %20 to avoid validator conflicts
+        $validator = \Validator::make(array_merge([
+            'url' => str_replace(' ', '%20', $request->input('url'))
+        ], $request->except('url')), [
             'url' => 'required|url'
         ]);
+
         if ($validator->fails()) {
             return abort(400, 'Parameters invalid or missing.');
         }
