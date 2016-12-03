@@ -6,6 +6,7 @@
             <th>Created At</th>
             <th>Activated</th>
             <th>API</th>
+            <th>Role</th>
             <th>Delete</th>
         </tr>
     </thead>

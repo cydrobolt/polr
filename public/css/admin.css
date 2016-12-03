@@ -23,6 +23,12 @@
     display: inline;
 }
 
+.users-heading {
+    display: inline-block;
+    margin-bottom: 0.9em;
+    margin-right: 0.5em;
+}
+
 input.api-quota {
     display: inline;
     width: 9em;
@@ -38,4 +44,8 @@ input.api-quota {
     table {
         table-layout: fixed;
     }
+}
+
+a.new-user-add {
+    padding-left: 0.5em
 }

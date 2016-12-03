@@ -13,7 +13,7 @@
             <li role='presentation' aria-controls="links" class='admin-nav-item'><a href='#links'>Links</a></li>
             <li role='presentation' aria-controls="settings" class='admin-nav-item'><a href='#settings'>Settings</a></li>
 
-            @if ($role == 'admin')
+            @if ($role == $admin_role)
             <li role='presentation' class='admin-nav-item'><a href='#admin'>Admin</a></li>
             @endif
 
@@ -45,14 +45,43 @@
                 </form>
             </div>
 
-            @if ($role == 'admin')
+            @if ($role == $admin_role)
             <div role="tabpanel" class="tab-pane" id="admin">
                 <h3>Links</h3>
                 @include('snippets.link_table', [
                     'table_id' => 'admin_links_table'
                 ])
 
-                <h3>Users</h3>
+                <h3 class="users-heading">Users</h3>
+                <a ng-click="state.showNewUserWell = !state.showNewUserWell" class="btn btn-primary btn-sm status-display">New</a>
+
+                <div ng-if="state.showNewUserWell" class="new-user-fields well">
+                    <table class="table">
+                        <tr>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th></th>
+                        </tr>
+                        <tr id="new-user-form">
+                            <td><input type="text" class="form-control" id="new-username"></td>
+                            <td><input type="password" class="form-control" id="new-user-password"></td>
+                            <td><input type="email" class="form-control" id="new-user-email"></td>
+                            <td>
+                                <select class="form-control new-user-role" id="new-user-role">
+                                    @foreach  ($user_roles as $role_text => $role_val)
+                                        <option value="{{$role_val}}">{{$role_text}}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <a ng-click="addNewUser($event)" class="btn btn-primary btn-sm status-display new-user-add">Add</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
                 @include('snippets.user_table', [
                     'table_id' => 'admin_users_table'
                 ])

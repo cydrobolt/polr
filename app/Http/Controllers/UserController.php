@@ -104,7 +104,6 @@ class UserController extends Controller {
             $api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
         }
 
-
         $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active);
 
         if ($acct_activation_needed) {

@@ -5,6 +5,7 @@ use Yajra\Datatables\Facades\Datatables;
 
 use App\Models\Link;
 use App\Models\User;
+use App\Helpers\UserHelper;
 
 class AdminPaginationController extends Controller {
     /**
@@ -16,7 +17,7 @@ class AdminPaginationController extends Controller {
     public function paginateAdminUsers(Request $request) {
         self::ensureAdmin();
 
-        $admin_users = User::select(['username', 'email', 'created_at', 'active', 'api_key', 'api_active', 'api_quota', 'id']);
+        $admin_users = User::select(['username', 'email', 'created_at', 'active', 'api_key', 'api_active', 'api_quota', 'role', 'id']);
         return Datatables::of($admin_users)
             ->addColumn('api_action', function ($user) {
                 // Add "API Info" action button
@@ -25,14 +26,60 @@ class AdminPaginationController extends Controller {
                     API info
                 </a>';
             })
+            ->addColumn('toggle_active', function ($user) {
+                // Add user account active state toggle buttons
+                $btn_class = '';
+                if (session('username') == $user->username) {
+                    $btn_class = ' disabled';
+                }
+
+                if ($user->active) {
+                    $active_text = 'Active';
+                    $btn_color_class = ' btn-success';
+                }
+                else {
+                    $active_text = 'Inactive';
+                    $btn_color_class = ' btn-danger';
+                }
+
+                return '<a class="btn btn-sm status-display' . $btn_color_class . $btn_class . '" ng-click="toggleUserActiveStatus($event, ' . $user->id . ')">' . $active_text . '</a>';
+            })
+            ->addColumn('change_role', function ($user) {
+                // Add "change role" select box
+                // FIXME <select> field does not use Angular bindings
+                // because of an issue affecting fields with duplicate names.
+
+                $select_role = '<select ng-init="changeUserRole.u'.$user->id.' = \''.$user->role.'\'"
+                    ng-model="changeUserRole.u'.$user->id.'" ng-change="changeUserRole(changeUserRole.u'.$user->id.', '.$user->id.')"
+                    class="form-control"';
+
+                if (session('username') == $user->username) {
+                    // Do not allow user to change own role
+                    $select_role .= ' disabled';
+                }
+                $select_role .= '>';
+
+                foreach (UserHelper::USER_ROLES as $role_text => $role_val) {
+                    // Iterate over each available role and output option
+                    $select_role .= '<option value="' . $role_val . '"';
+
+                    if ($user->role == $role_val) {
+                        $select_role .= ' selected';
+                    }
+
+                    $select_role .= '>' . $role_text . '</option>';
+                }
+
+                $select_role .= '</select>';
+                return $select_role;
+            })
             ->addColumn('delete', function ($user) {
                 // Add "Delete" action button
                 $btn_class = '';
                 if (session('username') == $user->username) {
                     $btn_class = 'disabled';
                 }
-                return '<a ng-click="deleteUser($event)" class="btn btn-sm btn-danger ' . $btn_class . '"
-                    data-user-id="' . $user->id . '">
+                return '<a ng-click="deleteUser($event, \''. $user->id .'\')" class="btn btn-sm btn-danger ' . $btn_class . '">
                     Delete
                 </a>';
             })
