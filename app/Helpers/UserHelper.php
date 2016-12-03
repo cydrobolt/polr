@@ -109,8 +109,4 @@ class UserHelper {
     public static function getUserByEmail($email, $inactive=false) {
         return self::getUserBy('email', $email, $inactive);
     }
-
-    public static function canonicalUserRole($role) {
-        return self::USER_ROLES[$role];
-    }
 }

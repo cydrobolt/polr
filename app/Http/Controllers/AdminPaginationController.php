@@ -22,7 +22,7 @@ class AdminPaginationController extends Controller {
             ->addColumn('api_action', function ($user) {
                 // Add "API Info" action button
                 return '<a class="activate-api-modal btn btn-sm btn-info"
-                    ng-click="openAPIModal($event, \'' . $user->username . '\', \'' . $user->id . '\')" id="api_info_btn_' . $user->id . '" data-api-active="' . $user->api_active . '" data-api-key="' . $user->api_key . '" data-api-quota="' . $user->api_quota . '">
+                    ng-click="openAPIModal($event, \'' . $user->username . '\', \'' . $user->api_key . '\', \'' . $user->api_active . '\', \'' . $user->api_quota . '\', \'' . $user->id . '\')">
                     API info
                 </a>';
             })
@@ -42,8 +42,7 @@ class AdminPaginationController extends Controller {
                     $btn_color_class = ' btn-danger';
                 }
 
-                return '<a class="btn btn-sm status-display' . $btn_color_class . $btn_class . '" ng-click="toggleUserActiveStatus($event)" '
-                        . 'data-user-id="' . $user->id . '">' . $active_text . '</a>';
+                return '<a class="btn btn-sm status-display' . $btn_color_class . $btn_class . '" ng-click="toggleUserActiveStatus($event, ' . $user->id . ')">' . $active_text . '</a>';
             })
             ->addColumn('change_role', function ($user) {
                 // Add "change role" select box

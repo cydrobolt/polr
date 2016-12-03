@@ -96,9 +96,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
     /*
         User Management
     */
-    $scope.toggleUserActiveStatus = function($event) {
+    $scope.toggleUserActiveStatus = function($event, user_id) {
         var el = $($event.target);
-        var user_id = el.data('user-id');
 
         apiCall('admin/toggle_user_active', {
             'user_id': user_id,
@@ -118,7 +117,6 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         var response = true;
 
         $('.new-user-fields input').each(function () {
-            console.log($(this).attr('id'));
             if ($(this).val().trim() == '' || response == false) {
                 response = false;
             }
@@ -192,7 +190,6 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             } else {
                 status_display_elem.text(new_status);
             }
-            $('a#api_info_btn_' + user_id).attr('data-api-key', new_status);
         });
     };
 
@@ -204,7 +201,6 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         apiCall('admin/toggle_api_active', {
             'user_id': user_id,
         }, function(new_status) {
-            $('a#api_info_btn_' + user_id).attr('data-api-active', new_status);
             new_status = res_value_to_text(new_status);
             status_display_elem.text(new_status);
         });
@@ -219,19 +215,13 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             'user_id': user_id,
             'new_quota': parseInt(new_quota)
         }, function(next_action) {
-            $('a#api_info_btn_' + user_id).attr('data-api-quota', new_quota);
             toastr.success("Quota successfully changed.", "Success");
         });
     };
 
     // Open user API settings menu
-    $scope.openAPIModal = function($event, username, user_id) {
+    $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
         var el = $($event.target);
-
-        api_active = $('a#api_info_btn_' + user_id).attr('data-api-active');
-        api_key = $('a#api_info_btn_' + user_id).attr('data-api-key');
-        api_quota = $('a#api_info_btn_' + user_id).attr('data-api-quota');
-
         var markup = $('#api-modal-template').html();
 
         var modal_id = "api-modal-" + username;
