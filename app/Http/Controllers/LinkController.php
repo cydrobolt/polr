@@ -26,7 +26,8 @@ class LinkController extends Controller {
 
         // Validate URL form data
         $this->validate($request, [
-            'link-url' => 'required|url'
+            'link-url' => 'required|url',
+            'custom-ending' => 'alpha_dash'
         ]);
 
         $long_url = $request->input('link-url');
