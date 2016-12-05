@@ -22,7 +22,7 @@ class AdminPaginationController extends Controller {
             ->addColumn('api_action', function ($user) {
                 // Add "API Info" action button
                 return '<a class="activate-api-modal btn btn-sm btn-info"
-                    ng-click="openAPIModal($event, \'' . $user->username . '\', \'' . $user->api_key . '\', \'' . $user->api_active . '\', \'' . $user->api_quota . '\', \'' . $user->id . '\')">
+                    ng-click="openAPIModal($event, \'' . e($user->username) . '\', \'' . $user->api_key . '\', \'' . $user->api_active . '\', \'' . e($user->api_quota) . '\', \'' . $user->id . '\')">
                     API info
                 </a>';
             })
@@ -49,8 +49,8 @@ class AdminPaginationController extends Controller {
                 // FIXME <select> field does not use Angular bindings
                 // because of an issue affecting fields with duplicate names.
 
-                $select_role = '<select ng-init="changeUserRole.u'.$user->id.' = \''.$user->role.'\'"
-                    ng-model="changeUserRole.u'.$user->id.'" ng-change="changeUserRole(changeUserRole.u'.$user->id.', '.$user->id.')"
+                $select_role = '<select ng-init="changeUserRole.u' . $user->id . ' = \'' . e($user->role) . '\'"
+                    ng-model="changeUserRole.u' . $user->id . '" ng-change="changeUserRole(changeUserRole.u' . $user->id . ', '.$user->id.')"
                     class="form-control"';
 
                 if (session('username') == $user->username) {
@@ -61,13 +61,13 @@ class AdminPaginationController extends Controller {
 
                 foreach (UserHelper::USER_ROLES as $role_text => $role_val) {
                     // Iterate over each available role and output option
-                    $select_role .= '<option value="' . $role_val . '"';
+                    $select_role .= '<option value="' . e($role_val) . '"';
 
                     if ($user->role == $role_val) {
                         $select_role .= ' selected';
                     }
 
-                    $select_role .= '>' . $role_text . '</option>';
+                    $select_role .= '>' . e($role_text) . '</option>';
                 }
 
                 $select_role .= '</select>';
@@ -83,6 +83,7 @@ class AdminPaginationController extends Controller {
                     Delete
                 </a>';
             })
+            ->escapeColumns(['username', 'email'])
             ->make(true);
     }
 
@@ -101,17 +102,18 @@ class AdminPaginationController extends Controller {
                     $btn_text = 'Enable';
                 }
 
-                return '<a ng-click="toggleLink($event, \'' . $link->short_url . '\')" class="btn btn-sm ' . $btn_class . '">
+                return '<a ng-click="toggleLink($event, \'' . e($link->short_url) . '\')" class="btn btn-sm ' . $btn_class . '">
                     ' . $btn_text . '
                 </a>';
             })
             ->addColumn('delete', function ($link) {
                 // Add "Delete" action button
-                return '<a ng-click="deleteLink($event, \'' . $link->short_url  . '\')"
+                return '<a ng-click="deleteLink($event, \'' . e($link->short_url)  . '\')"
                     class="btn btn-sm btn-warning delete-link">
                     Delete
                 </a>';
             })
+            ->escapeColumns(['short_url', 'long_url', 'creator'])
             ->make(true);
     }
 
@@ -123,6 +125,7 @@ class AdminPaginationController extends Controller {
             ->select(['short_url', 'long_url', 'clicks', 'created_at']);
 
         return Datatables::of($user_links)
+            ->escapeColumns()
             ->make(true);
     }
 }
