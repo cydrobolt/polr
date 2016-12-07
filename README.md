@@ -32,7 +32,7 @@ To test out the demo, head to [demo.polr.me](http://demo.polr.me) and use the fo
 
 There are breaking changes between 2.x and 1.x; it is not yet possible to automatically upgrade to 2.x.
 
-*Updating from 2.x:*
+*Upgrading from 2.x:*
  - Back up your database and files
  - Update by using `git pull` or downloading a release
  - Run `composer install` to ensure dependencies are up to date
