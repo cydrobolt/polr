@@ -28,10 +28,14 @@ To test out the demo, head to [demo.polr.me](http://demo.polr.me) and use the fo
 - Password: `demo-admin`
 
 ### Upgrading Polr
+*Upgrading from 1.x:*
 
-Please do not attempt to upgrade directly to 2.x.
+There are breaking changes between 2.x and 1.x; it is not yet possible to automatically upgrade to 2.x.
 
-Polr 1.x currently cannot be upgraded to 2.x automatically. There are breaking changes in the API, configuration files, and database structure. It is safe to upgrade between different versions in the 1.x arch, which do not have breaking changes. Always backup your database and configuration files before upgrading Polr.
+*Updating from 2.x:*
+ - Back up your database and files
+ - Update by using `git pull` or downloading a release
+ - Run `composer install` to ensure dependencies are up to date
 
 #### Browser Extensions
 
