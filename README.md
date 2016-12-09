@@ -35,7 +35,7 @@ There are breaking changes between 2.x and 1.x; it is not yet possible to automa
 *Upgrading from 2.x:*
  - Back up your database and files
  - Update by using `git pull` or downloading a release
- - Run `composer install` to ensure dependencies are up to date
+ - Run `composer install -no-dev -o` to ensure dependencies are up to date
 
 #### Browser Extensions
 
