@@ -7,7 +7,11 @@ use App\Helpers\CryptoHelper;
 use App\Helpers\UserHelper;
 
 class UserFactory {
-    public static function createUser($username, $email, $password, $active=0, $ip='127.0.0.1', $api_key=false, $api_active=0, $role=UserHelper::USER_ROLES['default']) {
+    public static function createUser($username, $email, $password, $active=0, $ip='127.0.0.1', $api_key=false, $api_active=0, $role=false) {
+        if (!$role) {
+            $role = UserHelper::$USER_ROLES['default'];
+        }
+
         $hashed_password = Hash::make($password);
         $recovery_key = CryptoHelper::generateRandomHex(50);
 

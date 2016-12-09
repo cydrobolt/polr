@@ -6,7 +6,7 @@ use App\Helpers\CryptoHelper;
 use Hash;
 
 class UserHelper {
-    const USER_ROLES = [
+    public static $USER_ROLES = [
         'admin'    => 'admin',
         'default'  => '',
     ];

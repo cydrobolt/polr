@@ -59,7 +59,7 @@ class AdminPaginationController extends Controller {
                 }
                 $select_role .= '>';
 
-                foreach (UserHelper::USER_ROLES as $role_text => $role_val) {
+                foreach (UserHelper::$USER_ROLES as $role_text => $role_val) {
                     // Iterate over each available role and output option
                     $select_role .= '<option value="' . e($role_val) . '"';
 
