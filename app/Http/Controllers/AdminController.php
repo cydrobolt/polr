@@ -31,8 +31,8 @@ class AdminController extends Controller {
 
         return view('admin', [
             'role' => $role,
-            'admin_role' => UserHelper::USER_ROLES['admin'],
-            'user_roles' => UserHelper::USER_ROLES,
+            'admin_role' => UserHelper::$USER_ROLES['admin'],
+            'user_roles' => UserHelper::$USER_ROLES,
             'api_key' => $user->api_key,
             'api_active' => $user->api_active,
             'api_quota' => $user->api_quota,
