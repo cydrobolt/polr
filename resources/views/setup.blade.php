@@ -182,16 +182,16 @@ Setup
             <p>Theme (<a href='https://github.com/cydrobolt/polr/wiki/Themes-Screenshots'>screenshots</a>):</p>
             <select name='app:stylesheet' class='form-control'>
                 <option value=''>Modern (default)</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css'>Midnight Black</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/united/bootstrap.min.css'>Orange</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/simplex/bootstrap.min.css'>Crisp White</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/darkly/bootstrap.min.css'>Cloudy Night</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css'>Calm Skies</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css'>Google Material Design</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css'>Blue Metro</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/sandstone/bootstrap.min.css'>Sandstone</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css'>Jet Black</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css'>Newspaper</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css'>Midnight Black</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css'>Orange</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/simplex/bootstrap.min.css'>Crisp White</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css'>Cloudy Night</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css'>Calm Skies</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css'>Google Material Design</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css'>Blue Metro</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css'>Sandstone</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css'>Jet Black</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css'>Newspaper</option>
             </select>
 
             <div class='setup-form-buttons'>
