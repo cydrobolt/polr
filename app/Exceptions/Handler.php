@@ -8,7 +8,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Response;
 
-class Handler extends ExceptionHandler {
+class Handler extends ExceptionHandler
+{
     /**
      * A list of the exception types that should not be reported.
      *
@@ -23,7 +24,7 @@ class Handler extends ExceptionHandler {
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception $e
      * @return void
      */
     public function report(Exception $e)
@@ -34,8 +35,8 @@ class Handler extends ExceptionHandler {
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception $e
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
@@ -57,8 +58,14 @@ class Handler extends ExceptionHandler {
                 if ($status_code == 500) {
                     // Render a nice error page for 500s
                     return view('errors.500');
-                }
-                else {
+                } elseif ($status_code == 403) {
+                    return response(
+                        view('errors.403', [
+                            'status_code' => $status_code,
+                            'status_message' => $status_message
+                        ]),
+                        $status_code);
+                } else {
                     // If not 500, render generic page
                     return response(view('errors.generic', ['status_code' => $status_code, 'status_message' => $status_message]), $status_code);
                 }

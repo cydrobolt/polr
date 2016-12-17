@@ -15,7 +15,7 @@
     "require-dev": {
         "fzaninotto/faker": "~1.0",
         "phpunit/phpunit": "^5.2",
-        "symfony/css-selector": "^3.0"
+        "symfony/css-selector":"^2.7"
     },
     "autoload": {
         "psr-4": {
