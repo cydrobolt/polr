@@ -8,7 +8,7 @@
 <h1 class='header'>Reset Password</h1>
 
 <div class='col-md-6 col-md-offset-3'>
-    <form method='POST'>
+    <form action="#" method='POST'>
         <input type='password' id='passwordFirst' placeholder='New Password' class='form-control password-input-pd'>
         <input type='password' id='passwordConfirm' placeholder='Confirm New Password' class='form-control password-input-pd' name='new_password'>
 
