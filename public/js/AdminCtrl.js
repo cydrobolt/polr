@@ -45,8 +45,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                 "ajax": BASE_API_PATH + 'admin/get_admin_links',
 
                 "columns": [
-                    {className: 'wrap-text', data: 'short_url', name: 'short_url'},
-                    {className: 'wrap-text', data: 'long_url', name: 'long_url'},
+                    {data: 'short_url', name: 'short_url'},
+                    {data: 'long_url', name: 'long_url', width: '30%'},
                     {data: 'clicks', name: 'clicks'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'creator', name: 'creator'},
@@ -62,8 +62,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             "ajax": BASE_API_PATH + 'admin/get_user_links',
 
             "columns": [
-                {className: 'wrap-text', data: 'short_url', name: 'short_url'},
-                {className: 'wrap-text', data: 'long_url', name: 'long_url'},
+                {data: 'short_url', name: 'short_url'},
+                {data: 'long_url', name: 'long_url', width: '50%'},
                 {data: 'clicks', name: 'clicks'},
                 {data: 'created_at', name: 'created_at'}
             ]
