@@ -95,7 +95,7 @@ class LinkController extends Controller {
 
         // Redirect to final destination
         LinkHelper::processPostClick($link);
-        return redirect()->to($long_url);
+        return redirect()->to($long_url, 301);
     }
 
 }
