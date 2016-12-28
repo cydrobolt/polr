@@ -2,6 +2,10 @@
     margin-bottom: 5px;
 }
 
+.stats-icon {
+    margin-left: 0.3em;
+}
+
 .change-password {
     width: 150px;
 }

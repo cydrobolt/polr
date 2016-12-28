@@ -14,3 +14,7 @@
 .ng-root {
     margin-bottom: 4em;
 }
+
+h4 {
+    display: inline-block;
+}

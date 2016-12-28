@@ -12,16 +12,20 @@
     <div class="stats-header">
         <h3>Stats</h3>
         <p>
-            <b>Short Link: </b> {{ env('APP_ADDRESS') }}/{{ $link->short_url }}
+            <b>Short Link: </b>
+            <a target="_blank" href="{{ env('APP_PROTOCOL') }}/{{ env('APP_ADDRESS') }}/{{ $link->short_url }}">
+                {{ env('APP_ADDRESS') }}/{{ $link->short_url }}
+            </a>
         </p>
         <p>
-            <b>Long Link: </b> {{ $link->long_url }}
+            <b>Long Link: </b>
+            <a target="_blank" href="{{ $link->long_url }}">{{ $link->long_url }}</a>
         </p>
     </div>
 
     <div class="row bottom-padding">
         <div class="col-md-8">
-            <h4>Traffic over Time</h4>
+            <h4>Traffic over Time</h4> (total: {{ $link->clicks }})
             <canvas id="dayChart"></canvas>
         </div>
         <div class="col-md-4">
