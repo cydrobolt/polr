@@ -51,12 +51,13 @@ class StatsController extends Controller {
 
         $link = Link::where('short_url', $short_url)
             ->first();
-        $link_id = $link->id;
 
         // Return 404 if link not found
         if ($link == null) {
             return redirect(route('admin'))->with('error', 'Cannot show stats for nonexistent link.');
         }
+
+        $link_id = $link->id;
 
         if ( (session('username') != $link->creator) && !self::currIsAdmin() ) {
             return redirect(route('admin'))->with('error', 'You do not have permission to view stats for this link.');
