@@ -46,7 +46,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
                 "columns": [
                     {data: 'short_url', name: 'short_url'},
-                    {data: 'long_url', name: 'long_url', width: '30%'},
+                    {data: 'long_url', name: 'long_url'},
                     {data: 'clicks', name: 'clicks'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'creator', name: 'creator'},
@@ -63,7 +63,7 @@ polr.controller('AdminCtrl', function($scope, $compile) {
 
             "columns": [
                 {data: 'short_url', name: 'short_url'},
-                {data: 'long_url', name: 'long_url', width: '50%'},
+                {data: 'long_url', name: 'long_url'},
                 {data: 'clicks', name: 'clicks'},
                 {data: 'created_at', name: 'created_at'}
             ]
