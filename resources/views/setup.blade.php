@@ -49,11 +49,21 @@ Setup
             <p>Application Name:</p>
             <input type='text' class='form-control' name='app:name' value='Polr'>
 
-            <p>Application protocol:</p>
+            <p>Application Protocol:</p>
             <input type='text' class='form-control' name='app:protocol' value='http://'>
 
             <p>Application URL (path to Polr; do not include http:// or trailing slash):</p>
             <input type='text' class='form-control' name='app:external_url' value='yoursite.com'>
+
+            <p>
+                Advanced Analytics:
+                <button data-content="Enable advanced analytics to collect data such as referers, geolocation, and clicks over time. Enabling advanced analytics reduces performance and increases disk space usage."
+                    type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
+            <select name='setting:adv_analytics' class='form-control'>
+                <option value='false' selected='selected'>Disable advanced analytics</option>
+                <option value='true'>Enable advanced analytics</option>
+            </select>
 
             <p>Shortening Permissions:</p>
             <select name='setting:shorten_permission' class='form-control'>

@@ -74,6 +74,9 @@ SETTING_ANON_API={{$ST_ANON_API}}
 # Set to true to use pseudorandom strings rather than using a counter by default
 SETTING_PSEUDORANDOM_ENDING={{$ST_PSEUDOR_ENDING}}
 
+# Set to true to record advanced analytics
+SETTING_ADV_ANALYTICS={{$ST_ADV_ANALYTICS}}
+
 # Set each to blank to disable mail
 @if($MAIL_ENABLED)
 MAIL_DRIVER=smtp

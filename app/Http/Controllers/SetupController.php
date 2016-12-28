@@ -110,6 +110,7 @@ class SetupController extends Controller {
         $st_auto_api_key = $request->input('setting:auto_api_key');
         $st_anon_api = $request->input('setting:anon_api');
         $st_pseudor_ending = $request->input('setting:pseudor_ending');
+        $st_adv_analytics = $request->input('setting:adv_analytics');
 
         $mail_host = $request->input('app:smtp_server');
         $mail_port = $request->input('app:smtp_port');
@@ -160,6 +161,7 @@ class SetupController extends Controller {
             'ST_AUTO_API' => $st_auto_api_key,
             'ST_ANON_API' => $st_anon_api,
             'ST_PSEUDOR_ENDING' => $st_pseudor_ending,
+            'ST_ADV_ANALYTICS' => $st_adv_analytics,
 
             'TMP_SETUP_AUTH_KEY' => $setup_auth_key
         ])->render();

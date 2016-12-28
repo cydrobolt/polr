@@ -32,6 +32,7 @@ $app->get('/setup/finish', ['as' => 'setup_finish', 'uses' => 'SetupController@f
 $app->get('/{short_url}', ['uses' => 'LinkController@performRedirect']);
 $app->get('/{short_url}/{secret_key}', ['uses' => 'LinkController@performRedirect']);
 
+$app->get('/admin/stats/{short_url}', ['uses' => 'StatsController@displayStats']);
 
 /* POST endpoints */
 
