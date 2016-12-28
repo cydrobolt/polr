@@ -3,6 +3,8 @@
 @section('css')
 <link rel='stylesheet' href='/css/datatables.min.css'>
 <link rel='stylesheet' href='/css/stats.css'>
+<link rel='stylesheet' href='/css/jquery-jvectormap.css'>
+
 @endsection
 
 @section('content')
@@ -17,7 +19,7 @@
         </p>
     </div>
 
-    <div class="row">
+    <div class="row bottom-padding">
         <div class="col-md-8">
             <h4>Traffic over Time</h4>
             <canvas id="dayChart"></canvas>
@@ -27,13 +29,12 @@
             <canvas id="refererChart"></canvas>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-6">
             <h4>Map</h4>
-            <canvas id="mapChart"></canvas>
+            <div id="mapChart"></div>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <h4>Referers</h4>
             <table class="table table-hover" id="refererTable">
@@ -76,6 +77,8 @@ var countryData = JSON.parse('{!! json_encode($country_stats) !!}');
 <script src='/js/lodash.min.js'></script>
 <script src='/js/chart.bundle.min.js'></script>
 <script src='/js/datatables.min.js'></script>
+<script src='/js/jquery-jvectormap.min.js'></script>
+<script src='/js/jquery-jvectormap-world-mill.js'></script>
 <script src='/js/StatsCtrl.js'></script>
 
 @endsection

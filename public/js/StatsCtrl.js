@@ -71,8 +71,28 @@ polr.controller('StatsCtrl', function($scope, $compile) {
         $('#refererTable').DataTable();
     };
     $scope.initCountryChart = function () {
+        var parsedCountryData = {};
+
+        _.each($scope.countryData, function(country) {
+            parsedCountryData[country.label] = country.clicks;
+        });
+
+        $('#mapChart').vectorMap({
+            map: 'world_mill',
+            series: {
+                regions: [{
+                    values: parsedCountryData,
+                    scale: ['#C8EEFF', '#0071A4'],
+                    normalizeFunction: 'polynomial'
+                }]
+            },
+            onRegionTipShow: function(e, el, code){
+                el.html(el.html()+' (' + (parsedCountryData[code] || 0) + ')');
+            }
+        });
 
     };
+
     $scope.init = function () {
         $scope.initDayChart();
         $scope.initRefererChart();
