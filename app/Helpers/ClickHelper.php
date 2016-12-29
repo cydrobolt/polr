@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class ClickHelper {
     static private function getCountry($ip) {
-        // TODO
-        return 'US';
+        $country_iso = geoip()->getLocation($ip)->iso_code;
+        return $country_iso;
     }
 
     static private function getHost($url) {
