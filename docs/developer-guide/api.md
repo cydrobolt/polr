@@ -149,3 +149,7 @@ Example `json` error response:
 Example `plain_text` error response:
 
 `custom ending already in use`
+
+## Testing the API
+
+You may test your integrations on http://demo.polr.me with the credentials "demo-admin"/"demo-admin". Keep in mind the instance is only a demo and may be cleared at any time.
