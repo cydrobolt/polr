@@ -123,7 +123,8 @@ class AdminPaginationController extends Controller {
                     return $link->clicks;
                 }
             })
-            ->escapeColumns(['short_url', 'long_url', 'creator'])
+            ->editColumn('long_url', '<a target="_blank" title="{{ $long_url }}" href="{{ $long_url }}">{{ str_limit($long_url, 50) }}</a>')
+            ->escapeColumns(['short_url', 'creator'])
             ->make(true);
     }
 
@@ -145,7 +146,8 @@ class AdminPaginationController extends Controller {
                     return $link->clicks;
                 }
             })
-            ->escapeColumns(['short_url', 'long_url'])
+            ->editColumn('long_url', '<a target="_blank" title="{{ $long_url }}" href="{{ $long_url }}">{{ str_limit($long_url, 50) }}</a>')
+            ->escapeColumns(['short_url'])
             ->make(true);
     }
 }
