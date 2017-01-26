@@ -40,7 +40,7 @@ There are breaking changes between 2.x and 1.x; it is not yet possible to automa
 
 #### Browser Extensions
 
-* Safari - [Polr.safariextension](https://github.com/cleverdevil/Polr.safariextension).
+* Safari - [Polr.safariextension](https://github.com/cleverdevil/Polr.safariextension)
 
 ####Versioning
 
