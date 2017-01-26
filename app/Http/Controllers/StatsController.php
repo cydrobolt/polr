@@ -82,7 +82,9 @@ class StatsController extends Controller {
             'link' => $link,
             'day_stats' => $day_stats,
             'country_stats' => $country_stats,
-            'referer_stats' => $referer_stats
+            'referer_stats' => $referer_stats,
+
+            'no_div_padding' => true
         ]);
     }
 }
