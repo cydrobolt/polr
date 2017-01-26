@@ -14,7 +14,11 @@ polr.controller('StatsCtrl', function($scope, $compile) {
             data: {
                 datasets: [{
                     label: 'Clicks',
-                    data: $scope.dayData
+                    data: $scope.dayData,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
                 }]
             },
             options: {
@@ -86,7 +90,7 @@ polr.controller('StatsCtrl', function($scope, $compile) {
                     normalizeFunction: 'polynomial'
                 }]
             },
-            onRegionTipShow: function(e, el, code){
+            onRegionTipShow: function(e, el, code) {
                 el.html(el.html()+' (' + (parsedCountryData[code] || 0) + ')');
             }
         });
