@@ -75,14 +75,6 @@ class LinkHelper {
         return $is_valid_ending;
     }
 
-    static public function processPostClick($link) {
-        /**
-         * Given a Link model instance, process post click operations.
-         * @param Link model instance $link
-         * @return boolean
-         */
-    }
-
     static public function findPseudoRandomEnding() {
         /**
          * Return an available pseudorandom string of length _PSEUDO_RANDOM_KEY_LENGTH,

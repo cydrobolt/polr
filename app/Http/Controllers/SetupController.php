@@ -33,6 +33,13 @@ class SetupController extends Controller {
         return self::parseExitCode($exitCode);
     }
 
+    private static function updateGeoIP() {
+        // Output GeoIP database for advanced
+        // analytics
+        $exitCode = Artisan::call('geoip:update', []);
+        return self::parseExitCode($exitCode);
+    }
+
     private static function createDatabase() {
         $exitCode = Artisan::call('migrate', [
             '--force' => true,
@@ -110,6 +117,7 @@ class SetupController extends Controller {
         $st_auto_api_key = $request->input('setting:auto_api_key');
         $st_anon_api = $request->input('setting:anon_api');
         $st_pseudor_ending = $request->input('setting:pseudor_ending');
+        $st_adv_analytics = $request->input('setting:adv_analytics');
 
         $mail_host = $request->input('app:smtp_server');
         $mail_port = $request->input('app:smtp_port');
@@ -160,6 +168,7 @@ class SetupController extends Controller {
             'ST_AUTO_API' => $st_auto_api_key,
             'ST_ANON_API' => $st_anon_api,
             'ST_PSEUDOR_ENDING' => $st_pseudor_ending,
+            'ST_ADV_ANALYTICS' => $st_adv_analytics,
 
             'TMP_SETUP_AUTH_KEY' => $setup_auth_key
         ])->render();
@@ -186,8 +195,8 @@ class SetupController extends Controller {
             // our app key changes and Laravel encrypts cookies.
             setcookie('setup_arguments', $setup_finish_arguments, time()+60);
         }
-        fclose($handle);
 
+        fclose($handle);
         return $response;
 
     }
@@ -212,7 +221,14 @@ class SetupController extends Controller {
 
         $database_created = self::createDatabase();
         if (!$database_created) {
-            return redirect(route('setup'))->with('error', 'Could not create database. Perhaps some credentials were incorrect?');
+            return redirect(route('setup'))->with('error', 'Could not create database. Perhaps your credentials were incorrect?');
+        }
+
+        if (env('SETTING_ADV_ANALYTICS')) {
+            $geoip_db_created = self::updateGeoIP();
+            if (!$geoip_db_created) {
+                return redirect(route('setup'))->with('error', 'Could not fetch GeoIP database for advanced analytics. Perhaps your server is not connected to the internet?');
+            }
         }
 
         $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip(), false, 0, UserHelper::$USER_ROLES['admin']);

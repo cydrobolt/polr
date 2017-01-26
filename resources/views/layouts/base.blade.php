@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <link href="/css/toastr.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
     @yield('css')
 </head>
 <body>

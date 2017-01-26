@@ -113,6 +113,16 @@ class AdminPaginationController extends Controller {
                     Delete
                 </a>';
             })
+            ->editColumn('clicks', function ($link) {
+                if (env('SETTING_ADV_ANALYTICS')) {
+                    return $link->clicks . ' <a target="_blank" class="stats-icon" href="/admin/stats/' . e($link->short_url) . '">
+                        <i class="fa fa-area-chart" aria-hidden="true"></i>
+                    </a>';
+                }
+                else {
+                    return $link->clicks;
+                }
+            })
             ->editColumn('long_url', '<a target="_blank" title="{{ $long_url }}" href="{{ $long_url }}">{{ str_limit($long_url, 50) }}</a>')
             ->escapeColumns(['short_url', 'creator'])
             ->make(true);
@@ -126,6 +136,16 @@ class AdminPaginationController extends Controller {
             ->select(['short_url', 'long_url', 'clicks', 'created_at']);
 
         return Datatables::of($user_links)
+            ->editColumn('clicks', function ($link) {
+                if (env('SETTING_ADV_ANALYTICS')) {
+                    return $link->clicks . ' <a target="_blank" class="stats-icon" href="/admin/stats/' . e($link->short_url) . '">
+                        <i class="fa fa-area-chart" aria-hidden="true"></i>
+                    </a>';
+                }
+                else {
+                    return $link->clicks;
+                }
+            })
             ->editColumn('long_url', '<a target="_blank" title="{{ $long_url }}" href="{{ $long_url }}">{{ str_limit($long_url, 50) }}</a>')
             ->escapeColumns(['short_url'])
             ->make(true);

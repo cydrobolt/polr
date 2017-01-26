@@ -20,8 +20,9 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
-
 $app->withEloquent();
+
+$app->configure('geoip');
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +80,8 @@ $app->middleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
-$app->register(Yajra\Datatables\DatatablesServiceProvider::class);
+$app->register(\Yajra\Datatables\DatatablesServiceProvider::class);
+$app->register(\Torann\GeoIP\GeoIPServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
