@@ -2,18 +2,28 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Redirect;
+use Carbon\Carbon;
 
 use App\Models\Link;
 use App\Models\Clicks;
 use Illuminate\Support\Facades\DB;
 
 class StatsController extends Controller {
+    const DAYS_TO_FETCH = 30;
+
+    private function getBaseRows($link_id) {
+        // Get past month rows
+        return DB::table('clicks')
+            ->where('link_id', $link_id)
+            ->where('created_at', '>=', Carbon::now()->subDays(self::DAYS_TO_FETCH));
+    }
+
     private function getDayStats($link_id) {
+        // Return stats by day from the last 30 days
         // date => x
         // clicks => y
-        $stats = DB::table('clicks')
-            ->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as x, count(*) as y"))
-            ->where('link_id', $link_id)
+        $stats = $this->getBaseRows($link_id)
+            ->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') AS x, count(*) AS y"))
             ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
             ->orderBy('x', 'asc')
             ->get();
@@ -22,9 +32,8 @@ class StatsController extends Controller {
     }
 
     private function getCountryStats($link_id) {
-        $stats = DB::table('clicks')
-            ->select(DB::raw("country as label, count(*) as clicks"))
-            ->where('link_id', $link_id)
+        $stats = $this->getBaseRows($link_id)
+            ->select(DB::raw("country AS label, count(*) AS clicks"))
             ->groupBy('country')
             ->orderBy('clicks', 'desc')
             ->get();
@@ -33,9 +42,8 @@ class StatsController extends Controller {
     }
 
     private function getRefererStats($link_id) {
-        $stats = DB::table('clicks')
+        $stats = $this->getBaseRows($link_id)
             ->select(DB::raw("COALESCE(referer_host, 'Direct') as label, count(*) as clicks"))
-            ->where('link_id', $link_id)
             ->groupBy('referer_host')
             ->orderBy('clicks', 'desc')
             ->get();

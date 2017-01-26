@@ -23,10 +23,11 @@ class CreateClicksTable extends Migration
             $table->string('referer')->nullable();
             $table->string('referer_host')->nullable();
             $table->text('user_agent')->nullable();
+            $table->integer('link_id')->unsigned();
 
             $table->index('ip');
-            $table->index('referer');
-            $table->integer('link_id')->unsigned();
+            $table->index('referer_host');
+            $table->index('link_id');
             $table->foreign('link_id')->references('id')->on('links')->onDelete('cascade');
 
             $table->timestamps();
