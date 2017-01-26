@@ -216,6 +216,7 @@ You will also need to insert a admin user into the `users` table through `mysql`
 
 ```bash
 php artisan migrate --force
+php artisan geoip:update
 ```
 
 This should create the necessary databases.
