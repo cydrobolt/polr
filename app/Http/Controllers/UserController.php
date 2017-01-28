@@ -93,7 +93,7 @@ class UserController extends Controller {
         }
         else {
             // email activation is necessary
-            $response = redirect(route('login'))->with('success', 'Thanks for signing up! Please confirm your email to continue..');
+            $response = redirect(route('login'))->with('success', 'Thanks for signing up! Please confirm your email to continue.');
             $active = 0;
         }
 
