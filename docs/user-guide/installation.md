@@ -122,6 +122,7 @@ server {
     location / {
             try_files $uri $uri/ /index.php$is_args$args;
             # rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
+            index index.php;
     }
 
     location ~ \.php$ {
