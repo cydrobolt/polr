@@ -114,6 +114,7 @@ upstream php {
 server {
     listen       *:80;
     root         /var/www/polr/public;
+    index        index.php index.html index.htm;
     server_name  example.com; # Or whatever you want to use
 
 #   return 301 https://$server_name$request_uri; # Forces HTTPS, which enables privacy for login credentials.
@@ -122,7 +123,6 @@ server {
     location / {
             try_files $uri $uri/ /index.php$is_args$args;
             # rewrite ^/([a-zA-Z0-9]+)/?$ /index.php?$1;
-            index index.php;
     }
 
     location ~ \.php$ {
@@ -143,7 +143,8 @@ server {
 #   listen              *:443 ssl;
 #   ssl_certificate     /etc/ssl/my.crt;
 #   ssl_certificate_key /etc/ssl/private/my.key;
-#   root                /var/www;
+#   root                /var/www/polr/public;
+#   index index.php index.html index.htm;
 #   server_name         example.com;
 #
 #   location / {
