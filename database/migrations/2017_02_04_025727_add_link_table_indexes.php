@@ -20,7 +20,7 @@ class AddLinkTableIndexes extends Migration
             $table->index('long_url_hash', 'links_long_url_index');
         });
 
-        DB::query("UPDATE links SET long_url_hash = crc32(long_url)");
+        DB::statement("UPDATE links SET long_url_hash = crc32(long_url);");
     }
 
     public function down()
