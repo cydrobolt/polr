@@ -57,7 +57,7 @@ class LinkHelper {
          * check whether the link is in the DB.
          * @return boolean
          */
-        $link = Link::where('long_url', $long_url)
+        $link = Link::longUrl($long_url)
             ->where('is_custom', 0)
             ->where('secret_key', '')
             ->first();
