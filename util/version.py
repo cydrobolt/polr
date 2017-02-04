@@ -25,14 +25,4 @@ with open('.env.setup', 'r+') as setup_env:
     setup_env.write(setup_env_lines)
     setup_env.truncate()
 
-if is_stable == 'y':
-    with open('docs/index.md', 'r+') as index_md:
-        index_md_lines = index_md.read()
-        index_md_lines = re.sub(r'(?is)stable-[0-9\.]+-green.svg', 'stable-{}-green.svg'.format(new_version), index_md_lines)
-
-        # Overwite existing file
-        index_md.seek(0)
-        index_md.write(index_md_lines)
-        index_md.truncate()
-
 print "Done!"
