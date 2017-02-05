@@ -43,7 +43,7 @@ class ApiLinkController extends ApiController {
         $user = self::getApiUserInfo($request);
 
         // Validate URL form data
-        $validator = \Validator::make($request, [
+        $validator = \Validator::make($request->all(), [
             'url_ending' => 'required|alpha_dash'
         ]);
 
