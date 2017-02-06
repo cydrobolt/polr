@@ -27,7 +27,6 @@ class AddLinkTableIndexes extends Migration
     {
         Schema::table('links', function (Blueprint $table)
         {
-            $table->longtext('long_url')->change();
             $table->dropUnique('links_short_url_unique');
             $table->dropIndex('links_long_url_index');
             $table->dropColumn('long_url_hash');
