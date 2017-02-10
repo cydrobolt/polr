@@ -20,14 +20,27 @@ class AddLinkTableIndexes extends Migration
             $table->index('long_url_hash', 'links_long_url_index');
         });
 
-        DB::statement("UPDATE links SET long_url_hash = crc32(long_url);");
+        // MySQL only statement
+        // DB::statement("UPDATE links SET long_url_hash = crc32(long_url);");
+
+        DB::table('links')->select(['id', 'long_url_hash', 'long_url'])
+            ->chunk(100, function($links) {
+                foreach ($links as $link) {
+                    DB::table('links')
+                        ->where('id', $link->id)
+                        ->update([
+                            'long_url_hash' => sprintf('%u', crc32($link->long_url))]
+                        );
+                }
+        });
+
+
     }
 
     public function down()
     {
         Schema::table('links', function (Blueprint $table)
         {
-            $table->longtext('long_url')->change();
             $table->dropUnique('links_short_url_unique');
             $table->dropIndex('links_long_url_index');
             $table->dropColumn('long_url_hash');
