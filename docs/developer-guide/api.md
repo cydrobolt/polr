@@ -94,7 +94,7 @@ Arguments:
 
 Remember that the `url` argument must be URL encoded.
 
-Example: GET `http://example.com/api/v2/action/lookup?key=API_KEY_HERE&ending=2`
+Example: GET `http://example.com/api/v2/action/lookup?key=API_KEY_HERE&url_ending=2`
 Response:
 ```
 {
