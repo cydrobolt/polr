@@ -29,12 +29,10 @@ class AddLinkTableIndexes extends Migration
                     DB::table('links')
                         ->where('id', $link->id)
                         ->update([
-                            'long_url_hash' => sprintf('%u', crc32($link->long_url))]
-                        );
+                            'long_url_hash' => sprintf('%u', crc32($link->long_url))
+                        ]);
                 }
         });
-
-
     }
 
     public function down()
