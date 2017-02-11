@@ -7,6 +7,8 @@ use App\Helpers\LinkHelper;
 
 
 class LinkFactory {
+    const MAXIMUM_LINK_LENGTH = 65535;
+
     private static function formatLink($link_ending, $secret_ending=false) {
         /**
         * Given a link ending and a boolean indicating whether a secret ending is needed,
@@ -38,6 +40,13 @@ class LinkFactory {
         * @param bool $is_api
         * @return string $formatted_link
         */
+
+        if (strlen($long_url) > self::MAXIMUM_LINK_LENGTH) {
+            // If $long_url is longer than the maximum length, then
+            // throw an Exception
+            throw new \Exception('Sorry, but your link is longer than the
+                maximum length allowed.');
+        }
 
         $is_already_short = LinkHelper::checkIfAlreadyShortened($long_url);
 
