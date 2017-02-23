@@ -60,22 +60,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
     <script>
     @if (Session::has('info'))
-        toastr["info"]("{{session('info')}}", "Info")
+        toastr["info"](`{{str_replace('`', '&#96;', session('info'))}}`, "Info")
     @endif
     @if (Session::has('error'))
-        toastr["error"]("{{session('error')}}", "Error")
+        toastr["error"](`{{str_replace('`', '&#96;', session('error'))}}`, "Error")
     @endif
     @if (Session::has('warning'))
-        toastr["warning"]("{{session('warning')}}", "Warning")
+        toastr["warning"](`{{str_replace('`', '&#96;', session('warning'))}}`, "Warning")
     @endif
     @if (Session::has('success'))
-        toastr["success"]("{{session('success')}}", "Success")
+        toastr["success"](`{{str_replace('`', '&#96;', session('success'))}}`, "Success")
     @endif
 
     @if (count($errors) > 0)
         // Handle Lumen validation errors
         @foreach ($errors->all() as $error)
-            toastr["error"]("{{$error}}", "Error")
+            toastr["error"](`{{str_replace('\`', $error)}}`, "Error")
         @endforeach
     @endif
     </script>
