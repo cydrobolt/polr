@@ -31,7 +31,7 @@ $ sudo su
 # switch to Polr directory (replace with other directory path if applicable)
 $ cd /var/www
 # clone Polr
-$ git clone https://github.com/cydrobolt/polr.git
+$ git clone https://github.com/cydrobolt/polr.git --depth=1
 # set correct permissions
 $ chmod -R 755 polr
 
