@@ -23,7 +23,6 @@ class ApiAnalyticsController extends ApiController {
             'right_bound' => 'date'
         ]);
 
-        error_log($validator->errors());
         if ($validator->fails()) {
             return abort(400, 'Invalid or missing parameters.');
         }
@@ -42,9 +41,9 @@ class ApiAnalyticsController extends ApiController {
         }
 
         if (($link->creator != $user->username) &&
-                !(UserHelper::userIsAdmin($username))){
+                !(UserHelper::userIsAdmin($user->username))){
             // If user does not own link and is not an admin
-            abort(401, 'You do not have access to this link.');
+            abort(401, 'Unauthorized.');
         }
 
         $stats = new StatsHelper($link->id, $left_bound, $right_bound);
