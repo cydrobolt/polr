@@ -22,7 +22,6 @@ class StatsHelper {
         $max_days_diff = env('_ANALYTICS_MAX_DAYS_DIFF') ?: 365;
 
         if ($days_diff > $max_days_diff) {
-            error_log('too big fam');
             throw new \Exception('Bounds too broad.');
         }
     }
