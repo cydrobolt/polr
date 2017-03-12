@@ -8,7 +8,7 @@ use App\Helpers\StatsHelper;
 
 class ApiAnalyticsController extends ApiController {
     public function lookupLinkStats (Request $request, $stats_type=false) {
-        $response_type = $request->input('response_type');
+        $response_type = $request->input('response_type') ?: 'json';
 
         if ($response_type != 'json') {
             abort(401, 'Only JSON-encoded data is available for this endpoint.');
