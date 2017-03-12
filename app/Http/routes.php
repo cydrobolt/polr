@@ -68,4 +68,8 @@ $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], func
     /* API lookup endpoints */
     $app->post('action/lookup', ['as' => 'api_lookup_url', 'uses' => 'Api\ApiLinkController@lookupLink']);
     $app->get('action/lookup', ['as' => 'api_lookup_url', 'uses' => 'Api\ApiLinkController@lookupLink']);
+
+    /* API data endpoints */
+    $app->get('data/link', ['as' => 'api_link_analytics', 'uses' => 'Api\ApiAnalyticsController@lookupLinkStats']);
+    $app->post('data/link', ['as' => 'api_link_analytics', 'uses' => 'Api\ApiAnalyticsController@lookupLinkStats']);
 });

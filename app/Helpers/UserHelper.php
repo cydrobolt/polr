@@ -31,9 +31,8 @@ class UserHelper {
         return ctype_alnum($username);
     }
 
-    public static function validateEmail($email) {
-        // TODO validate email here
-        return true;
+    public static function userIsAdmin($username) {
+        return (self::getUserByUsername($username)->role == self::$USER_ROLES['admin']);
     }
 
     public static function checkCredentials($username, $password) {

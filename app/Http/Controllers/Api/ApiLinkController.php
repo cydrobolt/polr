@@ -19,7 +19,7 @@ class ApiLinkController extends ApiController {
         ]);
 
         if ($validator->fails()) {
-            return abort(400, 'Parameters invalid or missing.');
+            return abort(400, 'Invalid or missing parameters.');
         }
 
         $long_url = $request->input('url'); // * required
@@ -48,7 +48,7 @@ class ApiLinkController extends ApiController {
         ]);
 
         if ($validator->fails()) {
-            return abort(400, 'Parameters invalid or missing.');
+            return abort(400, 'Invalid or missing parameters.');
         }
 
         $url_ending = $request->input('url_ending');
