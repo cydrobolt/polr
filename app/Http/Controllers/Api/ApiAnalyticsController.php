@@ -5,13 +5,14 @@ use Illuminate\Http\Request;
 use App\Helpers\LinkHelper;
 use App\Helpers\UserHelper;
 use App\Helpers\StatsHelper;
+use App\Exceptions\Api\ApiException;
 
 class ApiAnalyticsController extends ApiController {
     public function lookupLinkStats (Request $request, $stats_type=false) {
         $response_type = $request->input('response_type') ?: 'json';
 
         if ($response_type != 'json') {
-            abort(401, 'Only JSON-encoded data is available for this endpoint.');
+            throw new ApiException('JSON_ONLY', 'Only JSON-encoded data is available for this endpoint.', 401, $response_type);
         }
 
         $user = self::getApiUserInfo($request);
@@ -24,7 +25,7 @@ class ApiAnalyticsController extends ApiController {
         ]);
 
         if ($validator->fails()) {
-            return abort(400, 'Invalid or missing parameters.');
+            throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
         }
 
         $url_ending = $request->input('url_ending');
@@ -37,13 +38,13 @@ class ApiAnalyticsController extends ApiController {
         $link = LinkHelper::linkExists($url_ending);
 
         if ($link === false) {
-            abort(404, 'Link not found.');
+            throw new ApiException('NOT_FOUND', 'Link not found.', 404, $response_type);
         }
 
         if (($link->creator != $user->username) &&
                 !(UserHelper::userIsAdmin($user->username))){
             // If user does not own link and is not an admin
-            abort(401, 'Unauthorized.');
+            throw new ApiException('ACCESS_DENIED', 'Unauthorized.', 401, $response_type);
         }
 
         $stats = new StatsHelper($link->id, $left_bound, $right_bound);
@@ -58,7 +59,7 @@ class ApiAnalyticsController extends ApiController {
             $fetched_stats = $stats->getRefererStats();
         }
         else {
-            abort(400, 'Invalid analytics type requested.');
+            throw new ApiException('INVALID_ANALYTICS_TYPE', 'Invalid analytics type requested.', 400, $response_type);
         }
 
         return self::encodeResponse([
