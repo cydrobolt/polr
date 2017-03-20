@@ -33,7 +33,7 @@ class ApiMiddleware {
                 ->first();
 
             if (!$user) {
-                abort(401, "Invalid authentication token.");
+                throw new ApiException('AUTH_ERROR', 'Authentication token required.', 401, $response_type);
             }
             $username = $user->username;
         }
