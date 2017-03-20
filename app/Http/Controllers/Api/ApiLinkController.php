@@ -9,7 +9,6 @@ use App\Exceptions\Api\ApiException;
 class ApiLinkController extends ApiController {
     public function shortenLink(Request $request) {
         $response_type = $request->input('response_type');
-        // $user = self::getApiUserInfo($request);
         $user = $request->user;
 
         // Validate parameters
