@@ -41,9 +41,7 @@ class ApiLinkController extends ApiController {
 
     public function lookupLink(Request $request) {
         $user = $request->user;
-
         $response_type = $request->input('response_type');
-        // $user = self::getApiUserInfo($request);
 
         // Validate URL form data
         $validator = \Validator::make($request->all(), [

@@ -9,13 +9,12 @@ use App\Exceptions\Api\ApiException;
 
 class ApiAnalyticsController extends ApiController {
     public function lookupLinkStats (Request $request, $stats_type=false) {
+        $user = $request->user;
         $response_type = $request->input('response_type') ?: 'json';
 
         if ($response_type != 'json') {
             throw new ApiException('JSON_ONLY', 'Only JSON-encoded data is available for this endpoint.', 401, $response_type);
         }
-
-        $user = self::getApiUserInfo($request);
 
         $validator = \Validator::make($request->all(), [
             'url_ending' => 'required|alpha_dash',
