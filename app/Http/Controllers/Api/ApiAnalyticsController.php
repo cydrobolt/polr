@@ -46,7 +46,12 @@ class ApiAnalyticsController extends ApiController {
             throw new ApiException('ACCESS_DENIED', 'Unauthorized.', 401, $response_type);
         }
 
-        $stats = new StatsHelper($link->id, $left_bound, $right_bound);
+        try {
+            $stats = new StatsHelper($link->id, $left_bound, $right_bound);
+        }
+        catch (\Exception $e) {
+            throw new ApiException('ANALYTICS_ERROR', $e->getMessage(), 400, $response_type);
+        }
 
         if ($stats_type == 'day') {
             $fetched_stats = $stats->getDayStats();

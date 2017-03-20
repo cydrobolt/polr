@@ -1,4 +1,6 @@
 ## API Error Text Codes
+To diagnose an unexpected or unhandled error, turn on the `APP_DEBUG` flag by setting
+it to `true` in `.env`
 
 `SERVER_ERROR`: A generic, unhandled error has occured.
 
@@ -17,3 +19,5 @@
 `AUTH_ERROR`: An error occured while attempting to authenticate the user to the API.
 
 `QUOTA_EXCEEDED`: User's API usage has exceeded alloted quota.
+
+`ANALYTICS_ERROR`: Invalid bounds or unexpected error while fetching analytics data.
