@@ -29,6 +29,9 @@ The Polr API will reply in `plain_text` or `json`. The response type can be
 set by providing the `response_type` argument to the request. If not provided,
 the response type will default to `plain_text`.
 
+Data endpoints will only return JSON-formatted data and will default to `json` if no
+`response_type` is provided.
+
 Example `json` responses:
 ```
 {
@@ -72,6 +75,7 @@ Arguments:
 Response: A JSON or plain text representation of the shortened URL.
 
 Example: GET `http://example.com/api/v2/action/shorten?key=API_KEY_HERE&url=https://google.com&custom_ending=CUSTOM_ENDING&is_secret=false`
+
 Response:
 ```
 {
@@ -95,11 +99,83 @@ Arguments:
 Remember that the `url` argument must be URL encoded.
 
 Example: GET `http://example.com/api/v2/action/lookup?key=API_KEY_HERE&url_ending=2`
+
 Response:
 ```
 {
     "action": "lookup",
     "result": "https://google.com"
+}
+```
+
+### /api/v2/data/link
+Arguments:
+
+ - `url_ending`: the link ending for the URL to look up. (e.g `5ga`)
+ - `left_bound`: left date bound (e.g `2017-02-28 22:41:43`)
+ - `right_bound`: right date bound (e.g `2017-03-13 22:41:43`)
+ - `stats_type`: the type of data to fetch
+    - `day`: click counts for each day from `left_bound` to `right_bound`
+    - `country`: click counts per country
+    - `referer`: click counts per referer
+
+The dates must be formatted for the `strtotime` PHP function and must be parsable by Carbon.
+By default, this API endpoint will only allow users to fetch a maximum of 365 days of data. This setting
+can be modified in the `.env` configuration file.
+
+An API key granted to a regular user can only fetch data for their own links.
+Admins can fetch data for any link.
+
+Response: A JSON representation of the requested analytics data.
+
+Example: GET `http://example.com/api/v2/data/link?stats_type=day&key=API_KEY_HERE&url_ending=5gk&response_type=json&left_bound=2017-02-28%2022:41:43&right_bound=2017-03-13%2022:21:43`
+
+Response:
+```
+{
+    "action":"data_link_day",
+    "result": {
+        "url_ending":"5gk",
+        "data": [
+            {"x":"2017-03-10","y":42},
+            {"x":"2017-03-11","y":1},
+            {"x":"2017-03-12","y":5}
+        ]
+    }
+}
+```
+
+Example: GET `http://example.com/api/v2/data/link?stats_type=country&key=API_KEY_HERE&url_ending=5gk&response_type=json&left_bound=2017-02-28%2022:41:43&right_bound=2017-03-13%2022:21:43`
+
+Response:
+```
+{
+    "action":"data_link_day",
+    "result": {
+        "url_ending":"5gk",
+        "data": [
+            {"label":"FR","clicks":1},
+            {"label":"US","clicks":6},
+            {"label":"CA","clicks":41}
+        ]
+    }
+}
+```
+
+Example: GET `http://example.com/api/v2/data/link?stats_type=country&key=API_KEY_HERE&url_ending=5gk&response_type=json&left_bound=2017-02-28%2022:41:43&right_bound=2017-03-13%2022:21:43`
+
+Response:
+```
+{
+    "action":"data_link_day",
+    "result": {
+        "url_ending":"5gk",
+        "data": [
+            {"label":"Direct","clicks":6},
+            {"label":"reddit.com","clicks":12},
+            {"label":"facebook.com","clicks":30}            
+        ]
+    }
 }
 ```
 
@@ -142,14 +218,17 @@ This status code is returned in the following circumstances:
 Example `json` error response:
 ```
 {
-    "error": "custom ending already in use"
+    "status_code":429,
+    "error_code":"QUOTA_EXCEEDED",
+    "error":"Quota exceeded."
 }
 ```
 
 Example `plain_text` error response:
 
-`custom ending already in use`
+`429 Quota exceeded.`
 
 ## Testing the API
 
-You may test your integrations on http://demo.polr.me with the credentials "demo-admin"/"demo-admin". Keep in mind the instance is only a demo and may be cleared at any time.
+You may test your integrations on http://demo.polr.me with the credentials "demo-admin"/"demo-admin".
+The demo instance is reset every day.

@@ -4,11 +4,12 @@ use Illuminate\Http\Request;
 
 use App\Factories\LinkFactory;
 use App\Helpers\LinkHelper;
+use App\Exceptions\Api\ApiException;
 
 class ApiLinkController extends ApiController {
     public function shortenLink(Request $request) {
         $response_type = $request->input('response_type');
-        $user = self::getApiUserInfo($request);
+        $user = $request->user;
 
         // Validate parameters
         // Encode spaces as %20 to avoid validator conflicts
@@ -19,7 +20,7 @@ class ApiLinkController extends ApiController {
         ]);
 
         if ($validator->fails()) {
-            return abort(400, 'Parameters invalid or missing.');
+            throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
         }
 
         $long_url = $request->input('url'); // * required
@@ -32,15 +33,15 @@ class ApiLinkController extends ApiController {
             $formatted_link = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $user->username, false, true);
         }
         catch (\Exception $e) {
-            abort(400, $e->getMessage());
+            throw new ApiException('CREATION_ERROR', $e->getMessage(), 400, $response_type);
         }
 
         return self::encodeResponse($formatted_link, 'shorten', $response_type);
     }
 
     public function lookupLink(Request $request) {
+        $user = $request->user;
         $response_type = $request->input('response_type');
-        $user = self::getApiUserInfo($request);
 
         // Validate URL form data
         $validator = \Validator::make($request->all(), [
@@ -48,7 +49,7 @@ class ApiLinkController extends ApiController {
         ]);
 
         if ($validator->fails()) {
-            return abort(400, 'Parameters invalid or missing.');
+            throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
         }
 
         $url_ending = $request->input('url_ending');
@@ -60,7 +61,7 @@ class ApiLinkController extends ApiController {
 
         if ($link['secret_key']) {
             if ($url_key != $link['secret_key']) {
-                abort(401, "Invalid URL code for secret URL.");
+                throw new ApiException('ACCESS_DENIED', 'Invalid URL code for secret URL.', 401, $response_type);
             }
         }
 
@@ -74,8 +75,7 @@ class ApiLinkController extends ApiController {
             ], 'lookup', $response_type, $link['long_url']);
         }
         else {
-            abort(404, "Link not found.");
+            throw new ApiException('NOT_FOUND', 'Link not found.', 404, $response_type);
         }
-
     }
 }

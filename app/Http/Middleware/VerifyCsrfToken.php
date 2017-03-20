@@ -11,7 +11,7 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     public function handle($request, \Closure $next) {
-        if ($request->is('api/v*/action/*')) {
+        if ($request->is('api/v*/action/*') || $request->is('api/v*/data/*')) {
             // Exclude public API from CSRF protection
             // but do not exclude private API endpoints
             return $next($request);
