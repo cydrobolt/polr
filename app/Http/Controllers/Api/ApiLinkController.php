@@ -33,7 +33,7 @@ class ApiLinkController extends ApiController {
             $formatted_link = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $user->username, false, true);
         }
         catch (\Exception $e) {
-            throw new ApiException('CREATE_ERROR', $e->getMessage(), 400, $response_type);
+            throw new ApiException('CREATION_ERROR', $e->getMessage(), 400, $response_type);
         }
 
         return self::encodeResponse($formatted_link, 'shorten', $response_type);

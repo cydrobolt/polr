@@ -218,13 +218,15 @@ This status code is returned in the following circumstances:
 Example `json` error response:
 ```
 {
-    "error": "custom ending already in use"
+    "status_code":429,
+    "error_code":"QUOTA_EXCEEDED",
+    "error":"Quota exceeded."
 }
 ```
 
 Example `plain_text` error response:
 
-`custom ending already in use`
+`429 Quota exceeded.`
 
 ## Testing the API
 
