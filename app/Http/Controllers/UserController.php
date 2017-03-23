@@ -78,12 +78,6 @@ class UserController extends Controller {
             return redirect(route('signup'))->with('error', 'Sorry, your email or username already exists. Try again.');
         }
 
-        $email_valid = UserHelper::validateEmail($email);
-
-        if ($email_valid == false) {
-            return redirect(route('signup'))->with('error', 'Please use a valid email to sign up.');
-        }
-
         $acct_activation_needed = env('POLR_ACCT_ACTIVATION');
 
         if ($acct_activation_needed == false) {

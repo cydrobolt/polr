@@ -8,6 +8,7 @@ pages:
 - Developer Guide:
     - 'Libraries': 'developer-guide/libraries.md'
     - 'API Documentation': 'developer-guide/api.md'
+    - 'API Errors': 'developer-guide/api_errors.md'
 - About:
     - 'License': 'about/license.md'
     - 'Contributors': 'about/contributors.md'

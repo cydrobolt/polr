@@ -31,9 +31,8 @@ class UserHelper {
         return ctype_alnum($username);
     }
 
-    public static function validateEmail($email) {
-        // TODO validate email here
-        return true;
+    public static function userIsAdmin($username) {
+        return (self::getUserByUsername($username)->role == self::$USER_ROLES['admin']);
     }
 
     public static function checkCredentials($username, $password) {
@@ -57,7 +56,6 @@ class UserHelper {
 
     public static function resetRecoveryKey($username) {
         $recovery_key = CryptoHelper::generateRandomHex(50);
-
         $user = self::getUserByUsername($username);
 
         if (!$user) {
@@ -72,7 +70,6 @@ class UserHelper {
 
     public static function userResetKeyCorrect($username, $recovery_key, $inactive=false) {
         // Given a username and a recovery key, return true if they match.
-
         $user = self::getUserByUsername($username, $inactive);
 
         if ($user) {
