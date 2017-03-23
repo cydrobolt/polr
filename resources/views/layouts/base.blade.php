@@ -1,6 +1,6 @@
 <!--
 Polr, a minimalist URL shortening platform.
-Copyright (C) 2013-2016 Chaoyi Zha
+Copyright (C) 2013-2017 Chaoyi Zha
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -60,22 +60,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
     <script>
     @if (Session::has('info'))
-        toastr["info"](`{{session('info')}}`, "Info")
+        toastr["info"](`{{ str_replace('`', '\`', session('info')) }}`, "Info")
     @endif
     @if (Session::has('error'))
-        toastr["error"](`{{session('error')}}`, "Error")
+        toastr["error"](`{{str_replace('`', '\`', session('error')) }}`, "Error")
     @endif
     @if (Session::has('warning'))
-        toastr["warning"](`{{session('warning')}}`, "Warning")
+        toastr["warning"](`{{ str_replace('`', '\`', session('warning')) }}`, "Warning")
     @endif
     @if (Session::has('success'))
-        toastr["success"](`{{session('success')}}`, "Success")
+        toastr["success"](`{{ str_replace('`', '\`', session('success')) }}`, "Success")
     @endif
 
     @if (count($errors) > 0)
         // Handle Lumen validation errors
         @foreach ($errors->all() as $error)
-            toastr["error"](`{{$error}}`, "Error")
+            toastr["error"](`{{ str_replace('`', '\`', $error) }}`, "Error")
         @endforeach
     @endif
     </script>
