@@ -44,12 +44,12 @@ There are breaking changes between 2.x and 1.x; it is not yet possible to automa
 
 * Safari - [Polr.safariextension](https://github.com/cleverdevil/Polr.safariextension)
 
-####Versioning
+#### Versioning
 
 Polr uses [Semantic Versioning](http://semver.org/)
 
 
-####License
+#### License
 
 
     Copyright (C) 2013-2017 Chaoyi Zha
