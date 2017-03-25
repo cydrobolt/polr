@@ -67,6 +67,14 @@ class UserController extends Controller {
         $username = $request->input('username');
         $password = $request->input('password');
         $email = $request->input('email');
+        $email_domain = explode("@", $email)[1];
+        
+        if (env('ST_RESTRICT_EMAIL_DOMAIN')) {
+            if ($email_domain != env('ST_RESTRICT_EMAIL_DOMAIN_NAME')) {
+                // ... throw an error
+                return redirect(route('signup'))->with('error', 'Sorry, your email domain is not allowed to register. Try again.');
+            }
+        }
 
         $ip = $request->ip();
 

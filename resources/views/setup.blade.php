@@ -175,6 +175,22 @@ Setup
             </select>
 
             <p>
+                Specify Email Domain:
+                <button data-content="Specifying the email will allow you to limit who is able to register." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
+            <select name='setting:specify_email' class='form-control'>
+                <option value='false'>Specify email disabled</option>
+                <option value='true'>Specify email enabled</option>
+            </select>
+            <p class='text-muted'>
+                Please ensure if you choose to limit to a specific email domain that the domain is properly setup.
+            </p>
+            <p>
+                Email Domain:
+                <button data-content="Enter the domain of the emails you'd like to be able to register." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
+            <input type='text' class='form-control' name='setting:allowed_email_domains' placeholder='gmail.com'>
+            <p>
                 Password Recovery:
                 <button data-content="Password recovery allows users to reset their password through email." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
             </p>
