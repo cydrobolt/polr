@@ -112,6 +112,8 @@ class SetupController extends Controller {
         $st_index_redirect = $request->input('setting:index_redirect');
         $st_redirect_404 = $request->input('setting:redirect_404');
         $st_password_recov = $request->input('setting:password_recovery');
+        $st_specify_email = $request->input('setting:specify_email')
+        $st_allowed_email = $request->input('setting:allowed_email_domains')
 
         $st_base = $request->input('setting:base');
         $st_auto_api_key = $request->input('setting:auto_api_key');
@@ -155,6 +157,8 @@ class SetupController extends Controller {
             'ST_INDEX_REDIRECT' => $st_index_redirect,
             'ST_REDIRECT_404' => $st_redirect_404,
             'ST_PASSWORD_RECOV' => $st_password_recov,
+            'ST_SPECIFY_EMAIL' => $st_specify_email,
+            'ST_ALLOWED_EMAIL' => $st_allowed_email,
 
             'MAIL_ENABLED' => $mail_enabled,
             'MAIL_HOST' => $mail_host,
