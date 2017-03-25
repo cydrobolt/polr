@@ -97,10 +97,16 @@ polr.controller('StatsCtrl', function($scope, $compile) {
 
     };
 
+    $scope.initDatePickers = function () {
+        $('#left-bound-picker').datetimepicker();
+        $('#right-bound-picker').datetimepicker();
+    }
+
     $scope.init = function () {
         $scope.initDayChart();
         $scope.initRefererChart();
         $scope.initCountryChart();
+        $scope.initDatePickers();
     };
 
     $scope.init();
