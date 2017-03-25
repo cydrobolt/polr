@@ -67,12 +67,13 @@ class UserController extends Controller {
         $username = $request->input('username');
         $password = $request->input('password');
         $email = $request->input('email');
-        $email_domain = explode("@", $email)[1];
-        
-        if (env('ST_RESTRICT_EMAIL_DOMAIN')) {
-            if ($email_domain != env('ST_RESTRICT_EMAIL_DOMAIN_NAME')) {
-                // ... throw an error
-                return redirect(route('signup'))->with('error', 'Sorry, your email domain is not allowed to register. Try again.');
+
+        if (env('SETTING_RESTRICT_EMAIL_DOMAIN')) {
+            $email_domain = explode('@', $email)[1];
+            $permitted_email_domains = explode(',', env('SETTING_ALLOWED_EMAIL_DOMAINS'));
+
+            if (!in_array($email_domain, $permitted_email_domains)) {
+                return redirect(route('signup'))->with('error', 'Sorry, your email\'s domain is not permitted to create new accounts.');
             }
         }
 
