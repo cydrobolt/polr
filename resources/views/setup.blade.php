@@ -14,7 +14,7 @@ Setup
     <a class="navbar-brand" href="/">Polr</a>
 </div>
 
-<div class='row'>
+<div class="row" ng-controller="SetupCtrl" class="ng-root">
     <div class='col-md-3'></div>
 
     <div class='col-md-6 setup-body well'>
@@ -175,6 +175,21 @@ Setup
             </select>
 
             <p>
+                Restrict Registration Email Domains:
+                <button data-content="Restrict registration to certain email domains." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
+            <select name='setting:restrict_email_domain' class='form-control'>
+                <option value='false'>Allow any email domain to register</option>
+                <option value='true'>Restrict email domains allowed to register</option>
+            </select>
+
+            <p>
+                Permitted Email Domains:
+                <button data-content="A comma-separated list of emails permitted to register." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
+            <input type='text' class='form-control' name='setting:allowed_email_domains' placeholder='company.com,company-corp.com'>
+
+            <p>
                 Password Recovery:
                 <button data-content="Password recovery allows users to reset their password through email." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
             </p>
@@ -236,5 +251,7 @@ Setup
 
 @section('js')
 <script src="/js/bootstrap.min.js"></script>
-<script src='/js/setup.js'></script>
+<script src='/js/angular.min.js'></script>
+<script src='/js/base.js'></script>
+<script src='/js/SetupCtrl.js'></script>
 @endsection
