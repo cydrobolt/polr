@@ -1,5 +1,6 @@
 .stats-header {
     text-align: center;
+    overflow-wrap: break-word;
 }
 
 .bottom-padding {
