@@ -1,6 +1,7 @@
 .stats-header {
     text-align: center;
     overflow-wrap: break-word;
+    word-wrap: break-word; //backwords compatiblility for older browsers
 }
 
 .bottom-padding {
