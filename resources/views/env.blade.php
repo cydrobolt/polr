@@ -71,6 +71,9 @@ SETTING_AUTO_API={{$ST_AUTO_API}}
 # Set to true to allow anonymous API access
 SETTING_ANON_API={{$ST_ANON_API}}
 
+# Set the anonymous API quota per IP
+SETTING_ANON_API_QUOTA={{$ST_ANON_API_QUOTA}}
+
 # Set to true to use pseudorandom strings rather than using a counter by default
 SETTING_PSEUDORANDOM_ENDING={{$ST_PSEUDOR_ENDING}}
 

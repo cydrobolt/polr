@@ -20,10 +20,7 @@ class ApiHelper {
             $api_quota = $user->api_quota;
         }
         else {
-            // TODO add option to change default quota for anonymous
-            // API users
-
-            $api_quota = 5;
+            $api_quota = env('SETTING_ANON_API_QUOTA') ?: 5;
         }
 
         $links_last_minute = Link::where('is_api', 1)

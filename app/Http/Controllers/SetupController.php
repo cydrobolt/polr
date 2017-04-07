@@ -118,6 +118,7 @@ class SetupController extends Controller {
         $st_base = $request->input('setting:base');
         $st_auto_api_key = $request->input('setting:auto_api_key');
         $st_anon_api = $request->input('setting:anon_api');
+        $st_anon_api_quota = $request->input('setting:anon_api_quota');
         $st_pseudor_ending = $request->input('setting:pseudor_ending');
         $st_adv_analytics = $request->input('setting:adv_analytics');
 
@@ -171,6 +172,7 @@ class SetupController extends Controller {
             'ST_BASE' => $st_base,
             'ST_AUTO_API' => $st_auto_api_key,
             'ST_ANON_API' => $st_anon_api,
+            'ST_ANON_API_QUOTA' => $st_anon_api_quota,
             'ST_PSEUDOR_ENDING' => $st_pseudor_ending,
             'ST_ADV_ANALYTICS' => $st_adv_analytics,
 
