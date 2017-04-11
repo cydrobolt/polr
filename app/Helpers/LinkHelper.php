@@ -51,16 +51,30 @@ class LinkHelper {
         }
     }
 
-    static public function longLinkExists($long_url) {
+    static public function longLinkExists($long_url, $username=false) {
         /**
          * Provided a long link (string),
          * check whether the link is in the DB.
+         * If a username is provided, only search for links created by the
+         * user.
          * @return boolean
          */
-        $link = Link::longUrl($long_url)
+        $link_base = Link::longUrl($long_url)
             ->where('is_custom', 0)
-            ->where('secret_key', '')
-            ->first();
+            ->where('secret_key', '');
+
+        if (is_null($username)) {
+            // Search for links without a creator only
+            $link = $link_base->where('creator', '')->first();
+        }
+        else if (($username !== false)) {
+            // Search for links created by $username only
+            $link = $link_base->where('creator', $username)->first();
+        }
+        else {
+            // Search for links created by any user
+            $link = $link_base->first();
+        }
 
         if ($link == null) {
             return false;
