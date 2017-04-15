@@ -30,6 +30,12 @@ class StatsController extends Controller {
         $left_bound = $user_left_bound ?: Carbon::now()->subDays(self::DAYS_TO_FETCH);
         $right_bound = $user_right_bound ?: Carbon::now();
 
+        if (Carbon::parse($right_bound)->gt(Carbon::now()) && !session('error')) {
+            // Right bound must not be greater than current time
+            // i.e cannot be in the future
+            return redirect()->back()->with('error', 'Right date bound cannot be in the future.');
+        }
+
         if (!$this->isLoggedIn()) {
             return redirect(route('login'))->with('error', 'Please login to view link stats.');
         }
