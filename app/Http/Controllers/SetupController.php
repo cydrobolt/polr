@@ -22,7 +22,7 @@ class SetupController extends Controller {
 
     private static function setupAlreadyRan() {
         return view('error', [
-            'message' => 'Sorry, but you have already ran the setup script previously.'
+            'message' => 'Sorry, but you have already completed the setup process.'
         ]);
     }
 
@@ -112,10 +112,13 @@ class SetupController extends Controller {
         $st_index_redirect = $request->input('setting:index_redirect');
         $st_redirect_404 = $request->input('setting:redirect_404');
         $st_password_recov = $request->input('setting:password_recovery');
+        $st_restrict_email_domain = $request->input('setting:restrict_email_domain');
+        $st_allowed_email_domains = $request->input('setting:allowed_email_domains');
 
         $st_base = $request->input('setting:base');
         $st_auto_api_key = $request->input('setting:auto_api_key');
         $st_anon_api = $request->input('setting:anon_api');
+        $st_anon_api_quota = $request->input('setting:anon_api_quota');
         $st_pseudor_ending = $request->input('setting:pseudor_ending');
         $st_adv_analytics = $request->input('setting:adv_analytics');
 
@@ -155,6 +158,8 @@ class SetupController extends Controller {
             'ST_INDEX_REDIRECT' => $st_index_redirect,
             'ST_REDIRECT_404' => $st_redirect_404,
             'ST_PASSWORD_RECOV' => $st_password_recov,
+            'ST_RESTRICT_EMAIL_DOMAIN' => $st_restrict_email_domain,
+            'ST_ALLOWED_EMAIL_DOMAINS' => $st_allowed_email_domains,
 
             'MAIL_ENABLED' => $mail_enabled,
             'MAIL_HOST' => $mail_host,
@@ -167,6 +172,7 @@ class SetupController extends Controller {
             'ST_BASE' => $st_base,
             'ST_AUTO_API' => $st_auto_api_key,
             'ST_ANON_API' => $st_anon_api,
+            'ST_ANON_API_QUOTA' => $st_anon_api_quota,
             'ST_PSEUDOR_ENDING' => $st_pseudor_ending,
             'ST_ADV_ANALYTICS' => $st_adv_analytics,
 

@@ -12,6 +12,10 @@ class ApiAnalyticsController extends ApiController {
         $user = $request->user;
         $response_type = $request->input('response_type') ?: 'json';
 
+        if ($user->anonymous) {
+            throw new ApiException('AUTH_ERROR', 'Anonymous access of this API is not permitted.', 401, $response_type);
+        }
+
         if ($response_type != 'json') {
             throw new ApiException('JSON_ONLY', 'Only JSON-encoded data is available for this endpoint.', 401, $response_type);
         }

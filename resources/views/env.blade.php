@@ -71,11 +71,20 @@ SETTING_AUTO_API={{$ST_AUTO_API}}
 # Set to true to allow anonymous API access
 SETTING_ANON_API={{$ST_ANON_API}}
 
+# Set the anonymous API quota per IP
+SETTING_ANON_API_QUOTA={{$ST_ANON_API_QUOTA}}
+
 # Set to true to use pseudorandom strings rather than using a counter by default
 SETTING_PSEUDORANDOM_ENDING={{$ST_PSEUDOR_ENDING}}
 
 # Set to true to record advanced analytics
 SETTING_ADV_ANALYTICS={{$ST_ADV_ANALYTICS}}
+
+# Set to true to restrict registration to a specific email domain
+SETTING_RESTRICT_EMAIL_DOMAIN={{$ST_RESTRICT_EMAIL_DOMAIN}}
+
+# A comma-separated list of permitted email domains
+SETTING_ALLOWED_EMAIL_DOMAINS={{$ST_ALLOWED_EMAIL_DOMAINS}}
 
 # Set each to blank to disable mail
 @if($MAIL_ENABLED)

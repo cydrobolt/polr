@@ -38,6 +38,7 @@ input.api-quota {
     width: 9em;
     font-size: .85em;
     height: .85em;
+    padding-left: 0.8em;
 }
 
 .wrap-text {
