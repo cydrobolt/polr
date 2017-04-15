@@ -144,8 +144,12 @@ polr.controller('StatsCtrl', function($scope, $compile) {
         var $leftPicker = $('#left-bound-picker');
         var $rightPicker = $('#right-bound-picker');
 
-        $leftPicker.datetimepicker();
-        $rightPicker.datetimepicker();
+        var datePickerOptions = {
+            showTodayButton: true
+        }
+
+        $leftPicker.datetimepicker(datePickerOptions);
+        $rightPicker.datetimepicker(datePickerOptions);
 
         $leftPicker.data("DateTimePicker").parseInputDate(parseInputDate);
         $rightPicker.data("DateTimePicker").parseInputDate(parseInputDate);
