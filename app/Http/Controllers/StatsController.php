@@ -73,8 +73,8 @@ class StatsController extends Controller {
             'country_stats' => $country_stats,
             'referer_stats' => $referer_stats,
 
-            'left_bound' => ($user_left_bound ?: ''),
-            'right_bound' => ($user_right_bound ?: ''),
+            'left_bound' => ($user_left_bound ?: $left_bound->toDateTimeString()),
+            'right_bound' => ($user_right_bound ?: $right_bound->toDateTimeString()),
 
             'no_div_padding' => true
         ]);

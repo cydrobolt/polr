@@ -28,7 +28,7 @@
                 <form action="" method="GET">
                     <div class="form-group">
                         <div class='input-group date' id='left-bound-picker'>
-                            <input type="text" class="form-control" name="left_bound" value="{{ e($left_bound) }}">
+                            <input type="text" class="form-control" name="left_bound">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <div class='input-group date' id='right-bound-picker'>
-                            <input type="text" class="form-control" name="right_bound" value="{{ e($right_bound) }}">
+                            <input type="text" class="form-control" name="right_bound">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -93,9 +93,14 @@
 @section('js')
 {{-- Load data --}}
 <script>
+// Load data
 var dayData = JSON.parse('{!! json_encode($day_stats) !!}');
 var refererData = JSON.parse('{!! json_encode($referer_stats) !!}');
 var countryData = JSON.parse('{!! json_encode($country_stats) !!}');
+
+// Load datepicker dates
+var datePickerLeftBound = '{{ $left_bound }}';
+var datePickerRightBound = '{{ $right_bound }}';
 </script>
 
 {{-- Include extra JS --}}

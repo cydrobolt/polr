@@ -1,3 +1,7 @@
+var parseInputDate = function (inputDate) {
+    return moment(inputDate);
+};
+
 polr.controller('StatsCtrl', function($scope, $compile) {
     $scope.dayChart = null;
     $scope.refererChart = null;
@@ -98,8 +102,17 @@ polr.controller('StatsCtrl', function($scope, $compile) {
     };
 
     $scope.initDatePickers = function () {
-        $('#left-bound-picker').datetimepicker();
-        $('#right-bound-picker').datetimepicker();
+        var $leftPicker = $('#left-bound-picker');
+        var $rightPicker = $('#right-bound-picker');
+
+        $leftPicker.datetimepicker();
+        $rightPicker.datetimepicker();
+
+        $leftPicker.data("DateTimePicker").parseInputDate(parseInputDate);
+        $rightPicker.data("DateTimePicker").parseInputDate(parseInputDate);
+
+        $leftPicker.data("DateTimePicker").date(datePickerLeftBound, Date, moment, null);
+        $rightPicker.data("DateTimePicker").date(datePickerRightBound, Date, moment, null);
     }
 
     $scope.init = function () {
