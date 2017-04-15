@@ -23,7 +23,8 @@ class ApiMiddleware {
                 throw new ApiException('AUTH_ERROR', 'Authentication token required.', 401, $response_type);
             }
             $user = (object) [
-                'username' => $username
+                'username' => $username,
+                'anonymous' => true
             ];
         }
         else {
@@ -33,9 +34,10 @@ class ApiMiddleware {
                 ->first();
 
             if (!$user) {
-                throw new ApiException('AUTH_ERROR', 'Authentication token required.', 401, $response_type);
+                throw new ApiException('AUTH_ERROR', 'Authentication token invalid.', 401, $response_type);
             }
             $username = $user->username;
+            $user->anonymous = false;
         }
 
         $api_limit_reached = ApiHelper::checkUserApiQuota($username);

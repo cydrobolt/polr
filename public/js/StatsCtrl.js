@@ -1,3 +1,7 @@
+var parseInputDate = function (inputDate) {
+    return moment(inputDate);
+};
+
 polr.controller('StatsCtrl', function($scope, $compile) {
     $scope.dayChart = null;
     $scope.refererChart = null;
@@ -7,8 +11,47 @@ polr.controller('StatsCtrl', function($scope, $compile) {
     $scope.refererData = refererData;
     $scope.countryData = countryData;
 
+    $scope.populateEmptyDayData = function () {
+        // Populate empty days in $scope.dayData with zeroes
+
+        // Number of days in range
+        var numDays = moment(datePickerRightBound).diff(moment(datePickerLeftBound), 'days');
+        var i = moment(datePickerLeftBound);
+
+        var daysWithData = {};
+
+        // Generate hash map to keep track of dates with data
+        _.each($scope.dayData, function (point) {
+            var dayDate = point.x;
+            daysWithData[dayDate] = true;
+        });
+
+        // Push zeroes for days without data
+        _.each(_.range(0, numDays), function () {
+            var formattedDate = i.format('YYYY-MM-DD');
+
+            if (!(formattedDate in daysWithData)) {
+                // If day does not have data, fill in with 0
+                $scope.dayData.push({
+                    x: formattedDate,
+                    y: 0
+                })
+            }
+
+            i.add(1, 'day');
+        });
+
+        // Sort dayData from least to most recent
+        // to ensure Chart.js displays the data correctly
+        $scope.dayData = _.sortBy($scope.dayData, ['x'])
+    }
+
     $scope.initDayChart = function () {
         var ctx = $("#dayChart");
+
+        // Populate empty days in dayData
+        $scope.populateEmptyDayData();
+
         $scope.dayChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -97,10 +140,29 @@ polr.controller('StatsCtrl', function($scope, $compile) {
 
     };
 
+    $scope.initDatePickers = function () {
+        var $leftPicker = $('#left-bound-picker');
+        var $rightPicker = $('#right-bound-picker');
+
+        var datePickerOptions = {
+            showTodayButton: true
+        }
+
+        $leftPicker.datetimepicker(datePickerOptions);
+        $rightPicker.datetimepicker(datePickerOptions);
+
+        $leftPicker.data("DateTimePicker").parseInputDate(parseInputDate);
+        $rightPicker.data("DateTimePicker").parseInputDate(parseInputDate);
+
+        $leftPicker.data("DateTimePicker").date(datePickerLeftBound, Date, moment, null);
+        $rightPicker.data("DateTimePicker").date(datePickerRightBound, Date, moment, null);
+    }
+
     $scope.init = function () {
         $scope.initDayChart();
         $scope.initRefererChart();
         $scope.initCountryChart();
+        $scope.initDatePickers();
     };
 
     $scope.init();
