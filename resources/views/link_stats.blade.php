@@ -12,7 +12,7 @@
     <div class="stats-header bottom-padding">
         <h3>Stats</h3>
         <div class="row">
-            <div class="col-md-3 col-md-offset-3">
+            <div class="col-md-3 col-md-offset-3 link-meta">
                 <p>
                     <b>Short Link: </b>
                     <a target="_blank" href="{{ env('APP_PROTOCOL') }}/{{ env('APP_ADDRESS') }}/{{ $link->short_url }}">

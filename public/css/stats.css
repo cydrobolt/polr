@@ -18,3 +18,8 @@
 h4 {
     display: inline-block;
 }
+
+.link-meta {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
