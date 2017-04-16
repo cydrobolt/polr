@@ -139,7 +139,7 @@ server {
 
 # HTTPS
 
-#server {
+# server {
 #   listen              *:443 ssl;
 #   ssl_certificate     /etc/ssl/my.crt;
 #   ssl_certificate_key /etc/ssl/private/my.key;
@@ -161,7 +161,7 @@ server {
 #           fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
 #           fastcgi_param   HTTP_HOST       $server_name;
 #   }
-#}
+# }
 ```
 ### Shared hosting/other
 
