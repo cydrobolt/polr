@@ -168,7 +168,7 @@ server {
 To run Polr on another HTTP server or on shared hosting, you will need to set the home
 directory to `/PATH_TO_POLR/public`, not the root Polr folder.
 
-## Create necessary databases
+## Creating the database
 
 ### MySQL
 
@@ -187,7 +187,7 @@ Additionally, if you wish to create a new user with access to solely this databa
 You may also use SQLite in place of MySQL for Polr. However, SQLite is not recommended for use with Polr.
 
 
-## Option 1: Run automatic setup script
+## Option 1: Run the automatic setup script
 
 Once your server is properly set up, you will need to configure Polr and
 enable it to access the database.
@@ -197,28 +197,26 @@ Copy the `.env.setup` file to `.env` in your website's root directory.
 `$ cp .env.setup .env`
 
 Then, head over to your new Polr instance, at the path `/setup/` to configure
-your instance with the correct information.
+your instance with the correct information. (e.g example.com/setup)
 
-This will automatically create your databases and write a new configuration file to disk, `.env`. You may make changes later on by editing this file.
+This will automatically create the necessary tables and write a new configuration file to disk, `.env`. You may make changes  to your configuration later by editing this file.
 
-You should be set. You may go back to your Polr homepage and log in to perform
+Once the setup script is completed, Polr is ready to go. You may go back to your Polr homepage and log in to perform
 any other actions.
 
-## Option 2: Write configuration and database manually
+## Option 2: Write the configuration file and create the tables manually
 
-If you wish to configure and initialize Polr manually, you may do so using
-your command line.
+If you wish to configure and initialize Polr manually, you may do so through command line, although it is not recommended.
 
-Rename copy `resources/views/env.blade.php` to `.env` at the root directory
+Copy `resources/views/env.blade.php` to `.env` at the root directory
 and update the values appropriately. Do not leave any curly braces in your new `.env`. You may leave
-certain sections empty to use the defaults.
+certain sections blank or commented-out to use the defaults.
 
-You may then run the following `artisan` command to populate the database.
-You will also need to insert a admin user into the `users` table through `mysql` or a graphical `sql` interface.
+You may then run the following `artisan` command to create the necessary tables:
 
 ```bash
 php artisan migrate --force
 php artisan geoip:update
 ```
 
-This should create the necessary databases.
+You will also need to insert a admin user into the `users` table through `mysql` or a graphical SQL interface.
