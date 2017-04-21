@@ -78,6 +78,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
             toastr["error"](`{{ str_replace('`', '\`', $error) }}`, "Error")
         @endforeach
     @endif
+
+    // Define Polr version
+    var POLR_VERSION = '{{ env('POLR_VERSION') }}';
     </script>
 
     @yield('js')

@@ -15,6 +15,7 @@
 
             @if ($role == $admin_role)
             <li role='presentation' class='admin-nav-item'><a href='#admin'>Admin</a></li>
+            <li role='presentation' class='admin-nav-item'><a href='#updates'>Updates <span id="updates-counter"></span></a></li>
             @endif
 
             @if ($api_active == 1)
@@ -85,8 +86,22 @@
                 @include('snippets.user_table', [
                     'table_id' => 'admin_users_table'
                 ])
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="updates">
+                <h3>Updates</h3>
+                <p>
+                    <i ng-class="state.updates.statusClass"></i>
+                    <span class="text-muted update-status" ng-bind="state.updates.status">Checking for updates...</span>
+                </p>
+                <p ng-if="state.updates.newVersionAvailable">
+                    To upgrade Polr, follow the instructions provided in the <a href="//docs.polr.me/en/latest/user-guide/upgrading/">upgrade guide</a>.
+                </p>
+
 
             </div>
+
+
             @endif
 
             @if ($api_active == 1)

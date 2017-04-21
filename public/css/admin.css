@@ -23,6 +23,10 @@
     display: none;
 }
 
+.update-status {
+    margin-left: 0.3em;
+}
+
 .api-quota {
     display: inline;
 }

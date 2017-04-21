@@ -1,6 +1,11 @@
 polr.controller('AdminCtrl', function($scope, $compile) {
     $scope.state = {
-        showNewUserWell: false
+        showNewUserWell: false,
+        updates: {
+            statusClass: 'fa fa-spin fa-gear',
+            status: 'Checking for updates...',
+            newVersionAvailable: false
+        }
     };
     $scope.datatables = {};
 
@@ -68,6 +73,51 @@ polr.controller('AdminCtrl', function($scope, $compile) {
                 {data: 'created_at', name: 'created_at'}
             ]
         }, datatables_config));
+    };
+
+    $scope.compSemver = function(a, b) {
+        var pa = a.split('.');
+        var pb = b.split('.');
+        for (var i = 0; i < 3; i++) {
+            var na = Number(pa[i]);
+            var nb = Number(pb[i]);
+            if (na > nb) return 1;
+            if (nb > na) return -1;
+            if (!isNaN(na) && isNaN(nb)) return 1;
+            if (isNaN(na) && !isNaN(nb)) return -1;
+        }
+        return 0;
+    };
+
+    $scope.checkPolrUpdates = function() {
+        $.ajax({
+            url: 'https://api.github.com/repos/cydrobolt/polr/releases/latest',
+            method: 'GET',
+            dataType: 'json',
+            headers: null
+        }).done(function(data) {
+            console.log(data);
+            // Given the latest release, compare to currently installed release.
+            // Show a notice to admins if a newer version is available.
+            // https://developer.github.com/v3/repos/releases/#get-the-latest-release
+            var remoteVersion = data.tag_name; // e.g 2.2.0
+            var updateDescription = data.body; // detailed changelog
+
+            var compResult = $scope.compSemver(POLR_VERSION, remoteVersion);
+
+            if (compResult == 1) {
+                $scope.state.updates.statusClass = 'fa fa-gears';
+                $scope.state.updates.status = 'A new update is available: ' + data.name;
+                $scope.state.updates.newVersionAvailable = true;
+            }
+            else {
+                $scope.state.updates.statusClass = 'fa fa-check';
+                $scope.state.updates.status = 'You are running the latest version of Polr';
+            }
+        }).fail(function(error) {
+            alert('lmao it no work');
+        });
+
     };
 
     // Append modals to Angular root
@@ -302,6 +352,11 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
 
         $scope.initTables();
+
+        if (true) {
+            // FIXME should check if admin
+            $scope.checkPolrUpdates();
+        }
     };
 
     $scope.init();
