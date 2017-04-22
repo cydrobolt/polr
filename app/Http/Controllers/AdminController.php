@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Yajra\Datatables\Facades\Datatables;
 use Hash;
 
 use App\Models\Link;
