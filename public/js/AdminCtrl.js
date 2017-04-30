@@ -8,7 +8,13 @@ polr.directive('editLongLinkModal', function () {
         templateUrl: '/directives/editLongLinkModal.html',
         transclude: true,
         controller: function ($scope, $element, $timeout) {
-            // TODO set a listener on close then delete!
+            $scope.init = function () {
+                // Destroy directive and clean modal on close
+                $element.find('.modal').on("hidden.bs.modal", function () {
+                    $scope.$destroy();
+                    $scope.cleanModals();
+                });
+            }
 
             $scope.saveChanges = function () {
                 // Save long URL changes
@@ -17,21 +23,31 @@ polr.directive('editLongLinkModal', function () {
                     'new_long_url': $element.find('input').val()
                 }, function(data) {
                     toastr.success('The link was updated.', 'Success')
-                    $scope.cleanModals();
                 }, function(err) {
                     toastr.error('The new URL format is not valid.', 'Error');
                 });
             };
-        },
+
+            $scope.init();
+        }
     };
 });
 
 polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
+    /* Initialize $scope variables */
     $scope.state = {
         showNewUserWell: false
     };
     $scope.datatables = {};
-    $scope.editLongLinkModals = [];
+    $scope.modals = {
+        editLongLink: []
+    };
+    $scope.newUserParams = {
+        username: '',
+        userPassword: '',
+        userEmail: '',
+        userRole: ''
+    };
 
     $scope.syncHash = function() {
         var url = document.location.toString();
@@ -42,10 +58,8 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
 
     $scope.cleanModals = function() {
         $timeout(function () {
-            $scope.editLongLinkModals.shift();
-            console.log('cleaning modals!!');
-            console.log($scope.editLongLinkModals);
-        }, 5000);
+            $scope.modals.editLongLink.shift();
+        });
 
         $scope.reloadLinkTables();
     };
@@ -172,14 +186,7 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
     }
 
     $scope.addNewUser = function($event) {
-        // Create a new user
-        // FIXME could use Angular models in the future
-        // instead of relying on .val()
-
-        var username = $('#new-username').val();
-        var user_password = $('#new-user-password').val();
-        var user_email = $('#new-user-email').val();
-        var user_role = $('#new-user-role').val();
+        // Allow admins to add new users
 
         if (!$scope.checkNewUserFields()) {
             toastr.error("Fields cannot be empty.", "Error");
@@ -187,10 +194,10 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
         }
 
         apiCall('admin/add_new_user', {
-            'username': username,
-            'user_password': user_password,
-            'user_email': user_email,
-            'user_role': user_role,
+            'username': $scope.newUserParams.username,
+            'user_password': $scope.newUserParams.userPassword,
+            'user_email': $scope.newUserParams.userEmail,
+            'user_role': $scope.newUserParams.userRole,
         }, function(result) {
             toastr.success("User " + username + " successfully created.", "Success");
             $('#new-user-form').clearForm();
@@ -328,7 +335,7 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
 
     // Edit links' long_url
     $scope.editLongLink = function(link_ending, old_long_link) {
-        $scope.editLongLinkModals.push({
+        $scope.modals.editLongLink.push({
             linkEnding: link_ending,
             oldLongLink: old_long_link,
         });

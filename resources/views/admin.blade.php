@@ -65,11 +65,11 @@
                             <th></th>
                         </tr>
                         <tr id="new-user-form">
-                            <td><input type="text" class="form-control" id="new-username"></td>
-                            <td><input type="password" class="form-control" id="new-user-password"></td>
-                            <td><input type="email" class="form-control" id="new-user-email"></td>
+                            <td><input type="text" class="form-control" ng-model="newUserParams.username"></td>
+                            <td><input type="password" class="form-control" ng-model="newUserParams.userPassword"></td>
+                            <td><input type="email" class="form-control" ng-model="newUserParams.userEmail"></td>
                             <td>
-                                <select class="form-control new-user-role" id="new-user-role">
+                                <select class="form-control new-user-role" ng-model="newUserParams.userRole">
                                     @foreach  ($user_roles as $role_text => $role_val)
                                         <option value="{{$role_val}}">{{$role_text}}</option>
                                     @endforeach
@@ -125,7 +125,7 @@
     </div>
 
     <div class="angular-modals">
-        <edit-long-link-modal ng-repeat="modal in editLongLinkModals" link-ending="modal.linkEnding"
+        <edit-long-link-modal ng-repeat="modal in modals.editLongLink" link-ending="modal.linkEnding"
             old-long-link="modal.oldLongLink" clean-modals="cleanModals"></edit-long-link-modal>
     </div>
 </div>
