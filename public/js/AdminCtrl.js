@@ -1,8 +1,37 @@
-polr.controller('AdminCtrl', function($scope, $compile) {
+polr.directive('editLongLinkModal', function () {
+    return {
+        scope: {
+            oldLongLink: '=',
+            linkEnding: '=',
+            cleanModals: '='
+        },
+        templateUrl: '/directives/editLongLinkModal.html',
+        transclude: true,
+        controller: function ($scope, $element, $timeout) {
+            // TODO set a listener on close then delete!
+
+            $scope.saveChanges = function () {
+                // Save long URL changes
+                apiCall('admin/edit_link_long_url', {
+                    'link_ending': $scope.linkEnding,
+                    'new_long_url': $element.find('input').val()
+                }, function(data) {
+                    toastr.success('The link was updated.', 'Success')
+                    $scope.cleanModals();
+                }, function(err) {
+                    toastr.error('The new URL format is not valid.', 'Error');
+                });
+            };
+        },
+    };
+});
+
+polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
     $scope.state = {
         showNewUserWell: false
     };
     $scope.datatables = {};
+    $scope.editLongLinkModals = [];
 
     $scope.syncHash = function() {
         var url = document.location.toString();
@@ -11,8 +40,18 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }
     };
 
+    $scope.cleanModals = function() {
+        $timeout(function () {
+            $scope.editLongLinkModals.shift();
+            console.log('cleaning modals!!');
+            console.log($scope.editLongLinkModals);
+        }, 5000);
+
+        $scope.reloadLinkTables();
+    };
+
     // Initialise Datatables elements
-    $scope.initTables = function () {
+    $scope.initTables = function() {
         var datatables_config = {
             'autoWidth': false,
             'processing': true,
@@ -70,6 +109,20 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }, datatables_config));
     };
 
+    $scope.reloadLinkTables = function () {
+        // Reload DataTables for affected tables
+        // without resetting page
+        if ('admin_links_table' in $scope.datatables) {
+            $scope.datatables['admin_links_table'].ajax.reload(null, false);
+        }
+
+        $scope.datatables['user_links_table'].ajax.reload(null, false);
+    };
+
+    $scope.reloadUserTables = function () {
+        $scope.datatables['admin_users_table'].ajax.reload(null, false);
+    };
+
     // Append modals to Angular root
     $scope.appendModal = function(html, id) {
         id = esc_selector(id);
@@ -84,13 +137,6 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         $("body").delegate("#" + id, "hidden.bs.modal", function() {
             modal_ele.remove();
         });
-    };
-
-    // Hide table rows
-    $scope.hideRow = function(el, msg) {
-        var row = el.parent().parent();
-        toastr.success(msg, "Success");
-        row.fadeOut('slow');
     };
 
     /*
@@ -161,7 +207,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         apiCall('admin/delete_user', {
             'user_id': user_id,
         }, function(new_status) {
-            $scope.hideRow(el, 'User successfully deleted.');
+            toastr.success('User successfully deleted.', 'Success');
+            $scope.reloadUserTables();
         });
     };
 
@@ -253,7 +300,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         apiCall('admin/delete_link', {
             'link_ending': link_ending,
         }, function(new_status) {
-            $scope.hideRow(el, 'Link successfully deleted.');
+            toastr.success('Link successfully deleted.', 'Success');
+            $scope.reloadLinkTables();
         });
     };
 
@@ -277,6 +325,20 @@ polr.controller('AdminCtrl', function($scope, $compile) {
             el.text(next_action);
         });
     };
+
+    // Edit links' long_url
+    $scope.editLongLink = function(link_ending, old_long_link) {
+        $scope.editLongLinkModals.push({
+            linkEnding: link_ending,
+            oldLongLink: old_long_link,
+        });
+
+        $timeout(function () {
+            console.log(link_ending);
+            $('#edit-long-link-' + link_ending).modal('show');
+            // XXX refresh table when done
+        });
+    }
 
     /*
         Initialisation

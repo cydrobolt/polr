@@ -123,6 +123,11 @@
             @endif
         </div>
     </div>
+
+    <div class="angular-modals">
+        <edit-long-link-modal ng-repeat="modal in editLongLinkModals" link-ending="modal.linkEnding"
+            old-long-link="modal.oldLongLink" clean-modals="cleanModals"></edit-long-link-modal>
+    </div>
 </div>
 
 

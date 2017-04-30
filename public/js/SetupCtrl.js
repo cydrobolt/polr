@@ -6,7 +6,7 @@ polr.directive('setupTooltip', function() {
         replace: true,
         template: '<button data-content="{{ content }}" type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>'
     }
-})
+});
 
 polr.controller('SetupCtrl', function($scope) {
     $scope.init = function () {
