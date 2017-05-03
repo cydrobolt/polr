@@ -21,6 +21,7 @@ you may be interested in looking at a [legacy 1.x release](https://github.com/cy
     - Mbstring PHP Extension
     - Tokenizer PHP Extension
     - JSON PHP Extension
+    - PHP curl extension
 
 ## Downloading the source code
 
