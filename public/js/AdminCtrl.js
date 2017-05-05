@@ -33,6 +33,62 @@ polr.directive('editLongLinkModal', function () {
     };
 });
 
+polr.directive('editUserApiInfoModal', function () {
+    return {
+        scope: {
+            userId: '=',
+            apiActive: '=',
+            apiKey: '=',
+            apiQuota: '=',
+            generateNewApiKey: '=',
+            cleanModals: '='
+        },
+        templateUrl: '/directives/editUserApiInfoModal.html',
+        transclude: true,
+        controller: function ($scope, $element, $timeout) {
+            $scope.init = function () {
+                // Destroy directive and clean modal on close
+                $element.find('.modal').on("hidden.bs.modal", function () {
+                    $scope.$destroy();
+                    $scope.cleanModals();
+                });
+
+                $scope.apiActive = res_value_to_text($scope.apiActive);
+            }
+
+            // Toggle API access status
+            $scope.toggleAPIStatus = function($event) {
+                var el = $($event.target);
+                var status_display_elem = el.prevAll('.status-display');
+
+                apiCall('admin/toggle_api_active', {
+                    'user_id': $scope.userId,
+                }, function(new_status) {
+                    new_status = res_value_to_text(new_status);
+                    status_display_elem.text(new_status);
+                });
+            };
+
+            // Generate new API key for user_id
+            $scope.parentGenerateNewAPIKey = function($event) {
+                $scope.generateNewApiKey($event, $scope.userId, false);
+            };
+
+            // Update user API quotas
+            $scope.updateAPIQuota = function() {
+                apiCall('admin/edit_api_quota', {
+                    'user_id': $scope.userId,
+                    'new_quota': parseInt($scope.apiQuota)
+                }, function(next_action) {
+                    toastr.success("Quota successfully changed.", "Success");
+                });
+            };
+
+            $scope.init();
+        }
+    };
+});
+
 polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
     /* Initialize $scope variables */
     $scope.state = {
@@ -40,7 +96,8 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
     };
     $scope.datatables = {};
     $scope.modals = {
-        editLongLink: []
+        editLongLink: [],
+        editUserApiInfo: []
     };
     $scope.newUserParams = {
         username: '',
@@ -137,22 +194,6 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
         $scope.datatables['admin_users_table'].ajax.reload(null, false);
     };
 
-    // Append modals to Angular root
-    $scope.appendModal = function(html, id) {
-        id = esc_selector(id);
-
-        $(".ng-root").append(html);
-        var modal_ele = $("#" + id);
-
-        modal_ele.append(html);
-        modal_ele.modal();
-        $compile(modal_ele)($scope);
-
-        $("body").delegate("#" + id, "hidden.bs.modal", function() {
-            modal_ele.remove();
-        });
-    };
-
     /*
         User Management
     */
@@ -172,6 +213,26 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
             }
         });
     }
+
+    // Generate new API key for user_id
+    $scope.generateNewAPIKey = function($event, user_id, is_dev_tab) {
+        var el = $($event.target);
+        var status_display_elem = el.prevAll('.status-display');
+
+        if (is_dev_tab) {
+            status_display_elem = el.parent().prev().children();
+        }
+
+        apiCall('admin/generate_new_api_key', {
+            'user_id': user_id,
+        }, function(new_status) {
+            if (status_display_elem.is('input')) {
+                status_display_elem.val(new_status);
+            } else {
+                status_display_elem.text(new_status);
+            }
+        });
+    };
 
     $scope.checkNewUserFields = function() {
         var response = true;
@@ -228,72 +289,20 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
         });
     };
 
-
-    // Generate new API key for user_id
-    $scope.generateNewAPIKey = function($event, user_id, is_dev_tab) {
-        var el = $($event.target);
-        var status_display_elem = el.prevAll('.status-display');
-
-        if (is_dev_tab) {
-            status_display_elem = el.parent().prev().children();
-        }
-
-        apiCall('admin/generate_new_api_key', {
-            'user_id': user_id,
-        }, function(new_status) {
-            if (status_display_elem.is('input')) {
-                status_display_elem.val(new_status);
-            } else {
-                status_display_elem.text(new_status);
-            }
-        });
-    };
-
-    // Toggle API access status
-    $scope.toggleAPIStatus = function($event, user_id) {
-        var el = $($event.target);
-        var status_display_elem = el.prevAll('.status-display');
-
-        apiCall('admin/toggle_api_active', {
-            'user_id': user_id,
-        }, function(new_status) {
-            new_status = res_value_to_text(new_status);
-            status_display_elem.text(new_status);
-        });
-    };
-
-    // Update user API quotas
-    $scope.updateAPIQuota = function($event, user_id) {
-        var el = $($event.target);
-        var new_quota = el.prevAll('.api-quota').val();
-
-        apiCall('admin/edit_api_quota', {
-            'user_id': user_id,
-            'new_quota': parseInt(new_quota)
-        }, function(next_action) {
-            toastr.success("Quota successfully changed.", "Success");
-        });
-    };
-
     // Open user API settings menu
     $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
         var el = $($event.target);
-        var markup = $('#api-modal-template').html();
 
-        var modal_id = "api-modal-" + username;
-        var modal_context = {
-            id: modal_id,
-            api_key: api_key,
-            api_active: parseInt(api_active),
-            api_quota: api_quota,
-            user_id: user_id,
-            title: "API Information for " + username,
-            body: markup
-        };
-        var mt_html = $scope.modal_template(modal_context);
-        var compiled_mt = Handlebars.compile(mt_html);
-        mt_html = compiled_mt(modal_context);
-        $scope.appendModal(mt_html, modal_id);
+        $scope.modals.editUserApiInfo.push({
+            apiKey: api_key,
+            apiQuota: parseInt(api_quota),
+            userId: user_id,
+            apiActive: api_active
+        });
+
+        $timeout(function () {
+            $('#edit-user-api-info-' + user_id).modal('show');
+        });
     };
 
     /*
@@ -341,9 +350,7 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
         });
 
         $timeout(function () {
-            console.log(link_ending);
             $('#edit-long-link-' + link_ending).modal('show');
-            // XXX refresh table when done
         });
     }
 
@@ -354,7 +361,6 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
     // Initialise AdminCtrl
     $scope.init = function() {
         var modal_source = $("#modal-template").html();
-        $scope.modal_template = Handlebars.compile(modal_source);
 
         $('.admin-nav a').click(function(e) {
             e.preventDefault();
