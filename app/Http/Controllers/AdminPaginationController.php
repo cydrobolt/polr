@@ -160,7 +160,7 @@ class AdminPaginationController extends Controller {
 
         return Datatables::of($user_links)
             ->editColumn('clicks', [$this, 'renderClicksCell'])
-            ->editColumn('long_url', [$this, 'renderLongUrlCell']) // TODO make sure users can't edit other people's links!
+            ->editColumn('long_url', [$this, 'renderLongUrlCell'])
             ->escapeColumns(['short_url'])
             ->make(true);
     }

@@ -235,7 +235,7 @@ class AjaxController extends Controller {
         $link_ending = $request->input('link_ending');
         $link = LinkHelper::linkExists($link_ending);
 
-        $new_long_url = $request->input('new_long_url'); // TODO check if valid
+        $new_long_url = $request->input('new_long_url');
 
         $this->validate($request, [
             'new_long_url' => 'required|url',

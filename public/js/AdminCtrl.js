@@ -260,7 +260,7 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
             'user_email': $scope.newUserParams.userEmail,
             'user_role': $scope.newUserParams.userRole,
         }, function(result) {
-            toastr.success("User " + username + " successfully created.", "Success");
+            toastr.success("User " + $scope.newUserParams.username + " successfully created.", "Success");
             $('#new-user-form').clearForm();
             $scope.datatables['admin_users_table'].ajax.reload();
         }, function () {
