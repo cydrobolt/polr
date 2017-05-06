@@ -57,15 +57,12 @@ polr.directive('editUserApiInfoModal', function () {
             }
 
             // Toggle API access status
-            $scope.toggleAPIStatus = function($event) {
-                var el = $($event.target);
-                var status_display_elem = el.prevAll('.status-display');
-
+            $scope.toggleAPIStatus = function() {
                 apiCall('admin/toggle_api_active', {
                     'user_id': $scope.userId,
                 }, function(new_status) {
-                    new_status = res_value_to_text(new_status);
-                    status_display_elem.text(new_status);
+                    $scope.apiActive = res_value_to_text(new_status);
+                    $scope.$digest();
                 });
             };
 

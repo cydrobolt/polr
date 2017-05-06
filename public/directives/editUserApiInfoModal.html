@@ -11,11 +11,9 @@
                 <p>
                     <span>API Active</span>:
 
-                    <code class='status-display'>
-                        {{apiActive}}
-                    </code>
+                    <code class='status-display' ng-bind="apiActive"></code>
 
-                    <a ng-click="toggleAPIStatus($event)" class='btn btn-xs btn-success'>toggle</a>
+                    <a ng-click="toggleAPIStatus()" class='btn btn-xs btn-success'>toggle</a>
                 </p>
 
                 <p>
