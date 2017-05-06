@@ -12,7 +12,7 @@ polr.directive('editLongLinkModal', function () {
                 // Destroy directive and clean modal on close
                 $element.find('.modal').on("hidden.bs.modal", function () {
                     $scope.$destroy();
-                    $scope.cleanModals();
+                    $scope.cleanModals('editLongLink');
                 });
             }
 
@@ -50,7 +50,7 @@ polr.directive('editUserApiInfoModal', function () {
                 // Destroy directive and clean modal on close
                 $element.find('.modal').on("hidden.bs.modal", function () {
                     $scope.$destroy();
-                    $scope.cleanModals();
+                    $scope.cleanModals('editUserApiInfo');
                 });
 
                 $scope.apiActive = res_value_to_text($scope.apiActive);
@@ -113,9 +113,9 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
         }
     };
 
-    $scope.cleanModals = function() {
+    $scope.cleanModals = function(modalType) {
         $timeout(function () {
-            $scope.modals.editLongLink.shift();
+            $scope.modals[modalType].shift();
         });
 
         $scope.reloadLinkTables();
