@@ -58,6 +58,14 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install --no-dev -o
 ```
 
+If composer fails to install the proper dependencies due to your PHP version, delete `composer.lock`
+and try installing the dependencies again.
+
+```bash
+rm composer.lock
+php composer.phar install --no-dev -o
+```
+
 ## Running Polr on...
 
 ### Apache
