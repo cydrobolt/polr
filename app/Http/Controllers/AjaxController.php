@@ -225,4 +225,32 @@ class AjaxController extends Controller {
 
         return ($new_status ? "Enable" : "Disable");
     }
+
+    public function editLinkLongUrl(Request $request) {
+        /**
+         * If user is an admin, allow the user to edit the value of any link's long URL.
+         * Otherwise, only allow the user to edit their own links.
+         */
+
+        $link_ending = $request->input('link_ending');
+        $link = LinkHelper::linkExists($link_ending);
+
+        $new_long_url = $request->input('new_long_url');
+
+        $this->validate($request, [
+            'new_long_url' => 'required|url',
+        ]);
+
+        if (!$link) {
+            abort(404, 'Link not found.');
+        }
+
+        if ($link->creator !== session('username')) {
+            self::ensureAdmin();
+        }
+
+        $link->long_url = $new_long_url;
+        $link->save();
+        return "OK";
+    }
 }

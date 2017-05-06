@@ -1,8 +1,107 @@
-polr.controller('AdminCtrl', function($scope, $compile) {
+polr.directive('editLongLinkModal', function () {
+    return {
+        scope: {
+            oldLongLink: '=',
+            linkEnding: '=',
+            cleanModals: '='
+        },
+        templateUrl: '/directives/editLongLinkModal.html',
+        transclude: true,
+        controller: function ($scope, $element, $timeout) {
+            $scope.init = function () {
+                // Destroy directive and clean modal on close
+                $element.find('.modal').on("hidden.bs.modal", function () {
+                    $scope.$destroy();
+                    $scope.cleanModals('editLongLink');
+                });
+            }
+
+            $scope.saveChanges = function () {
+                // Save long URL changes
+                apiCall('admin/edit_link_long_url', {
+                    'link_ending': $scope.linkEnding,
+                    'new_long_url': $element.find('input').val()
+                }, function(data) {
+                    toastr.success('The link was updated.', 'Success')
+                }, function(err) {
+                    toastr.error('The new URL format is not valid.', 'Error');
+                });
+            };
+
+            $scope.init();
+        }
+    };
+});
+
+polr.directive('editUserApiInfoModal', function () {
+    return {
+        scope: {
+            userId: '=',
+            apiActive: '=',
+            apiKey: '=',
+            apiQuota: '=',
+            generateNewApiKey: '=',
+            cleanModals: '='
+        },
+        templateUrl: '/directives/editUserApiInfoModal.html',
+        transclude: true,
+        controller: function ($scope, $element, $timeout) {
+            $scope.init = function () {
+                // Destroy directive and clean modal on close
+                $element.find('.modal').on("hidden.bs.modal", function () {
+                    $scope.$destroy();
+                    $scope.cleanModals('editUserApiInfo');
+                });
+
+                $scope.apiActive = res_value_to_text($scope.apiActive);
+            }
+
+            // Toggle API access status
+            $scope.toggleAPIStatus = function() {
+                apiCall('admin/toggle_api_active', {
+                    'user_id': $scope.userId,
+                }, function(new_status) {
+                    $scope.apiActive = res_value_to_text(new_status);
+                    $scope.$digest();
+                });
+            };
+
+            // Generate new API key for user_id
+            $scope.parentGenerateNewAPIKey = function($event) {
+                $scope.generateNewApiKey($event, $scope.userId, false);
+            };
+
+            // Update user API quotas
+            $scope.updateAPIQuota = function() {
+                apiCall('admin/edit_api_quota', {
+                    'user_id': $scope.userId,
+                    'new_quota': parseInt($scope.apiQuota)
+                }, function(next_action) {
+                    toastr.success("Quota successfully changed.", "Success");
+                });
+            };
+
+            $scope.init();
+        }
+    };
+});
+
+polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
+    /* Initialize $scope variables */
     $scope.state = {
         showNewUserWell: false
     };
     $scope.datatables = {};
+    $scope.modals = {
+        editLongLink: [],
+        editUserApiInfo: []
+    };
+    $scope.newUserParams = {
+        username: '',
+        userPassword: '',
+        userEmail: '',
+        userRole: ''
+    };
 
     $scope.syncHash = function() {
         var url = document.location.toString();
@@ -11,8 +110,16 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }
     };
 
+    $scope.cleanModals = function(modalType) {
+        $timeout(function () {
+            $scope.modals[modalType].shift();
+        });
+
+        $scope.reloadLinkTables();
+    };
+
     // Initialise Datatables elements
-    $scope.initTables = function () {
+    $scope.initTables = function() {
         var datatables_config = {
             'autoWidth': false,
             'processing': true,
@@ -70,27 +177,18 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         }, datatables_config));
     };
 
-    // Append modals to Angular root
-    $scope.appendModal = function(html, id) {
-        id = esc_selector(id);
+    $scope.reloadLinkTables = function () {
+        // Reload DataTables for affected tables
+        // without resetting page
+        if ('admin_links_table' in $scope.datatables) {
+            $scope.datatables['admin_links_table'].ajax.reload(null, false);
+        }
 
-        $(".ng-root").append(html);
-        var modal_ele = $("#" + id);
-
-        modal_ele.append(html);
-        modal_ele.modal();
-        $compile(modal_ele)($scope);
-
-        $("body").delegate("#" + id, "hidden.bs.modal", function() {
-            modal_ele.remove();
-        });
+        $scope.datatables['user_links_table'].ajax.reload(null, false);
     };
 
-    // Hide table rows
-    $scope.hideRow = function(el, msg) {
-        var row = el.parent().parent();
-        toastr.success(msg, "Success");
-        row.fadeOut('slow');
+    $scope.reloadUserTables = function () {
+        $scope.datatables['admin_users_table'].ajax.reload(null, false);
     };
 
     /*
@@ -113,68 +211,6 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     }
 
-    $scope.checkNewUserFields = function() {
-        var response = true;
-
-        $('.new-user-fields input').each(function () {
-            if ($(this).val().trim() == '' || response == false) {
-                response = false;
-            }
-        });
-
-        return response;
-    }
-
-    $scope.addNewUser = function($event) {
-        // Create a new user
-        // FIXME could use Angular models in the future
-        // instead of relying on .val()
-
-        var username = $('#new-username').val();
-        var user_password = $('#new-user-password').val();
-        var user_email = $('#new-user-email').val();
-        var user_role = $('#new-user-role').val();
-
-        if (!$scope.checkNewUserFields()) {
-            toastr.error("Fields cannot be empty.", "Error");
-            return false;
-        }
-
-        apiCall('admin/add_new_user', {
-            'username': username,
-            'user_password': user_password,
-            'user_email': user_email,
-            'user_role': user_role,
-        }, function(result) {
-            toastr.success("User " + username + " successfully created.", "Success");
-            $('#new-user-form').clearForm();
-            $scope.datatables['admin_users_table'].ajax.reload();
-        }, function () {
-            toastr.error("An error occured while creating the user.", "Error");
-        });
-    }
-
-    // Delete user
-    $scope.deleteUser = function($event, user_id) {
-        var el = $($event.target);
-
-        apiCall('admin/delete_user', {
-            'user_id': user_id,
-        }, function(new_status) {
-            $scope.hideRow(el, 'User successfully deleted.');
-        });
-    };
-
-    $scope.changeUserRole = function(role, user_id) {
-        apiCall('admin/change_user_role', {
-            'user_id': user_id,
-            'role': role,
-        }, function(result) {
-            toastr.success("User role successfully changed.", "Success");
-        });
-    };
-
-
     // Generate new API key for user_id
     $scope.generateNewAPIKey = function($event, user_id, is_dev_tab) {
         var el = $($event.target);
@@ -195,51 +231,75 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
-    // Toggle API access status
-    $scope.toggleAPIStatus = function($event, user_id) {
-        var el = $($event.target);
-        var status_display_elem = el.prevAll('.status-display');
+    $scope.checkNewUserFields = function() {
+        var response = true;
 
-        apiCall('admin/toggle_api_active', {
+        $('.new-user-fields input').each(function () {
+            if ($(this).val().trim() == '' || response == false) {
+                response = false;
+            }
+        });
+
+        return response;
+    }
+
+    $scope.addNewUser = function($event) {
+        // Allow admins to add new users
+
+        if (!$scope.checkNewUserFields()) {
+            toastr.error("Fields cannot be empty.", "Error");
+            return false;
+        }
+
+        apiCall('admin/add_new_user', {
+            'username': $scope.newUserParams.username,
+            'user_password': $scope.newUserParams.userPassword,
+            'user_email': $scope.newUserParams.userEmail,
+            'user_role': $scope.newUserParams.userRole,
+        }, function(result) {
+            toastr.success("User " + $scope.newUserParams.username + " successfully created.", "Success");
+            $('#new-user-form').clearForm();
+            $scope.datatables['admin_users_table'].ajax.reload();
+        }, function () {
+            toastr.error("An error occured while creating the user.", "Error");
+        });
+    }
+
+    // Delete user
+    $scope.deleteUser = function($event, user_id) {
+        var el = $($event.target);
+
+        apiCall('admin/delete_user', {
             'user_id': user_id,
         }, function(new_status) {
-            new_status = res_value_to_text(new_status);
-            status_display_elem.text(new_status);
+            toastr.success('User successfully deleted.', 'Success');
+            $scope.reloadUserTables();
         });
     };
 
-    // Update user API quotas
-    $scope.updateAPIQuota = function($event, user_id) {
-        var el = $($event.target);
-        var new_quota = el.prevAll('.api-quota').val();
-
-        apiCall('admin/edit_api_quota', {
+    $scope.changeUserRole = function(role, user_id) {
+        apiCall('admin/change_user_role', {
             'user_id': user_id,
-            'new_quota': parseInt(new_quota)
-        }, function(next_action) {
-            toastr.success("Quota successfully changed.", "Success");
+            'role': role,
+        }, function(result) {
+            toastr.success("User role successfully changed.", "Success");
         });
     };
 
     // Open user API settings menu
     $scope.openAPIModal = function($event, username, api_key, api_active, api_quota, user_id) {
         var el = $($event.target);
-        var markup = $('#api-modal-template').html();
 
-        var modal_id = "api-modal-" + username;
-        var modal_context = {
-            id: modal_id,
-            api_key: api_key,
-            api_active: parseInt(api_active),
-            api_quota: api_quota,
-            user_id: user_id,
-            title: "API Information for " + username,
-            body: markup
-        };
-        var mt_html = $scope.modal_template(modal_context);
-        var compiled_mt = Handlebars.compile(mt_html);
-        mt_html = compiled_mt(modal_context);
-        $scope.appendModal(mt_html, modal_id);
+        $scope.modals.editUserApiInfo.push({
+            apiKey: api_key,
+            apiQuota: parseInt(api_quota),
+            userId: user_id,
+            apiActive: api_active
+        });
+
+        $timeout(function () {
+            $('#edit-user-api-info-' + user_id).modal('show');
+        });
     };
 
     /*
@@ -253,7 +313,8 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         apiCall('admin/delete_link', {
             'link_ending': link_ending,
         }, function(new_status) {
-            $scope.hideRow(el, 'Link successfully deleted.');
+            toastr.success('Link successfully deleted.', 'Success');
+            $scope.reloadLinkTables();
         });
     };
 
@@ -278,6 +339,18 @@ polr.controller('AdminCtrl', function($scope, $compile) {
         });
     };
 
+    // Edit links' long_url
+    $scope.editLongLink = function(link_ending, old_long_link) {
+        $scope.modals.editLongLink.push({
+            linkEnding: link_ending,
+            oldLongLink: old_long_link,
+        });
+
+        $timeout(function () {
+            $('#edit-long-link-' + link_ending).modal('show');
+        });
+    }
+
     /*
         Initialisation
     */
@@ -285,7 +358,6 @@ polr.controller('AdminCtrl', function($scope, $compile) {
     // Initialise AdminCtrl
     $scope.init = function() {
         var modal_source = $("#modal-template").html();
-        $scope.modal_template = Handlebars.compile(modal_source);
 
         $('.admin-nav a').click(function(e) {
             e.preventDefault();

@@ -21,6 +21,7 @@ you may be interested in looking at a [legacy 1.x release](https://github.com/cy
     - Mbstring PHP Extension
     - Tokenizer PHP Extension
     - JSON PHP Extension
+    - PHP curl extension
 
 ## Downloading the source code
 
@@ -54,6 +55,14 @@ $ chcon -R -t httpd_sys_rw_content_t polr/storage polr/.env
 # download composer package
 curl -sS https://getcomposer.org/installer | php
 # update/install dependencies
+php composer.phar install --no-dev -o
+```
+
+If composer fails to install the proper dependencies due to your PHP version, delete `composer.lock`
+and try installing the dependencies again.
+
+```bash
+rm composer.lock
 php composer.phar install --no-dev -o
 ```
 

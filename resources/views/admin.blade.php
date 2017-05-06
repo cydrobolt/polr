@@ -65,11 +65,11 @@
                             <th></th>
                         </tr>
                         <tr id="new-user-form">
-                            <td><input type="text" class="form-control" id="new-username"></td>
-                            <td><input type="password" class="form-control" id="new-user-password"></td>
-                            <td><input type="email" class="form-control" id="new-user-email"></td>
+                            <td><input type="text" class="form-control" ng-model="newUserParams.username"></td>
+                            <td><input type="password" class="form-control" ng-model="newUserParams.userPassword"></td>
+                            <td><input type="email" class="form-control" ng-model="newUserParams.userEmail"></td>
                             <td>
-                                <select class="form-control new-user-role" id="new-user-role">
+                                <select class="form-control new-user-role" ng-model="newUserParams.userRole">
                                     @foreach  ($user_roles as $role_text => $role_val)
                                         <option value="{{$role_val}}">{{$role_text}}</option>
                                     @endforeach
@@ -123,6 +123,14 @@
             @endif
         </div>
     </div>
+
+    <div class="angular-modals">
+        <edit-long-link-modal ng-repeat="modal in modals.editLongLink" link-ending="modal.linkEnding"
+            old-long-link="modal.oldLongLink" clean-modals="cleanModals"></edit-long-link-modal>
+        <edit-user-api-info-modal ng-repeat="modal in modals.editUserApiInfo" user-id="modal.userId"
+            api-quota="modal.apiQuota" api-active="modal.apiActive" api-key="modal.apiKey"
+            generate-new-api-key="generateNewAPIKey" clean-modals="cleanModals"></edit-user-api-info>
+    </div>
 </div>
 
 
@@ -133,31 +141,7 @@
 @include('snippets.modals')
 
 {{-- Include extra JS --}}
-<script src='/js/handlebars-v4.0.5.min.js'></script>
 <script src='/js/datatables.min.js'></script>
 <script src='/js/api.js'></script>
 <script src='/js/AdminCtrl.js'></script>
-
-{{-- Extra templating --}}
-<script id="api-modal-template" type="text/x-handlebars-template">
-    <div>
-        <p>
-            <span>API Active</span>:
-
-            <code class='status-display'>
-                @{{#if api_active}}True@{{else}}False@{{/if}}</code>
-
-            <a ng-click="toggleAPIStatus($event, '@{{user_id}}')" class='btn btn-xs btn-success'>toggle</a>
-        </p>
-        <p>
-            <span>API Key: </span><code class='status-display'>@{{api_key}}</code>
-            <a ng-click="generateNewAPIKey($event, '@{{user_id}}', false)" class='btn btn-xs btn-danger'>reset</a>
-        </p>
-        <p>
-            <span>API Quota (req/min, -1 for unlimited):</span> <input type='number' class='form-control api-quota' value='@{{api_quota}}'>
-            <a ng-click="updateAPIQuota($event, '@{{user_id}}')" class='btn btn-xs btn-warning'>change</a>
-        </p>
-    </div>
-</script>
-
 @endsection

@@ -54,3 +54,7 @@ input.api-quota {
 a.new-user-add {
     margin-left: 0.5em
 }
+
+.edit-long-link-btn {
+    opacity: 0.45;
+}
