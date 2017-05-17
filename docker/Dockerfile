@@ -15,6 +15,9 @@ RUN a2enmod rewrite
 RUN mkdir /var/www/polr
 COPY . /var/www/polr/
 
+# Remove the storage directories, our startup script and symlinking will handle this.
+RUN rm -rf /var/www/polr/storage
+
 # Put the apache configuration in place
 RUN mv /var/www/polr/docker/apache.conf /etc/apache2/sites-available/000-default.conf
 
@@ -30,14 +33,9 @@ RUN chmod +x /usr/bin/composer
 WORKDIR /var/www/polr
 RUN composer install
 
-# Set permissions/ownership
-RUN chmod -R 750 /var/www/polr
-RUN chmod -R 770 /var/www/polr/storage
-RUN chmod 770 /var/www/polr/.env
-RUN chown -R root:www-data /var/www/polr
 
-# Use supervisor as the foreground process keeping the container running.
-CMD ["/usr/bin/supervisord"]
+# Run the startup script
+CMD ["/bin/bash", "/var/www/polr/docker/startup.sh"]
 
 
 
