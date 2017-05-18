@@ -51,6 +51,11 @@ POLR_ALLOW_ACCT_CREATION={{$POLR_ALLOW_ACCT_CREATION}}
 # Set to true to require activation by email (e.g true/false)
 POLR_ACCT_ACTIVATION={{$POLR_ACCT_ACTIVATION}}
 
+# Set to true to require reCAPTCHAs on sign up pages
+# If this setting is enabled, you must also provide your reCAPTCHA keys
+# in POLR_RECAPTCHA_SITE_KEY and POLR_RECAPTCHA_SECRET_KEY
+POLR_ACCT_CREATION_RECAPTCHA={{$POLR_ACCT_CREATION_RECAPTCHA}}
+
 # Set to true to require users to be logged in before shortening URLs
 SETTING_SHORTEN_PERMISSION={{$ST_SHORTEN_PERMISSION}}
 
@@ -85,6 +90,12 @@ SETTING_RESTRICT_EMAIL_DOMAIN={{$ST_RESTRICT_EMAIL_DOMAIN}}
 
 # A comma-separated list of permitted email domains
 SETTING_ALLOWED_EMAIL_DOMAINS={{$ST_ALLOWED_EMAIL_DOMAINS}}
+
+# reCAPTCHA site key
+POLR_RECAPTCHA_SITE_KEY={{$POLR_RECAPTCHA_SITE_KEY}}
+
+# reCAPTCHA secret key
+POLR_RECAPTCHA_SECRET_KEY={{$POLR_RECAPTCHA_SECRET}}
 
 # Set each to blank to disable mail
 @if($MAIL_ENABLED)
