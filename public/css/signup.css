@@ -17,3 +17,7 @@
 .login-prompt {
     padding-top: 15px;
 }
+
+.g-recaptcha {
+    margin-bottom: 2em;
+}

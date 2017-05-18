@@ -102,6 +102,10 @@ class SetupController extends Controller {
             ]);
         }
 
+        $polr_acct_creation_recaptcha = $request->input('setting:acct_registration_recaptcha');
+        $polr_recaptcha_site_key = $request->input('setting:recaptcha_site_key');
+        $polr_recaptcha_secret_key = $request->input('setting:recaptcha_secret_key');
+
         $acct_username = $request->input('acct:username');
         $acct_email = $request->input('acct:email');
         $acct_password = $request->input('acct:password');
@@ -154,12 +158,15 @@ class SetupController extends Controller {
             'ST_PUBLIC_INTERFACE' => $st_public_interface,
             'POLR_ALLOW_ACCT_CREATION' => $polr_allow_acct_creation,
             'POLR_ACCT_ACTIVATION' => $polr_acct_activation,
+            'POLR_ACCT_CREATION_RECAPTCHA' => $polr_acct_creation_recaptcha,
             'ST_SHORTEN_PERMISSION' => $st_shorten_permission,
             'ST_INDEX_REDIRECT' => $st_index_redirect,
             'ST_REDIRECT_404' => $st_redirect_404,
             'ST_PASSWORD_RECOV' => $st_password_recov,
             'ST_RESTRICT_EMAIL_DOMAIN' => $st_restrict_email_domain,
             'ST_ALLOWED_EMAIL_DOMAINS' => $st_allowed_email_domains,
+            'POLR_RECAPTCHA_SITE_KEY' => $polr_recaptcha_site_key,
+            'POLR_RECAPTCHA_SECRET' => $polr_recaptcha_secret_key,
 
             'MAIL_ENABLED' => $mail_enabled,
             'MAIL_HOST' => $mail_host,
