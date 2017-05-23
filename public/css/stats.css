@@ -1,5 +1,7 @@
 .stats-header h3 {
     text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word; /* older browser support */
 }
 
 .bottom-padding {
