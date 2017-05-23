@@ -50,8 +50,11 @@ class Handler extends ExceptionHandler {
                     // Redirect 404s to SETTING_INDEX_REDIRECT
                     return redirect()->to(env('SETTING_INDEX_REDIRECT'));
                 }
-                // Otherwise, show a nice error page
-                return view('errors.404');
+                // Otherwise, show a nice error page with 404 error code
+                $status_code = $e->getStatusCode();
+                $status_message = $e->getMessage();
+                return response(view('errors.404', ['status_code' => $status_code, 'status_message' => $status_message]), $status_code);
+
             }
             if ($e instanceof HttpException) {
                 // Handle HTTP exceptions thrown by public-facing controllers
