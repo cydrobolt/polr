@@ -44,6 +44,11 @@ There are breaking changes between 2.x and 1.x; it is not yet possible to automa
 
 * Safari - [Polr.safariextension](https://github.com/cleverdevil/Polr.safariextension)
 
+#### Sponsors
+We would like to thank Oregon State University's Open Source Lab for providing resources for our infrastructure. The Polr website and demo are hosted on their infrastructure.
+
+<a href="//osuosl.org"><img height="100em" src="http://i.imgur.com/1VtLxyX.png" /></a>
+
 #### Versioning
 
 Polr uses [Semantic Versioning](http://semver.org/)
