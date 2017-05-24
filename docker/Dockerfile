@@ -6,7 +6,7 @@ RUN apt-get update && apt-get dist-upgrade -y
 # Install the necessary packages.
 RUN apt-get install -y \
     supervisor apache2 git php7.0 libapache2-mod-php7.0 php7.0-cli \
-    php7.0-mysqlnd php7.0-xml php7.0-mbstring php7.0-curl php7.0-zip
+    php7.0-mysql php7.0-xml php7.0-mbstring php7.0-curl php7.0-zip
 
 RUN a2enmod php7.0
 RUN a2enmod rewrite
@@ -36,6 +36,5 @@ RUN composer install
 
 # Run the startup script
 CMD ["/bin/bash", "/var/www/polr/docker/startup.sh"]
-
 
 
