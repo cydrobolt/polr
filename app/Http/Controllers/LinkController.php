@@ -58,9 +58,9 @@ class LinkController extends Controller {
                 return response(view("errors.404"), 404);
             }
             
-            return view('error', [
+            return response(view('error', [
                 'message' => 'Sorry, but this link does not exist.'
-            ]);
+            ]), 404);
         }
 
         // Return an error if the link has been disabled
@@ -70,9 +70,9 @@ class LinkController extends Controller {
                 return response(view("errors.404"), 404);
             }
 
-            return view('error', [
+            return response(view('error', [
                 'message' => 'Sorry, but this link has been disabled by an administrator.'
-            ]);
+            ]), 404);
         }
 
         // Return a 403 if the secret key is incorrect
