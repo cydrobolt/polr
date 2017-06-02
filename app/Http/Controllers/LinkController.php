@@ -75,22 +75,22 @@ class LinkController extends Controller {
             ]), 404);
         }
 
-        // Return a 403 if the secret key is incorrect
+        // Return a 404 if the secret key is incorrect
         $link_secret_key = $link->secret_key;
         if ($link_secret_key) {
         	if (!$secret_key) {
         		// if we do not receieve a secret key
-        		// when we are expecting one, return a 403
-                return view('error', [
-                    'message' => 'Sorry, but this link needs a secret key.'
-                ]);
+        		// when we are expecting one, return a 404 to keep the link secret
+                return response(view('error', [
+                    'message' => 'Sorry, but this link does not exist.'
+                ]), 404);
         	}
         	else {
         		if ($link_secret_key != $secret_key) {
-        			// a secret key is provided, but it is incorrect
-                    return view('error', [
-                        'message' => 'Sorry, but the secret key provided is incorrect.'
-                    ]);
+        			// a secret key is provided, but it is incorrect, return a 404 to keep the link secret
+                    return response(view('error', [
+                        'message' => 'Sorry, but this link does not exist.'
+                    ]), 404);
         		}
         	}
         }
