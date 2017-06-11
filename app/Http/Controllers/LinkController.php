@@ -55,7 +55,7 @@ class LinkController extends Controller {
         // or return a 404 if SETTING_REDIRECT_404 is set to true
         if ($link == null) {
             if (env('SETTING_REDIRECT_404')) {
-                return response(view("errors.404"), 404);
+                return redirect()->to(env('SETTING_INDEX_REDIRECT'));
             }
             
             return response(view('error', [
@@ -67,7 +67,7 @@ class LinkController extends Controller {
         // or return a 404 if SETTING_REDIRECT_404 is set to true
         if ($link->is_disabled == 1) {
             if (env('SETTING_REDIRECT_404')) {
-                return response(view("errors.404"), 404);
+                return redirect()->to(env('SETTING_INDEX_REDIRECT'));
             }
 
             return response(view('error', [
