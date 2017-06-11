@@ -81,6 +81,10 @@ class LinkController extends Controller {
         	if (!$secret_key) {
         		// if we do not receieve a secret key
         		// when we are expecting one, return a 404 to keep the link secret
+                if (env('SETTING_REDIRECT_404')) {
+                    return redirect()->to(env('SETTING_INDEX_REDIRECT'));
+                }
+                
                 return response(view('error', [
                     'message' => 'Sorry, but this link does not exist.'
                 ]), 404);
@@ -88,6 +92,10 @@ class LinkController extends Controller {
         	else {
         		if ($link_secret_key != $secret_key) {
         			// a secret key is provided, but it is incorrect, return a 404 to keep the link secret
+                    if (env('SETTING_REDIRECT_404')) {
+                        return redirect()->to(env('SETTING_INDEX_REDIRECT'));
+                    }
+                    
                     return response(view('error', [
                         'message' => 'Sorry, but this link does not exist.'
                     ]), 404);
