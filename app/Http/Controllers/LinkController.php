@@ -19,6 +19,16 @@ class LinkController extends Controller {
     private function renderError($message) {
         return redirect(route('index'))->with('error', $message);
     }
+    
+    private function linkNotFound() {
+        if (env('SETTING_REDIRECT_404')) {
+            return redirect()->to(env('SETTING_INDEX_REDIRECT'));
+        }
+
+        return response(view('error', [
+            'message' => 'Sorry, but this link does not exist.'
+        ]), 404);
+    }
 
     public function performShorten(Request $request) {
         if (env('SETTING_SHORTEN_PERMISSION') && !self::isLoggedIn()) {
@@ -54,13 +64,7 @@ class LinkController extends Controller {
         // Return an error if the link does not exist
         // or return a 404 if SETTING_REDIRECT_404 is set to true
         if ($link == null) {
-            if (env('SETTING_REDIRECT_404')) {
-                return redirect()->to(env('SETTING_INDEX_REDIRECT'));
-            }
-            
-            return response(view('error', [
-                'message' => 'Sorry, but this link does not exist.'
-            ]), 404);
+            return self::linkNotFound();
         }
 
         // Return an error if the link has been disabled
@@ -81,24 +85,12 @@ class LinkController extends Controller {
         	if (!$secret_key) {
         		// if we do not receieve a secret key
         		// when we are expecting one, return a 404 to keep the link secret
-                if (env('SETTING_REDIRECT_404')) {
-                    return redirect()->to(env('SETTING_INDEX_REDIRECT'));
-                }
-                
-                return response(view('error', [
-                    'message' => 'Sorry, but this link does not exist.'
-                ]), 404);
+                return self::linkNotFound();
         	}
         	else {
         		if ($link_secret_key != $secret_key) {
         			// a secret key is provided, but it is incorrect, return a 404 to keep the link secret
-                    if (env('SETTING_REDIRECT_404')) {
-                        return redirect()->to(env('SETTING_INDEX_REDIRECT'));
-                    }
-                    
-                    return response(view('error', [
-                        'message' => 'Sorry, but this link does not exist.'
-                    ]), 404);
+                    return self::linkNotFound();
         		}
         	}
         }
