@@ -3,6 +3,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Redirect;
 
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\QrCode;
+
 use App\Models\Link;
 use App\Factories\LinkFactory;
 use App\Helpers\CryptoHelper;
@@ -44,7 +47,24 @@ class LinkController extends Controller {
             return self::renderError($e->getMessage());
         }
 
-        return view('shorten_result', ['short_url' => $short_url]);
+        // Create a basic QR code
+        $qrCode = new QrCode($short_url);
+
+        // Set QR code advanced options
+        $qrCode
+            ->setWriterByName('png')
+            ->setSize(225)
+            ->setMargin(25)
+            ->setEncoding('UTF-8')
+            ->setErrorCorrectionLevel(ErrorCorrectionLevel::LOW)
+            ->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0])
+            ->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255])
+        ;
+
+        // Inline encode QR code image
+        $qrqrCodeOutput = 'data:image/png;base64,'.base64_encode($qrCode->writeString());
+
+        return view('shorten_result', ['short_url' => $short_url, 'qrCode' => $qrqrCodeOutput]);
     }
 
     public function performRedirect(Request $request, $short_url, $secret_key=false) {

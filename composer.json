@@ -15,7 +15,8 @@
         "geoip2/geoip2": "^2.4",
         "nesbot/carbon": "^1.22",
         "doctrine/dbal": "^2.5",
-        "google/recaptcha": "~1.1"
+        "google/recaptcha": "~1.1",
+        "endroid/qrcode": "^2.2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.0",
