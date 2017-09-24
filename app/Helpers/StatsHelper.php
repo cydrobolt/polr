@@ -43,7 +43,7 @@ class StatsHelper {
             ->where('created_at', '<=', $this->right_bound_parsed);
     }
 
-    public function getDayStats() {
+    public function getDayStatsmySQL() {
         // Return stats by day from the last 30 days
         // date => x
         // clicks => y
@@ -52,6 +52,16 @@ class StatsHelper {
             ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
             ->orderBy('x', 'asc')
             ->get();
+
+        return $stats;
+    }
+
+    public function getDayStatspgSQL() {
+      $stats = $this->getBaseRows()
+          ->select(DB::raw("to_char(created_at, 'yyyy-mm-dd') AS x, count(*) AS y"))
+          ->groupBy(DB::raw("to_char(created_at, 'yyyy-mm-dd')"))
+          ->orderBy('x', 'asc')
+          ->get();
 
         return $stats;
     }
