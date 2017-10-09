@@ -43,27 +43,29 @@ class StatsHelper {
             ->where('created_at', '<=', $this->right_bound_parsed);
     }
 
-    public function getDayStatsmySQL() {
-        // Return stats by day from the last 30 days
-        // date => x
-        // clicks => y
-        $stats = $this->getBaseRows()
-            ->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') AS x, count(*) AS y"))
-            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
-            ->orderBy('x', 'asc')
-            ->get();
+    public function getDayStats() {
+        $connection = config('database.default');
+        $driver = config("database.connections.{$connection}.driver");
 
-        return $stats;
-    }
+        if ($driver == "mysql") {
+          $stats = $this->getBaseRows()
+              ->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') AS x, count(*) AS y"))
+              ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+              ->orderBy('x', 'asc')
+              ->get();
 
-    public function getDayStatspgSQL() {
-      $stats = $this->getBaseRows()
-          ->select(DB::raw("to_char(created_at, 'yyyy-mm-dd') AS x, count(*) AS y"))
-          ->groupBy(DB::raw("to_char(created_at, 'yyyy-mm-dd')"))
-          ->orderBy('x', 'asc')
-          ->get();
+          return $stats;
+        }
 
-        return $stats;
+        if ($driver == "pgsql") {
+          $stats = $this->getBaseRows()
+              ->select(DB::raw("to_char(created_at, 'yyyy-mm-dd') AS x, count(*) AS y"))
+              ->groupBy(DB::raw("to_char(created_at, 'yyyy-mm-dd')"))
+              ->orderBy('x', 'asc')
+              ->get();
+
+            return $stats;
+        }
     }
 
     public function getCountryStats() {

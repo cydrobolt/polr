@@ -68,16 +68,7 @@ class StatsController extends Controller {
                     The right date bound must be more recent than the left bound.');
             }
         }
-
-        $connection = config('database.default');
-        $driver = config("database.connections.{$connection}.driver");
-
-        if ($driver == "mysql") {
-          $day_stats = $stats->getDayStatsmySQL();
-        }
-        if ($driver == "pgsql") {
-          $day_stats = $stats->getDayStatspgSQL();
-        }
+        $day_stats = $stats->getDayStats();
         $country_stats = $stats->getCountryStats();
         $referer_stats = $stats->getRefererStats();
 
