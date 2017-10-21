@@ -7,6 +7,7 @@
 @section('content')
 <h3>Shortened URL</h3>
 <input type='text' class='result-box form-control' value='{{$short_url}}' />
+<div><img src="{{$qrCode}}" alt="{{$short_url}}" /></div>
 <a href='{{route('index')}}' class='btn btn-info back-btn'>Shorten another</a>
 @endsection
 
