@@ -18,6 +18,7 @@ $('#generateQRCode').click(function () {
         width: 280,
         height: 280
     });
+    container.find('img').attr('alt', original_link);
     container.show();
 });
 
