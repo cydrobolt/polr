@@ -14,7 +14,7 @@ $('#generateQRCode').click(function () {
     var container = $('.qrCodeContainer');
     container.empty();
     new QRCode(container.get(0), {
-        text: $('.result-box').val(),
+        text: original_link,
         width: 280,
         height: 280
     });
