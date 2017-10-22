@@ -4,6 +4,11 @@ use App\Models\Link;
 use App\Helpers\BaseHelper;
 
 class LinkHelper {
+    const RESTRICTED_SLUGS = [
+        'logout', 'login', 'lost_password', 'signup', 'activate',
+        'admin', 'setup', 'shorten', 'about-polr'
+    ];
+
     static public function checkIfAlreadyShortened($long_link) {
         /**
          * Provided a long link (string),
@@ -86,7 +91,9 @@ class LinkHelper {
 
     static public function validateEnding($link_ending) {
         $is_valid_ending = preg_match('/^[a-zA-Z0-9-_]+$/', $link_ending);
-        return $is_valid_ending;
+        $is_not_restricted = ! in_array($link_ending, self::RESTRICTED_SLUGS);
+
+        return $is_valid_ending && $is_not_restricted;
     }
 
     static public function findPseudoRandomEnding() {
