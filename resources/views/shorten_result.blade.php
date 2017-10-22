@@ -7,10 +7,10 @@
 @section('content')
 <h3>Shortened URL</h3>
 <input type='text' class='result-box form-control' value='{{$short_url}}' />
-<button id="generateQRCode" class='btn btn-primary back-btn'>Generate QR Code</button>
+<a id="generate-qr-code" class='btn btn-primary back-btn'>Generate QR Code</a>
 <a href='{{route('index')}}' class='btn btn-info back-btn'>Shorten another</a>
 
-<div class="qrCodeContainer"></div>
+<div class="qr-code-container"></div>
 
 @endsection
 

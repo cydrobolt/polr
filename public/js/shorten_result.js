@@ -10,8 +10,8 @@ $('.result-box').change(function () {
 });
 
 
-$('#generateQRCode').click(function () {
-    var container = $('.qrCodeContainer');
+$('#generate-qr-code').click(function () {
+    var container = $('.qr-code-container');
     container.empty();
     new QRCode(container.get(0), {
         text: original_link,
