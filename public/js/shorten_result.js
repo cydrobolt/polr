@@ -9,6 +9,18 @@ $('.result-box').change(function () {
     $(this).val(original_link);
 });
 
+
+$('#generateQRCode').click(function () {
+    var container = $('.qrCodeContainer');
+    container.empty();
+    new QRCode(container.get(0), {
+        text: $('.result-box').val(),
+        width: 280,
+        height: 280
+    });
+    container.show();
+});
+
 $(function () {
     original_link = $('.result-box').val();
     select_text();
