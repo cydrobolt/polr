@@ -207,6 +207,34 @@ Setup
                 Please ensure SMTP is properly set up before enabling password recovery.
             </p>
 
+            <p>
+                Require reCAPTCHA for Registrations
+                <setup-tooltip content="You must provide your reCAPTCHA keys to use this feature."></setup-tooltip>
+            </p>
+            <select name='setting:acct_registration_recaptcha' class='form-control'>
+                <option value='false'>Do not require reCAPTCHA for registration</option>
+                <option value='true'>Require reCATPCHA for registration</option>
+            </select>
+
+            <p>
+                reCAPTCHA Configuration:
+                <setup-tooltip content="You must provide reCAPTCHA keys if you intend to use any reCAPTCHA-dependent features."></setup-tooltip>
+            </p>
+
+            <p>
+                reCAPTCHA Site Key
+            </p>
+            <input type='text' class='form-control' name='setting:recaptcha_site_key'>
+
+            <p>
+                reCAPTCHA Secret Key
+            </p>
+            <input type='text' class='form-control' name='setting:recaptcha_secret_key'>
+
+            <p class='text-muted'>
+                You can obtain reCAPTCHA keys from <a href="https://www.google.com/recaptcha/admin">Google's reCAPTCHA website</a>.
+            </p>
+
             <p>Theme (<a href='https://github.com/cydrobolt/polr/wiki/Themes-Screenshots'>screenshots</a>):</p>
             <select name='app:stylesheet' class='form-control'>
                 <option value=''>Modern (default)</option>
@@ -218,8 +246,11 @@ Setup
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css'>Google Material Design</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css'>Blue Metro</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css'>Sandstone</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css'>Jet Black</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css'>Newspaper</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/solar/bootstrap.min.css'>Solar</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css'>Cosmo</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css'>Flatly</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css'>Yeti</option>
             </select>
 
             <div class='setup-form-buttons'>
