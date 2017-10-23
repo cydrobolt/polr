@@ -34,11 +34,13 @@ class LinkController extends Controller {
         $long_url = $request->input('link-url');
         $custom_ending = $request->input('custom-ending');
         $is_secret = ($request->input('options') == "s" ? true : false);
+        $is_expried = ($request->input('is_expried') == 'yes' ? true : false);
+        $expried_date = isset($request->input('expried_date'))?Carbon::parse(date_format($request->input('expried_date'),'Y-m-d'));
         $creator = session('username');
         $link_ip = $request->ip();
 
         try {
-            $short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator);
+            $short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator,false,false$is_expried,$expried_date);
         }
         catch (\Exception $e) {
             return self::renderError($e->getMessage());
@@ -49,8 +51,13 @@ class LinkController extends Controller {
 
     public function performRedirect(Request $request, $short_url, $secret_key=false) {
         $link = Link::where('short_url', $short_url)
-            ->first();
+         ->where(function ($query) {
+            $query->where('is_expried',0)
+        $query->orWhere('expried_date','>', Carbon::today())
 
+         }
+        
+            ->first();
         // Return 404 if link not found
         if ($link == null) {
         	return abort(404);
