@@ -32,7 +32,6 @@
                 <input type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
             </div>
             <div>
-                <a href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>Check Availability</a>
                 <div id='link-availability-status'></div>
             </div>
         </div>

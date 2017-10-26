@@ -11,32 +11,36 @@ $(function() {
             slide = 0;
         }
     });
-    $('#check-link-availability').click(function() {
-        var custom_link = $('.custom-url-field').val();
-        var request = $.ajax({
-            url: "/api/v2/link_avail_check",
-            type: "POST",
-            data: {
-                link_ending: custom_link
-            },
-            dataType: "html"
-        });
-        $('#link-availability-status').html('<span><i class="fa fa-spinner"></i> Loading</span>');
-        request.done(function(msg) {
-            if (msg == 'unavailable') {
-                $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-ban"></i> Already in use</span>');
-            } else if (msg == 'available') {
-                $('#link-availability-status').html('<span style="color:green"><i class="fa fa-check"></i> Available</span>');
-            } else if (msg == 'invalid') {
-                $('#link-availability-status').html('<span style="color:orange"><i class="fa fa-exclamation-triangle"></i> Invalid Custom URL Ending</span>');
-            } else {
-                $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + msg);
-            }
-        });
+    var timeoutId;
+    $('.custom-url-field').keyup(function (){
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(function () {
+            var custom_link = $('.custom-url-field').val();
+            var request = $.ajax({
+                url: "/api/v2/link_avail_check",
+                type: "POST",
+                data: {
+                    link_ending: custom_link
+                },
+                dataType: "html"
+            });
+            $('#link-availability-status').html('<span><i class="fa fa-spinner"></i> Loading</span>');
+            request.done(function(msg) {
+                if (msg == 'unavailable') {
+                    $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-ban"></i> Already in use</span>');
+                } else if (msg == 'available') {
+                    $('#link-availability-status').html('<span style="color:green"><i class="fa fa-check"></i> Available</span>');
+                } else if (msg == 'invalid') {
+                    $('#link-availability-status').html('<span style="color:orange"><i class="fa fa-exclamation-triangle"></i> Invalid Custom URL Ending</span>');
+                } else {
+                    $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + msg);
+                }
+            });
 
-        request.fail(function(jqXHR, textStatus) {
-            $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + textstatus);
-        });
+            request.fail(function(jqXHR, textStatus) {
+                $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + textstatus);
+            });
+        }, 200);
     });
     min = 1;
     max = 2;
