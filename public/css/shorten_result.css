@@ -15,11 +15,9 @@
 
 .qr-code-container {
     display: none;
-    width: 300px;
-    height: 300px;
-    padding: 10px;
-    margin: 20px auto 0 auto;
-    background-color: white;
-    border: 1px #b7b7b7 solid;
-    border-radius: 7px;
+    margin-top: 2em;
+}
+
+.qr-code-container img {
+    display: inline !important;
 }
