@@ -11,10 +11,19 @@
     cursor: pointer;
 }
 
-.shortened-control {
+.shortened-control, .btn {
     margin-top: 30px;
 }
 
 .content-div {
     text-align: center;
+}
+
+.qr-code-container {
+    display: none;
+    margin-top: 2em;
+}
+
+.qr-code-container img {
+    display: inline !important;
 }
