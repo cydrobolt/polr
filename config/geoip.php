@@ -134,7 +134,7 @@ return [
         'postal_code' => '',
         'lat' => 0,
         'lon' => 0,
-        'timezone' => 'UTV',
+        'timezone' => 'UTC',
         'continent' => '',
         'default' => true,
         'currency' => '',
