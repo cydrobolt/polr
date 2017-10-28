@@ -66,6 +66,11 @@ class ApiLinkController extends ApiController {
         }
 
         if ($link) {
+            if ($request->has('increment_clicks')) {
+                $link->clicks++;
+                $link->save();
+            }
+
             return self::encodeResponse([
                 'long_url' => $link['long_url'],
                 'created_at' => $link['created_at'],
