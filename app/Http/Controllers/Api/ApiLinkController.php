@@ -17,7 +17,7 @@ class ApiLinkController extends ApiController {
             'url' => str_replace(' ', '%20', $request->input('url'))
         ], $request->except('url')), [
             'url' => 'required|url',
-            'custom-ending' => LinkHelper::getCustomLinkValidationRule(false)
+            'custom_ending' => LinkHelper::getCustomLinkValidationRule(false)
         ]);
 
         if ($validator->fails()) {
