@@ -44,7 +44,8 @@ class StatsHelper {
     }
 
     public function uniqueClicks() {
-        $stats = $this->getBaseRows()
+        $stats = DB::table('clicks')
+            ->where('link_id', $this->link_id)
             ->select(DB::raw("count(DISTINCT ip) as uniques"))
             ->first();
 
