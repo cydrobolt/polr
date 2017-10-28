@@ -47,5 +47,6 @@
 @endsection
 
 @section('js')
+<script src='js/jquery.typewatch.js'></script>
 <script src='js/index.js'></script>
 @endsection

@@ -11,10 +11,8 @@ $(function() {
             slide = 0;
         }
     });
-    var timeoutId;
-    $('.custom-url-field').keyup(function (){
-        if (timeoutId) clearTimeout(timeoutId);
-        timeoutId = setTimeout(function () {
+    var twOptions = {
+        callback: function (value) {
             var custom_link = $('.custom-url-field').val();
             var request = $.ajax({
                 url: "/api/v2/link_avail_check",
@@ -40,8 +38,14 @@ $(function() {
             request.fail(function(jqXHR, textStatus) {
                 $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + textStatus);
             });
-        }, 200);
-    });
+        },
+        wait: 500,
+        highlight: true,
+        allowSubmit: false,
+        captureLength: 1
+    }
+    // Add TypeWatch to check when users type
+    $('.custom-url-field').typeWatch(twOptions);
     min = 1;
     max = 2;
     var i = Math.floor(Math.random() * (max - min + 1)) + min;
