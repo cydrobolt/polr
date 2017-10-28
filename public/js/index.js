@@ -43,7 +43,7 @@ $(function() {
         highlight: true,
         allowSubmit: false,
         captureLength: 1
-    }
+    };
     // Add TypeWatch to check when users type
     $('.custom-url-field').typeWatch(twOptions);
     min = 1;
