@@ -9,6 +9,19 @@ class LinkHelper {
         'admin', 'setup', 'shorten', 'about-polr'
     ];
 
+    static public function getCustomLinkValidationRule($isRequired) {
+        $rules = [
+            'alpha_dash',
+            'not_in:' . implode(',', LinkHelper::RESTRICTED_SLUGS),
+        ];
+
+        if ($isRequired) {
+            $rules[] = 'required';
+        }
+
+        return $rules;
+    }
+
     static public function checkIfAlreadyShortened($long_link) {
         /**
          * Provided a long link (string),
@@ -87,13 +100,6 @@ class LinkHelper {
         else {
             return $link->short_url;
         }
-    }
-
-    static public function validateEnding($link_ending) {
-        $is_valid_ending = preg_match('/^[a-zA-Z0-9-_]+$/', $link_ending);
-        $is_not_restricted = ! in_array($link_ending, self::RESTRICTED_SLUGS);
-
-        return $is_valid_ending && $is_not_restricted;
     }
 
     static public function findPseudoRandomEnding() {
