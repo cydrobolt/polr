@@ -1,15 +1,10 @@
-var original_link;
-
 function select_text() {
-    $('.result-box').focus().select();
+    window.getSelection().selectAllChildren(document.getElementById('result-box'));
 }
 
-$('.result-box').click(select_text);
-$('.result-box').change(function () {
-    $(this).val(original_link);
-});
-
 $(function () {
-    original_link = $('.result-box').val();
     select_text();
+    $('.result-box').click(function(){
+        select_text();
+    });
 });

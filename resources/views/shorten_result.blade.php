@@ -6,8 +6,11 @@
 
 @section('content')
 <h3>Shortened URL</h3>
-<input type='text' class='result-box form-control' value='{{$short_url}}' />
-<a href='{{route('index')}}' class='btn btn-info back-btn'>Shorten another</a>
+<div id='result-box' class='result-box'>{{$short_url}}</div>
+<div class='shortened-control'>
+    <a href='{{$short_url}}' target='_blank' class='btn btn-success'>Open in new tab</a>
+    <a href='{{route('index')}}' class='btn btn-info'>Shorten another</a>
+</div>
 @endsection
 
 @section('js')

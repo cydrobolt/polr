@@ -1,11 +1,17 @@
 .result-box {
-    width: 50%;
-    display: block;
-    margin : 0 auto;
-
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 1.8em;
+    margin-top: 20px;
+    padding: 12px;
 }
 
-.back-btn {
+.result-box:hover {
+    cursor: pointer;
+}
+
+.shortened-control {
     margin-top: 30px;
 }
 
