@@ -63,6 +63,11 @@ class LinkFactory {
         }
 
         if (isset($custom_ending) && $custom_ending !== '') {
+            $ending_in_use = LinkHelper::linkExists($custom_ending);
+            if ($ending_in_use) {
+                throw new \Exception('Sorry, but this URL ending is already in use.');
+            }
+
             $link_ending = $custom_ending;
         }
         else {
