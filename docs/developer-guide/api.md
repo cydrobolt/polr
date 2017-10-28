@@ -95,6 +95,7 @@ Arguments:
 
  - `url_ending`: the link ending for the URL to look up. (e.g `5ga`)
  - `url_key` (optional): optional URL ending key for lookups against secret URLs
+ - `increment_clicks` (optional): if set, the click counter on the link will be incremented
 
 Remember that the `url` argument must be URL encoded.
 
@@ -104,7 +105,20 @@ Response:
 ```
 {
     "action": "lookup",
-    "result": "https://google.com"
+    "result": {
+        "long_url": "http://test.com",
+        "created_at": {
+            "date": "2017-10-28 02:21:11.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        },
+        "clicks": 4,
+        "updated_at": {
+            "date": "2017-10-28 03:17:25.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        }
+    }
 }
 ```
 
