@@ -9,5 +9,10 @@ that you take a look at the [API documentation](api/) to integrate Polr into you
 - there are no official libraries for Polr 2.0 yet.
 
 ### Unofficial libraries
-- there are no unofficial libraries for Polr 2.0 yet.
+- [mypolr][mypolr_gh] is a Python 3 package for interacting with the Polr 2.0 API. ([User Guide and documentation][mypolr_docs])
+
+- there seems to be only one unofficial libraries for Polr 2.0 yet.
 - perhaps you'd like to write one? Send a PR to add your library to this page.
+
+[mypolr_gh]: https://github.com/fauskanger/mypolr
+[mypolr_docs]: https://mypolr.readthedocs.io
