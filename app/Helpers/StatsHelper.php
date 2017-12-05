@@ -52,7 +52,8 @@ class StatsHelper {
         $db_driver = DB::connection()->getDriverName();
         if ($db_driver == 'pgsql') {
             $created_at = "to_char(created_at, 'yyyy-mm-dd')";
-        } else {
+        }
+        else {
             $created_at = "DATE_FORMAT(created_at, '%Y-%m-%d')";
         }
 
