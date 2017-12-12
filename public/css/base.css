@@ -1,20 +1,20 @@
 body {
-    padding-top: 60px;
+    padding-top: 3.75em;
 }
 
 .login-dropdown-menu {
-    padding: 15px;
-    padding-bottom: 0px;
+    padding: 0.95em;
+    padding-bottom: 0;
 }
 
 .login-form-field {
-    margin-bottom: 15px;
+    margin-bottom: 0.95em;
 }
 
 .login-form-submit {
     clear: left;
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 0.95em;
 }
 
 .content-div {
@@ -27,7 +27,7 @@ body {
 }
 
 .login-name {
-    padding-right: 10px;
+    padding-right: 0.6em;
 }
 
 .center-text {

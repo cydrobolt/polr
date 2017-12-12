@@ -1,21 +1,21 @@
 .form-field {
-    margin-bottom: 25px;
+    margin-bottom: 1.55em;
 }
 
 .right-col-one {
-    margin-top: 83px;
+    margin-top: 5.2em;
 }
 
 .right-col-next {
-    padding-top: 25px;
+    padding-top: 1.55em;
 }
 
 .title {
-    padding-bottom: 20px;
+    padding-bottom: 1.25em;
 }
 
 .login-prompt {
-    padding-top: 15px;
+    padding-top: 0.95em;
 }
 
 .g-recaptcha {

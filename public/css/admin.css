@@ -1,5 +1,5 @@
 .admin-nav-item {
-    margin-bottom: 5px;
+    margin-bottom: 0.3em;
 }
 
 .stats-icon {
@@ -7,16 +7,16 @@
 }
 
 .change-password {
-    width: 150px;
+    width: 9.4em;
 }
 
 .change-password-btn {
-    margin-top: 15px;
+    margin-top: 0.95em;
 }
 
 .password-box {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
 }
 
 .hidden-metadata {

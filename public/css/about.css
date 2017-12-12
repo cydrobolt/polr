@@ -1,17 +1,17 @@
 .content-div {
-    padding-top: 20px;
+    padding-top: 1.25em;
     text-align: left;
 }
 
 .license {
     font-size: 80%;
-    margin-top: 40px;
+    margin-top: 2.5em;
     width: auto;
     color: black;
 }
 
 .license-btn {
-    margin-top: 30px;
+    margin-top: 1.85em;
     margin-bottom: 3em;
     width: auto;
 }
