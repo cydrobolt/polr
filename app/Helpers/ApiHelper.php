@@ -23,7 +23,7 @@ class ApiHelper {
             $api_quota = env('SETTING_ANON_API_QUOTA') ?: 5;
         }
 
-        if ($api_quota == -1) {
+        if ($api_quota < 0) {
             return false;
         }
 
