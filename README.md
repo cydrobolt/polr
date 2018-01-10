@@ -1,4 +1,5 @@
-# [![Logo](http://i.imgur.com/aOtrJNz.png)](https://polrproject.org)
+<img src="https://i.imgur.com/Qq8Yc76.png" width="350px" alt="Polr Logo" />
+
 
 :aerial_tramway: A modern, minimalist, and lightweight URL shortener.
 
