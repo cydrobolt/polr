@@ -18,6 +18,11 @@ h2, h3, h4 {
 }
 .center-img {
     text-align: center;
+    margin-top: 3em;
+    margin-bottom: 2em;
+}
+.center-img img {
+    height: 5em;
 }
 em {
     /*font-size: 105%;*/
@@ -45,5 +50,6 @@ a {
 }
 footer {
     margin-top: 2em;
-    font-size: 0.8em;
+    margin-bottom: 1.2em;
+    font-size: 1em;
 }
