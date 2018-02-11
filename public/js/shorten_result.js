@@ -22,6 +22,26 @@ $('#generate-qr-code').click(function () {
     container.show();
 });
 
+
+var clipboardDemos = new Clipboard('[data-clipboard-demo]');
+clipboardDemos.on('success', function(e) {
+    e.clearSelection();
+    showTooltip(e.trigger, 'Copied!');
+});
+var btns = document.querySelectorAll('.input-group-addon');
+for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('mouseleave', clearTooltip);
+    btns[i].addEventListener('blur', clearTooltip);
+}
+function clearTooltip(e) {
+    e.currentTarget.setAttribute('class', 'input-group-addon');
+    e.currentTarget.removeAttribute('aria-label');
+}
+function showTooltip(elem, msg) {
+    elem.setAttribute('class', 'input-group-addon tooltipped tooltipped-s');
+    elem.setAttribute('aria-label', msg);
+}
+
 $(function () {
     original_link = $('.result-box').val();
     select_text();
