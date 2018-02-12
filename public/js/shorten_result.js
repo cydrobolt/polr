@@ -23,24 +23,16 @@ $('#generate-qr-code').click(function () {
 });
 
 
-var clipboardDemos = new Clipboard('[data-clipboard-demo]');
-clipboardDemos.on('success', function(e) {
+var clipboard = new Clipboard('[data-clipboard]');
+clipboard.on('success', function(e) {
     e.clearSelection();
-    showTooltip(e.trigger, 'Copied!');
+    $('[data-clipboard]').tooltip('show');
 });
-var btns = document.querySelectorAll('.input-group-addon');
-for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener('mouseleave', clearTooltip);
-    btns[i].addEventListener('blur', clearTooltip);
-}
-function clearTooltip(e) {
-    e.currentTarget.setAttribute('class', 'input-group-addon');
-    e.currentTarget.removeAttribute('aria-label');
-}
-function showTooltip(elem, msg) {
-    elem.setAttribute('class', 'input-group-addon tooltipped tooltipped-s');
-    elem.setAttribute('aria-label', msg);
-}
+$('[data-clipboard]').on('blur',function () {
+    $(this).tooltip('destroy')
+}).on('mouseleave',function () {
+    $(this).tooltip('destroy')
+});
 
 $(function () {
     original_link = $('.result-box').val();
