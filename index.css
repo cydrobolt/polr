@@ -53,3 +53,78 @@ footer {
     margin-bottom: 1.2em;
     font-size: 1em;
 }
+
+
+#carbonads {
+    margin-top: 10em;
+    background-color: #ecf0f1;
+    padding-left: 0.8em;
+    padding-right: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    width: 9em;
+}
+
+#carbonads a {
+    text-decoration: none;
+}
+
+#carbonads a:hover {
+    text-decoration: none;
+}
+
+.carbon-text:hover {
+    color: #333;
+}
+
+#carbonads img {
+    margin-bottom: 0.8em;
+}
+
+.carbon-text {
+    color: #333;
+    text-decoration: none;
+}
+
+.carbon-poweredby {
+    display: block;
+    color: grey;
+    margin-top: 1.3em;
+}
+
+.carbon-poweredby:hover {
+    color: grey;
+}
+
+@media only screen and (max-device-width : 768px) {
+    .container {
+        overflow-x: hidden;
+    }
+
+    .carbon-img {
+        float: left;
+    }
+
+    .carbon-text {
+        display: block;
+    }
+
+    #carbonads {
+        width: 80vw;
+        margin-right: 1em;
+        margin-left: 1em;
+        margin-top: 1em;
+        margin-bottom: 2em;
+
+        font-size: 0.8em;
+    }
+
+    #carbonads img {
+        margin-right: 0.8em;
+    }
+
+    .fork-me {
+        display: none;
+    }
+}
