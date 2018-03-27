@@ -17,8 +17,8 @@ class AdminPaginationController extends Controller {
     /* Cell rendering functions */
 
     public function renderLongUrlCell($link) {
-        return '<a target="_blank" title="' . e($link->long_url) . '" href="'. $link->long_url .'">' . str_limit($link->long_url, 50) . '</a>
-            <a class="btn btn-primary btn-xs edit-long-link-btn" ng-click="editLongLink(\'' . $link->short_url . '\', \'' . $link->long_url . '\')"><i class="fa fa-edit edit-link-icon"></i></a>';
+        return '<a target="_blank" title="' . e($link->long_url) . '" href="'. e($link->long_url) .'">' . e(str_limit($link->long_url, 50)) . '</a>
+            <a class="btn btn-primary btn-xs edit-long-link-btn" ng-click="editLongLink(\'' . e($link->short_url) . '\', \'' . e($link->long_url) . '\')"><i class="fa fa-edit edit-link-icon"></i></a>';
     }
 
     public function renderClicksCell($link) {
