@@ -37,7 +37,7 @@ input.api-quota {
     display: inline;
     width: 9em;
     font-size: .85em;
-    height: .85em;
+    height: auto;
     padding-left: 0.8em;
 }
 
