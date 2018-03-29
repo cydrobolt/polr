@@ -21,3 +21,13 @@
 .qr-code-container img {
     display: inline !important;
 }
+
+.input-group {
+    width: 40vw;
+    margin: 0 auto;
+}
+
+.input-group-addon {
+    padding: 0px 10px;
+    cursor: pointer;
+}
