@@ -1,4 +1,5 @@
 <!--- Provide a general summary of the issue in the Title above -->
+<!--- IMPORTANT: Please follow the format displayed in this template, or your ticket may be ignored. -->
 
 ## Expected Behavior
 <!--- If you're describing a bug, tell us what should happen -->
