@@ -23,15 +23,16 @@ $('#generate-qr-code').click(function () {
 });
 
 
-var clipboard = new Clipboard('[data-clipboard]');
+var clipboard = new Clipboard('#clipboard-copy');
 clipboard.on('success', function(e) {
     e.clearSelection();
-    $('[data-clipboard]').tooltip('show');
+    $('#clipboard-copy').tooltip('show');
 });
-$('[data-clipboard]').on('blur',function () {
-    $(this).tooltip('destroy')
+
+$('#clipboard-copy').on('blur',function () {
+    $(this).tooltip('destroy');
 }).on('mouseleave',function () {
-    $(this).tooltip('destroy')
+    $(this).tooltip('destroy');
 });
 
 $(function () {
