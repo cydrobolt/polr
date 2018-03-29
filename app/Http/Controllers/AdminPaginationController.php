@@ -123,6 +123,12 @@ class AdminPaginationController extends Controller {
         </a>';
     }
 
+    public function renderControlLinkCell($link){
+        return '<div class="btn-group" role="group">
+            ' . $this->renderToggleLinkActiveCell($link) . $this->renderDeleteLinkCell($link) . '
+        </div>';
+    }
+
     /* DataTables bindings */
 
     public function paginateAdminUsers(Request $request) {
@@ -143,8 +149,7 @@ class AdminPaginationController extends Controller {
 
         $admin_links = Link::select(['short_url', 'long_url', 'clicks', 'created_at', 'creator', 'is_disabled']);
         return Datatables::of($admin_links)
-            ->addColumn('disable', [$this, 'renderToggleLinkActiveCell'])
-            ->addColumn('delete', [$this, 'renderDeleteLinkCell'])
+            ->addColumn('control', [$this, 'renderControlLinkCell'])
             ->editColumn('clicks', [$this, 'renderClicksCell'])
             ->editColumn('long_url', [$this, 'renderLongUrlCell'])
             ->escapeColumns(['short_url', 'creator'])
