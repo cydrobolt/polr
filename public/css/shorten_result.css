@@ -23,10 +23,11 @@
 }
 
 .input-group {
-    width: 50%;
+    width: 40vw;
     margin: 0 auto;
 }
+
 .input-group-addon {
-    padding:0px 10px;
+    padding: 0px 10px;
     cursor: pointer;
 }
