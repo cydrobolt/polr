@@ -1,10 +1,11 @@
-# [![Logo](http://i.imgur.com/aOtrJNz.png)](https://polrproject.org)
+<img src="https://i.imgur.com/ckI6GTu.png" width="350px" alt="Polr Logo" />
+
 
 :aerial_tramway: A modern, minimalist, and lightweight URL shortener.
 
 [![GitHub license](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)]()
 [![GitHub release](https://img.shields.io/github/release/cydrobolt/polr.svg)](https://github.com/cydrobolt/polr/releases)
-[![Builds status](https://travis-ci.org/cydrobolt/polr.svg)](https://travis-ci.org/cydrobolt/polr) 
+[![Builds status](https://travis-ci.org/cydrobolt/polr.svg)](https://travis-ci.org/cydrobolt/polr)
 [![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat)](http://polr.readthedocs.org/en/latest/)
 
 
@@ -16,7 +17,7 @@ Polr is an intrepid, self-hostable open-source link shortening web application w
 
 Polr is written in PHP and Lumen, using MySQL as its primary database.
 
- - To get started with Polr on your server, check out the [installation guide](http://docs.polrproject.org/en/latest/user-guide/installation/). You can clone this repository, or download a [release](https://github.com/cydrobolt/polr/releases). 
+ - To get started with Polr on your server, check out the [installation guide](http://docs.polrproject.org/en/latest/user-guide/installation/). You can clone this repository, or download a [release](https://github.com/cydrobolt/polr/releases).
  - To get started with the Polr API, check out the [API guide](http://docs.polrproject.org/en/latest/developer-guide/api/).
 
 
@@ -44,10 +45,16 @@ There are breaking changes between 2.x and 1.x; it is not yet possible to automa
 
 * Safari - [Polr.safariextension](https://github.com/cleverdevil/Polr.safariextension)
 
-#### Sponsors
+#### Libraries
+
+* Python - [mypolr](https://github.com/fauskanger/mypolr)
+
+#### Acknowledgements
 We would like to thank Oregon State University's Open Source Lab for providing resources for our infrastructure. The Polr website and demo are hosted on their infrastructure.
 
 <a href="//osuosl.org"><img height="100em" src="http://i.imgur.com/1VtLxyX.png" /></a>
+
+Thank you to [lastspark](https://thenounproject.com/lastspark/) for providing our logo's icon.
 
 #### Versioning
 
@@ -57,7 +64,7 @@ Polr uses [Semantic Versioning](http://semver.org/)
 #### License
 
 
-    Copyright (C) 2013-2017 Chaoyi Zha
+    Copyright (C) 2013-2018 Chaoyi Zha
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
