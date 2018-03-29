@@ -22,6 +22,19 @@ $('#generate-qr-code').click(function () {
     container.show();
 });
 
+
+var clipboard = new Clipboard('#clipboard-copy');
+clipboard.on('success', function(e) {
+    e.clearSelection();
+    $('#clipboard-copy').tooltip('show');
+});
+
+$('#clipboard-copy').on('blur',function () {
+    $(this).tooltip('destroy');
+}).on('mouseleave',function () {
+    $(this).tooltip('destroy');
+});
+
 $(function () {
     original_link = $('.result-box').val();
     select_text();
