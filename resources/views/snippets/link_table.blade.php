@@ -8,7 +8,8 @@
             @if ($table_id == "admin_links_table")
             {{-- Show action buttons only if admin view --}}
             <th>Creator</th>
-            <th>Control</th>
+            <th>Disable</th>
+            <th>Delete</th>
             @endif
         </tr>
     </thead>

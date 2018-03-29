@@ -152,12 +152,15 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
                 "ajax": BASE_API_PATH + 'admin/get_admin_links',
 
                 "columns": [
-                    {className: 'wrap-text', data: 'short_url', name: 'short_url', width: '10%'},
+                    {className: 'wrap-text', data: 'short_url', name: 'short_url'},
                     {className: 'wrap-text', data: 'long_url', name: 'long_url'},
-                    {data: 'clicks', name: 'clicks', width: '10%'},
-                    {data: 'created_at', name: 'created_at', width: '18%'},
-                    {data: 'creator', name: 'creator', width: '20%'},
-                    {data: 'control', name: 'control', orderable: false, searchable: false, width: '15%'},
+                    {data: 'clicks', name: 'clicks'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'creator', name: 'creator'},
+
+                    {data: 'disable', name: 'disable', orderable: false, searchable: false},
+                    {data: 'delete', name: 'delete', orderable: false, searchable: false}
+
                 ]
             }, datatables_config));
         }
