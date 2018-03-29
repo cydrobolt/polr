@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler {
                     return redirect()->to(env('SETTING_INDEX_REDIRECT'));
                 }
                 // Otherwise, show a nice error page
-                return view('errors.404');
+                return response(view('errors.404'), 404);
             }
             if ($e instanceof HttpException) {
                 // Handle HTTP exceptions thrown by public-facing controllers
@@ -60,11 +60,15 @@ class Handler extends ExceptionHandler {
 
                 if ($status_code == 500) {
                     // Render a nice error page for 500s
-                    return view('errors.500');
+                    return response(view('errors.500'), 500);
                 }
                 else {
                     // If not 500, render generic page
-                    return response(view('errors.generic', ['status_code' => $status_code, 'status_message' => $status_message]), $status_code);
+                    return response(
+                        view('errors.generic', [
+                            'status_code' => $status_code,
+                            'status_message' => $status_message
+                        ]), $status_code);
                 }
             }
             if ($e instanceof ApiException) {
