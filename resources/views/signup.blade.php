@@ -8,7 +8,7 @@
 <div class='col-md-6'>
     <h2 class='title'>Register</h2>
 
-    <form action='{{route('psignup')}}' method='POST'>
+    <form action='/signup' method='POST'>
         Username: <input type='text' name='username' class='form-control form-field' placeholder='Username' />
         Password: <input type='password' name='password' class='form-control form-field' placeholder='Password' />
         Email: <input type='email' name='email' class='form-control form-field' placeholder='Email' />
