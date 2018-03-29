@@ -267,9 +267,9 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
 
     // Delete user
     $scope.deleteUser = function($event, user_id) {
-        if(confirm("Are you sure to delete this user?")){
-            var el = $($event.target);
-            
+        var delete_user_confirm = window.confirm('Are you sure you would like to delete this user?');
+
+        if (delete_user_confirm) {
             apiCall('admin/delete_user', {
                 'user_id': user_id,
             }, function(new_status) {
@@ -310,9 +310,9 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
 
     // Delete link
     $scope.deleteLink = function($event, link_ending) {
-        if(confirm("Are you sure to delete this link?")){
-            var el = $($event.target);
+        var delete_link_confirm = window.confirm('Are you sure you would like to delete this link?');
 
+        if (delete_link_confirm) {
             apiCall('admin/delete_link', {
                 'link_ending': link_ending,
             }, function(new_status) {
