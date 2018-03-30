@@ -6,8 +6,6 @@ if ! [ -n "$BASH_VERSION" ];then
     exit;
 fi
 
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
 cd $HOME
 mkdir -p polr-data/storage
 
