@@ -267,14 +267,16 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
 
     // Delete user
     $scope.deleteUser = function($event, user_id) {
-        var el = $($event.target);
+        var delete_user_confirm = window.confirm('Are you sure you would like to delete this user?');
 
-        apiCall('admin/delete_user', {
-            'user_id': user_id,
-        }, function(new_status) {
-            toastr.success('User successfully deleted.', 'Success');
-            $scope.reloadUserTables();
-        });
+        if (delete_user_confirm) {
+            apiCall('admin/delete_user', {
+                'user_id': user_id,
+            }, function(new_status) {
+                toastr.success('User successfully deleted.', 'Success');
+                $scope.reloadUserTables();
+            });
+        }
     };
 
     $scope.changeUserRole = function(role, user_id) {
@@ -308,14 +310,16 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
 
     // Delete link
     $scope.deleteLink = function($event, link_ending) {
-        var el = $($event.target);
+        var delete_link_confirm = window.confirm('Are you sure you would like to delete this link?');
 
-        apiCall('admin/delete_link', {
-            'link_ending': link_ending,
-        }, function(new_status) {
-            toastr.success('Link successfully deleted.', 'Success');
-            $scope.reloadLinkTables();
-        });
+        if (delete_link_confirm) {
+            apiCall('admin/delete_link', {
+                'link_ending': link_ending,
+            }, function(new_status) {
+                toastr.success('Link successfully deleted.', 'Success');
+                $scope.reloadLinkTables();
+            });
+        }
     };
 
     // Disable and enable links
