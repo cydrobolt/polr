@@ -63,13 +63,6 @@ class LinkFactory {
         }
 
         if (isset($custom_ending) && $custom_ending !== '') {
-            // has custom ending
-            $ending_conforms = LinkHelper::validateEnding($custom_ending);
-            if (!$ending_conforms) {
-                throw new \Exception('Sorry, but custom endings
-                    can only contain alphanumeric characters, hyphens, and underscores.');
-            }
-
             $ending_in_use = LinkHelper::linkExists($custom_ending);
             if ($ending_in_use) {
                 throw new \Exception('Sorry, but this URL ending is already in use.');

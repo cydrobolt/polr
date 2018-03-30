@@ -15,18 +15,29 @@ class AjaxController extends Controller {
      * @return Response
      */
     public function checkLinkAvailability(Request $request) {
-        $link_ending = $request->input('link_ending');
-        $ending_conforms = LinkHelper::validateEnding($link_ending);
+        $validator = \Validator::make($request->all(), [
+            'link_ending' => LinkHelper::getCustomLinkValidationRule(true)
+        ]);
 
-        if (!$ending_conforms) {
-            return "invalid";
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => $validator->errors()->first('link_ending')
+            ]);
         }
-        else if (LinkHelper::linkExists($link_ending)) {
-            // if ending already exists
-            return "unavailable";
+
+        $linkEnding = $request->input('link_ending');
+
+       if (LinkHelper::linkExists($linkEnding)) {
+            return response()->json([
+                'success' => false,
+                'error' => 'A link with this ending already exists'
+            ]);
         }
         else {
-            return "available";
+            return response()->json([
+                'success' => true
+            ]);
         }
     }
 

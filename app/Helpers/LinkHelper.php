@@ -4,6 +4,24 @@ use App\Models\Link;
 use App\Helpers\BaseHelper;
 
 class LinkHelper {
+    const RESTRICTED_SLUGS = [
+        'logout', 'login', 'lost_password', 'signup', 'activate',
+        'admin', 'setup', 'shorten', 'about-polr'
+    ];
+
+    static public function getCustomLinkValidationRule($isRequired) {
+        $rules = [
+            'alpha_dash',
+            'not_in:' . implode(',', LinkHelper::RESTRICTED_SLUGS),
+        ];
+
+        if ($isRequired) {
+            $rules[] = 'required';
+        }
+
+        return $rules;
+    }
+
     static public function checkIfAlreadyShortened($long_link) {
         /**
          * Provided a long link (string),
@@ -82,11 +100,6 @@ class LinkHelper {
         else {
             return $link->short_url;
         }
-    }
-
-    static public function validateEnding($link_ending) {
-        $is_valid_ending = preg_match('/^[a-zA-Z0-9-_]+$/', $link_ending);
-        return $is_valid_ending;
     }
 
     static public function findPseudoRandomEnding() {

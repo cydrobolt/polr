@@ -19,18 +19,14 @@ $(function() {
             data: {
                 link_ending: custom_link
             },
-            dataType: "html"
+            dataType: "json"
         });
         $('#link-availability-status').html('<span><i class="fa fa-spinner"></i> Loading</span>');
-        request.done(function(msg) {
-            if (msg == 'unavailable') {
-                $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-ban"></i> Already in use</span>');
-            } else if (msg == 'available') {
+        request.done(function(res) {
+            if (res.success) {
                 $('#link-availability-status').html('<span style="color:green"><i class="fa fa-check"></i> Available</span>');
-            } else if (msg == 'invalid') {
-                $('#link-availability-status').html('<span style="color:orange"><i class="fa fa-exclamation-triangle"></i> Invalid Custom URL Ending</span>');
             } else {
-                $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-exclamation-circle"></i> An error occured. Try again</span>' + msg);
+                $('#link-availability-status').html(' <span style="color:red"><i class="fa fa-ban"></i> ' + res.error + '</span>');
             }
         });
 
