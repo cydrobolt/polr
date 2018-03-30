@@ -6,7 +6,9 @@ RUN apt-get update && apt-get dist-upgrade -y
 # Install the necessary packages.
 RUN apt-get install -y \
     supervisor apache2 git php7.0 libapache2-mod-php7.0 php7.0-cli \
-    php7.0-mysql php7.0-xml php7.0-mbstring php7.0-curl php7.0-zip
+    php7.0-mysql php7.0-xml php7.0-mbstring php7.0-curl php7.0-zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN a2enmod php7.0
 RUN a2enmod rewrite
@@ -26,7 +28,8 @@ RUN mv /var/www/polr/docker/supervisor.conf /etc/supervisor/conf.d/apache.conf
 
 # Install and run composer to add necessary packages. Personally, I would prefer it if vendor was
 # bundled with releases, and not have this section
-RUN apt-get install curl  -y
+RUN apt-get update && apt-get install --no-install-recommends curl -y \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/bin/composer
 RUN chmod +x /usr/bin/composer
