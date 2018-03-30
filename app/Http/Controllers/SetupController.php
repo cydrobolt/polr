@@ -54,15 +54,15 @@ class SetupController extends Controller {
         
         // see if any of the variables have already been provided in .env file
         // in which case pass those to the view, otherwise assume defaults
-        $view_data = [
-            'db_host' => env('DB_HOST', 'localhost'),
-            'db_name' => env('DB_DATABASE', 'polr'),
-            'db_username' => env('DB_USERNAME', 'root'),
-            'db_password' => env('DB_PASSWORD', ''),
-            'db_port' => env('DB_PORT', 3306),
+        $viewData = [
+            'dbHost' => env('DB_HOST', 'localhost'),
+            'dbName' => env('DB_DATABASE', 'polr'),
+            'dbUsername' => env('DB_USERNAME', 'root'),
+            'dbPassword' => env('DB_PASSWORD', ''),
+            'dbPort' => env('DB_PORT', 3306),
         ];
         
-        return view('setup', $view_data);
+        return view('setup', $viewData);
     }
 
     public static function performSetup(Request $request) {
