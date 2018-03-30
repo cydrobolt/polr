@@ -32,41 +32,48 @@ cp docker-compose.yml.tmpl docker-compose.yml
 ROOT_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 POLR_USER_PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
-# If there is no .env file, then we assume we have not copied
-# .env.setup to .env yet.
-echo "creating the polr .env file"
-cp $DIR/../.env.setup $DIR/.env
+# If there is no .env file, create one for the user.
+if [ ! -f $DIR/.env ]; then
+    echo "creating environment variables file to pass to polr container."
 
-FILEPATH="$DIR/.env"
-SEARCH="# DB_CONNECTION=mysql"
-REPLACE="DB_CONNECTION=mysql"
-sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
-
-# update the db hostname
-SEARCH="# DB_HOST=localhost"
-REPLACE="DB_HOST=db"
-sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
-
-# uncomment the db port
-SEARCH="# DB_PORT=3306"
-REPLACE="DB_PORT=3306"
-sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
-
-# set the database name
-SEARCH="# DB_DATABASE=homestead"
-REPLACE="DB_DATABASE=polr"
-sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
-
-# set the database user
-SEARCH="# DB_USERNAME=homestead"
-REPLACE="DB_USERNAME=polr"
-sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
-
-# set the database password
-SEARCH="# DB_PASSWORD=secret"
-REPLACE="DB_PASSWORD=$POLR_USER_PASSWORD"
-sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
-
+    # If the user has manually created a .env file use that
+    # otherwise generate one from .env.setup
+    if [ -f $DIR/../.env ]; then
+        cp $DIR/../.env $DIR/.env
+    else
+        cp $DIR/../.env.setup $DIR/.env
+        
+        FILEPATH="$DIR/.env"
+        SEARCH="# DB_CONNECTION=mysql"
+        REPLACE="DB_CONNECTION=mysql"
+        sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
+        
+        # update the db hostname
+        SEARCH="# DB_HOST=localhost"
+        REPLACE="DB_HOST=db"
+        sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
+        
+        # uncomment the db port
+        SEARCH="# DB_PORT=3306"
+        REPLACE="DB_PORT=3306"
+        sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
+        
+        # set the database name
+        SEARCH="# DB_DATABASE=homestead"
+        REPLACE="DB_DATABASE=polr"
+        sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
+        
+        # set the database user
+        SEARCH="# DB_USERNAME=homestead"
+        REPLACE="DB_USERNAME=polr"
+        sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
+        
+        # set the database password
+        SEARCH="# DB_PASSWORD=secret"
+        REPLACE="DB_PASSWORD=$POLR_USER_PASSWORD"
+        sed -i "s;$SEARCH;$REPLACE;" $FILEPATH
+    fi
+fi
 
 echo "Creating the .env.mysql file"
 
