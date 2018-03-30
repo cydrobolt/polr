@@ -23,8 +23,8 @@ fi
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd $DIR
 
-
-
+# Copy the template file and use it as-is
+cp docker-compose.yml.tmpl docker-compose.yml
 
 # Generate password and replace if found
 # Repeating this once already done does nothing

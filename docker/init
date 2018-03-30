@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Ensure running from inside the docker folder, in case user
+# executes from some other area.
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cd $DIR
+
+# check if the user even has a docker-compose.yml file
+# in which case they alread are configured however they want.
+
+
+if [ -f docker-compose.yml ]; then
+    # user already has a polr-data folder, so don't set new passwords
+    echo "skipping configuration as it looks like this already ran..."
+else
+    echo -n "Do you want us to set up a default docker-compose.yml file "
+    echo -n "configured to use polr with a linked mysql container (y/n)? "
+    read REPLY
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        bash configure.sh
+    else
+        echo "Ok, skipping."
+    fi
+fi
+
+# If the user doesn't have a local polr image, go ahead and build it.
+# If they do, then ask if they want to rebuild it in case of an update.
+IMAGE_NAME="polr"
+if [[ "$(docker images -q $IMAGE_NAME:latest 2> /dev/null)" == "" ]]
+then
+    echo "building polr image..."
+    bash build.sh
+else
+    echo -n "Do you want to re-build the polr image (y/n)? "
+    read REPLY
+    
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo "building new polr image..."
+        bash build.sh
+    else
+        echo "skipping build..."
+    fi
+fi
+
+# Offer to deploy for them if they have a docker-compose.yml file
+# which me may have generated for them, or they may have manually created
+# differently
+if [ -f docker-compose.yml ]; then
+    echo -n "Do you wish for us to deploy polr for you (y/n)? "
+    read REPLY
+
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then 
+        bash deploy.sh
+    fi
+fi
+

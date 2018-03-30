@@ -7,3 +7,4 @@ env
 .env.example
 .env.mysql
 composer.phar
+docker-compose.yml
