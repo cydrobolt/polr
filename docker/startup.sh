@@ -19,6 +19,9 @@ mkdir -p /data/storage/framework/views
 chown root:www-data -R /var/www/polr
 chmod 750 -R /var/www/polr
 
+# The website needs to be able to update the .env file.
+chmod 770 /var/www/polr/.env
+
 chown root:www-data -R /data
 chmod 770 -R /data
 

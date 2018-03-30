@@ -5,4 +5,5 @@ env
 .env
 .env.bak
 .env.example
+.env.mysql
 composer.phar

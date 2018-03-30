@@ -6,16 +6,23 @@ if ! [ -n "$BASH_VERSION" ];then
     exit;
 fi
 
-cd $HOME
-mkdir -p polr-data/storage
+# Execute everything from a relative point of where
+# this script is stored.
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cd $DIR
 
-# Remove any existing polr container
-docker kill polr-container
-docker rm polr-container
+mkdir -p $HOME/polr-data/storage
 
-# Deploy the polr container on port 80
-docker run -d \
--p 80:80 \
---name polr-container \
---volume $HOME/polr-data:/data \
-polr
+# Check the user has docker-compose
+if ! [ -x "$(command -v docker-compose)" ]; then
+  echo 'Error: docker-compose is not installed.' >&2
+  echo 'On ubuntu you can install it with:' >&2
+  echo 'sudo apt update && sudo apt install docker-compose -y' >&2
+  exit 1
+fi
+
+# Spin down anything if already running...
+docker-compose down
+
+# Use docker-compose to spin up polr and the mysql container.
+docker-compose up
