@@ -73,6 +73,7 @@ echo "Creating the .env.mysql file"
 echo "MYSQL_DATABASE=polr
 MYSQL_PASSWORD=$POLR_USER_PASSWORD
 MYSQL_ROOT_PASSWORD=$ROOT_PASSWORD
-MYSQL_USER=polr" > $DIR/.env.mysql
+MYSQL_USER=polr
+" > $DIR/.env.mysql
 
 echo "done!"

@@ -39,5 +39,3 @@ RUN composer install
 
 # Run the startup script
 CMD ["/bin/bash", "/var/www/polr/docker/startup.sh"]
-
-
