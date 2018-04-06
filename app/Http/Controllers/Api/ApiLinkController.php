@@ -7,12 +7,22 @@ use App\Helpers\LinkHelper;
 use App\Exceptions\Api\ApiException;
 
 class ApiLinkController extends ApiController {
+    protected function getShortenedLink($long_url, $is_secret, $custom_ending, $link_ip, $username, $response_type) {
+        try {
+            $formatted_link = LinkFactory::createLink(
+                $long_url, $is_secret, $custom_ending, $link_ip, $username, false, true);
+        }
+        catch (\Exception $e) {
+            throw new ApiException('CREATION_ERROR', $e->getMessage(), 400, $response_type);
+        }
+
+        return $formatted_link;
+    }
+
     public function shortenLink(Request $request) {
         $response_type = $request->input('response_type');
         $user = $request->user;
 
-        // Validate parameters
-        // Encode spaces as %20 to avoid validator conflicts
         $validator = \Validator::make(array_merge([
             'url' => str_replace(' ', '%20', $request->input('url'))
         ], $request->except('url')), [
@@ -23,20 +33,70 @@ class ApiLinkController extends ApiController {
             throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
         }
 
-        $long_url = $request->input('url'); // * required
-        $is_secret = ($request->input('is_secret') == 'true' ? true : false);
-
-        $link_ip = $request->ip();
-        $custom_ending = $request->input('custom_ending');
-
-        try {
-            $formatted_link = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $user->username, false, true);
-        }
-        catch (\Exception $e) {
-            throw new ApiException('CREATION_ERROR', $e->getMessage(), 400, $response_type);
-        }
+        $formatted_link = $this->getShortenedLink(
+            $request->input('url'),
+            ($request->input('is_secret') == 'true' ? true : false),
+            $request->input('custom_ending'),
+            $request->ip(),
+            $user->username,
+            $response_type
+        );
 
         return self::encodeResponse($formatted_link, 'shorten', $response_type);
+    }
+
+    public function shortenLinksBulk(Request $request) {
+        $response_type = $request->input('response_type');
+        $user = $request->user;
+        $link_ip = $request->ip();
+        $username = $user->username;
+
+        if ($response_type != 'json') {
+            throw new ApiException('JSON_ONLY', 'Only JSON-encoded data is available for this endpoint.', 401, $response_type);
+        }
+
+        $links_array_raw_json = json_decode($request->input('data'), true);
+
+        if ($links_array_raw_json === null) {
+            throw new ApiException('INVALID_PARAMETERS', 'Invalid JSON.', 400, $response_type);
+        }
+
+        $links_array['links'] = array_map(function($link) {
+            $link['url'] = str_replace(' ', '%20', $link['url']);
+            return $link;
+        }, $links_array_raw_json['links']);
+
+        var_dump($links_array);
+
+        $validator = \Validator::make($links_array, [
+            'links.*.url' => 'required|url'
+        ]);
+
+        if ($validator->fails()) {
+            throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
+        }
+
+        $formatted_links = [];
+
+        foreach ($links_array as $link) {
+            echo 'link here';
+
+            var_dump($link);
+            $formatted_link = $this->getShortenedLink(
+                $link['url'],
+                ($link['is_secret'] == 'true' ? true : false),
+                $link['custom_ending'],
+                $link_ip,
+                $username,
+                $response_type
+            );
+
+            $formatted_links[] = $formatted_link;
+        }
+
+        return self::encodeResponse([
+            'shortened_links' => $formatted_links
+        ], 'shorten_bulk', 'json');
     }
 
     public function lookupLink(Request $request) {
