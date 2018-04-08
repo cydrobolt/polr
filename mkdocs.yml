@@ -3,10 +3,12 @@ pages:
 - Home: index.md
 - User Guide:
     - 'Installation': 'user-guide/installation.md'
+    - 'Upgrading': 'user-guide/upgrading.md'
     - 'Troubleshooting': 'user-guide/troubleshooting.md'
 - Developer Guide:
     - 'Libraries': 'developer-guide/libraries.md'
     - 'API Documentation': 'developer-guide/api.md'
+    - 'API Errors': 'developer-guide/api_errors.md'
 - About:
     - 'License': 'about/license.md'
     - 'Contributors': 'about/contributors.md'

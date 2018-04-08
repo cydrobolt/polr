@@ -7,6 +7,7 @@ use App\Models\Link;
 use App\Factories\LinkFactory;
 use App\Helpers\CryptoHelper;
 use App\Helpers\LinkHelper;
+use App\Helpers\ClickHelper;
 
 class LinkController extends Controller {
     /**
@@ -24,7 +25,11 @@ class LinkController extends Controller {
             return redirect(route('index'))->with('error', 'You must be logged in to shorten links.');
         }
 
-        $this->request = $request;
+        // Validate URL form data
+        $this->validate($request, [
+            'link-url' => 'required|url',
+            'custom-ending' => 'alpha_dash'
+        ]);
 
         $long_url = $request->input('link-url');
         $custom_ending = $request->input('custom-ending');
@@ -87,9 +92,12 @@ class LinkController extends Controller {
         $link->clicks = $clicks;
         $link->save();
 
+        if (env('SETTING_ADV_ANALYTICS')) {
+            // Record advanced analytics if option is enabled
+            ClickHelper::recordClick($link, $request);
+        }
         // Redirect to final destination
-        LinkHelper::processPostClick($link);
-        return redirect()->to($long_url);
+        return redirect()->to($long_url, 301);
     }
 
 }

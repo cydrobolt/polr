@@ -51,20 +51,34 @@ class LinkHelper {
         }
     }
 
-    static public function longLinkExists($long_url) {
+    static public function longLinkExists($long_url, $username=false) {
         /**
          * Provided a long link (string),
          * check whether the link is in the DB.
+         * If a username is provided, only search for links created by the
+         * user.
          * @return boolean
          */
-        $link = Link::where('long_url', $long_url)
+        $link_base = Link::longUrl($long_url)
             ->where('is_custom', 0)
             ->where(function ($query) {
             	$query->whereNull('secret_key')
             		  ->orWhere('secret_key', '');
-            })
-            ->first();
+            });
 
+        if (is_null($username)) {
+            // Search for links without a creator only
+            $link = $link_base->where('creator', '')->first();
+        }
+        else if (($username !== false)) {
+            // Search for links created by $username only
+            $link = $link_base->where('creator', $username)->first();
+        }
+        else {
+            // Search for links created by any user
+            $link = $link_base->first();
+        }
+        
         if ($link == null) {
             return false;
         }
@@ -76,14 +90,6 @@ class LinkHelper {
     static public function validateEnding($link_ending) {
         $is_valid_ending = preg_match('/^[a-zA-Z0-9-_]+$/', $link_ending);
         return $is_valid_ending;
-    }
-
-    static public function processPostClick($link) {
-        /**
-         * Given a Link model instance, process post click operations.
-         * @param Link model instance $link
-         * @return boolean
-         */
     }
 
     static public function findPseudoRandomEnding() {

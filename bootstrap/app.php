@@ -20,8 +20,9 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
-
 $app->withEloquent();
+
+$app->configure('geoip');
 
 /*
 |--------------------------------------------------------------------------
@@ -59,13 +60,13 @@ $app->middleware([
     Illuminate\Cookie\Middleware\EncryptCookies::class,
     // Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
     Illuminate\Session\Middleware\StartSession::class,
-    // Illuminate\View\Middleware\ShareErrorsFromSession::class,
-    Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
+    Illuminate\View\Middleware\ShareErrorsFromSession::class,
+    App\Http\Middleware\VerifyCsrfToken::class,
 ]);
 
-// $app->routeMiddleware([
-
-// ]);
+$app->routeMiddleware([
+    'api' => App\Http\Middleware\ApiMiddleware::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,8 @@ $app->middleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
+$app->register(\Yajra\Datatables\DatatablesServiceProvider::class);
+$app->register(\Torann\GeoIP\GeoIPServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*

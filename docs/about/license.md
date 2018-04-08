@@ -3,8 +3,8 @@
 
 Polr is licensed under the GPLv2+
 
-<pre>
-Copyright (C) 2013-2016 Chaoyi Zha
+```
+Copyright (C) 2013-2017 Chaoyi Zha
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -19,6 +19,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-</pre>
+```
 
 Full license text: [https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)

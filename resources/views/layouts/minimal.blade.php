@@ -1,6 +1,6 @@
 <!--
 Polr, a minimalist URL shortening platform.
-Copyright (C) 2013-2016 Chaoyi Zha
+Copyright (C) 2013-2017 Chaoyi Zha
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
 
 <!DOCTYPE html>
-<html>
+<html ng-app="polr">
     <head>
         <title>Polr @yield('title')</title>
         @yield('css')

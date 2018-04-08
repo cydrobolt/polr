@@ -30,6 +30,7 @@ class UserController extends Controller {
 
     public function performLogoutUser(Request $request) {
         $request->session()->forget('username');
+        $request->session()->forget('role');
         return redirect()->route('index');
     }
 
@@ -57,13 +58,36 @@ class UserController extends Controller {
             return redirect(route('index'))->with('error', 'Sorry, but registration is disabled.');
         }
 
+        if (env('POLR_ACCT_CREATION_RECAPTCHA')) {
+            // Verify reCAPTCHA if setting is enabled
+            $gRecaptchaResponse = $request->input('g-recaptcha-response');
+
+            $recaptcha = new \ReCaptcha\ReCaptcha(env('POLR_RECAPTCHA_SECRET_KEY'));
+            $recaptcha_resp = $recaptcha->verify($gRecaptchaResponse, $request->ip());
+
+            if (!$recaptcha_resp->isSuccess()) {
+                return redirect(route('signup'))->with('error', 'You must complete the reCAPTCHA to register.');
+            }
+        }
+
+        // Validate signup form data
+        $this->validate($request, [
+            'username' => 'required|alpha_dash',
+            'password' => 'required',
+            'email' => 'required|email'
+        ]);
+
         $username = $request->input('username');
         $password = $request->input('password');
         $email = $request->input('email');
 
-        if (!self::checkRequiredArgs([$username, $password, $email])) {
-            // missing a required argument
-            return redirect(route('signup'))->with('error', 'Please fill in all required fields.');
+        if (env('SETTING_RESTRICT_EMAIL_DOMAIN')) {
+            $email_domain = explode('@', $email)[1];
+            $permitted_email_domains = explode(',', env('SETTING_ALLOWED_EMAIL_DOMAINS'));
+
+            if (!in_array($email_domain, $permitted_email_domains)) {
+                return redirect(route('signup'))->with('error', 'Sorry, your email\'s domain is not permitted to create new accounts.');
+            }
         }
 
         $ip = $request->ip();
@@ -76,12 +100,6 @@ class UserController extends Controller {
             return redirect(route('signup'))->with('error', 'Sorry, your email or username already exists. Try again.');
         }
 
-        $email_valid = UserHelper::validateEmail($email);
-
-        if ($email_valid == false) {
-            return redirect(route('signup'))->with('error', 'Please use a valid email to sign up.');
-        }
-
         $acct_activation_needed = env('POLR_ACCT_ACTIVATION');
 
         if ($acct_activation_needed == false) {
@@ -91,8 +109,8 @@ class UserController extends Controller {
         }
         else {
             // email activation is necessary
-        	$active = 0;
-            $response = redirect(route('login'))->with('success', 'Thanks for signing up! Please confirm your email to continue..');
+            $response = redirect(route('login'))->with('success', 'Thanks for signing up! Please confirm your email to continue.');
+            $active = 0;
         }
 
         if (env('SETTING_AUTO_API')) {

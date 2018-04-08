@@ -1,0 +1,25 @@
+.stats-header h3 {
+    text-align: center;
+}
+
+.bottom-padding {
+    margin-bottom: 3em;
+}
+
+#mapChart {
+    width: 100%;
+    height: 32em;
+}
+
+.ng-root {
+    margin-bottom: 4em;
+}
+
+h4 {
+    display: inline-block;
+}
+
+.link-meta {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}

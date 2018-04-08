@@ -14,7 +14,7 @@ Setup
     <a class="navbar-brand" href="/">Polr</a>
 </div>
 
-<div class='row'>
+<div class="row" ng-controller="SetupCtrl" class="ng-root">
     <div class='col-md-3'></div>
 
     <div class='col-md-6 setup-body well'>
@@ -45,7 +45,7 @@ Setup
 
             <p>
                 Database Name:
-                <button data-content="Name of existing database. You must create the Polr database manually." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                <setup-tooltip content="Name of existing database. You must create the Polr database manually."></setup-tooltip>
             </p>
             <input type='text' class='form-control' name='db:name' value='polr'>
 
@@ -55,11 +55,21 @@ Setup
             <p>Application Name:</p>
             <input type='text' class='form-control' name='app:name' value='Polr'>
 
-            <p>Application protocol:</p>
+            <p>Application Protocol:</p>
             <input type='text' class='form-control' name='app:protocol' value='http://'>
 
             <p>Application URL (path to Polr; do not include http:// or trailing slash):</p>
             <input type='text' class='form-control' name='app:external_url' value='yoursite.com'>
+
+            <p>
+                Advanced Analytics:
+                <button data-content="Enable advanced analytics to collect data such as referers, geolocation, and clicks over time. Enabling advanced analytics reduces performance and increases disk space usage."
+                    type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+            </p>
+            <select name='setting:adv_analytics' class='form-control'>
+                <option value='false' selected='selected'>Disable advanced analytics</option>
+                <option value='true'>Enable advanced analytics</option>
+            </select>
 
             <p>Shortening Permissions:</p>
             <select name='setting:shorten_permission' class='form-control'>
@@ -81,7 +91,7 @@ Setup
 
             <p>
                 Redirect URL:
-                <button data-content="Required if you wish to redirect the index page or 404s to a different website. To use Polr, login by directly heading to yoursite.com/login first." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                <setup-tooltip content="Required if you wish to redirect the index page or 404s to a different website. To use Polr, login by directly heading to yoursite.com/login first."></setup-tooltip>
             </p>
             <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
             <p class='text-muted'>
@@ -92,7 +102,7 @@ Setup
 
             <p>
                 Default URL Ending Type:
-                <button data-content="If you choose to use pseudorandom strings, you will not have the option to use a counter-based ending." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                <setup-tooltip content="If you choose to use pseudorandom strings, you will not have the option to use a counter-based ending."></setup-tooltip>
             </p>
             <select name='setting:pseudor_ending' class='form-control'>
                 <option value='false' selected='selected'>Use base62 or base32 counter (shorter but more predictable, e.g 5a)</option>
@@ -101,7 +111,7 @@ Setup
 
             <p>
                 URL Ending Base:
-                <button data-content="This will have no effect if you choose to use pseudorandom endings." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                <setup-tooltip content="This will have no effect if you choose to use pseudorandom endings."></setup-tooltip>
             </p>
             <select name='setting:base' class='form-control'>
                 <option value='32' selected='selected'>32 -- lowercase letters & numbers (default)</option>
@@ -110,7 +120,7 @@ Setup
 
             <h4>
                 Admin Account Settings
-                <button data-content="These credentials will be used for your admin account in Polr." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                <setup-tooltip content="These credentials will be used for your admin account in Polr."></setup-tooltip>
             </h4>
 
             <p>Admin Username:</p>
@@ -124,7 +134,7 @@ Setup
 
             <h4>
                 SMTP Settings
-                <button data-content="Required only if the email verification or password recovery features are enabled." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                <setup-tooltip content="Required only if the email verification or password recovery features are enabled."></setup-tooltip>
             </h4>
 
             <p>SMTP Server:</p>
@@ -152,6 +162,12 @@ Setup
                 <option value='true'>On -- empty key API requests are allowed</option>
             </select>
 
+            <p>
+                Anonymous API Quota:
+                <setup-tooltip content="API quota for non-authenticated users per minute per IP."></setup-tooltip>
+            </p>
+            <input type='text' class='form-control' name='setting:anon_api_quota' placeholder='10'>
+
             <p>Automatic API Assignment:</p>
             <select name='setting:auto_api_key' class='form-control'>
                 <option selected value='false'>Off -- admins must manually enable API for each user</option>
@@ -162,7 +178,7 @@ Setup
 
             <p>
                 Registration:
-                <button data-content="Enabling registration allows any user to create an account." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                <setup-tooltip content="Enabling registration allows any user to create an account."></setup-tooltip>
             </p>
             <select name='setting:registration_permission' class='form-control'>
                 <option value='none'>Registration disabled</option>
@@ -171,8 +187,23 @@ Setup
             </select>
 
             <p>
+                Restrict Registration Email Domains:
+                <setup-tooltip content="Restrict registration to certain email domains."></setup-tooltip>
+            </p>
+            <select name='setting:restrict_email_domain' class='form-control'>
+                <option value='false'>Allow any email domain to register</option>
+                <option value='true'>Restrict email domains allowed to register</option>
+            </select>
+
+            <p>
+                Permitted Email Domains:
+                <setup-tooltip content="A comma-separated list of emails permitted to register."></setup-tooltip>
+            </p>
+            <input type='text' class='form-control' name='setting:allowed_email_domains' placeholder='company.com,company-corp.com'>
+
+            <p>
                 Password Recovery:
-                <button data-content="Password recovery allows users to reset their password through email." type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
+                <setup-tooltip content="Password recovery allows users to reset their password through email."></setup-tooltip>
             </p>
             <select name='setting:password_recovery' class='form-control'>
                 <option value='false'>Password recovery disabled</option>
@@ -182,22 +213,50 @@ Setup
                 Please ensure SMTP is properly set up before enabling password recovery.
             </p>
 
-            {{-- <p>Path relative to root (leave blank if /, if http://site.com/polr, then write /polr/):</p>
-            <input type='text' class='form-control' name='path' placeholder='/polr/' value=''> --}}
+            <p>
+                Require reCAPTCHA for Registrations
+                <setup-tooltip content="You must provide your reCAPTCHA keys to use this feature."></setup-tooltip>
+            </p>
+            <select name='setting:acct_registration_recaptcha' class='form-control'>
+                <option value='false'>Do not require reCAPTCHA for registration</option>
+                <option value='true'>Require reCATPCHA for registration</option>
+            </select>
+
+            <p>
+                reCAPTCHA Configuration:
+                <setup-tooltip content="You must provide reCAPTCHA keys if you intend to use any reCAPTCHA-dependent features."></setup-tooltip>
+            </p>
+
+            <p>
+                reCAPTCHA Site Key
+            </p>
+            <input type='text' class='form-control' name='setting:recaptcha_site_key'>
+
+            <p>
+                reCAPTCHA Secret Key
+            </p>
+            <input type='text' class='form-control' name='setting:recaptcha_secret_key'>
+
+            <p class='text-muted'>
+                You can obtain reCAPTCHA keys from <a href="https://www.google.com/recaptcha/admin">Google's reCAPTCHA website</a>.
+            </p>
 
             <p>Theme (<a href='https://github.com/cydrobolt/polr/wiki/Themes-Screenshots'>screenshots</a>):</p>
             <select name='app:stylesheet' class='form-control'>
                 <option value=''>Modern (default)</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css'>Midnight Black</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/united/bootstrap.min.css'>Orange</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/simplex/bootstrap.min.css'>Crisp White</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/darkly/bootstrap.min.css'>Cloudy Night</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css'>Calm Skies</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css'>Google Material Design</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css'>Blue Metro</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/sandstone/bootstrap.min.css'>Sandstone</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css'>Jet Black</option>
-                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/lumen/bootstrap.min.css'>Newspaper</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css'>Midnight Black</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css'>Orange</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/simplex/bootstrap.min.css'>Crisp White</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css'>Cloudy Night</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css'>Calm Skies</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css'>Google Material Design</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css'>Blue Metro</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css'>Sandstone</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css'>Newspaper</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/solar/bootstrap.min.css'>Solar</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css'>Cosmo</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css'>Flatly</option>
+                <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css'>Yeti</option>
             </select>
 
             <div class='setup-form-buttons'>
@@ -232,5 +291,7 @@ Setup
 
 @section('js')
 <script src="/js/bootstrap.min.js"></script>
-<script src='/js/setup.js'></script>
+<script src='/js/angular.min.js'></script>
+<script src='/js/base.js'></script>
+<script src='/js/SetupCtrl.js'></script>
 @endsection

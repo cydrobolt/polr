@@ -2,22 +2,29 @@
 namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
-
 use App\Factories\LinkFactory;
 use App\Helpers\LinkHelper;
+use App\Exceptions\Api\ApiException;
 
 class ApiLinkController extends ApiController {
-    public static function shortenLink(Request $request) {
+    public function shortenLink(Request $request) {
         $response_type = $request->input('response_type');
-        $user = self::getApiUserInfo($request);
+        $user = $request->user;
 
-        /* */
+        // Validate parameters
+        // Encode spaces as %20 to avoid validator conflicts
+        $validator = \Validator::make(array_merge([
+            'url' => str_replace(' ', '%20', $request->input('url'))
+        ], $request->except('url')), [
+            'url' => 'required|url'
+        ]);
+
+        if ($validator->fails()) {
+            throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
+        }
+
         $long_url = $request->input('url'); // * required
         $is_secret = ($request->input('is_secret') == 'true' ? true : false);
-
-        if (!self::checkRequiredArgs([$long_url])) {
-            abort(400, "Missing required arguments.");
-        }
 
         $link_ip = $request->ip();
         $custom_ending = $request->input('custom_ending');
@@ -26,23 +33,26 @@ class ApiLinkController extends ApiController {
             $formatted_link = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $user->username, false, true);
         }
         catch (\Exception $e) {
-            abort(400, $e->getMessage());
+            throw new ApiException('CREATION_ERROR', $e->getMessage(), 400, $response_type);
         }
 
         return self::encodeResponse($formatted_link, 'shorten', $response_type);
     }
 
-    public static function lookupLink(Request $request) {
+    public function lookupLink(Request $request) {
+        $user = $request->user;
         $response_type = $request->input('response_type');
-        $user = self::getApiUserInfo($request);
 
-        /* */
+        // Validate URL form data
+        $validator = \Validator::make($request->all(), [
+            'url_ending' => 'required|alpha_dash'
+        ]);
 
-        $url_ending = $request->input('url_ending'); // * required
-
-        if (!self::checkRequiredArgs([$url_ending])) {
-            abort(400, "Missing required arguments.");
+        if ($validator->fails()) {
+            throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
         }
+
+        $url_ending = $request->input('url_ending');
 
         // "secret" key required for lookups on secret URLs
         $url_key = $request->input('url_key');
@@ -51,10 +61,9 @@ class ApiLinkController extends ApiController {
 
         if ($link['secret_key']) {
             if ($url_key != $link['secret_key']) {
-                abort(401, "Invalid URL code for secret URL.");
+                throw new ApiException('ACCESS_DENIED', 'Invalid URL code for secret URL.', 401, $response_type);
             }
         }
-
 
         if ($link) {
             return self::encodeResponse([
@@ -66,8 +75,7 @@ class ApiLinkController extends ApiController {
             ], 'lookup', $response_type, $link['long_url']);
         }
         else {
-            abort(404, "Link not found.");
+            throw new ApiException('NOT_FOUND', 'Link not found.', 404, $response_type);
         }
-
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 
 use App\Helpers\CryptoHelper;
 use App\Models\User;
+use App\Helpers\UserHelper;
 use App\Factories\UserFactory;
 use Cache;
 
@@ -21,7 +22,7 @@ class SetupController extends Controller {
 
     private static function setupAlreadyRan() {
         return view('error', [
-            'message' => 'Sorry, but you have already ran the setup script previously.'
+            'message' => 'Sorry, but you have already completed the setup process.'
         ]);
     }
 
@@ -29,6 +30,13 @@ class SetupController extends Controller {
         $exitCode = Artisan::call('migrate:refresh', [
             '--force' => true,
         ]);
+        return self::parseExitCode($exitCode);
+    }
+
+    private static function updateGeoIP() {
+        // Output GeoIP database for advanced
+        // analytics
+        $exitCode = Artisan::call('geoip:update', []);
         return self::parseExitCode($exitCode);
     }
 
@@ -95,21 +103,29 @@ class SetupController extends Controller {
             ]);
         }
 
+        $polr_acct_creation_recaptcha = $request->input('setting:acct_registration_recaptcha');
+        $polr_recaptcha_site_key = $request->input('setting:recaptcha_site_key');
+        $polr_recaptcha_secret_key = $request->input('setting:recaptcha_secret_key');
+
         $acct_username = $request->input('acct:username');
         $acct_email = $request->input('acct:email');
         $acct_password = $request->input('acct:password');
-        $acct_group = "admin";
+        $acct_group = UserHelper::$USER_ROLES['admin'];
 
         // if true, only logged in users can shorten
         $st_shorten_permission = $request->input('setting:shorten_permission');
         $st_index_redirect = $request->input('setting:index_redirect');
         $st_redirect_404 = $request->input('setting:redirect_404');
         $st_password_recov = $request->input('setting:password_recovery');
+        $st_restrict_email_domain = $request->input('setting:restrict_email_domain');
+        $st_allowed_email_domains = $request->input('setting:allowed_email_domains');
 
         $st_base = $request->input('setting:base');
         $st_auto_api_key = $request->input('setting:auto_api_key');
         $st_anon_api = $request->input('setting:anon_api');
+        $st_anon_api_quota = $request->input('setting:anon_api_quota');
         $st_pseudor_ending = $request->input('setting:pseudor_ending');
+        $st_adv_analytics = $request->input('setting:adv_analytics');
 
         $mail_host = $request->input('app:smtp_server');
         $mail_port = $request->input('app:smtp_port');
@@ -144,10 +160,15 @@ class SetupController extends Controller {
             'ST_PUBLIC_INTERFACE' => $st_public_interface,
             'POLR_ALLOW_ACCT_CREATION' => $polr_allow_acct_creation,
             'POLR_ACCT_ACTIVATION' => $polr_acct_activation,
+            'POLR_ACCT_CREATION_RECAPTCHA' => $polr_acct_creation_recaptcha,
             'ST_SHORTEN_PERMISSION' => $st_shorten_permission,
             'ST_INDEX_REDIRECT' => $st_index_redirect,
             'ST_REDIRECT_404' => $st_redirect_404,
             'ST_PASSWORD_RECOV' => $st_password_recov,
+            'ST_RESTRICT_EMAIL_DOMAIN' => $st_restrict_email_domain,
+            'ST_ALLOWED_EMAIL_DOMAINS' => $st_allowed_email_domains,
+            'POLR_RECAPTCHA_SITE_KEY' => $polr_recaptcha_site_key,
+            'POLR_RECAPTCHA_SECRET' => $polr_recaptcha_secret_key,
 
             'MAIL_ENABLED' => $mail_enabled,
             'MAIL_HOST' => $mail_host,
@@ -160,7 +181,9 @@ class SetupController extends Controller {
             'ST_BASE' => $st_base,
             'ST_AUTO_API' => $st_auto_api_key,
             'ST_ANON_API' => $st_anon_api,
+            'ST_ANON_API_QUOTA' => $st_anon_api_quota,
             'ST_PSEUDOR_ENDING' => $st_pseudor_ending,
+            'ST_ADV_ANALYTICS' => $st_adv_analytics,
 
             'TMP_SETUP_AUTH_KEY' => $setup_auth_key
         ])->render();
@@ -187,8 +210,8 @@ class SetupController extends Controller {
             // our app key changes and Laravel encrypts cookies.
             setcookie('setup_arguments', $setup_finish_arguments, time()+60);
         }
-        fclose($handle);
 
+        fclose($handle);
         return $response;
 
     }
@@ -213,14 +236,17 @@ class SetupController extends Controller {
 
         $database_created = self::createDatabase();
         if (!$database_created) {
-            return redirect(route('setup'))->with('error', 'Could not create database. Perhaps some credentials were incorrect?');
+            return redirect(route('setup'))->with('error', 'Could not create database. Perhaps your credentials were incorrect?');
         }
 
-        $user = UserFactory::createUser(
-                $setup_finish_args->acct_username, 
-                $setup_finish_args->acct_email, 
-                $setup_finish_args->acct_password, 
-                TRUE, $request->ip(), NULL, FALSE, TRUE);
+        if (env('SETTING_ADV_ANALYTICS')) {
+            $geoip_db_created = self::updateGeoIP();
+            if (!$geoip_db_created) {
+                return redirect(route('setup'))->with('error', 'Could not fetch GeoIP database for advanced analytics. Perhaps your server is not connected to the internet?');
+            }
+        }
+
+        $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip(), false, 0, UserHelper::$USER_ROLES['admin']);
 
         return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');
     }

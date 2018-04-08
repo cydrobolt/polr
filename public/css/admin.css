@@ -2,6 +2,10 @@
     margin-bottom: 5px;
 }
 
+.stats-icon {
+    margin-left: 0.3em;
+}
+
 .change-password {
     width: 150px;
 }
@@ -23,11 +27,18 @@
     display: inline;
 }
 
+.users-heading {
+    display: inline-block;
+    margin-bottom: 0.9em;
+    margin-right: 0.5em;
+}
+
 input.api-quota {
     display: inline;
     width: 9em;
     font-size: .85em;
-    height: .85em;
+    height: auto;
+    padding-left: 0.8em;
 }
 
 .wrap-text {
@@ -38,4 +49,12 @@ input.api-quota {
     table {
         table-layout: fixed;
     }
+}
+
+a.new-user-add {
+    margin-left: 0.5em
+}
+
+.edit-long-link-btn {
+    opacity: 0.45;
 }

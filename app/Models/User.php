@@ -8,5 +8,4 @@ class User extends Model {
 	const USER_ROLE = 'user';
 	
     protected $table = 'users';
-
 }

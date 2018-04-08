@@ -1,7 +1,10 @@
 import re, datetime, string, random
 
-print "New version name (e.g 2.0.0):"
+print "> New version name (e.g 2.0.0):"
 new_version = raw_input()
+
+print "> Is this a stable release? [y, n]"
+is_stable = raw_input()
 
 with open('.env.setup', 'r+') as setup_env:
     setup_env_lines = setup_env.read()

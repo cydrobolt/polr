@@ -9,10 +9,11 @@ use App\Helpers\UserHelper;
 
 class AdminController extends Controller {
     /**
-     * Show the admin panel, and process admin AJAX requests.
+     * Show the admin panel, and process setting changes.
      *
      * @return Response
      */
+
     public function displayAdminPage(Request $request) {
         if (!$this->isLoggedIn()) {
             return redirect(route('login'))->with('error', 'Please login to access your dashboard.');
@@ -21,28 +22,16 @@ class AdminController extends Controller {
         $username = session('username');
         $role = session('role');
 
-        $admin_users = null;
-        $admin_links = null;
-
-        if ($this->currIsAdmin()) {
-            $admin_users = User::paginate(15, ['*'], 'users_page');
-            $admin_links = Link::paginate(15, ['*'], 'admin_links_page');
-        }
-
         $user = UserHelper::getUserByUsername($username);
 
         if (!$user) {
             return redirect(route('index'))->with('error', 'Invalid or disabled account.');
         }
 
-        $user_links = Link::where('creator', $username)
-            ->paginate(15, ['*'], 'links_page');
-
         return view('admin', [
             'role' => $role,
-            'admin_users' => $admin_users,
-            'admin_links' => $admin_links,
-            'user_links' => $user_links,
+            'admin_role' => UserHelper::$USER_ROLES['admin'],
+            'user_roles' => UserHelper::$USER_ROLES,
             'api_key' => $user->api_key,
             'api_active' => $user->api_active,
             'api_quota' => $user->api_quota,
@@ -54,6 +43,7 @@ class AdminController extends Controller {
         if (!$this->isLoggedIn()) {
             return abort(404);
         }
+
         $username = session('username');
         $old_password = $request->input('current_password');
         $new_password = $request->input('new_password');

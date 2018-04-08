@@ -1,6 +1,6 @@
 <!--
 Polr, a minimalist URL shortening platform.
-Copyright (C) 2013-2016 Chaoyi Zha
+Copyright (C) 2013-2017 Chaoyi Zha
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- Leave this for stats --}}
     <meta name="generator" content="Polr {{env('POLR_VERSION')}}" />
+    @yield('meta')
 
     {{-- Load Stylesheets --}}
     @if (env('APP_STYLESHEET'))
@@ -38,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
     <link href="/css/toastr.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
     @yield('css')
 </head>
 <body>
@@ -49,26 +50,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
         </div>
     </div>
 
-    {{-- Load header JavaScript --}}
-    <script src='/js/constants.js'></script>
+    {{-- Load JavaScript dependencies --}}
+    <script src="/js/constants.js"></script>
     <script src="/js/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src='/js/angular.min.js'></script>
-    <script src='/js/toastr.min.js'></script>
-    <script src='/js/base.js'></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/toastr.min.js"></script>
+    <script src="/js/base.js"></script>
 
     <script>
     @if (Session::has('info'))
-        toastr["info"](`{{session('info')}}`, "Info")
+        toastr["info"](`{{ str_replace('`', '\`', session('info')) }}`, "Info")
     @endif
     @if (Session::has('error'))
-        toastr["error"](`{{session('error')}}`, "Error")
+        toastr["error"](`{{str_replace('`', '\`', session('error')) }}`, "Error")
     @endif
     @if (Session::has('warning'))
-        toastr["warning"](`{{session('warning')}}`, "Warning")
+        toastr["warning"](`{{ str_replace('`', '\`', session('warning')) }}`, "Warning")
     @endif
     @if (Session::has('success'))
-        toastr["success"](`{{session('success')}}`, "Success")
+        toastr["success"](`{{ str_replace('`', '\`', session('success')) }}`, "Success")
+    @endif
+
+    @if (count($errors) > 0)
+        // Handle Lumen validation errors
+        @foreach ($errors->all() as $error)
+            toastr["error"](`{{ str_replace('`', '\`', $error) }}`, "Error")
+        @endforeach
     @endif
     </script>
 

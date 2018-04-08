@@ -7,6 +7,8 @@ use App\Helpers\LinkHelper;
 
 
 class LinkFactory {
+    const MAXIMUM_LINK_LENGTH = 65535;
+
     private static function formatLink($link_ending, $secret_ending=false) {
         /**
         * Given a link ending and a boolean indicating whether a secret ending is needed,
@@ -39,6 +41,13 @@ class LinkFactory {
         * @return string $formatted_link
         */
 
+        if (strlen($long_url) > self::MAXIMUM_LINK_LENGTH) {
+            // If $long_url is longer than the maximum length, then
+            // throw an Exception
+            throw new \Exception('Sorry, but your link is longer than the
+                maximum length allowed.');
+        }
+
         $is_already_short = LinkHelper::checkIfAlreadyShortened($long_url);
 
         if ($is_already_short) {
@@ -46,14 +55,14 @@ class LinkFactory {
                 looks like a shortened URL.');
         }
 
-        if (!$is_secret && !$custom_ending && (LinkHelper::longLinkExists($long_url) !== false)) {
+        if (!$is_secret && (!isset($custom_ending) || $custom_ending === '') && (LinkHelper::longLinkExists($long_url, $creator) !== false)) {
             // if link is not specified as secret, is non-custom, and
             // already exists in Polr, lookup the value and return
-            $existing_link = LinkHelper::longLinkExists($long_url);
+            $existing_link = LinkHelper::longLinkExists($long_url, $creator);
             return self::formatLink($existing_link);
         }
 
-        if ($custom_ending) {
+        if (isset($custom_ending) && $custom_ending !== '') {
             // has custom ending
             $ending_conforms = LinkHelper::validateEnding($custom_ending);
             if (!$ending_conforms) {

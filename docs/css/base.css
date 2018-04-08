@@ -1,3 +1,19 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
 h1, h2, h3, h4, h5, h6 {
     text-transform: none !important;
+}
+
+img {
+    /* Force auto height & width to prevent deformed images on mobile */
+    width: auto !important;
+    height: auto !important;
+}
+
+code:not(.hljs) {
+    /* Do not wrap pre-formatted code snippets */
+    word-wrap: break-word;
+    white-space: normal;
 }

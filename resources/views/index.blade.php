@@ -11,7 +11,7 @@
     <input type='url' autocomplete='off'
         class='form-control long-link-input' placeholder='http://' name='link-url' />
 
-    <div class='row' id='options'>
+    <div class='row' id='options' ng-cloak>
         <p>Customize link</p>
 
         @if (!env('SETTING_PSEUDORANDOM_ENDING'))

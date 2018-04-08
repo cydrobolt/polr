@@ -8,6 +8,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Response;
 
+use App\Exceptions\Api\ApiException;
+
 class Handler extends ExceptionHandler {
     /**
      * A list of the exception types that should not be reported.
@@ -43,25 +45,45 @@ class Handler extends ExceptionHandler {
         if (env('APP_DEBUG') != true) {
             // Render nice error pages if debug is off
             if ($e instanceof NotFoundHttpException) {
+                // Handle 404 exceptions
                 if (env('SETTING_REDIRECT_404')) {
                     // Redirect 404s to SETTING_INDEX_REDIRECT
                     return redirect()->to(env('SETTING_INDEX_REDIRECT'));
                 }
                 // Otherwise, show a nice error page
-                return view('errors.404');
+                return response(view('errors.404'), 404);
             }
             if ($e instanceof HttpException) {
+                // Handle HTTP exceptions thrown by public-facing controllers
                 $status_code = $e->getStatusCode();
                 $status_message = $e->getMessage();
 
                 if ($status_code == 500) {
                     // Render a nice error page for 500s
-                    return view('errors.500');
+                    return response(view('errors.500'), 500);
                 }
                 else {
                     // If not 500, render generic page
-                    return response(view('errors.generic', ['status_code' => $status_code, 'status_message' => $status_message]), $status_code);
+                    return response(
+                        view('errors.generic', [
+                            'status_code' => $status_code,
+                            'status_message' => $status_message
+                        ]), $status_code);
                 }
+            }
+            if ($e instanceof ApiException) {
+                // Handle HTTP exceptions thrown by API controllers
+                $status_code = $e->getCode();
+                $encoded_status_message = $e->getEncodedErrorMessage();
+                if ($e->response_type == 'json') {
+                    return response($encoded_status_message, $status_code)
+                        ->header('Content-Type', 'application/json')
+                        ->header('Access-Control-Allow-Origin', '*');
+                }
+
+                return response($encoded_status_message, $status_code)
+                    ->header('Content-Type', 'text/plain')
+                    ->header('Access-Control-Allow-Origin', '*');
             }
         }
 
