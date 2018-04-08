@@ -113,13 +113,13 @@ class UserController extends Controller {
             $active = 0;
         }
 
-        $api_active = false;
-        $api_key = null;
-
         if (env('SETTING_AUTO_API')) {
             // if automatic API key assignment is on
-            $api_active = 1;
+            $api_active = true;
             $api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
+        } else {
+        	$api_active = false;
+        	$api_key = null;
         }
 
         $user = UserFactory::createUser($username, $email, $password, $active, $ip, $api_key, $api_active);
@@ -129,7 +129,6 @@ class UserController extends Controller {
                 'username' => $username, 'recovery_key' => $user->recovery_key, 'ip' => $ip
             ], function ($m) use ($user) {
                 $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-
                 $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
             });
         }

@@ -61,7 +61,10 @@ class LinkHelper {
          */
         $link_base = Link::longUrl($long_url)
             ->where('is_custom', 0)
-            ->where('secret_key', '');
+            ->where(function ($query) {
+            	$query->whereNull('secret_key')
+            		  ->orWhere('secret_key', '');
+            });
 
         if (is_null($username)) {
             // Search for links without a creator only
@@ -75,7 +78,7 @@ class LinkHelper {
             // Search for links created by any user
             $link = $link_base->first();
         }
-
+        
         if ($link == null) {
             return false;
         }

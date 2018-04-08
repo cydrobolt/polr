@@ -24,6 +24,12 @@ Setup
 
         <form class='setup-form' method='POST' action='/setup'>
             <h4>Database Configuration</h4>
+            
+            <p>Database Connection:</p>
+            <select name='db:connection' class='form-control'>
+                <option value='mysql' selected='selected'>MySQL</option>
+                <option value='pgsql'>PostgreSQL</option>
+            </select>
 
             <p>Database Host:</p>
             <input type='text' class='form-control' name='db:host' value='localhost'>

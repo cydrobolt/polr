@@ -1,13 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Illuminate\Http\Redirect;
 use Carbon\Carbon;
 
 use App\Models\Link;
-use App\Models\Clicks;
 use App\Helpers\StatsHelper;
-use Illuminate\Support\Facades\DB;
 
 class StatsController extends Controller {
     const DAYS_TO_FETCH = 30;
