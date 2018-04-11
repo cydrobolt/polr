@@ -66,32 +66,32 @@ class ApiLinkController extends ApiController {
             return $link;
         }, $links_array_raw_json['links']);
 
-        var_dump($links_array);
+        foreach ($links_array['links'] as $link) {
+            $validator = \Validator::make($link, [
+                'url' => 'required|url'
+            ]);
 
-        $validator = \Validator::make($links_array, [
-            'links.*.url' => 'required|url'
-        ]);
-
-        if ($validator->fails()) {
-            throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
+            if ($validator->fails()) {
+                throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
+            }
         }
 
         $formatted_links = [];
 
-        foreach ($links_array as $link) {
-            echo 'link here';
-
-            var_dump($link);
+        foreach ($links_array['links'] as $link) {
             $formatted_link = $this->getShortenedLink(
                 $link['url'],
-                ($link['is_secret'] == 'true' ? true : false),
-                $link['custom_ending'],
+                (array_get($link, 'is_secret') == 'true' ? true : false),
+                array_get($link, 'custom_ending'),
                 $link_ip,
                 $username,
                 $response_type
             );
 
-            $formatted_links[] = $formatted_link;
+            $formatted_links[] = [
+                'long_url' => $link['url'],
+                'short_url' => $formatted_link
+            ];
         }
 
         return self::encodeResponse([
