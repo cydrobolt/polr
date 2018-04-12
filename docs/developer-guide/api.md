@@ -26,11 +26,9 @@ See [API endpoints](#api-endpoints) for more information on the actions.
 
 ## Response Type
 The Polr API will reply in `plain_text` or `json`. The response type can be
-set by providing the `response_type` argument to the request. If not provided,
-the response type will default to `plain_text`.
-
-Data endpoints will only return JSON-formatted data and will default to `json` if no
-`response_type` is provided.
+set by providing the `response_type` argument to the request. If this argument is not provided,
+the response type will default to either `plain_text` or `json` depending
+on the endpoint.
 
 Example `json` responses:
 ```
@@ -84,7 +82,61 @@ Response:
 }
 ```
 
-Remember that the `url` argument must be URL encoded.
+The `url` argument must be URL encoded.
+
+### /api/v2/action/shorten_bulk
+
+_`POST` only_
+
+Arguments:
+
+ - `data`: an array containing a JSON-encoded array of links
+
+Example `data`:
+```json
+{
+  "links": [
+      {
+          "url": "https://polrproject.org/"
+      },
+      {
+          "url": "https://youtube.com",
+          "is_secret": true
+      },
+      {
+          "url": "https://github.com/cydrobolt/polr",
+          "custom_ending": "polrgithub"
+      }
+  ]
+}
+```
+
+Response: A JSON-encoded list of the shortened links.
+
+Example response:
+```
+{
+    "action": "shorten_bulk",
+    "result": {
+        "shortened_links": [
+            {
+                "long_url": "https://polrproject.org/",
+                "short_url": "http://demo.polr.me/81"
+            },
+            {
+                "long_url": "https://youtube.com",
+                "short_url": "http://demo.polr.me/84/b496"
+            },
+            {
+                "long_url": "https://github.com/cydrobolt/polr",
+                "short_url": "http://demo.polr.me/polrgithub"
+            }
+        ]
+    }
+}
+```
+
+
 
 ### /api/v2/action/lookup
 The `lookup` action takes a single argument: `url_ending`. This is the URL to
