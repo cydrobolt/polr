@@ -22,7 +22,7 @@ class ApiAnalyticsController extends ApiController {
 
         $validator = \Validator::make($request->all(), [
             'url_ending' => 'required|alpha_dash',
-            'stats_type' => 'alpha_num',
+            'stats_type' => 'required',
             'left_bound' => 'date',
             'right_bound' => 'date'
         ]);
@@ -35,7 +35,8 @@ class ApiAnalyticsController extends ApiController {
         $stats_type = $request->input('stats_type');
         $left_bound = $request->input('left_bound');
         $right_bound = $request->input('right_bound');
-        $stats_type = $request->input('stats_type');
+        
+        $stats_type_arr = explode(",", $stats_type);
 
         // ensure user can only read own analytics or user is admin
         $link = LinkHelper::linkExists($url_ending);
@@ -57,18 +58,18 @@ class ApiAnalyticsController extends ApiController {
             throw new ApiException('ANALYTICS_ERROR', $e->getMessage(), 400, $response_type);
         }
 
-        if ($stats_type == 'day') {
-            $fetched_stats = $stats->getDayStats();
+        $fetched_stats = [];
+        
+        if (in_array('day',$stats_type_arr)) {
+            $fetched_stats['day'] = $stats->getDayStats();
         }
-        else if ($stats_type == 'country') {
-            $fetched_stats = $stats->getCountryStats();
+        if (in_array('country',$stats_type_arr)) {
+            $fetched_stats['country'] = $stats->getCountryStats();
         }
-        else if ($stats_type == 'referer') {
-            $fetched_stats = $stats->getRefererStats();
+        if (in_array('referer',$stats_type_arr)) {
+            $fetched_stats['referer'] = $stats->getRefererStats();
         }
-        else {
-            throw new ApiException('INVALID_ANALYTICS_TYPE', 'Invalid analytics type requested.', 400, $response_type);
-        }
+        
 
         return self::encodeResponse([
             'url_ending' => $link->short_url,
