@@ -61,12 +61,12 @@ class ApiLinkController extends ApiController {
             throw new ApiException('INVALID_PARAMETERS', 'Invalid JSON.', 400, $response_type);
         }
 
-        $links_array['links'] = array_map(function($link) {
+        $links_array = array_map(function($link) {
             $link['url'] = str_replace(' ', '%20', $link['url']);
             return $link;
         }, $links_array_raw_json['links']);
 
-        foreach ($links_array['links'] as $link) {
+        foreach ($links_array as $link) {
             $validator = \Validator::make($link, [
                 'url' => 'required|url'
             ]);
@@ -78,7 +78,7 @@ class ApiLinkController extends ApiController {
 
         $formatted_links = [];
 
-        foreach ($links_array['links'] as $link) {
+        foreach ($links_array as $link) {
             $formatted_link = $this->getShortenedLink(
                 $link['url'],
                 (array_get($link, 'is_secret') == 'true' ? true : false),
