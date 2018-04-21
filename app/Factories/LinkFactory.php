@@ -66,13 +66,13 @@ class LinkFactory {
             // has custom ending
             $ending_conforms = LinkHelper::validateEnding($custom_ending);
             if (!$ending_conforms) {
-                throw new \Exception('Sorry, but custom endings
+                throw new \Exception('Custom endings
                     can only contain alphanumeric characters, hyphens, and underscores.');
             }
 
             $ending_in_use = LinkHelper::linkExists($custom_ending);
             if ($ending_in_use) {
-                throw new \Exception('Sorry, but this URL ending is already in use.');
+                throw new \Exception('This URL ending is already in use.');
             }
 
             $link_ending = $custom_ending;
@@ -97,7 +97,6 @@ class LinkFactory {
         $link->is_api    = $is_api;
 
         if ($creator) {
-            // if user is logged in, save user as creator
             $link->creator = $creator;
         }
 

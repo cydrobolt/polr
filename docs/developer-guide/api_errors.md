@@ -8,6 +8,8 @@ it to `true` in `.env`
 
 `MISSING_PARAMETERS`: Invalid or missing parameters.
 
+`INVALID_PARAMETERS`: Invalid parameters.
+
 `NOT_FOUND`: Object not found.
 
 `ACCESS_DENIED`: User is not authorized to access the object.
