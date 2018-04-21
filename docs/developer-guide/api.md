@@ -2,8 +2,8 @@
 -----------------------------
 
 ## API keys
-To authenticate a user to Polr, you will need to provide an API key along with
-each request to the Polr API, as a GET or POST parameter. (e.g `?key=API_KEY_HERE`)
+To authenticate a user to Polr, you *must* provide an API key along with
+each request to Polr API endpoints, as a GET or POST parameter. (e.g `?key=API_KEY_HERE`)
 
 ## Assigning an API key
 To assign an API key, log on from an administrator account, head over to the "Admin"
@@ -90,9 +90,9 @@ _`POST` only_
 
 Arguments:
 
- - `data`: an array containing a JSON-encoded array of links
+ - `data`: a string containing a JSON-encoded object with an array of links
 
-Example `data`:
+Example `data` argument:
 ```json
 {
   "links": [
@@ -111,7 +111,7 @@ Example `data`:
 }
 ```
 
-Response: A JSON-encoded list of the shortened links.
+Response: A JSON-encoded object with a list of shortened links.
 
 Example response:
 ```
