@@ -47,6 +47,8 @@ class ApiLinkController extends ApiController {
 
     public function shortenLinksBulk(Request $request) {
         $response_type = $request->input('response_type', 'json');
+        $request_data = $request->input('data');
+
         $user = $request->user;
         $link_ip = $request->ip();
         $username = $user->username;
@@ -55,7 +57,7 @@ class ApiLinkController extends ApiController {
             throw new ApiException('JSON_ONLY', 'Only JSON-encoded responses are available for this endpoint.', 401, $response_type);
         }
 
-        $links_array_raw_json = json_decode($request->input('data'), true);
+        $links_array_raw_json = json_decode($request_data, true);
 
         if ($links_array_raw_json === null) {
             throw new ApiException('INVALID_PARAMETERS', 'Invalid JSON.', 400, $response_type);
