@@ -62,24 +62,21 @@ class ApiAnalyticsController extends ApiController {
         $fetched_stats = [];
 
         if (in_array('day', $stats_type_arr)) {
+            $fetched_stats['day'] = $stats->getDayStats();
             if (count($stats_type_arr) == 1) {
                 $fetched_stats = $stats->getDayStats();
-            } else {
-                $fetched_stats['day'] = $stats->getDayStats();
             }
         }
         if (in_array('country', $stats_type_arr)) {
+            $fetched_stats['country'] = $stats->getCountryStats();
             if (count($stats_type_arr) == 1) {
                 $fetched_stats = $stats->getCountryStats();
-            } else {
-                $fetched_stats['country'] = $stats->getCountryStats();
             }
         }
         if (in_array('referer', $stats_type_arr)) {
+            $fetched_stats['referer'] = $stats->getRefererStats();
             if (count($stats_type_arr) == 1) {
                 $fetched_stats = $stats->getRefererStats();
-            } else {
-                $fetched_stats['referer'] = $stats->getRefererStats();
             }
         }
 
