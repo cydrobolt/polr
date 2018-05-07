@@ -30,6 +30,7 @@ class UserController extends Controller {
 
     public function performLogoutUser(Request $request) {
         $request->session()->forget('username');
+        $request->session()->forget('role');
         return redirect()->route('index');
     }
 
