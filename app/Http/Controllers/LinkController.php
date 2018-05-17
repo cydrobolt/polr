@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Redirect;
 
@@ -39,8 +40,7 @@ class LinkController extends Controller {
 
         try {
             $short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return self::renderError($e->getMessage());
         }
 
@@ -53,7 +53,7 @@ class LinkController extends Controller {
 
         // Return 404 if link not found
         if ($link == null) {
-        	return abort(404);
+            return abort(404);
         }
 
         // Return an error if the link has been disabled
@@ -71,21 +71,20 @@ class LinkController extends Controller {
         // Return a 403 if the secret key is incorrect
         $link_secret_key = $link->secret_key;
         if ($link_secret_key) {
-        	if (!$secret_key) {
-        		// if we do not receieve a secret key
-        		// when we are expecting one, return a 403
-        		return abort(403);
-        	}
-        	else {
-        		if ($link_secret_key != $secret_key) {
-        			// a secret key is provided, but it is incorrect
-        			return abort(403);
-        		}
-        	}
+            if (!$secret_key) {
+                // if we do not receieve a secret key
+                // when we are expecting one, return a 403
+                return abort(403);
+            } else {
+                if ($link_secret_key != $secret_key) {
+                    // a secret key is provided, but it is incorrect
+                    return abort(403);
+                }
+            }
         }
 
         // Increment click count
-        $long_url = $link->long_url;
+        $long_url = LinkHelper::applyUtmToLink($link->long_url, $request->all());
         $clicks = intval($link->clicks);
 
         if (is_int($clicks)) {
@@ -101,5 +100,4 @@ class LinkController extends Controller {
         // Redirect to final destination
         return redirect()->to($long_url, 301);
     }
-
 }

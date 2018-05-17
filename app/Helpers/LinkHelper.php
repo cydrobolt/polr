@@ -1,7 +1,10 @@
 <?php
 namespace App\Helpers;
+
+use Illuminate\Support\Arr;
 use App\Models\Link;
 use App\Helpers\BaseHelper;
+use League\Uri;
 
 class LinkHelper {
     static public function checkIfAlreadyShortened($long_link) {
@@ -82,6 +85,23 @@ class LinkHelper {
         else {
             return $link->short_url;
         }
+    }
+
+    static public function applyUtmToLink($link, $inputs = []) {
+        $uri = Uri\parse($link);
+        $query = ($uri['query'])?Uri\extract_query($uri->getQuery()):[];
+        $utm_parameters = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        foreach ($utm_parameters as $key) {
+            if ($value = Arr::get($inputs, $key, env(strtoupper($key)))) {
+                $query[$key] = $value;
+            } elseif (env('UTM_STRIP_EXISTING') && Arr::get($query, $key)) {
+                unset($query[$key]);
+            }
+        }
+
+        $uri['query'] = Uri\build_query($query);
+
+        return Uri\build($uri);
     }
 
     static public function validateEnding($link_ending) {

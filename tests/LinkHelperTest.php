@@ -42,4 +42,11 @@ class LinkHelperTest extends TestCase
         // assert that nonexistent link ending returns false
         $this->assertEquals(LinkHelper::linkExists('nonexistent'), false);
     }
+
+    public function testAddingUtmToLink() {
+        $source_link = "https://www.example.com/?utm_source=original";
+
+        $this->assertEquals(LinkHelper::applyUtmToLink($source_link, ['utm_source' => 'changed', 'utm_campaign' => 'new']), "https://www.example.com/?utm_source=changed&utm_campaign=new");
+        $this->assertEquals(LinkHelper::applyUtmToLink($source_link, ['utm_campaign' => 'new']), "https://www.example.com/?utm_source=original&utm_campaign=new");
+    }
 }
