@@ -9,23 +9,19 @@ use App\Factories\LinkFactory;
 use App\Helpers\CryptoHelper;
 use App\Helpers\LinkHelper;
 use App\Helpers\ClickHelper;
-use League\Uri;
 
-class LinkController extends Controller
-{
+class LinkController extends Controller {
     /**
      * Show the admin panel, and process admin AJAX requests.
      *
      * @return Response
      */
 
-    private function renderError($message)
-    {
+    private function renderError($message) {
         return redirect(route('index'))->with('error', $message);
     }
 
-    public function performShorten(Request $request)
-    {
+    public function performShorten(Request $request) {
         if (env('SETTING_SHORTEN_PERMISSION') && !self::isLoggedIn()) {
             return redirect(route('index'))->with('error', 'You must be logged in to shorten links.');
         }
@@ -51,8 +47,7 @@ class LinkController extends Controller
         return view('shorten_result', ['short_url' => $short_url]);
     }
 
-    public function performRedirect(Request $request, $short_url, $secret_key=false)
-    {
+    public function performRedirect(Request $request, $short_url, $secret_key=false) {
         $link = Link::where('short_url', $short_url)
             ->first();
 
@@ -89,7 +84,7 @@ class LinkController extends Controller
         }
 
         // Increment click count
-        $long_url = $this->buildTargetUrl($link->long_url, $request);
+        $long_url = LinkHelper::applyUtmToLink($link->long_url, $request->all());
         $clicks = intval($link->clicks);
 
         if (is_int($clicks)) {
@@ -104,27 +99,5 @@ class LinkController extends Controller
         }
         // Redirect to final destination
         return redirect()->to($long_url, 301);
-    }
-
-    private function buildTargetUrl($long_url, $request = null)
-    {
-        try {
-            $uri = Uri\parse($long_url);
-            $query = ($uri['query'])?Uri\extract_query($uri->getQuery()):[];
-            $utm_parameters = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
-            foreach ($utm_parameters as $key) {
-                if ($value = $request->input($key, env(strtoupper($key)))) {
-                    $query[$key] = $value;
-                } elseif (env('UTM_STRIP_EXISTING') && isset($query[$key])) {
-                    unset($query[$key]);
-                }
-            }
-
-            $uri['query'] = Uri\build_query($query);
-
-            return Uri\build($uri);
-        } catch (\Exception $e) {
-            return $long_url;
-        }
     }
 }
