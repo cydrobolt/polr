@@ -48,13 +48,6 @@ class LinkFactory {
                 maximum length allowed.');
         }
 
-        $is_already_short = LinkHelper::checkIfAlreadyShortened($long_url);
-
-        if ($is_already_short) {
-            throw new \Exception('Sorry, but your link already
-                looks like a shortened URL.');
-        }
-
         if (!$is_secret && (!isset($custom_ending) || $custom_ending === '') && (LinkHelper::longLinkExists($long_url, $creator) !== false)) {
             // if link is not specified as secret, is non-custom, and
             // already exists in Polr, lookup the value and return
