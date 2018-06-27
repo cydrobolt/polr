@@ -5,11 +5,6 @@ use App\Models\Link;
 use Illuminate\Http\Request;
 
 class ClickHelper {
-    static private function getCountry($ip) {
-        $country_iso = geoip()->getLocation($ip)->iso_code;
-        return $country_iso;
-    }
-
     static private function getHost($url) {
         // Return host given URL; NULL if host is
         // not found.
@@ -29,7 +24,16 @@ class ClickHelper {
         $click = new Click;
         $click->link_id = $link->id;
         $click->ip = $ip;
-        $click->country = self::getCountry($ip);
+
+        $location = geoip()->getLocation($ip);
+
+        $click->country = $location->iso_code;
+        $click->city = $location->city;
+        $click->state = $location->state;
+        $click->state_name = $location->state_name;
+        $click->lat = $location->lat;
+        $click->lng = $location->lon;
+
         $click->referer = $referer;
         $click->referer_host = ClickHelper::getHost($referer);
         $click->user_agent = $request->server('HTTP_USER_AGENT');
