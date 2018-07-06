@@ -64,8 +64,6 @@ class SetupController extends Controller {
         $setup_auth_key = CryptoHelper::generateRandomHex(16);
 
         $app_name = $request->input('app:name');
-        $app_protocol = $request->input('app:protocol');
-
         $app_address = $request->input('app:external_url');
         $app_protocol = $request->input('app:protocol');
         $app_stylesheet = $request->input('app:stylesheet');
