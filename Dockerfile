@@ -1,4 +1,6 @@
 FROM php:7.2-fpm-alpine
+MAINTAINER George <george@arilot.com>
+
 RUN apk add --update --no-cache \
     curl-dev curl nginx supervisor && \
     mkdir /run/nginx
@@ -10,10 +12,9 @@ WORKDIR /usr/src/app
 COPY ./ /usr/src/app/
 COPY .env.setup /usr/src/app/.env
 
-USER www-data
-RUN curl -sS https://getcomposer.org/installer | php && php composer.phar install --no-dev -o
+RUN su - www-data -s /bin/ash -c 'curl -s https://getcomposer.org/installer | php'
+RUN su - www-data -s /bin/ash -c 'php composer.phar install --no-dev -o -d /usr/src/app'
 
-USER root
 RUN chown www-data:www-data /usr/src/app -R
 
 COPY ./deploy/nginx.conf /etc/nginx/nginx.conf
