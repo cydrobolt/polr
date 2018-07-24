@@ -44,7 +44,7 @@ class LinkController extends Controller {
             return self::renderError($e->getMessage());
         }
 
-        return view('shorten_result', ['short_url' => $short_url]);
+        return view($request->path() === 'admin/shorten' ? 'shorten_result_admin' : 'shorten_result', ['short_url' => $short_url]);
     }
 
     public function performRedirect(Request $request, $short_url, $secret_key=false) {
