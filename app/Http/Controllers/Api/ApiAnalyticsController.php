@@ -84,7 +84,7 @@ class ApiAnalyticsController extends ApiController {
         return self::encodeResponse([
                     'url_ending' => $link->short_url,
                     'data' => $fetched_stats,
-                        ], 'data_link_' . $stats_type, $response_type, false);
+        ], 'data_link_' . $stats_type, $response_type, false);
     }
 
 }
