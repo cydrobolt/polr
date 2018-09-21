@@ -145,7 +145,7 @@ class LinkHelper {
 
     static public function checkWhiteList($long_link) {
         /**
-         * Provided a long link (string)
+         * @param long_link a long link (string)
          * checks whether the link is on the whitelist or not
          * @return boolean
          */
@@ -167,7 +167,7 @@ class LinkHelper {
 
     static public function checkBlackList($long_link) {
         /**
-         * Provided a long link (string)
+         * @param long_link a long link (string)
          * checks whether the link is on the blacklist or not
          * @return boolean
          */

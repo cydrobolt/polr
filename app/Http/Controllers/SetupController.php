@@ -57,7 +57,7 @@ class SetupController extends Controller {
 
     public static function createRegexForDomains($url) {
         /**
-         * Provided a URL
+         * @param $url a tld domain (string)
          * creates the corresponding regex
          * @return string
          */
@@ -66,7 +66,9 @@ class SetupController extends Controller {
 
         // escapes all non word characters
         $add_escapes = function ($url) { return preg_replace("/(?:(\w*)(\W)(\w*))/m", '$1\\\$2$3', $url); };
+        // replaces "*." in front of a domain with the regex for subdomains
         $add_sub_domain = function ($url) { return preg_replace("/^(\\\\\*\\\\\.)(.*)$/m", '(?:.+\\\.)*$2', $url); };
+        // adds the missing regex syntax surrounding the actual regex
         $add_start_end = function ($url) { return preg_replace("/^(.*)$/m", '/^$1\$/m', $url); };
 
         $url_arr = array_map($add_escapes, $url_arr);
@@ -142,6 +144,7 @@ class SetupController extends Controller {
         $st_restrict_email_domain = $request->input('setting:restrict_email_domain');
         $st_allowed_email_domains = $request->input('setting:allowed_email_domains');
 
+        // sets the variables for the white/blacklist to '' or the corresponding regex
         $st_whitelisted_domains = empty($request->input('setting:whitelisted_domains')) ? '' :
             SetupController::createRegexForDomains($request->input('setting:whitelisted_domains'));
         $st_blacklisted_domains = empty($request->input('setting:blacklisted_domains')) ? '' :
