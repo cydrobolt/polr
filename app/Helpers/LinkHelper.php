@@ -142,4 +142,46 @@ class LinkHelper {
 
         return $base_x_val;
     }
+
+    static public function checkWhiteList($long_link) {
+        /**
+         * Provided a long link (string)
+         * checks whether the link is on the whitelist or not
+         * @return boolean
+         */
+
+        $white_list = explode(',', env('SETTING_WHITELISTED_DOMAINS'));
+//        echo "<script>console.log( 'ST_WHITELISTED_DOMAINS var_export: " . var_export(env('ST_WHITELISTED_DOMAINS'), true) . " ' );</script>";
+//        foreach ($white_list as $x) {echo "<script>console.log( 'ST_WHITELISTED_DOMAINS 8: " . $x . " ' );</script>";}
+
+        $url_host = parse_url($long_link, PHP_URL_HOST);
+//        echo "<script>console.log( 'url_host: " . print_r($url_host, true) . " ' );</script>";
+
+        foreach ($white_list as $allowed_url) {
+            if (preg_match($allowed_url, $url_host)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static public function checkBlackList($long_link) {
+        /**
+         * Provided a long link (string)
+         * checks whether the link is on the blacklist or not
+         * @return boolean
+         */
+
+        $black_list = explode(',', env('SETTING_BLACKLISTED_DOMAINS'));
+
+        $url_host = parse_url($long_link, PHP_URL_HOST);
+
+        foreach ($black_list as $blacklisted_url) {
+            if (preg_match($blacklisted_url, $url_host)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

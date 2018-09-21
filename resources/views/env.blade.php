@@ -97,6 +97,13 @@ POLR_RECAPTCHA_SITE_KEY="{{$POLR_RECAPTCHA_SITE_KEY}}"
 # reCAPTCHA secret key
 POLR_RECAPTCHA_SECRET_KEY="{{$POLR_RECAPTCHA_SECRET}}"
 
+# A comma-separated list of whitelisted domains
+SETTING_WHITELISTED_DOMAINS={{$ST_WHITELISTED_DOMAINS}}
+
+# A comma-separated list of blacklisted domains
+SETTING_BLACKLISTED_DOMAINS={{$ST_BLACKLISTED_DOMAINS}}
+
+
 # Set each to blank to disable mail
 @if($MAIL_ENABLED)
 MAIL_DRIVER=smtp

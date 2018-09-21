@@ -55,6 +55,29 @@ class SetupController extends Controller {
         return view('setup');
     }
 
+    public static function createRegexForDomains($url) {
+        /**
+         * Provided a URL
+         * creates the corresponding regex
+         * @return string
+         */
+
+        $url_arr = explode(',', $url);
+
+        // escapes all non word characters
+        $add_escapes = function ($url) { return preg_replace("/(?:(\w*)(\W)(\w*))/m", '$1\\\$2$3', $url); };
+        $add_sub_domain = function ($url) { return preg_replace("/^(\\\\\*\\\\\.)(.*)$/m", '(?:.+\\\.)*$2', $url); };
+        $add_start_end = function ($url) { return preg_replace("/^(.*)$/m", '/^$1\$/m', $url); };
+
+        $url_arr = array_map($add_escapes, $url_arr);
+        $url_arr = array_map($add_sub_domain, $url_arr);
+        $url_arr = array_map($add_start_end, $url_arr);
+
+        $url_regex = implode(',', $url_arr);
+
+        return $url_regex;
+    }
+
     public static function performSetup(Request $request) {
         if (env('POLR_SETUP_RAN')) {
             return self::setupAlreadyRan();
@@ -118,6 +141,10 @@ class SetupController extends Controller {
         $st_password_recov = $request->input('setting:password_recovery');
         $st_restrict_email_domain = $request->input('setting:restrict_email_domain');
         $st_allowed_email_domains = $request->input('setting:allowed_email_domains');
+//        TODO: enabled/disable white/black list
+        $st_whitelisted_domains = SetupController::createRegexForDomains($request->input('setting:whitelisted_domains'));
+        $st_blacklisted_domains = SetupController::createRegexForDomains($request->input('setting:blacklisted_domains'));
+
 
         $st_base = $request->input('setting:base');
         $st_auto_api_key = $request->input('setting:auto_api_key');
@@ -167,6 +194,8 @@ class SetupController extends Controller {
             'ST_ALLOWED_EMAIL_DOMAINS' => $st_allowed_email_domains,
             'POLR_RECAPTCHA_SITE_KEY' => $polr_recaptcha_site_key,
             'POLR_RECAPTCHA_SECRET' => $polr_recaptcha_secret_key,
+            'ST_WHITELISTED_DOMAINS' => $st_whitelisted_domains,
+            'ST_BLACKLISTED_DOMAINS' => $st_blacklisted_domains,
 
             'MAIL_ENABLED' => $mail_enabled,
             'MAIL_HOST' => $mail_host,
