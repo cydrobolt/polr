@@ -141,9 +141,11 @@ class SetupController extends Controller {
         $st_password_recov = $request->input('setting:password_recovery');
         $st_restrict_email_domain = $request->input('setting:restrict_email_domain');
         $st_allowed_email_domains = $request->input('setting:allowed_email_domains');
-//        TODO: enabled/disable white/black list
-        $st_whitelisted_domains = SetupController::createRegexForDomains($request->input('setting:whitelisted_domains'));
-        $st_blacklisted_domains = SetupController::createRegexForDomains($request->input('setting:blacklisted_domains'));
+
+        $st_whitelisted_domains = empty($request->input('setting:whitelisted_domains')) ? '' :
+            SetupController::createRegexForDomains($request->input('setting:whitelisted_domains'));
+        $st_blacklisted_domains = empty($request->input('setting:blacklisted_domains')) ? '' :
+            SetupController::createRegexForDomains($request->input('setting:blacklisted_domains'));
 
 
         $st_base = $request->input('setting:base');
