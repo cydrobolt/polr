@@ -1,42 +1,42 @@
 <?php
 
 return array(
-    'register' => [
+    'register' => array(
         'title'       => 'Register',
         'question'    => 'Don\'t have an account?',
         'register'    => 'Register',
         'registerbtn' => 'Register',
-        'form'        => [
-            'username' => [
+        'form'        => array(
+            'username' => array(
                 'label'       => 'Username:',
                 'placeholder' => 'Username',
                 'help'        => 'The username you will use to login to :app.',
-            ],
-            'password' => [
+            ),
+            'password' => array(
                 'label'       => 'Password:',
                 'placeholder' => 'Password',
                 'help'        => 'The secure password you will use to login to :app.',
-            ],
-            'email'    => [
+            ),
+            'email'    => array(
                 'label'       => 'Email:',
                 'placeholder' => 'Email',
                 'help'        => 'The email you will use to verify your account or to recover your account.',
-            ],
-        ],
-    ],
-    'login'    => [
+            ),
+        ),
+    ),
+    'login'    => array(
         'question' => 'Already have an account?',
         'login'    => 'Login',
         'title'    => 'Login',
         'loginbtn' => 'Login',
-        'form'     => [
+        'form'     => array(
             'username' => 'Username',
             'password' => 'Password',
-        ],
-    ],
-    'forgot'   => [
+        ),
+    ),
+    'forgot'   => array(
         'question'    => 'Forgot your password?',
         'resetpasswd' => 'Reset',
-    ],
+    ),
 
 );

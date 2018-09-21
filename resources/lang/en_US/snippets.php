@@ -10,7 +10,7 @@ return array(
     'logout'    => 'Logout',
     'login'     => 'Login',
     'close'     => 'Close',
-    'linktable' => [
+    'linktable' => array(
         'linkending' => 'Link Ending',
         'longlink'   => 'Long Link',
         'clicks'     => 'Clicks',
@@ -18,8 +18,8 @@ return array(
         'creator'    => 'Creator',
         'disable'    => 'Disable',
         'delete'     => 'Delete',
-    ],
-    'usertable' => [
+    ),
+    'usertable' => array(
         'username'  => 'Username',
         'email'     => 'Email',
         'createdat' => 'Created At',
@@ -27,5 +27,5 @@ return array(
         'api'       => 'API',
         'role'      => 'Role',
         'delete'    => 'Delete',
-    ],
+    ),
 );
