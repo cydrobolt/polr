@@ -1,7 +1,6 @@
 <?php
 
-return [
-
+return array(
     'register' => [
         'title'       => 'Register',
         'question'    => 'Don\'t have an account?',
@@ -40,4 +39,4 @@ return [
         'resetpasswd' => 'Reset',
     ],
 
-];
+);

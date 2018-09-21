@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
     'togglenav' => 'Toggle navigation',
     'about'     => 'About',
     'signin'    => 'Sign In',
@@ -28,4 +28,4 @@ return [
         'role'      => 'Role',
         'delete'    => 'Delete',
     ],
-];
+);

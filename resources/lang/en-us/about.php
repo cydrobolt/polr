@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
     'buildinfo' => [
         'title'      => 'Build Information',
         'version'    => 'Version: :ver',
@@ -14,4 +14,4 @@ return [
         'license'   => 'Polr is licensed under the GNU GPL License.',
     ],
     'moreinfo'      => 'More Information',
-];
+);
