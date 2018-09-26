@@ -1,7 +1,9 @@
 <?php
 
-return [
-    'buildinfo' => [
-        'release'    => 'Veröffentlichungsdatum: :reldate',
-    ],
-];
+    return [
+
+        'buildinfo' => [
+            'release'    => 'Veröffentlichungsdatum: :reldate',
+        ],
+
+    ];

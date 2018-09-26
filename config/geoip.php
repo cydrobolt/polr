@@ -55,14 +55,14 @@ return [
             'class' => \Torann\GeoIP\Services\MaxMindDatabase::class,
             'database_path' => storage_path('app/geoip.mmdb'),
             'update_url' => 'https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz',
-            'locales' => ['en'],
+            'locales' => ['en_US'],
         ],
 
         'maxmind_api' => [
             'class' => \Torann\GeoIP\Services\MaxMindWebService::class,
             'user_id' => env('MAXMIND_USER_ID'),
             'license_key' => env('MAXMIND_LICENSE_KEY'),
-            'locales' => ['en'],
+            'locales' => ['en_US'],
         ],
 
         'ipapi' => [

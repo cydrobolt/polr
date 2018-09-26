@@ -1,9 +1,9 @@
 <?php
 
-return [
+    return [
 
-    'public'            => 'Öffentlich',
-    'private'           => 'Privat',
-    'short'             => 'Kürzen',
+        'public'            => 'Öffentlich',
+        'private'           => 'Privat',
+        'short'             => 'Kürzen',
 
-];
+    ];
