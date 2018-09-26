@@ -146,9 +146,9 @@ class SetupController extends Controller {
 
         // sets the variables for the white/blacklist to '' or the corresponding regex
         $st_whitelisted_domains = empty($request->input('setting:whitelisted_domains')) ? '' :
-            SetupController::createRegexForDomains($request->input('setting:whitelisted_domains'));
+            self::createRegexForDomains($request->input('setting:whitelisted_domains'));
         $st_blacklisted_domains = empty($request->input('setting:blacklisted_domains')) ? '' :
-            SetupController::createRegexForDomains($request->input('setting:blacklisted_domains'));
+            self::createRegexForDomains($request->input('setting:blacklisted_domains'));
 
 
         $st_base = $request->input('setting:base');
