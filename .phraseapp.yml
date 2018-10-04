@@ -3,9 +3,10 @@ phraseapp:
   file_format: laravel
   push:
     sources:
-#    - file: ./resources/lang/<locale_code>/<tag>.php
-    - file: ./resources/lang/en/<tag>.php
-#      params:
+    - file: ./resources/lang/<locale_code>/<tag>.php
+#    - file: ./resources/lang/en/<tag>.php
+      params:
+        locale_code: en
 #        file_format: laravel
   pull:
     targets:
