@@ -1,9 +1,6 @@
 <?php
-
-    return [
-
-        'buildinfo' => [
-            'release'    => 'Veröffentlichungsdatum: :reldate',
-        ],
-
-    ];
+return array(
+	"buildinfo" => array(
+		"release" => "Veröffentlichungsdatum: :reldate",
+	),
+);
