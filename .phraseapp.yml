@@ -3,25 +3,25 @@ phraseapp:
   file_format: laravel
   push:
     sources:
-#    - file: ./resources/lang/<locale_code>/<tag>.php
-    - file: ./resources/lang/en/<tag>.php
+    - file: ./resources/lang/<locale_code>/<tag>.php
+#    - file: ./resources/lang/en/<tag>.php
 #      params:
 #        file_format: laravel
   pull:
     targets:
-    - file: ./resources/lang/<locale_code>/<tag>.php
+    - file: ./resources/lang/<locale_code>/about.php
       params:
         tag: about
 #        file_format: laravel
-    - file: ./resources/lang/<locale_code>/<tag>.php
+    - file: ./resources/lang/<locale_code>/account.php
       params:
         tag: account
-    - file: ./resources/lang/<locale_code>/<tag>.php
+    - file: ./resources/lang/<locale_code>/index.php
       params:
         tag: index
-    - file: ./resources/lang/<locale_code>/<tag>.php
+    - file: ./resources/lang/<locale_code>/snippets.php
       params:
         tag: snippets
-    - file: ./resources/lang/<locale_code>/<tag>.php
+    - file: ./resources/lang/<locale_code>/validation.php
       params:
         tag: validation
