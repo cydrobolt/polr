@@ -1,0 +1,27 @@
+phraseapp:
+  project_id: 1a5e1909ba1c536141639cd8fa24c3d2
+  file_format: laravel
+  push:
+    sources:
+#    - file: ./resources/lang/<locale_code>/<tag>.php
+    - file: ./resources/lang/en/<tag>.php
+#      params:
+#        file_format: laravel
+  pull:
+    targets:
+    - file: ./resources/lang/<locale_code>/<tag>.php
+      params:
+        tag: about
+#        file_format: laravel
+    - file: ./resources/lang/<locale_code>/<tag>.php
+      params:
+        tag: account
+    - file: ./resources/lang/<locale_code>/<tag>.php
+      params:
+        tag: index
+    - file: ./resources/lang/<locale_code>/<tag>.php
+      params:
+        tag: snippets
+    - file: ./resources/lang/<locale_code>/<tag>.php
+      params:
+        tag: validation
