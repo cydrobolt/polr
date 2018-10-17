@@ -51,7 +51,7 @@ LABEL maintainer="The Polr Community, https://polrproject.org/"
 LABEL description="Polr URL Shortener"
 
 # Configure Apache and PHP
-ENV APACHE_DOCUMENT_ROOT /var/lib/www/public
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 ENV APACHE_SERVER_NAME localhost
 
 RUN docker-php-ext-install pdo_mysql && \
