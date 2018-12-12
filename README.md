@@ -48,6 +48,7 @@ There are breaking changes between 2.x and 1.x; it is not yet possible to automa
 #### Libraries
 
 * Python - [mypolr](https://github.com/fauskanger/mypolr)
+* PHP - [northern-lights/polr-client](https://github.com/N0rthernL1ghts/polr-client)
 
 #### Acknowledgements
 We would like to thank Oregon State University's Open Source Lab for providing resources for our infrastructure. The Polr website and demo are hosted on their infrastructure.
