@@ -1,9 +1,6 @@
-<h3>Hello {{$username}}!</h3>
+<h3>{{ __('mail.password_reset.greet', ['username' => $username]) }}</h3>
 
-<p>
-    You may use the link located in this email to reset your password for your
-    account at {{env('APP_NAME')}}.
-</p>
+<p>{{ __('mail.password_reset.preset_confirm', ['app' => env('APP_NAME')]) }}</p>
 
 <a href='{{env('APP_PROTOCOL')}}{{env('APP_ADDRESS')}}/reset_password/{{$username}}/{{$recovery_key}}'>
     {{env('APP_PROTOCOL')}}{{env('APP_ADDRESS')}}/reset_password/{{$username}}/{{$recovery_key}}
@@ -11,11 +8,10 @@
 
 <br />
 
-<p>Thanks,</p>
-<p>The {{env('APP_NAME')}} team.</p>
+<p>{{ __('mail.password_reset.thanks') }}</p>
+<p>{{ __('mail.password_reset.team', ['app' => env('APP_NAME')]) }}</p>
 
 --
 <br />
-You received this email because someone with the IP {{$ip}} requested a password reset
-for an account at {{env('APP_PROTOCOL')}}{{env('APP_ADDRESS')}}. If this was not you,
-you may ignore this email.
+{{ __('mail.password_reset.footer', ['ip' => $ip, 'url' => env('APP_PROTOCOL') . env('APP_ADDRESS')]) }}
+
