@@ -23,7 +23,7 @@ you may be interested in looking at a [legacy 1.x release](https://github.com/cy
     - JSON PHP Extension
     - PHP curl extension
 
-## Downloading the source code
+## Download the source code
 
 If you would like to download a stable version of Polr, you may check out [the releases page](https://github.com/cydrobolt/polr/releases).
 
@@ -49,7 +49,7 @@ $ chown -R apache polr
 $ chcon -R -t httpd_sys_rw_content_t polr/storage polr/.env
 ```
 
-## Installing using `composer`
+## Install `composer` dependencies
 
 ```bash
 # download composer package
@@ -177,7 +177,7 @@ server {
 To run Polr on another HTTP server or on shared hosting, you will need to set the home
 directory to `/PATH_TO_POLR/public`, not the root Polr folder.
 
-## Creating the database
+## Create the database
 
 ### MySQL
 
