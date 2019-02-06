@@ -22,7 +22,7 @@ class SetupController extends Controller {
 
     private static function setupAlreadyRan() {
         return view('error', [
-            'message' => 'Sorry, but you have already completed the setup process.'
+            'message' => __('controller.setup.alreadyran')
         ]);
     }
 
@@ -189,7 +189,7 @@ class SetupController extends Controller {
         $handle = fopen('../.env', 'w');
         if (fwrite($handle, $compiled_configuration) === FALSE) {
             $response = view('error', [
-                'message' => 'Could not write configuration to disk.'
+                'message' => __('controller.setup.writeerror')
             ]);
         } else {
             Cache::flush();
@@ -229,23 +229,23 @@ class SetupController extends Controller {
         $transaction_authorised = env('TMP_SETUP_AUTH_KEY') == $setup_finish_args->setup_auth_key;
 
         if ($transaction_authorised != true) {
-            abort(403, 'Transaction unauthorised.');
+            abort(403, __('controller.setup.403'));
         }
 
         $database_created = self::createDatabase();
         if (!$database_created) {
-            return redirect(route('setup'))->with('error', 'Could not create database. Perhaps your credentials were incorrect?');
+            return redirect(route('setup'))->with('error', __('controller.setup.databasefail'));
         }
 
         if (env('SETTING_ADV_ANALYTICS')) {
             $geoip_db_created = self::updateGeoIP();
             if (!$geoip_db_created) {
-                return redirect(route('setup'))->with('error', 'Could not fetch GeoIP database for advanced analytics. Perhaps your server is not connected to the internet?');
+                return redirect(route('setup'))->with('error', __('controller.setup.geoipfail'));
             }
         }
 
         $user = UserFactory::createUser($setup_finish_args->acct_username, $setup_finish_args->acct_email, $setup_finish_args->acct_password, 1, $request->ip(), false, 0, UserHelper::$USER_ROLES['admin']);
 
-        return view('setup_thanks')->with('success', 'Set up completed! Thanks for using Polr!');
+        return view('setup_thanks')->with('success', __('controller.setup.success'));
     }
 }

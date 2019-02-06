@@ -39,7 +39,7 @@ class AdminPaginationController extends Controller {
             $btn_class = 'disabled';
         }
         return '<a ng-click="deleteUser($event, \''. $user->id .'\')" class="btn btn-sm btn-danger ' . $btn_class . '">
-            Delete
+            ' . __('controller.admin_pagination.delete') . '
         </a>';
     }
 
@@ -47,7 +47,7 @@ class AdminPaginationController extends Controller {
         // Add "Delete" action button
         return '<a ng-click="deleteLink($event, \'' . e($link->short_url)  . '\')"
             class="btn btn-sm btn-warning delete-link">
-            Delete
+            ' . __('controller.admin_pagination.delete') . '
         </a>';
     }
 
@@ -55,7 +55,7 @@ class AdminPaginationController extends Controller {
         // Add "API Info" action button
         return '<a class="activate-api-modal btn btn-sm btn-info"
             ng-click="openAPIModal($event, \'' . e($user->username) . '\', \'' . $user->api_key . '\', \'' . $user->api_active . '\', \'' . e($user->api_quota) . '\', \'' . $user->id . '\')">
-            API info
+            ' . __('controller.admin_pagination.api') . '
         </a>';
     }
 
@@ -67,11 +67,11 @@ class AdminPaginationController extends Controller {
         }
 
         if ($user->active) {
-            $active_text = 'Active';
+            $active_text = __('controller.admin_pagination.active');
             $btn_color_class = ' btn-success';
         }
         else {
-            $active_text = 'Inactive';
+            $active_text = __('controller.admin_pagination.inactive');
             $btn_color_class = ' btn-danger';
         }
 

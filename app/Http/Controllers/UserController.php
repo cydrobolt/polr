@@ -49,13 +49,13 @@ class UserController extends Controller {
             return redirect()->route('index');
         }
         else {
-            return redirect('login')->with('error', 'Invalid password or inactivated account. Try again.');
+            return redirect('login')->with('error', __('controller.user.invalidauth'));
         }
     }
 
     public function performSignup(Request $request) {
         if (env('POLR_ALLOW_ACCT_CREATION') == false) {
-            return redirect(route('index'))->with('error', 'Sorry, but registration is disabled.');
+            return redirect(route('index'))->with('error', __('controller.user.registerdisabled'));
         }
 
         if (env('POLR_ACCT_CREATION_RECAPTCHA')) {
@@ -66,7 +66,7 @@ class UserController extends Controller {
             $recaptcha_resp = $recaptcha->verify($gRecaptchaResponse, $request->ip());
 
             if (!$recaptcha_resp->isSuccess()) {
-                return redirect(route('signup'))->with('error', 'You must complete the reCAPTCHA to register.');
+                return redirect(route('signup'))->with('error', __('controller.user.wrongcaptcha'));
             }
         }
 
@@ -86,7 +86,7 @@ class UserController extends Controller {
             $permitted_email_domains = explode(',', env('SETTING_ALLOWED_EMAIL_DOMAINS'));
 
             if (!in_array($email_domain, $permitted_email_domains)) {
-                return redirect(route('signup'))->with('error', 'Sorry, your email\'s domain is not permitted to create new accounts.');
+                return redirect(route('signup'))->with('error', __('controller.user.forbiddenemail'));
             }
         }
 
@@ -97,7 +97,7 @@ class UserController extends Controller {
 
         if ($user_exists || $email_exists) {
             // if user or email email
-            return redirect(route('signup'))->with('error', 'Sorry, your email or username already exists. Try again.');
+            return redirect(route('signup'))->with('error', __('controller.user.takenemail'));
         }
 
         $acct_activation_needed = env('POLR_ACCT_ACTIVATION');
@@ -105,11 +105,11 @@ class UserController extends Controller {
         if ($acct_activation_needed == false) {
             // if no activation is necessary
             $active = 1;
-            $response = redirect(route('login'))->with('success', 'Thanks for signing up! You may now log in.');
+            $response = redirect(route('login'))->with('success', __('controller.user.registered'));
         }
         else {
             // email activation is necessary
-            $response = redirect(route('login'))->with('success', 'Thanks for signing up! Please confirm your email to continue.');
+            $response = redirect(route('login'))->with('success', __('controller.user.registeredemail'));
             $active = 0;
         }
 
@@ -130,7 +130,7 @@ class UserController extends Controller {
             ], function ($m) use ($user) {
                 $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
 
-                $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' account activation');
+                $m->to($user->email, $user->username)->subject(__('controller.user.mailsubject', ['app' => env('APP_NAME')]));
             });
         }
 
@@ -139,7 +139,7 @@ class UserController extends Controller {
 
     public function performSendPasswordResetCode(Request $request) {
         if (!env('SETTING_PASSWORD_RECOV')) {
-            return redirect(route('index'))->with('error', 'Password recovery is disabled.');
+            return redirect(route('index'))->with('error', __('controller.user.nopasswdrecover'));
         }
 
         $email = $request->input('email');
@@ -147,7 +147,7 @@ class UserController extends Controller {
         $user = UserHelper::getUserByEmail($email);
 
         if (!$user) {
-            return redirect(route('lost_password'))->with('error', 'Email is not associated with a user.');
+            return redirect(route('lost_password'))->with('error', __('controller.user.emailnotexists'));
         }
 
         $recovery_key = UserHelper::resetRecoveryKey($user->username);
@@ -157,10 +157,10 @@ class UserController extends Controller {
         ], function ($m) use ($user) {
             $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
 
-            $m->to($user->email, $user->username)->subject(env('APP_NAME') . ' Password Reset');
+            $m->to($user->email, $user->username)->subject(__('controller.user.passwdmailsubject', ['app' => env('APP_NAME')]));
         });
 
-        return redirect(route('index'))->with('success', 'Password reset email sent. Check your inbox for details.');
+        return redirect(route('index'))->with('success', __('controller.user.recoverpasswd'));
     }
 
     public function performActivation(Request $request, $username, $recovery_key) {
@@ -173,10 +173,10 @@ class UserController extends Controller {
             $user->save();
 
             UserHelper::resetRecoveryKey($username);
-            return redirect(route('login'))->with('success', 'Account activated. You may now login.');
+            return redirect(route('login'))->with('success', __('controller.user.activated'));
         }
         else {
-            return redirect(route('index'))->with('error', 'Username or activation key incorrect.');
+            return redirect(route('index'))->with('error', __('controller.user.incorrect'));
         }
     }
 
@@ -195,10 +195,10 @@ class UserController extends Controller {
             $user->save();
 
             UserHelper::resetRecoveryKey($username);
-            return redirect(route('login'))->with('success', 'Password reset. You may now login.');
+            return redirect(route('login'))->with('success', __('controller.user.passrecover'));
         }
         else {
-            return redirect(route('index'))->with('error', 'Username or reset key incorrect.');
+            return redirect(route('index'))->with('error', __('controller.user.passrecoverfail'));
         }
 
     }
