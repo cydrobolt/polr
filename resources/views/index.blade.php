@@ -18,10 +18,10 @@
         {{-- Show secret toggle only if using counter-based ending --}}
         <div class='btn-group btn-toggle visibility-toggler' data-toggle='buttons'>
             <label class='btn btn-primary btn-sm active'>
-                <input type='radio' name='options' value='p' checked /> @lang('index.public')
+                <input type='radio' name='options' value='p' checked /> {{ __('index.public') }}
             </label>
             <label class='btn btn-sm btn-default'>
-                <input type='radio' name='options' value='s' /> @lang('index.private')
+                <input type='radio' name='options' value='s' /> {{ __('index.private') }}
             </label>
         </div>
         @endif
@@ -32,18 +32,18 @@
                 <input type='text' autocomplete="off" class='form-control custom-url-field' name='custom-ending' />
             </div>
             <div>
-                <a href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>@lang('index.checkavailability')</a>
+                <a href='#' class='btn btn-success btn-xs check-btn' id='check-link-availability'>{{ __('index.checkavailability') }}</a>
                 <div id='link-availability-status'></div>
             </div>
         </div>
     </div>
-    <input type='submit' class='btn btn-info' id='shorten' value='@lang('index.short')' />
-    <a href='#' class='btn btn-warning' id='show-link-options'>@lang('index.linkoptions')</a>
+    <input type='submit' class='btn btn-info' id='shorten' value='{{ __('index.short') }}' />
+    <a href='#' class='btn btn-warning' id='show-link-options'>{{ __('index.linkoptions') }}</a>
     <input type="hidden" name='_token' value='{{csrf_token()}}' />
 </form>
 
 <div id='tips' class='text-muted tips'>
-    <i class='fa fa-spinner'></i> @lang('index.loadingtips')
+    <i class='fa fa-spinner'></i> {{ __('index.loadingtips') }}
 </div>
 @endsection
 

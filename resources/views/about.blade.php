@@ -13,20 +13,20 @@
 <div class='about-contents'>
     @if ($role == "admin")
     <dl>
-        <p>@lang('about.buildinfo.title')</p>
-        <dt>@lang('about.buildinfo.version', ['ver' => env('POLR_VERSION')])</dt>
-        <dt>@lang('about.buildinfo.release', ['reldate' => env('POLR_RELDATE')])</dt>
-        <dt>@lang('about.buildinfo.appinstall', ['appname' => env('APP_NAME'), 'appaddress' => env('APP_ADDRESS'), 'genat' => env('POLR_GENERATED_AT')])<dt>
+        <p>{{ __('about.buildinfo.title') }}</p>
+        <dt>{{ __('about.buildinfo.version', ['ver' => env('POLR_VERSION')]) }}</dt>
+        <dt>{{ __('about.buildinfo.release', ['reldate' => env('POLR_RELDATE')]) }}</dt>
+        <dt>{{ __('about.buildinfo.appinstall', ['appname' => env('APP_NAME'), 'appaddress' => env('APP_ADDRESS'), 'genat' => env('POLR_GENERATED_AT')]) }}<dt>
     </dl>
-    <p>@lang('about.buildinfo.admin')</p>
+    <p>{{ __('about.buildinfo.admin') }}</p>
     @endif
 
-    <p>@lang('about.about.powered', ['app' => env('APP_NAME')])
-        @lang('about.about.learnmore')
-        <br />@lang('about.about.license')
+    <p>{{ __('about.about.powered', ['app' => env('APP_NAME')]) }}
+        {{ __('about.about.learnmore') }}
+        <br />{{ __('about.about.license') }}
     </p>
 </div>
-<a href='#' class='btn btn-success license-btn'>@lang('about.moreinfo')</a>
+<a href='#' class='btn btn-success license-btn'>{{ __('about.moreinfo') }}</a>
 <pre class="license" id="gpl-license">
 Copyright (C) 2013-2017 Chaoyi Zha
 
