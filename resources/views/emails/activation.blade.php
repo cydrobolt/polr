@@ -1,7 +1,6 @@
-<h3>Hello {{$username}}!</h3>
+<h3>{{ __('mail.activation.greet', ['username' => $username]) }}</h3>
 
-<p>Thanks for registering at {{env('APP_NAME')}}. To use your account,
-you will need to activate it by clicking the following link:</p>
+<p>{{ __('mail.activation.register_confirm', ['app' => env('APP_NAME')]) }}</p>
 
 <br />
 
@@ -11,11 +10,9 @@ you will need to activate it by clicking the following link:</p>
 
 <br />
 
-<p>Thanks,</p>
-<p>The {{env('APP_NAME')}} team.</p>
+<p>{{ __('mail.activation.thanks') }}</p>
+<p>{{ __('mail.activation.team', ['app' => env('APP_NAME')]) }}</p>
 
 --
 <br />
-You received this email because someone with the IP {{$ip}} signed up
-for an account at {{env('APP_PROTOCOL')}}{{env('APP_ADDRESS')}}. If this was not you,
-you may ignore this email.
+{{ __('mail.activation.footer', ['ip' => $ip, 'url' => env('APP_PROTOCOL') . env('APP_ADDRESS')]) }}

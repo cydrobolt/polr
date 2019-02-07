@@ -13,20 +13,20 @@
 <div class='about-contents'>
     @if ($role == "admin")
     <dl>
-        <p>Build Information</p>
-        <dt>Version: {{env('POLR_VERSION')}}</dt>
-        <dt>Release date: {{env('POLR_RELDATE')}}</dt>
-        <dt>App Install: {{env('APP_NAME')}} on {{env('APP_ADDRESS')}} on {{env('POLR_GENERATED_AT')}}<dt>
+        <p>{{ __('about.buildinfo.title') }}</p>
+        <dt>{{ __('about.buildinfo.version', ['ver' => env('POLR_VERSION')]) }}</dt>
+        <dt>{{ __('about.buildinfo.release', ['reldate' => env('POLR_RELDATE')]) }}</dt>
+        <dt>{{ __('about.buildinfo.appinstall', ['appname' => env('APP_NAME'), 'appaddress' => env('APP_ADDRESS'), 'genat' => env('POLR_GENERATED_AT')]) }}<dt>
     </dl>
-    <p>You are seeing the information above because you are logged in as an administrator.</p>
+    <p>{{ __('about.buildinfo.admin') }}</p>
     @endif
 
-    <p>{{env('APP_NAME')}} is powered by Polr 2, an open source, minimalist link shortening platform.
-        Learn more at <a href='https://github.com/Cydrobolt/polr'>its Github page</a> or its <a href="//project.polr.me">project site</a>.
-        <br />Polr is licensed under the GNU GPL License.
+    <p>{{ __('about.about.powered', ['app' => env('APP_NAME')]) }}
+        {{ __('about.about.learnmore') }}
+        <br />{{ __('about.about.license') }}
     </p>
 </div>
-<a href='#' class='btn btn-success license-btn'>More Information</a>
+<a href='#' class='btn btn-success license-btn'>{{ __('about.moreinfo') }}</a>
 <pre class="license" id="gpl-license">
 Copyright (C) 2013-2017 Chaoyi Zha
 

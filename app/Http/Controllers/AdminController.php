@@ -16,7 +16,7 @@ class AdminController extends Controller {
 
     public function displayAdminPage(Request $request) {
         if (!$this->isLoggedIn()) {
-            return redirect(route('login'))->with('error', 'Please login to access your dashboard.');
+            return redirect(route('login'))->with('error', __('controller.admin.please_login'));
         }
 
         $username = session('username');
@@ -25,7 +25,7 @@ class AdminController extends Controller {
         $user = UserHelper::getUserByUsername($username);
 
         if (!$user) {
-            return redirect(route('index'))->with('error', 'Invalid or disabled account.');
+            return redirect(route('index'))->with('error', __('controller.admin.invalid'));
         }
 
         return view('admin', [
@@ -50,7 +50,7 @@ class AdminController extends Controller {
 
         if (UserHelper::checkCredentials($username, $old_password) == false) {
             // Invalid credentials
-            return redirect('admin')->with('error', 'Current password invalid. Try again.');
+            return redirect('admin')->with('error', __('controller.admin.oldpasswdinvalid'));
         }
         else {
             // Credentials are correct
@@ -58,7 +58,7 @@ class AdminController extends Controller {
             $user->password = Hash::make($new_password);
             $user->save();
 
-            $request->session()->flash('success', "Password changed successfully.");
+            $request->session()->flash('success', __('controller.admin.passchangesuccess'));
             return redirect(route('admin'));
         }
     }

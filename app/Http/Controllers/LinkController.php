@@ -22,7 +22,7 @@ class LinkController extends Controller {
 
     public function performShorten(Request $request) {
         if (env('SETTING_SHORTEN_PERMISSION') && !self::isLoggedIn()) {
-            return redirect(route('index'))->with('error', 'You must be logged in to shorten links.');
+            return redirect(route('index'))->with('error', __('controller.link.login'));
         }
 
         // Validate URL form data
@@ -64,7 +64,7 @@ class LinkController extends Controller {
             }
 
             return view('error', [
-                'message' => 'Sorry, but this link has been disabled by an administrator.'
+                'message' => __('controller.link.disabled')
             ]);
         }
 
