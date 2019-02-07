@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('snippets.close') }}</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    <!-- <button type="button" class="btn btn-primary">{{ __('snippets.save') }}</button> -->
                 </div>
             </div> <!-- /.modal-content -->
         </div> <!-- /.modal-dialog -->

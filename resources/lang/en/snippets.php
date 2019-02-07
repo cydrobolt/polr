@@ -10,6 +10,7 @@ return [
     'logout'    => 'Logout',
     'login'     => 'Login',
     'close'     => 'Close',
+    'save'      => 'Save changes',
     'linktable' => [
         'linkending' => 'Link Ending',
         'longlink'   => 'Long Link',

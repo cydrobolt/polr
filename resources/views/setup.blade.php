@@ -23,219 +23,218 @@ Setup
         </div>
 
         <form class='setup-form' method='POST' action='/setup'>
-            <h4>Database Configuration</h4>
+            <h4>{{ __('setup.database') }}</h4>
 
-            <p>Database Host:</p>
+            <p>{{ __('setup.database.host') }}</p>
             <input type='text' class='form-control' name='db:host' value='localhost'>
 
-            <p>Database Port:</p>
+            <p>{{ __('setup.database.port') }}</p>
             <input type='text' class='form-control' name='db:port' value='3306'>
 
-            <p>Database Username:</p>
+            <p>{{ __('setup.database.username') }}</p>
             <input type='text' class='form-control' name='db:username' value='root'>
 
-            <p>Database Password:</p>
+            <p>{{ __('setup.database.password') }}</p>
             <input type='password' class='form-control' name='db:password' value='password'>
 
             <p>
-                Database Name:
-                <setup-tooltip content="Name of existing database. You must create the Polr database manually."></setup-tooltip>
+                {{ __('setup.database.name') }}
+                <setup-tooltip content="{{ __('setup.database.nametooltip') }}"></setup-tooltip>
             </p>
             <input type='text' class='form-control' name='db:name' value='polr'>
 
 
-            <h4>Application Settings</h4>
+            <h4>{{ __('setup.app') }}</h4>
 
-            <p>Application Name:</p>
+            <p>{{ __('setup.app.name') }}</p>
             <input type='text' class='form-control' name='app:name' value='Polr'>
 
-            <p>Application Protocol:</p>
+            <p>{{ __('setup.app.protocol') }}</p>
             <input type='text' class='form-control' name='app:protocol' value='http://'>
 
-            <p>Application URL (path to Polr; do not include http:// or trailing slash):</p>
+            <p>{{ __('setup.app.url') }}</p>
             <input type='text' class='form-control' name='app:external_url' value='yoursite.com'>
 
             <p>
-                Advanced Analytics:
-                <button data-content="Enable advanced analytics to collect data such as referers, geolocation, and clicks over time. Enabling advanced analytics reduces performance and increases disk space usage."
+                {{ __('setup.advanalytics') }}
+                <button data-content="{{ __('setup.app.advanalytics.tooltip') }}"
                     type="button" class="btn btn-xs btn-default setup-qmark" data-toggle="popover">?</button>
             </p>
             <select name='setting:adv_analytics' class='form-control'>
-                <option value='false' selected='selected'>Disable advanced analytics</option>
-                <option value='true'>Enable advanced analytics</option>
+                <option value='false' selected='selected'>{{ __('setup.app.advanalytics.disable') }}</option>
+                <option value='true'>{{ __('setup.app.advanalytics.enable') }}</option>
             </select>
 
-            <p>Shortening Permissions:</p>
+            <p>{{ __('setup.app.perm') }}</p>
             <select name='setting:shorten_permission' class='form-control'>
-                <option value='false' selected='selected'>Anyone can shorten URLs</option>
-                <option value='true'>Only logged in users may shorten URLs</option>
+                <option value='false' selected='selected'>{{ __('setup.app.perm.anyone') }}</option>
+                <option value='true'>{{ __('setup.app.perm.logged') }}</option>
             </select>
 
-            <p>Public Interface:</p>
+            <p>{{ __('setup.app.public') }}</p>
             <select name='setting:public_interface' class='form-control'>
-                <option value='true' selected='selected'>Show public interface (default)</option>
-                <option value='false'>Redirect index page to redirect URL</option>
+                <option value='true' selected='selected'>{{ __('setup.app.public.enable') }}</option>
+                <option value='false'>{{ __('setup.app.public.disable') }}</option>
             </select>
 
-            <p>404s and Disabled Short Links:</p>
+            <p>{{ __('setup.app.disabled') }}</p>
             <select name='setting:redirect_404' class='form-control'>
-                <option value='false' selected='selected'>Show an error message (default)</option>
-                <option value='true'>Redirect to redirect URL</option>
+                <option value='false' selected='selected'>{{ __('setup.app.disabled.err') }}</option>
+                <option value='true'>{{ __('setup.app.disabled.redir') }}</option>
             </select>
 
             <p>
-                Redirect URL:
-                <setup-tooltip content="Required if you wish to redirect the index page or 404s to a different website. To use Polr, login by directly heading to yoursite.com/login first."></setup-tooltip>
+                {{ __('setup.app.redirurl') }}
+                <setup-tooltip content="{{ __('setup.app.redirurl.tooltip') }}"></setup-tooltip>
             </p>
             <input type='text' class='form-control' name='setting:index_redirect' placeholder='http://your-main-site.com'>
             <p class='text-muted'>
-                If a redirect is enabled, you will need to go to
-                http://yoursite.com/login before you can access the index
-                page.
+                {{ __('setup.app.redirurl.tooltip2') }}
             </p>
 
             <p>
-                Default URL Ending Type:
-                <setup-tooltip content="If you choose to use pseudorandom strings, you will not have the option to use a counter-based ending."></setup-tooltip>
+                {{ __('setup.app.urlendingtype') }}
+                <setup-tooltip content="{{ __('setup.app.urlendingtype.tooltip') }}"></setup-tooltip>
             </p>
             <select name='setting:pseudor_ending' class='form-control'>
-                <option value='false' selected='selected'>Use base62 or base32 counter (shorter but more predictable, e.g 5a)</option>
-                <option value='true'>Use pseudorandom strings (longer but less predictable, e.g 6LxZ3j)</option>
+                <option value='false' selected='selected'>{{ __('setup.app.urlendingtype.base') }}</option>
+                <option value='true'>{{ __('setup.app.urlendingtype.strings') }}</option>
             </select>
 
             <p>
-                URL Ending Base:
-                <setup-tooltip content="This will have no effect if you choose to use pseudorandom endings."></setup-tooltip>
+                {{ __('setup.app.urlendingbase') }}
+                <setup-tooltip content="{{ __('setup.app.urlendingbase.tooltip') }}"></setup-tooltip>
             </p>
             <select name='setting:base' class='form-control'>
-                <option value='32' selected='selected'>32 -- lowercase letters & numbers (default)</option>
-                <option value='62'>62 -- lowercase, uppercase letters & numbers</option>
+                <option value='32' selected='selected'>{{ __('setup.app.urlendingbase.32') }}</option>
+                <option value='62'>{{ __('setup.app.urlendingbase.62') }}</option>
             </select>
 
             <h4>
-                Admin Account Settings
-                <setup-tooltip content="These credentials will be used for your admin account in Polr."></setup-tooltip>
+                {{ __('setup.admin') }}
+                <setup-tooltip content="{{ __('setup.admin.tooltip') }}"></setup-tooltip>
             </h4>
 
-            <p>Admin Username:</p>
+            <p>{{ __('setup.admin.username') }}</p>
             <input type='text' class='form-control' name='acct:username' value='polr'>
 
-            <p>Admin Email:</p>
+            <p>{{ __('setup.admin.email') }}</p>
             <input type='text' class='form-control' name='acct:email' value='polr@admin.tld'>
 
-            <p>Admin Password:</p>
+            <p>{{ __('setup.admin.password') }}</p>
             <input type='password' class='form-control' name='acct:password' value='polr'>
 
             <h4>
-                SMTP Settings
-                <setup-tooltip content="Required only if the email verification or password recovery features are enabled."></setup-tooltip>
+                {{ __('setup.smtp') }}
+                <setup-tooltip content="{{ __('setup.smtp.tooltip') }}"></setup-tooltip>
             </h4>
 
-            <p>SMTP Server:</p>
+            <p>{{ __('setup.smtp.server') }}</p>
             <input type='text' class='form-control' name='app:smtp_server' placeholder='smtp.gmail.com'>
 
-            <p>SMTP Port:</p>
+            <p>{{ __('setup.smtp.port') }}</p>
             <input type='text' class='form-control' name='app:smtp_port' placeholder='25'>
 
-            <p>SMTP Username:</p>
+            <p>{{ __('setup.smtp.username') }}</p>
             <input type='text' class='form-control' name='app:smtp_username' placeholder='example@gmail.com'>
 
-            <p>SMTP Password:</p>
+            <p>{{ __('setup.smtp.password') }}</p>
             <input type='password' class='form-control' name='app:smtp_password' placeholder='password'>
 
-            <p>SMTP From:</p>
+            <p>{{ __('setup.smtp.from') }}</p>
             <input type='text' class='form-control' name='app:smtp_from' placeholder='example@gmail.com'>
-            <p>SMTP From Name:</p>
+            <p>{{ __('setup.smtp.fromname') }}</p>
             <input type='text' class='form-control' name='app:smtp_from_name' placeholder='noreply'>
 
-            <h4>API Settings</h4>
+            <h4>{{ __('setup.api') }}</h4>
 
-            <p>Anonymous API:</p>
+            <p>{{ __('setup.api.anonymous') }}</p>
             <select name='setting:anon_api' class='form-control'>
-                <option selected value='false'>Off -- only registered users can use API</option>
-                <option value='true'>On -- empty key API requests are allowed</option>
+                <option selected value='false'>{{ __('setup.api.anonymous.off') }}</option>
+                <option value='true'>{{ __('setup.api.anonymous.on') }}</option>
             </select>
 
             <p>
-                Anonymous API Quota:
-                <setup-tooltip content="API quota for non-authenticated users per minute per IP."></setup-tooltip>
+                {{ __('setup.api.quota') }}
+                <setup-tooltip content="{{ __('setup.api.quota.tooltip') }}"></setup-tooltip>
             </p>
             <input type='text' class='form-control' name='setting:anon_api_quota' placeholder='10'>
 
-            <p>Automatic API Assignment:</p>
+            <p>{{ __('setup.api.autoapi') }}</p>
             <select name='setting:auto_api_key' class='form-control'>
-                <option selected value='false'>Off -- admins must manually enable API for each user</option>
-                <option value='true'>On -- each user receives an API key on signup</option>
+                <option selected value='false'>{{ __('setup.api.autoapi.off') }}</option>
+                <option value='true'>{{ __('setup.api.autoapi.on') }}</option>
             </select>
 
-            <h4>Other Settings</h4>
+            <h4>{{ __('setup.other') }}</h4>
 
             <p>
-                Registration:
-                <setup-tooltip content="Enabling registration allows any user to create an account."></setup-tooltip>
+                {{ __('setup.other.register') }}
+                <setup-tooltip content="{{ __('setup.other.register') }}"></setup-tooltip>
             </p>
             <select name='setting:registration_permission' class='form-control'>
-                <option value='none'>Registration disabled</option>
-                <option value='email'>Enabled, email verification required</option>
-                <option value='no-verification'>Enabled, no email verification required</option>
+                <option value='none'>{{ __('setup.other.register.off') }}</option>
+                <option value='email'>{{ __('setup.other.register.email') }}</option>
+                <option value='no-verification'>{{ __('setup.other.register.on') }}</option>
             </select>
 
             <p>
-                Restrict Registration Email Domains:
-                <setup-tooltip content="Restrict registration to certain email domains."></setup-tooltip>
+                {{ __('setup.other.restrictemail') }}
+                <setup-tooltip content="{{ __('setup.other.restrictemail.tooltip') }}"></setup-tooltip>
             </p>
             <select name='setting:restrict_email_domain' class='form-control'>
-                <option value='false'>Allow any email domain to register</option>
-                <option value='true'>Restrict email domains allowed to register</option>
+                <option value='false'>{{ __('setup.other.restrictemail.any') }}</option>
+                <option value='true'>{{ __('setup.other.restrictemail.restrict') }}</option>
             </select>
 
             <p>
-                Permitted Email Domains:
-                <setup-tooltip content="A comma-separated list of emails permitted to register."></setup-tooltip>
+                {{ __('setup.other.restrictemail.emaillist') }}
+                <setup-tooltip content="{{ __('setup.other.restrictemail.listtooltip') }}"></setup-tooltip>
             </p>
             <input type='text' class='form-control' name='setting:allowed_email_domains' placeholder='company.com,company-corp.com'>
 
             <p>
-                Password Recovery:
-                <setup-tooltip content="Password recovery allows users to reset their password through email."></setup-tooltip>
+                {{ __('setup.other.passwordrecover') }}
+                <setup-tooltip content="{{ __('setup.other.passwordrecover.tooltip') }}"></setup-tooltip>
             </p>
             <select name='setting:password_recovery' class='form-control'>
-                <option value='false'>Password recovery disabled</option>
-                <option value='true'>Password recovery enabled</option>
+                <option value='false'>{{ __('setup.other.passwordrecover.disabled') }}</option>
+                <option value='true'>{{ __('setup.other.passwordrecover.enabled') }}</option>
             </select>
             <p class='text-muted'>
-                Please ensure SMTP is properly set up before enabling password recovery.
+                {{ __('setup.other.passwordrecover.tooltip2') }}
             </p>
 
             <p>
-                Require reCAPTCHA for Registrations
-                <setup-tooltip content="You must provide your reCAPTCHA keys to use this feature."></setup-tooltip>
+                {{ __('setup.other.recaptcha') }}
+                <setup-tooltip content="{{ __('setup.other.recaptcha.tooltip') }}"></setup-tooltip>
             </p>
             <select name='setting:acct_registration_recaptcha' class='form-control'>
-                <option value='false'>Do not require reCAPTCHA for registration</option>
-                <option value='true'>Require reCATPCHA for registration</option>
+                <option value='false'>{{ __('setup.other.recaptcha.notrequire') }}</option>
+                <option value='true'>{{ __('setup.other.recaptcha.require') }}</option>
             </select>
 
             <p>
-                reCAPTCHA Configuration:
-                <setup-tooltip content="You must provide reCAPTCHA keys if you intend to use any reCAPTCHA-dependent features."></setup-tooltip>
+                {{ __('setup.other.recaptcha.config') }}
+                <setup-tooltip content="{{ __('setup.other.recaptcha.config.tooltip') }}"></setup-tooltip>
             </p>
 
             <p>
-                reCAPTCHA Site Key
+                {{ __('setup.other.recaptcha.config.site') }}
             </p>
             <input type='text' class='form-control' name='setting:recaptcha_site_key'>
 
             <p>
-                reCAPTCHA Secret Key
+                {{ __('setup.other.recaptcha.config.secret') }}
             </p>
             <input type='text' class='form-control' name='setting:recaptcha_secret_key'>
 
             <p class='text-muted'>
                 You can obtain reCAPTCHA keys from <a href="https://www.google.com/recaptcha/admin">Google's reCAPTCHA website</a>.
+                {{ __('setup.other.recaptcha.config.text', ['link' => '<a href="https://www.google.com/recaptcha/admin">' . __('setup.other.recaptcha.config.link') . '</a>']) }}
             </p>
 
-            <p>Theme (<a href='https://github.com/cydrobolt/polr/wiki/Themes-Screenshots'>screenshots</a>):</p>
+            <p>{{ __('setup.other.theme', ['link' => '<a href="https://github.com/cydrobolt/polr/wiki/Themes-Screenshots">' . __('setup.other.theme.link') . '</a>']) }}</p>
             <select name='app:stylesheet' class='form-control'>
                 <option value=''>Modern (default)</option>
                 <option value='//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css'>Midnight Black</option>
@@ -254,8 +253,8 @@ Setup
             </select>
 
             <div class='setup-form-buttons'>
-                <input type='submit' class='btn btn-success' value='Install'>
-                <input type='reset' class='btn btn-warning' value='Clear Fields'>
+                <input type='submit' class='btn btn-success' value='{{ __('setup.submit') }}'>
+                <input type='reset' class='btn btn-warning' value='{{ __('setup.clear') }}'>
             </div>
             <input type="hidden" name='_token' value='{{csrf_token()}}' />
         </form>
@@ -265,18 +264,16 @@ Setup
 </div>
 
 <div class='setup-footer well'>
-    Polr is <a href='https://opensource.org/osd' target='_blank'>open-source
-    software</a> licensed under the <a href='//www.gnu.org/copyleft/gpl.html'>GPLv2+
-    License</a>.
+    {{ __('setup.footer.opensource', ['link1' => '<a href="https://opensource.org/osd" target="_"blank">' . __('setup.footer.opensource.link1') . '</a>', 'link2' => '<a href="//www.gnu.org/copyleft/gpl.html">' . __('setup.footer.opensource.link2') . '</a>']) }}
 
     <div>
-        Polr Version {{env('VERSION')}} released {{env('VERSION_RELMONTH')}} {{env('VERSION_RELDAY')}}, {{env('VERSION_RELYEAR')}} -
+        {{ __('setup.footer.version', ['version' => env('VERSION'), 'month' => env('VERSION_RELMONTH'), 'day' => env('VERSION_RELDAY'), 'year' => env('VERSION_RELYEAR')]) }} -
         <a href='//github.com/cydrobolt/polr' target='_blank'>Github</a>
 
         <div class='footer-well'>
-            &copy; Copyright {{env('VERSION_RELYEAR')}}
-            <a class='footer-link' href='//cydrobolt.com' target='_blank'>Chaoyi Zha</a> &amp;
-            <a class='footer-link' href='//github.com/Cydrobolt/polr/graphs/contributors' target='_blank'>other Polr contributors</a>
+            &copy; {{ __('setup.footer.copyright', ['year' => env('VERSION_RELYEAR')]) }}
+            <a class='footer-link' href='//cydrobolt.com' target='_blank'>Chaoyi Zha</a> {{ __('setup.footer.ampersand') }}
+            <a class='footer-link' href='//github.com/Cydrobolt/polr/graphs/contributors' target='_blank'>{{ __('setup.footer.other') }}</a>
         </div>
     </div>
 </div>
