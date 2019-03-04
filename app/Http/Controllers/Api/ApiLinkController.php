@@ -138,28 +138,35 @@ class ApiLinkController extends ApiController {
         }
     }
 
-    public function findByLongLink(Request $request) {
+    public function findByLongLink(Request $request)
+    {
+        $response_type = $request->input('response_type');
+        $user = $request->user;
 
-        $response_type = $request->input('response_type', 'json');
-        if ($response_type != 'json') {
-            throw new ApiException('JSON_ONLY', 'Only JSON-encoded responses are available for this endpoint.', 401, $response_type);
-        }
+        $validator = \Validator::make(array_merge([
+            'url' => str_replace(' ', '%20', $request->input('url'))
+        ], $request->except('url')), [
+            'url' => 'required|url'
+        ]);
 
-        $long_url = urldecode(trim($request->input('long_url')));
-        if (empty($long_url)) {
+        if ($validator->fails()) {
             throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
         }
 
-        $user = $request->user;
-
-        $short_url = LinkHelper::longLinkExists($long_url, $user->username);
-        if ($short_url) {
-            return self::encodeResponse([
-                'short_url' => LinkFactory::formatLink($short_url),
-                'long_url'  => $long_url
-            ], 'find_by_long', 'json');
+        $short_url = LinkHelper::longLinkExists($request->input('url'), $user->username);
+        if (!empty($short_url)) {
+            $formatted_link = LinkFactory::formatLink($short_url);
         } else {
-            throw new ApiException('NOT_FOUND', 'Link not found.', 404, $response_type);
+            $formatted_link = $this->getShortenedLink(
+                $request->input('url'),
+                ($request->input('is_secret') == 'true' ? true : false),
+                $request->input('custom_ending'),
+                $request->ip(),
+                $user->username,
+                $response_type
+            );
         }
+
+        return self::encodeResponse($formatted_link, 'find_by_long', $response_type);
     }
 }
