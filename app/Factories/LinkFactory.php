@@ -9,7 +9,7 @@ use App\Helpers\LinkHelper;
 class LinkFactory {
     const MAXIMUM_LINK_LENGTH = 65535;
 
-    private static function formatLink($link_ending, $secret_ending=false) {
+    public static function formatLink($link_ending, $secret_ending=false) {
         /**
         * Given a link ending and a boolean indicating whether a secret ending is needed,
         * return a link formatted with app protocol, app address, and link ending.

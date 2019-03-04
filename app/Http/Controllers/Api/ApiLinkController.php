@@ -137,4 +137,29 @@ class ApiLinkController extends ApiController {
             throw new ApiException('NOT_FOUND', 'Link not found.', 404, $response_type);
         }
     }
+
+    public function findByLongLink(Request $request) {
+
+        $response_type = $request->input('response_type', 'json');
+        if ($response_type != 'json') {
+            throw new ApiException('JSON_ONLY', 'Only JSON-encoded responses are available for this endpoint.', 401, $response_type);
+        }
+
+        $long_url = urldecode(trim($request->input('long_url')));
+        if (empty($long_url)) {
+            throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
+        }
+
+        $user = $request->user;
+
+        $short_url = LinkHelper::longLinkExists($long_url, $user->username);
+        if ($short_url) {
+            return self::encodeResponse([
+                'short_url' => LinkFactory::formatLink($short_url),
+                'long_url'  => $long_url
+            ], 'find_by_long', 'json');
+        } else {
+            throw new ApiException('NOT_FOUND', 'Link not found.', 404, $response_type);
+        }
+    }
 }
