@@ -53,7 +53,8 @@ class LinkController extends Controller {
 
         // Return 404 if link not found
         if ($link == null) {
-        	return abort(404);
+            $link = Link::where('short_url', 'home')
+                ->first();
         }
 
         // Return an error if the link has been disabled
