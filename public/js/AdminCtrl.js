@@ -152,12 +152,15 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
                 "ajax": BASE_API_PATH + 'admin/get_admin_links',
 
                 "columns": [
-                    {className: 'wrap-text', data: 'short_url', name: 'short_url', width: '10%'},
+                    {className: 'wrap-text', data: 'short_url', name: 'short_url'},
                     {className: 'wrap-text', data: 'long_url', name: 'long_url'},
-                    {data: 'clicks', name: 'clicks', width: '10%'},
-                    {data: 'created_at', name: 'created_at', width: '18%'},
-                    {data: 'creator', name: 'creator', width: '20%'},
-                    {data: 'control', name: 'control', orderable: false, searchable: false, width: '15%'},
+                    {data: 'clicks', name: 'clicks'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'creator', name: 'creator'},
+
+                    {data: 'disable', name: 'disable', orderable: false, searchable: false},
+                    {data: 'delete', name: 'delete', orderable: false, searchable: false}
+
                 ]
             }, datatables_config));
         }
@@ -264,14 +267,16 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
 
     // Delete user
     $scope.deleteUser = function($event, user_id) {
-        var el = $($event.target);
+        var delete_user_confirm = window.confirm('Are you sure you would like to delete this user?');
 
-        apiCall('admin/delete_user', {
-            'user_id': user_id,
-        }, function(new_status) {
-            toastr.success('User successfully deleted.', 'Success');
-            $scope.reloadUserTables();
-        });
+        if (delete_user_confirm) {
+            apiCall('admin/delete_user', {
+                'user_id': user_id,
+            }, function(new_status) {
+                toastr.success('User successfully deleted.', 'Success');
+                $scope.reloadUserTables();
+            });
+        }
     };
 
     $scope.changeUserRole = function(role, user_id) {
@@ -305,14 +310,16 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
 
     // Delete link
     $scope.deleteLink = function($event, link_ending) {
-        var el = $($event.target);
+        var delete_link_confirm = window.confirm('Are you sure you would like to delete this link?');
 
-        apiCall('admin/delete_link', {
-            'link_ending': link_ending,
-        }, function(new_status) {
-            toastr.success('Link successfully deleted.', 'Success');
-            $scope.reloadLinkTables();
-        });
+        if (delete_link_confirm) {
+            apiCall('admin/delete_link', {
+                'link_ending': link_ending,
+            }, function(new_status) {
+                toastr.success('Link successfully deleted.', 'Success');
+                $scope.reloadLinkTables();
+            });
+        }
     };
 
     // Disable and enable links
