@@ -1,4 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,500");/*!
+@font-face { font-family: 'Roboto'; font-style: normal; font-weight: 400; src: url('../fonts/roboto-v19-latin-regular.eot'); src: local('Roboto'), local('Roboto-Regular'), url('../fonts/roboto-v19-latin-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto-v19-latin-regular.woff2') format('woff2'), url('../fonts/roboto-v19-latin-regular.woff') format('woff'), url('../fonts/roboto-v19-latin-regular.ttf') format('truetype'), url('../fonts/roboto-v19-latin-regular.svg#Roboto') format('svg');}
+@font-face {font-family: 'Roboto'; font-style: normal; font-weight: 500; src: url('../fonts/roboto-v19-latin-500.eot'); src: local('Roboto Medium'), local('Roboto-Medium'), url('../fonts/roboto-v19-latin-500.eot?#iefix') format('embedded-opentype'),   url('../fonts/roboto-v19-latin-500.woff2') format('woff2'), url('../fonts/roboto-v19-latin-500.woff') format('woff'), url('../fonts/roboto-v19-latin-500.ttf') format('truetype'), url('../fonts/roboto-v19-latin-500.svg#Roboto') format('svg');}
+/*!
  * bootswatch v3.3.5
  * Homepage: http://bootswatch.com
  * Copyright 2012-2015 Thomas Park
