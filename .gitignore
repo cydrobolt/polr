@@ -6,3 +6,4 @@ env
 .env.bak
 .env.example
 composer.phar
+.idea

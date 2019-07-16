@@ -1,7 +1,9 @@
 <?php
 namespace App\Exceptions\Api;
 
-class ApiException extends \Exception {
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
+class ApiException extends HttpException {
     /**
      * Catch an API exception.
      *
