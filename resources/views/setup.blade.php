@@ -208,6 +208,34 @@ Setup
             </p>
 
             <p>
+                OpenID Connect URL:
+                <setup-tooltip content="The URL of the OpenID Connect provider to support. The provider must include a /.well-known/openid-configuration file"></setup-tooltip>
+            </p>
+            <input type='text' class='form-control' name='setting:openid_connect_url' placeholder='https://accounts.google.com/'>
+
+            <p>
+                OpenID Connect Client ID:
+                <setup-tooltip content="Your OpenID client ID"></setup-tooltip>
+            </p>
+            <input type='text' class='form-control' name='setting:openid_connect_client_id' placeholder=''>
+
+            <p>
+                OpenID Connect Client Secret:
+                <setup-tooltip content="Your OpenID client secret key"></setup-tooltip>
+            </p>
+            <input type='text' class='form-control' name='setting:openid_connect_client_secret' placeholder=''>
+
+            <p>
+                OpenID Connect Configuration:
+                <setup-tooltip content="Enabling OpenID registration will always allow registration through OpenID, regardless of registration settings."></setup-tooltip>
+            </p>
+            <select name='setting:openid_connect_configuration' class='form-control'>
+                <option value='none'>Disallow new account creation</option>
+                <option value='allow' default>Allow new account creation through OpenID</option>
+                <option value='always'>Default to OpenID authentication</option>
+            </select>
+
+            <p>
                 Require reCAPTCHA for Registrations
                 <setup-tooltip content="You must provide your reCAPTCHA keys to use this feature."></setup-tooltip>
             </p>
