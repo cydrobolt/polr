@@ -17,6 +17,9 @@ class UserController extends Controller {
      * @return Response
      */
     public function displayLoginPage(Request $request) {
+        if (env('OPENID_CONNECT_CONFIGURATION') == 'always') {
+            return $this->performOpenIDConnect($request);
+        }
         return view('login');
     }
 
@@ -35,6 +38,11 @@ class UserController extends Controller {
     }
 
     public function performOpenIDConnect(Request $request) {
+        if (!env('OPENID_CONNECT_CONFIGURATION') || env('OPENID_CONNECT_CONFIGURATION') == 'none') {
+            abort(403, 'OpenID Connect is not enabled on this Polr installation.');
+            return;
+        }
+
         $client = app()->make('openidconnect');
 
         $client->authenticate();
