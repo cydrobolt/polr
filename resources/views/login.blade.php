@@ -10,6 +10,11 @@
     <div class="col-md-3"></div>
     <div class="col-md-6">
         <form action="login" method="POST">
+            @if (env('OPENID_CONNECT_CONFIGURATION') && env('OPENID_CONNECT_CONFIGURATION') != 'none')
+                <a href="/login/openid" class="btn btn-primary">{{ env('OPENID_CONNECT_LOGIN_CAPTION') ?: 'Authenticate with OpenID Connect' }}</a>
+                <hr />
+            @endif
+
             <input type="text" placeholder="username" name="username" class="form-control login-field" />
             <input type="password" placeholder="password" name="password" class="form-control login-field" />
             <input type="hidden" name='_token' value='{{csrf_token()}}' />

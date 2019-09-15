@@ -17,6 +17,9 @@ class UserController extends Controller {
      * @return Response
      */
     public function displayLoginPage(Request $request) {
+        if (env('OPENID_CONNECT_CONFIGURATION') == 'always') {
+            return $this->performOpenIDConnect($request);
+        }
         return view('login');
     }
 
@@ -31,6 +34,79 @@ class UserController extends Controller {
     public function performLogoutUser(Request $request) {
         $request->session()->forget('username');
         $request->session()->forget('role');
+        return redirect()->route('index');
+    }
+
+    public function performOpenIDConnect(Request $request) {
+        if (!env('OPENID_CONNECT_CONFIGURATION') || env('OPENID_CONNECT_CONFIGURATION') == 'none') {
+            abort(403, 'OpenID Connect is not enabled on this Polr installation.');
+            return;
+        }
+
+        $client = app()->make('openidconnect');
+
+        $client->authenticate();
+
+        $info = $client->requestUserInfo();
+
+        $username = $info->preferred_username ?: $info->email ?: $info->sub;
+        $email = $info->email;
+
+        if (!$username || !$email) {
+            abort(503, 'OpenID Connect provider did not return the requested mandatory fields username and email.');
+        }
+
+        if (UserHelper::emailExists($email)) {
+            $user = UserHelper::getUserByEmail($email);
+        } else if (UserHelper::userExists($username)) {
+            // user account already exists
+            $user = UserHelper::getUserByUsername($username);
+        } else {
+            // create the new user!
+
+            if (env('SETTING_RESTRICT_EMAIL_DOMAIN')) {
+                $email_domain = explode('@', $email)[1];
+                $permitted_email_domains = explode(',', env('SETTING_ALLOWED_EMAIL_DOMAINS'));
+
+                if (!in_array($email_domain, $permitted_email_domains)) {
+                    return redirect(route('signup'))->with('error', 'Sorry, your email\'s domain is not permitted to create new accounts.');
+                }
+            }
+
+            $ip = $request->ip();
+
+            $api_active = false;
+            $api_key = null;
+
+            if (env('SETTING_AUTO_API')) {
+                // if automatic API key assignment is on
+                $api_active = 1;
+                $api_key = CryptoHelper::generateRandomHex(env('_API_KEY_LENGTH'));
+            }
+
+            $user = UserFactory::createUser($username, $email, CryptoHelper::generateRandomHex(48), 1, $ip, $api_key, $api_active);
+        }
+
+
+        // great, we have a user!
+
+        if (isset($info->group) && env('OPENID_CONNECT_ADMIN_GROUP')) {
+            $admin_groups = explode(',', env('OPENID_CONNECT_ADMIN_GROUP'));
+
+            if (in_array($info->group, $admin_groups)) {
+                // make user admin!
+                $user->role = UserHelper::$USER_ROLES['admin'];
+                $user->save();
+            } else {
+                $user->role = UserHelper::$USER_ROLES['default'];
+                $user->save();
+            }
+        }
+
+        // we're logged in!
+        $request->session()->put('username', $user->username);
+        $request->session()->put('role', $user->role);
+
         return redirect()->route('index');
     }
 
