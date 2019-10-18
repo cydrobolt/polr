@@ -150,7 +150,11 @@ class LinkHelper {
      */
     static public function checkIfShortlinkIsRegisteredRoute($ending)
     {
-        $routes     = property_exists(app(), 'router') ? app()->router->getRoutes() : app()->getRoutes();
+        $publicDirectories = ['css', 'directives', 'fonts', 'img', 'js'];
+        if (in_array($ending, $publicDirectories, true)) {
+            return true;
+        }
+        $routes = property_exists(app(), 'router') ? app()->router->getRoutes() : app()->getRoutes();
         foreach ($routes as $route) {
             $routeName = (isset($route['action']['as'])) ? $route['action']['as'] : '';
             if ($ending === $routeName) {
