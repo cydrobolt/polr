@@ -19,7 +19,7 @@
     },
     "require-dev": {
         "fzaninotto/faker": "~1.0",
-        "phpunit/phpunit": "^5.2",
+        "phpunit/phpunit": "~4.0",
         "symfony/css-selector": "^3.0"
     },
     "autoload": {
