@@ -1,21 +1,21 @@
 #!/usr/bin/env php
 <?php
 
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
-
 /*
 |--------------------------------------------------------------------------
-| Create The Application
+| Register The Auto Loader
 |--------------------------------------------------------------------------
 |
-| First we need to get an application instance. This creates an instance
-| of the application / container and bootstraps the application so it
-| is ready to receive HTTP / Console requests from the environment.
+| Composer provides a convenient, automatically generated class loader
+| for our application. We just need to utilize it! We'll require it
+| into the script here so that we do not have to worry about the
+| loading of any our classes "manually". Feels great to relax.
 |
 */
 
-$app = require __DIR__.'/bootstrap/app.php';
+require __DIR__.'/bootstrap/autoload.php';
+
+$app = require_once __DIR__.'/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +28,24 @@ $app = require __DIR__.'/bootstrap/app.php';
 |
 */
 
-$kernel = $app->make(
-    'Illuminate\Contracts\Console\Kernel'
+$kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
+
+$status = $kernel->handle(
+    $input = new Symfony\Component\Console\Input\ArgvInput,
+    new Symfony\Component\Console\Output\ConsoleOutput
 );
 
-exit($kernel->handle(new ArgvInput, new ConsoleOutput));
+/*
+|--------------------------------------------------------------------------
+| Shutdown The Application
+|--------------------------------------------------------------------------
+|
+| Once Artisan has finished running. We will fire off the shutdown events
+| so that any final work may be done by the application before we shut
+| down the process. This is the last thing to happen to the request.
+|
+*/
+
+$kernel->terminate($input, $status);
+
+exit($status);
