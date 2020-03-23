@@ -12,4 +12,14 @@ class StaticPageController extends Controller {
         $user_role = session('role');
         return view('about', ['role' => $user_role, 'no_div_padding' => true]);
     }
+    /**
+     * Show static pages such as the about page.
+     *
+     * @return Response
+     */
+    public function displayAboutBakjp(Request $request) {
+        $user_role = session('role');
+        return view('aboutbakjp', ['role' => $user_role, 'no_div_padding' => true]);
+    }
+
 }

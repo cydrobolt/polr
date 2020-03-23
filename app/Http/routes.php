@@ -17,7 +17,7 @@ Route::get('/', 'IndexController@showIndexPage')->name('index');
 Route::get('/logout', 'UserController@performLogoutUser')->name('logout');
 Route::get('/login', 'UserController@displayLoginPage')->name('login');
 Route::get('/about-polr', 'StaticPageController@displayAbout')->name('about');
-
+Route::get('/about-bakjp', 'StaticPageController@displayAboutBakjp')->name('about_bakjp');
 
 Route::get('/lost_password', 'UserController@displayLostPasswordPage')->name('lost_password');
 Route::get('/activate/{username}/{recovery_key}', 'UserController@performActivation')->name('activate');
