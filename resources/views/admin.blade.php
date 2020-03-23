@@ -9,9 +9,9 @@
 <div ng-controller="AdminCtrl" class="ng-root">
     <div class='col-md-2'>
         <ul class='nav nav-pills nav-stacked admin-nav' role='tablist'>
-            <li role='presentation' aria-controls="home" class='admin-nav-item active'><a href='#home'>Home</a></li>
-            <li role='presentation' aria-controls="links" class='admin-nav-item'><a href='#links'>Links</a></li>
-            <li role='presentation' aria-controls="settings" class='admin-nav-item'><a href='#settings'>Settings</a></li>
+            <li role='presentation' aria-controls="home" class='admin-nav-item active'><a href='#home'>{{__('Home')}}</a></li>
+            <li role='presentation' aria-controls="links" class='admin-nav-item'><a href='#links'>{{__('Links')}}</a></li>
+            <li role='presentation' aria-controls="settings" class='admin-nav-item'><a href='#settings'>{{__('Settings')}}</a></li>
 
             @if ($role == $admin_role)
             <li role='presentation' class='admin-nav-item'><a href='#admin'>Admin</a></li>
@@ -36,10 +36,10 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="settings">
-                <h3>Change Password</h3>
+                <h3>{{__('Change Password')}}</h3>
                 <form action='/admin/action/change_password' method='POST'>
-                    Old Password: <input class="form-control password-box" type='password' name='current_password' />
-                    New Password: <input class="form-control password-box" type='password' name='new_password' />
+                    {{__('Old Password')}}: <input class="form-control password-box" type='password' name='current_password' />
+                    {{__('New Password')}}: <input class="form-control password-box" type='password' name='new_password' />
                     <input type="hidden" name='_token' value='{{csrf_token()}}' />
                     <input type='submit' class='btn btn-success change-password-btn'/>
                 </form>

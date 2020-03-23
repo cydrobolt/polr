@@ -17,5 +17,10 @@
   "Login": "ログイン",
   "Reset": "パスワードリセット",
   "Don't have an account?": "アカウントをお持ちでない方",
-  "Forgot your password?": "パスワードを忘れた方"
+  "Forgot your password?": "パスワードを忘れた方",
+  "Home": "ホーム",
+  "Links": "短縮したURL",
+  "Change Password": "パスワード変更",
+  "Old Password": "古いパスワード",
+  "New Password": "新しいパスワード"
 }
