@@ -1,0 +1,21 @@
+{
+  "About": "サービスについて",
+  "Sign In": "ログイン",
+  "Sign Up": "ユーザ登録",
+  "Dashboard": "ダッシュボード",
+  "Settings": "設定",
+  "Logout": "ログアウト",
+  "Register": "ユーザ登録",
+  "Username": "ユーザ名",
+  "Password": "パスワード",
+  "Email": "Eメール",
+  "Regist": "登録する",
+  "Already have an account?": "既にアカウントをお持ちの方",
+  "The username you will use to login.": "ログインに使用するユーザ名",
+  "The secure password you will use to login.": "ログインに使用するパスワード",
+  "The email you will use to verify your account or to recover your account.": "本人認証及びパスワードリマインダのためのEメールアドレス",
+  "Login": "ログイン",
+  "Reset": "パスワードリセット",
+  "Don't have an account?": "アカウントをお持ちでない方",
+  "Forgot your password?": "パスワードを忘れた方"
+}
