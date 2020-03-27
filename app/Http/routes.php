@@ -42,7 +42,7 @@ Route::post('/reset_password/{username}/{recovery_key}', 'UserController@perform
 Route::post('/admin/action/change_password', 'AdminController@changePassword')->name('change_password');
 
 
-Route::group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers'], function () {
+Route::group(['prefix' => '/api/v2'], function () {
     Route::post('link_avail_check', 'AjaxController@checkLinkAvailability')->name('api_link_check');
     Route::post('admin/toggle_api_active', 'AjaxController@toggleAPIActive')->name('api_toggle_api_active');
     Route::post('admin/generate_new_api_key', 'AjaxController@generateNewAPIKey')->name('api_generate_new_api_key');

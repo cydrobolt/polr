@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 
 use App\Models\Link;
 use App\Models\User;
@@ -129,7 +129,7 @@ class AdminPaginationController extends Controller {
         self::ensureAdmin();
 
         $admin_users = User::select(['username', 'email', 'created_at', 'active', 'api_key', 'api_active', 'api_quota', 'role', 'id']);
-        return Datatables::of($admin_users)
+        return DataTables::of($admin_users)
             ->addColumn('api_action', [$this, 'renderAdminApiActionCell'])
             ->addColumn('toggle_active', [$this, 'renderToggleUserActiveCell'])
             ->addColumn('change_role', [$this, 'renderChangeUserRoleCell'])
@@ -142,7 +142,7 @@ class AdminPaginationController extends Controller {
         self::ensureAdmin();
 
         $admin_links = Link::select(['short_url', 'long_url', 'clicks', 'created_at', 'creator', 'is_disabled']);
-        return Datatables::of($admin_links)
+        return DataTables::of($admin_links)
             ->addColumn('disable', [$this, 'renderToggleLinkActiveCell'])
             ->addColumn('delete', [$this, 'renderDeleteLinkCell'])
             ->editColumn('clicks', [$this, 'renderClicksCell'])
@@ -158,7 +158,7 @@ class AdminPaginationController extends Controller {
         $user_links = Link::where('creator', $username)
             ->select(['id', 'short_url', 'long_url', 'clicks', 'created_at']);
 
-        return Datatables::of($user_links)
+        return DataTables::of($user_links)
             ->editColumn('clicks', [$this, 'renderClicksCell'])
             ->editColumn('long_url', [$this, 'renderLongUrlCell'])
             ->escapeColumns(['short_url'])
