@@ -65,6 +65,16 @@ Setup
                 <option value='true'>Enable advanced analytics</option>
             </select>
 
+            <p>
+                MaxMind GeoIP License Key (required for advanced analytics only):
+            </p>
+            <p>
+            <input type='text' class='form-control' name='maxmind:license_key' value=''>
+
+            <p class='text-muted'>
+                To obtain a free MaxMind GeoIP license key, follow <a href="https://docs.polrproject.org/en/latest/user-guide/maxmind-license">these instructions</a> on Polr's documentation website.
+            </p>
+
             <p>Shortening Permissions:</p>
             <select name='setting:shorten_permission' class='form-control'>
                 <option value='false' selected='selected'>Anyone can shorten URLs</option>
