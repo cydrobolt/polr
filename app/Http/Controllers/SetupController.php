@@ -106,6 +106,8 @@ class SetupController extends Controller {
         $polr_recaptcha_site_key = $request->input('setting:recaptcha_site_key');
         $polr_recaptcha_secret_key = $request->input('setting:recaptcha_secret_key');
 
+        $maxmind_license_key = $request->input('maxmind:license_key');
+
         $acct_username = $request->input('acct:username');
         $acct_email = $request->input('acct:email');
         $acct_password = $request->input('acct:password');
@@ -148,6 +150,7 @@ class SetupController extends Controller {
             'APP_STYLESHEET' => $app_stylesheet,
             'POLR_GENERATED_AT' => $date_today,
             'POLR_SETUP_RAN' => $polr_setup_ran,
+            'MAXMIND_LICENSE_KEY' => $maxmind_license_key,
 
             'DB_HOST' => $db_host,
             'DB_PORT' => $db_port,
@@ -240,7 +243,7 @@ class SetupController extends Controller {
         if (env('SETTING_ADV_ANALYTICS')) {
             $geoip_db_created = self::updateGeoIP();
             if (!$geoip_db_created) {
-                return redirect(route('setup'))->with('error', 'Could not fetch GeoIP database for advanced analytics. Perhaps your server is not connected to the internet?');
+                return redirect(route('setup'))->with('error', 'Could not fetch GeoIP database for advanced analytics. Perhaps your server is not connected to the internet or your MAXMIND_LICENSE_KEY is incorrect?');
             }
         }
 

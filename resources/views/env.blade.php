@@ -26,6 +26,9 @@ POLR_GENERATED_AT="{{$POLR_GENERATED_AT}}"
 # e.g true
 POLR_SETUP_RAN={{$POLR_SETUP_RAN}}
 
+# Steps for obtaining a Maxmind License Key: https://docs.polrproject.org/en/latest/user-guide/maxmind-license
+MAXMIND_LICENSE_KEY="{{$MAXMIND_LICENSE_KEY}}"
+
 DB_CONNECTION=mysql
 # Set to your DB host (e.g localhost)
 DB_HOST="{{{$DB_HOST}}}"
