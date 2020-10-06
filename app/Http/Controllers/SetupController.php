@@ -241,7 +241,6 @@ class SetupController extends Controller {
         }
 
         if (env('SETTING_ADV_ANALYTICS')) {
-            echo 'advanced analytics key:' . env('MAXMIND_LICENSE_KEY');
             $geoip_db_created = self::updateGeoIP();
             if (!$geoip_db_created) {
                 return redirect(route('setup'))->with('error', 'Could not fetch GeoIP database for advanced analytics. Perhaps your server is not connected to the internet or your MAXMIND_LICENSE_KEY is incorrect?');
