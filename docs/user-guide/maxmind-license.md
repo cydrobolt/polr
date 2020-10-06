@@ -17,4 +17,4 @@ If you are on an older version of Polr, your installation may be updated. Update
 MAXMIND_LICENSE_KEY="LICENSE_KEY_GOES_HERE"
 ```
 
-Then, run `php artisan cache:clear` and `php artisan geoip:update` again.
+Then, run `php artisan config:cache` and `php artisan geoip:update` again.
