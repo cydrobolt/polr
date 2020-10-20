@@ -19,7 +19,7 @@ class ClickHelper {
          * @return boolean
          */
 
-        $location = geoip()->getLocation(); // Withour the IP specified, it will be detected automatically and use the real user IP if website is behind CloudFlare
+        $location = geoip()->getLocation(); // Without the IP specified, it will be detected automatically and use the real user IP if website is behind CloudFlare or other Proxy (Nginx, ...)
         $referer = $request->server('HTTP_REFERER');
 
         $click = new Click;
