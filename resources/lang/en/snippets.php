@@ -1,0 +1,30 @@
+<?php
+return array(
+	"about" => "About",
+	"close" => "Close",
+	"dashboard" => "Dashboard",
+	"linktable" => array(
+		"clicks" => "Clicks",
+		"creator" => "Creator",
+		"date" => "Date",
+		"delete" => "Delete",
+		"disable" => "Disable",
+		"linkending" => "Link Ending",
+		"longlink" => "Long Link",
+	),
+	"login" => "Login",
+	"logout" => "Logout",
+	"settings" => "Settings",
+	"signin" => "Sign In",
+	"signup" => "Sign Up",
+	"togglenav" => "Toggle navigation",
+	"usertable" => array(
+		"activated" => "Activated",
+		"api" => "API",
+		"createdat" => "Created At",
+		"delete" => "Delete",
+		"email" => "Email",
+		"role" => "Role",
+		"username" => "Username",
+	),
+);
