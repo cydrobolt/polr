@@ -38,6 +38,18 @@ class UserController extends Controller {
         $username = $request->input('username');
         $password = $request->input('password');
 
+        if (env('POLR_LOGIN_RECAPTCHA')) {
+            // Verify reCAPTCHA if setting is enabled
+            $gRecaptchaResponse = $request->input('g-recaptcha-response');
+
+            $recaptcha = new \ReCaptcha\ReCaptcha(env('POLR_RECAPTCHA_SECRET_KEY'));
+            $recaptcha_resp = $recaptcha->verify($gRecaptchaResponse, $request->ip());
+
+            if (!$recaptcha_resp->isSuccess()) {
+                return redirect(route('login'))->with('error', 'You must complete the reCAPTCHA to login.');
+            }
+        }
+
         $credentials_valid = UserHelper::checkCredentials($username, $password);
 
         if ($credentials_valid != false) {

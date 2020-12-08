@@ -12,6 +12,11 @@
         <form action="login" method="POST">
             <input type="text" placeholder="username" name="username" class="form-control login-field" />
             <input type="password" placeholder="password" name="password" class="form-control login-field" />
+
+            @if (env('POLR_LOGIN_RECAPTCHA'))
+            <div class="g-recaptcha" data-sitekey="{{env('POLR_RECAPTCHA_SITE_KEY')}}"></div>
+            @endif
+
             <input type="hidden" name='_token' value='{{csrf_token()}}' />
             <input type="submit" value="Login" class="login-submit btn btn-success" />
 
@@ -28,4 +33,10 @@
     </div>
     <div class="col-md-3"></div>
 </div
+@endsection
+
+@section('js')
+    @if (env('POLR_LOGIN_RECAPTCHA'))
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
 @endsection
