@@ -53,7 +53,6 @@ polr.directive('qrCodeGenerateModal', function () {
 
             $timeout(function () {
                 let containter = $element.find('.qr-code').get(0);
-                console.log(containter);
                 new QRCode(containter, {
                     text: $scope.shortLink,
                     width: 280,
