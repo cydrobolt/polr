@@ -127,6 +127,8 @@
     <div class="angular-modals">
         <edit-long-link-modal ng-repeat="modal in modals.editLongLink" link-ending="modal.linkEnding"
             old-long-link="modal.oldLongLink" clean-modals="cleanModals"></edit-long-link-modal>
+        <qr-code-generate-modal ng-repeat="modal in modals.qrCodeGenerate" short-link="modal.short_link"
+            id="modal.id" clean-modals="cleanModals"></qr-code-generate-modal>
         <edit-user-api-info-modal ng-repeat="modal in modals.editUserApiInfo" user-id="modal.userId"
             api-quota="modal.apiQuota" api-active="modal.apiActive" api-key="modal.apiKey"
             generate-new-api-key="generateNewAPIKey" clean-modals="cleanModals"></edit-user-api-info>
@@ -143,5 +145,6 @@
 {{-- Include extra JS --}}
 <script src='/js/datatables.min.js'></script>
 <script src='/js/api.js'></script>
+<script src='/js/qrcode.min.js'></script>
 <script src='/js/AdminCtrl.js'></script>
 @endsection
