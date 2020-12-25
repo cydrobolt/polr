@@ -51,13 +51,35 @@ polr.directive('qrCodeGenerateModal', function () {
                 });
             };
 
+            $scope.downloadSvg = function () {
+                var svgGen = document.createElement("div");
+
+                new QRCode(svgGen, {
+                    text: $scope.shortLink,
+                    width: 280,
+                    height: 280,
+                    useSVG: true
+                });
+
+                svgGen.firstChild.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                svgGen.firstChild.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+                var svgData = svgGen.innerHTML;
+                var svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+                var svgUrl = URL.createObjectURL(svgBlob);
+                var downloadLink = document.createElement("a");
+                downloadLink.href = svgUrl;
+                downloadLink.download = document.location.host + '-' + $scope.id + ".svg";
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            };
+
             $timeout(function () {
                 let containter = $element.find('.qr-code').get(0);
                 new QRCode(containter, {
                     text: $scope.shortLink,
                     width: 280,
                     height: 280,
-                    useSVG: true
                 });
             });
 
