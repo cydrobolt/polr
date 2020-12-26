@@ -1,6 +1,6 @@
 .custom-url-field {
     display: inline;
-    width: 100px;
+    width: 6.25em;
 }
 
 .site-url-field {
@@ -9,19 +9,19 @@
 }
 
 .long-link-input {
-    margin-bottom: 25px;
+    margin-bottom: 1.55em;
 }
 
 .tips {
-    margin-top: 20px;
+    margin-top: 1.25em;
 }
 
 .check-btn {
-    margin-bottom: 30px;
+    margin-bottom: 1.85em;
 }
 
 #link-availability-status {
-    margin-bottom: 20px;
+    margin-bottom: 1.25em;
 }
 
 .visibility-toggler {
