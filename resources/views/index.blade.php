@@ -4,6 +4,7 @@
 <link rel='stylesheet' href='css/index.css' />
 @endsection
 
+
 @section('content')
 <h1 class='title'>{{env('APP_NAME')}}</h1>
 
@@ -25,6 +26,23 @@
             </label>
         </div>
         @endif
+        
+        <p>Link Expried ?</p>
+        <div class='btn-group btn-toggle visibility-toggler' data-toggle='buttons'>
+            <label class='btn btn-primary btn-sm active'>
+                <input type='radio' name='is_expried' value='no' checked /> NO
+            </label>
+            <label class='btn btn-sm btn-default'>
+                <input type='radio' name='is_expried' value='yes' /> Yes
+            </label>
+        </div>
+    
+    <div class='expried_date'>
+        <p>Expried Date</p>
+        <label>
+            <input type='date' class='form-control' name='expried_date' >
+        </label>
+    </div>
 
         <div>
             <div class='custom-link-text'>
