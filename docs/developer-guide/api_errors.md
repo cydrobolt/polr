@@ -20,6 +20,6 @@ it to `true` in `.env`
 
 `AUTH_ERROR`: An error occured while attempting to authenticate the user to the API.
 
-`QUOTA_EXCEEDED`: User's API usage has exceeded alloted quota.
+`QUOTA_EXCEEDED`: User's API usage has exceeded allowed quota.
 
 `ANALYTICS_ERROR`: Invalid bounds or unexpected error while fetching analytics data.
