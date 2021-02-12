@@ -1,0 +1,18 @@
+version: '2'
+services:
+  web:
+    env_file:
+    - .env
+    image: polr
+    ports:
+    - "80:80/tcp"
+    volumes:
+    - $HOME/polr-data/app:/data
+    links:
+    - db:db
+  db:
+    image: mysql
+    env_file:
+    - .env.mysql
+    volumes:
+    - $HOME/polr-data/mysql:/var/lib/mysql
