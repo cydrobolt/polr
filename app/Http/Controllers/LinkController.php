@@ -85,7 +85,8 @@ class LinkController extends Controller {
         }
 
         // Increment click count
-        $long_url = $link->long_url;
+        $long_url = $this->addQueryParamtersFromRequest($link->long_url, $request);
+
         $clicks = intval($link->clicks);
 
         if (is_int($clicks)) {
@@ -102,4 +103,20 @@ class LinkController extends Controller {
         return redirect()->to($long_url, 301);
     }
 
+    private function addQueryParamtersFromRequest($long_url, $request) {
+        try {
+            $query = parse_url($request->fullUrl(), PHP_URL_QUERY);
+            if (!$query) {
+                return $long_url;
+            }
+
+            if (str_contains($long_url, "?")) {
+                return $long_url."&".$query;
+            }
+
+            return $long_url."?".$query;
+        } catch (Exception $e) {
+            return $long_url;
+        }
+    }
 }
