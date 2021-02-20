@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: polr
+  name: polr
+  namespace: polr
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      name: https
+      targetPort: 80
+  selector:
+    name: polr

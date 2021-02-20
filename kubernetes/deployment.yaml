@@ -1,0 +1,174 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: polr
+  labels:
+    name: polr
+    environment: staging
+  namespace: polr
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: polr
+    spec:
+      initContainers:
+      - name: check-db-ready
+        image: mysql:5.7
+        command: ['sh', '-c', 'until mysqladmin ping -h $DB_HOST -u $MYSQL_USER -p$MYSQL_PASSWORD; 
+          do echo waiting for database; sleep 2; done;']
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_HOST
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_USERNAME
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_PASSWORD
+
+      - name: polr-db-migrate
+        image: arilot/polr
+        command: ['sh', '-c', 'php artisan migrate --force && php artisan geoip:update']
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_HOST
+        - name: DB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_DATABASE
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_PASSWORD
+
+      - name: add-user
+        image: mysql:5.7
+        command: ['sh', '-c', 'mysql -h $DB_HOST -u $MYSQL_USER -p$MYSQL_PASSWORD -D polr < /tmp/users.sql']
+        volumeMounts:
+        - name: users-sql
+          mountPath: "/tmp/"
+          readOnly: true
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_HOST
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_USERNAME
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: polr-env
+              key: DB_PASSWORD
+
+      containers:
+        - name: polr
+          image: arilot/polr
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+          - name: POLR_SETUP_RAN
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: POLR_SETUP_RAN
+          - name: APP_PROTOCOL
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: APP_PROTOCOL
+          - name: APP_ADDRESS
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: APP_ADDRESS
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: DB_HOST
+          - name: DB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: DB_DATABASE
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: DB_USERNAME
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: DB_PASSWORD
+          - name: APP_NAME
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: APP_NAME
+          - name: SETTING_PUBLIC_INTERFACE
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: SETTING_PUBLIC_INTERFACE
+          - name: SETTING_ANON_API
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: SETTING_ANON_API
+          - name: SETTING_SHORTEN_PERMISSION
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: SETTING_SHORTEN_PERMISSION
+          - name: QUEUE_DRIVER
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: QUEUE_DRIVER
+          - name: SETTING_PSEUDORANDOM_ENDING
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: SETTING_PSEUDORANDOM_ENDING
+          - name: "_PSEUDO_RANDOM_KEY_LENGTH"
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: _PSEUDO_RANDOM_KEY_LENGTH
+          - name: APP_KEY
+            valueFrom:
+              secretKeyRef:
+                name: polr-env
+                key: APP_KEY
+
+      volumes:
+      - name: users-sql
+        secret:
+          secretName: users-sql
+
