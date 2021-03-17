@@ -55,6 +55,20 @@ a.new-user-add {
     margin-left: 0.5em
 }
 
-.edit-long-link-btn {
+.link-table-btn {
     opacity: 0.45;
+    width: 16px;
+    height: 16px;
+    margin: 0 2px;
+    padding: 1px 4px;
+    line-height: 1.5;
+}
+
+.modal.qrCodeGenerate .qr-code > img {
+    margin: 0 auto;
+}
+
+.modal.qrCodeGenerate .shortLink {
+    text-align: center;
+    margin: 13px 0 0 0;
 }

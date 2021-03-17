@@ -33,6 +33,61 @@ polr.directive('editLongLinkModal', function () {
     };
 });
 
+polr.directive('qrCodeGenerateModal', function () {
+    return {
+        scope: {
+            id: '=',
+            shortLink: '=',
+            cleanModals: '='
+        },
+        templateUrl: '/directives/qrCodeGenerateModal.html',
+        transclude: true,
+        controller: function ($scope, $element, $timeout) {
+            $scope.init = function () {
+                // Destroy directive and clean modal on close
+                $element.find('.modal').on("hidden.bs.modal", function () {
+                    $scope.$destroy();
+                    $scope.cleanModals('qrCodeGenerate');
+                });
+            };
+
+            $scope.downloadSvg = function () {
+                var svgGen = document.createElement("div");
+
+                new QRCode(svgGen, {
+                    text: $scope.shortLink,
+                    width: 280,
+                    height: 280,
+                    useSVG: true
+                });
+
+                svgGen.firstChild.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                svgGen.firstChild.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+                var svgData = svgGen.innerHTML;
+                var svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+                var svgUrl = URL.createObjectURL(svgBlob);
+                var downloadLink = document.createElement("a");
+                downloadLink.href = svgUrl;
+                downloadLink.download = document.location.host + '-' + $scope.id + ".svg";
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            };
+
+            $timeout(function () {
+                let containter = $element.find('.qr-code').get(0);
+                new QRCode(containter, {
+                    text: $scope.shortLink,
+                    width: 280,
+                    height: 280,
+                });
+            });
+
+            $scope.init();
+        }
+    };
+});
+
 polr.directive('editUserApiInfoModal', function () {
     return {
         scope: {
@@ -94,7 +149,8 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
     $scope.datatables = {};
     $scope.modals = {
         editLongLink: [],
-        editUserApiInfo: []
+        editUserApiInfo: [],
+        qrCodeGenerate: []
     };
     $scope.newUserParams = {
         username: '',
@@ -352,6 +408,17 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
 
         $timeout(function () {
             $('#edit-long-link-' + link_ending).modal('show');
+        });
+    }
+
+    $scope.qrCodeGenerate = function (id, short_link) {
+        $scope.modals.qrCodeGenerate.push({
+            id: id,
+            short_link: short_link
+        });
+
+        $timeout(function () {
+            $('#qrCodeGenerate-' + id).modal('show');
         });
     }
 

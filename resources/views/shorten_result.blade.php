@@ -11,6 +11,9 @@
     <div class='input-group-addon' id='clipboard-copy' data-clipboard-target='#short_url' data-toggle='tooltip' data-placement='bottom' data-title='Copied!'>
         <i class='fa fa-clipboard' aria-hidden='true' title='Copy to clipboard'></i>
     </div>
+    <div class='input-group-addon' id='download-qr-code'>
+        <i class='fa fa-qrcode' aria-hidden='true' title='Download QR-Code SVG'></i>
+    </div>
 </div>
 <a id="generate-qr-code" class='btn btn-primary'>Generate QR Code</a>
 <a href='{{route('index')}}' class='btn btn-info'>Shorten another</a>
