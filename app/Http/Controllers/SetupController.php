@@ -104,6 +104,7 @@ class SetupController extends Controller {
         }
 
         $polr_acct_creation_recaptcha = $request->input('setting:acct_registration_recaptcha');
+        $polr_acct_login_recaptcha = $request->input('setting:acct_login_recaptcha');
         $polr_recaptcha_site_key = $request->input('setting:recaptcha_site_key');
         $polr_recaptcha_secret_key = $request->input('setting:recaptcha_secret_key');
 
@@ -163,6 +164,7 @@ class SetupController extends Controller {
             'POLR_ALLOW_ACCT_CREATION' => $polr_allow_acct_creation,
             'POLR_ACCT_ACTIVATION' => $polr_acct_activation,
             'POLR_ACCT_CREATION_RECAPTCHA' => $polr_acct_creation_recaptcha,
+            'POLR_ACCT_LOGIN_RECAPTCHA' => $polr_acct_login_recaptcha,
             'ST_SHORTEN_PERMISSION' => $st_shorten_permission,
             'ST_INDEX_REDIRECT' => $st_index_redirect,
             'ST_REDIRECT_404' => $st_redirect_404,

@@ -227,6 +227,15 @@ Setup
             </select>
 
             <p>
+                Require reCAPTCHA for Login
+                <setup-tooltip content="You must provide your reCAPTCHA keys to use this feature."></setup-tooltip>
+            </p>
+            <select name='setting:acct_login_recaptcha' class='form-control'>
+                <option value='false'>Do not require reCAPTCHA for login</option>
+                <option value='true'>Require reCATPCHA for login</option>
+            </select>
+
+            <p>
                 reCAPTCHA Configuration:
                 <setup-tooltip content="You must provide reCAPTCHA keys if you intend to use any reCAPTCHA-dependent features."></setup-tooltip>
             </p>
