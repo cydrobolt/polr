@@ -48,6 +48,10 @@ class LinkFactory {
                 maximum length allowed.');
         }
 
+        if (LinkHelper::checkIfShortlinkIsRegisteredRoute($custom_ending)) {
+            throw new \Exception('Sorry, but your ending is a prohibited ending');
+        }
+
         $is_already_short = LinkHelper::checkIfAlreadyShortened($long_url);
 
         if ($is_already_short) {

@@ -142,4 +142,25 @@ class LinkHelper {
 
         return $base_x_val;
     }
+
+    /**
+     * Checks if the ending is a registered route
+     * @param string $ending the requested ending
+     * @return bool true - it is a registered route; false - it is not
+     */
+    static public function checkIfShortlinkIsRegisteredRoute($ending)
+    {
+        $publicDirectories = ['css', 'directives', 'fonts', 'img', 'js'];
+        if (in_array($ending, $publicDirectories, true)) {
+            return true;
+        }
+        $routes = property_exists(app(), 'router') ? app()->router->getRoutes() : app()->getRoutes();
+        foreach ($routes as $route) {
+            $routeName = (isset($route['action']['as'])) ? $route['action']['as'] : '';
+            if ($ending === $routeName) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
