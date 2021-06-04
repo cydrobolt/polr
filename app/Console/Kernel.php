@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Torann\GeoIP\Console\Update::class
+        \Torann\GeoIP\Console\Update::class,
+        \App\Console\Commands\CreateUser::class
     ];
 
     /**
