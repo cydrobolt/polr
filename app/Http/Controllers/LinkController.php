@@ -37,6 +37,28 @@ class LinkController extends Controller {
         $creator = session('username');
         $link_ip = $request->ip();
 
+        $is_allowd_domain = false;
+        
+        if (!env('ALLOWED_DOMAINS'))
+        {
+            $is_allowd_domain = true;
+        } else {
+            foreach (explode(',', env('ALLOWED_DOMAINS')) as $allowed_domain)
+            {
+                if (substr($long_url, 0, strlen($allowed_domain)) === $allowed_domain)
+                {
+                    $is_allowd_domain = true;
+                    break;
+                }
+    
+            }
+        }
+
+        if (!$is_allowd_domain)
+        {
+            return self::renderError('Domain is not allowed!');
+        }
+
         try {
             $short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator);
         }
