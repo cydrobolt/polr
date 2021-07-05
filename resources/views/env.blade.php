@@ -73,6 +73,9 @@ SETTING_REDIRECT_404={{$ST_REDIRECT_404}}
 # Set to true to enable password recovery
 SETTING_PASSWORD_RECOV={{$ST_PASSWORD_RECOV}}
 
+# Set to change redirect code to e.g. 302 or 301
+POLR_REDIRECT_CODE={{$POLR_REDIRECT_CODE}}
+
 # Set to true to generate API keys for each user on registration
 SETTING_AUTO_API={{$ST_AUTO_API}}
 
