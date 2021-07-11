@@ -19,6 +19,16 @@ class LinkController extends Controller {
     private function renderError($message) {
         return redirect(route('index'))->with('error', $message);
     }
+    
+    private function linkNotFound() {
+        if (env('SETTING_REDIRECT_404')) {
+            return redirect()->to(env('SETTING_INDEX_REDIRECT'));
+        }
+
+        return response(view('error', [
+            'message' => 'Sorry, but this link does not exist.'
+        ]), 404);
+    }
 
     public function performShorten(Request $request) {
         if (env('SETTING_SHORTEN_PERMISSION') && !self::isLoggedIn()) {
@@ -51,35 +61,36 @@ class LinkController extends Controller {
         $link = Link::where('short_url', $short_url)
             ->first();
 
-        // Return 404 if link not found
+        // Return an error if the link does not exist
+        // or return a 404 if SETTING_REDIRECT_404 is set to true
         if ($link == null) {
-        	return abort(404);
+            return self::linkNotFound();
         }
 
         // Return an error if the link has been disabled
         // or return a 404 if SETTING_REDIRECT_404 is set to true
         if ($link->is_disabled == 1) {
             if (env('SETTING_REDIRECT_404')) {
-                return abort(404);
+                return redirect()->to(env('SETTING_INDEX_REDIRECT'));
             }
 
-            return view('error', [
+            return response(view('error', [
                 'message' => 'Sorry, but this link has been disabled by an administrator.'
-            ]);
+            ]), 404);
         }
 
-        // Return a 403 if the secret key is incorrect
+        // Return a 404 if the secret key is incorrect
         $link_secret_key = $link->secret_key;
         if ($link_secret_key) {
         	if (!$secret_key) {
         		// if we do not receieve a secret key
-        		// when we are expecting one, return a 403
-        		return abort(403);
+        		// when we are expecting one, return a 404 to keep the link secret
+                return self::linkNotFound();
         	}
         	else {
         		if ($link_secret_key != $secret_key) {
-        			// a secret key is provided, but it is incorrect
-        			return abort(403);
+        			// a secret key is provided, but it is incorrect, return a 404 to keep the link secret
+                    return self::linkNotFound();
         		}
         	}
         }
