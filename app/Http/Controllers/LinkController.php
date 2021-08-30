@@ -48,7 +48,7 @@ class LinkController extends Controller {
     }
 
     public function performRedirect(Request $request, $short_url, $secret_key=false) {
-        $link = Link::where('short_url', $short_url)
+        $link = Link::where('short_url', rawurldecode($short_url))
             ->first();
 
         // Return 404 if link not found
