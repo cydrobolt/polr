@@ -16,7 +16,7 @@ class AjaxController extends Controller {
      */
     public function checkLinkAvailability(Request $request) {
         $link_ending = $request->input('link_ending');
-        $ending_conforms = true; // LinkHelper::validateEnding($link_ending);
+        $ending_conforms = LinkHelper::validateEnding($link_ending);
 
         if (!$ending_conforms) {
             return "invalid";
