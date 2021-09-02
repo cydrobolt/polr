@@ -26,7 +26,7 @@ class ApiLinkController extends ApiController {
         $validator = \Validator::make(array_merge([
             'url' => str_replace(' ', '%20', $request->input('url'))
         ], $request->except('url')), [
-            'url' => 'required|url'
+            'url' => 'required|regex:/\p{L}/'
         ]);
 
         if ($validator->fails()) {
