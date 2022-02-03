@@ -94,6 +94,9 @@ SETTING_RESTRICT_EMAIL_DOMAIN={{$ST_RESTRICT_EMAIL_DOMAIN}}
 # A comma-separated list of permitted email domains
 SETTING_ALLOWED_EMAIL_DOMAINS="{{$ST_ALLOWED_EMAIL_DOMAINS}}"
 
+# Set to true to enable choosing date for expiring links
+SETTING_EYPIRY_DATE="{{$ST_EYPIRY_DATE}}"
+
 # reCAPTCHA site key
 POLR_RECAPTCHA_SITE_KEY="{{$POLR_RECAPTCHA_SITE_KEY}}"
 
