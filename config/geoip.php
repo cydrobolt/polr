@@ -54,7 +54,7 @@ return [
         'maxmind_database' => [
             'class' => \Torann\GeoIP\Services\MaxMindDatabase::class,
             'database_path' => storage_path('app/geoip.mmdb'),
-            'update_url' => 'https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz',
+            'update_url' => sprintf('https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=%s&suffix=tar.gz', env('MAXMIND_LICENSE_KEY')),
             'locales' => ['en'],
         ],
 
@@ -126,18 +126,18 @@ return [
 
     'default_location' => [
         'ip' => '127.0.0.0',
-        'iso_code' => 'US',
-        'country' => 'United States',
-        'city' => 'New Haven',
-        'state' => 'CT',
-        'state_name' => 'Connecticut',
-        'postal_code' => '06510',
-        'lat' => 41.31,
-        'lon' => -72.92,
-        'timezone' => 'America/New_York',
-        'continent' => 'NA',
+        'iso_code' => null,
+        'country' => null,
+        'city' => null,
+        'state' => null,
+        'state_name' => null,
+        'postal_code' => null,
+        'lat' => 0,
+        'lon' => 0,
+        'timezone' => 'UTC',
+        'continent' => null,
         'default' => true,
-        'currency' => 'USD',
+        'currency' => null,
     ],
 
 ];

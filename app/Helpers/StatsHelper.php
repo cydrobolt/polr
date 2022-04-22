@@ -61,6 +61,7 @@ class StatsHelper {
             ->select(DB::raw("country AS label, count(*) AS clicks"))
             ->groupBy('country')
             ->orderBy('clicks', 'desc')
+            ->whereNotNull('country')
             ->get();
 
         return $stats;
