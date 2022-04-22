@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Redirect;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 
 use App\Helpers\CryptoHelper;
 use App\Models\User;
@@ -106,6 +107,8 @@ class SetupController extends Controller {
         $polr_recaptcha_site_key = $request->input('setting:recaptcha_site_key');
         $polr_recaptcha_secret_key = $request->input('setting:recaptcha_secret_key');
 
+        $maxmind_license_key = $request->input('maxmind:license_key');
+
         $acct_username = $request->input('acct:username');
         $acct_email = $request->input('acct:email');
         $acct_password = $request->input('acct:password');
@@ -148,6 +151,7 @@ class SetupController extends Controller {
             'APP_STYLESHEET' => $app_stylesheet,
             'POLR_GENERATED_AT' => $date_today,
             'POLR_SETUP_RAN' => $polr_setup_ran,
+            'MAXMIND_LICENSE_KEY' => $maxmind_license_key,
 
             'DB_HOST' => $db_host,
             'DB_PORT' => $db_port,
@@ -215,8 +219,8 @@ class SetupController extends Controller {
     }
 
     public static function finishSetup(Request $request) {
-        // get data from cookie, decode JSON
         if (!isset($_COOKIE['setup_arguments'])) {
+            // Abort if setup arguments are missing.
             abort(404);
         }
 
@@ -226,10 +230,17 @@ class SetupController extends Controller {
         // unset cookie
         setcookie('setup_arguments', '', time()-3600);
 
-        $transaction_authorised = env('TMP_SETUP_AUTH_KEY') == $setup_finish_args->setup_auth_key;
+        $transaction_authorised = env('TMP_SETUP_AUTH_KEY') === $setup_finish_args->setup_auth_key;
 
         if ($transaction_authorised != true) {
             abort(403, 'Transaction unauthorised.');
+        }
+
+        $usersTableExists = Schema::hasTable('users');
+
+        if ($usersTableExists) {
+            // If the users table exists, then the setup process may have already been completed before.
+            abort(403, 'Setup has been completed already.');
         }
 
         $database_created = self::createDatabase();
@@ -240,7 +251,7 @@ class SetupController extends Controller {
         if (env('SETTING_ADV_ANALYTICS')) {
             $geoip_db_created = self::updateGeoIP();
             if (!$geoip_db_created) {
-                return redirect(route('setup'))->with('error', 'Could not fetch GeoIP database for advanced analytics. Perhaps your server is not connected to the internet?');
+                return redirect(route('setup'))->with('error', 'Could not fetch GeoIP database for advanced analytics. Perhaps your server is not connected to the internet or your MAXMIND_LICENSE_KEY is incorrect?');
             }
         }
 
