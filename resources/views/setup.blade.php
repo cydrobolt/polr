@@ -281,7 +281,7 @@ Setup
 
     <div>
         Polr Version {{env('VERSION')}} released {{env('VERSION_RELMONTH')}} {{env('VERSION_RELDAY')}}, {{env('VERSION_RELYEAR')}} -
-        <a href='//github.com/cydrobolt/polr' target='_blank'>Github</a>
+        <a href='//github.com/cydrobolt/polr' target='_blank'>GitHub</a>
 
         <div class='footer-well'>
             &copy; Copyright {{env('VERSION_RELYEAR')}}
