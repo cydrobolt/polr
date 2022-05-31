@@ -261,7 +261,7 @@ polr.controller('AdminCtrl', function($scope, $compile, $timeout) {
             $('#new-user-form').clearForm();
             $scope.datatables['admin_users_table'].ajax.reload();
         }, function () {
-            toastr.error("An error occured while creating the user.", "Error");
+            toastr.error("An error occurred while creating the user.", "Error");
         });
     }
 
