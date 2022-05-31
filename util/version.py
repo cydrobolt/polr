@@ -20,7 +20,7 @@ with open('.env.setup', 'r+') as setup_env:
     setup_env_lines = re.sub(r'(?is)VERSION_RELDAY=\w+', 'VERSION_RELDAY={}'.format(now.day), setup_env_lines)
     setup_env_lines = re.sub(r'(?is)VERSION_RELYEAR=\w+', 'VERSION_RELYEAR={}'.format(now.year), setup_env_lines)
 
-    # Overwite existing file
+    # Overwrite existing file
     setup_env.seek(0)
     setup_env.write(setup_env_lines)
     setup_env.truncate()
