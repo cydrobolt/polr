@@ -1,0 +1,34 @@
+name: Check Spelling
+on:
+  push:
+    branches: ["**"]
+    tags-ignore: ["**"]
+  pull_request_target:
+  issue_comment:
+    types: [created]
+
+jobs:
+  spelling:
+    name: Check Spelling
+    permissions:
+      contents: read
+      pull-requests: read
+      actions: read
+    outputs:
+      followup: ${{ steps.spelling.outputs.followup }}
+    runs-on: ubuntu-latest
+    if: "contains(github.event_name, 'pull_request') || github.event_name == 'push'"
+    concurrency:
+      group: spelling-${{ github.event.pull_request.number || github.ref }}
+      # note: If you use only_check_changed_files, you do not want cancel-in-progress
+      cancel-in-progress: true
+    steps:
+    - name: check-spelling
+      id: spelling
+      uses: check-spelling/check-spelling@prerelease
+      with:
+        experimental_apply_changes_via_bot: 1
+        suppress_push_for_open_pull_request: 1
+        checkout: true
+        spell_check_this: check-spelling/spell-check-this@prerelease
+        post_comment: 0
