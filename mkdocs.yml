@@ -4,6 +4,7 @@ pages:
 - User Guide:
     - 'Installation': 'user-guide/installation.md'
     - 'Upgrading': 'user-guide/upgrading.md'
+    - 'Obtaining a MaxMind License Key': 'user-guide/maxmind-license.md'
     - 'Troubleshooting': 'user-guide/troubleshooting.md'
 - Developer Guide:
     - 'Libraries': 'developer-guide/libraries.md'
