@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Redirect;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 
 use App\Helpers\CryptoHelper;
 use App\Models\User;
@@ -220,8 +221,8 @@ class SetupController extends Controller {
     }
 
     public static function finishSetup(Request $request) {
-        // get data from cookie, decode JSON
         if (!isset($_COOKIE['setup_arguments'])) {
+            // Abort if setup arguments are missing.
             abort(404);
         }
 
@@ -231,10 +232,17 @@ class SetupController extends Controller {
         // unset cookie
         setcookie('setup_arguments', '', time()-3600);
 
-        $transaction_authorised = env('TMP_SETUP_AUTH_KEY') == $setup_finish_args->setup_auth_key;
+        $transaction_authorised = env('TMP_SETUP_AUTH_KEY') === $setup_finish_args->setup_auth_key;
 
         if ($transaction_authorised != true) {
             abort(403, 'Transaction unauthorised.');
+        }
+
+        $usersTableExists = Schema::hasTable('users');
+
+        if ($usersTableExists) {
+            // If the users table exists, then the setup process may have already been completed before.
+            abort(403, 'Setup has been completed already.');
         }
 
         $database_created = self::createDatabase();
