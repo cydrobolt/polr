@@ -137,4 +137,19 @@ class ApiLinkController extends ApiController {
             throw new ApiException('NOT_FOUND', 'Link not found.', 404, $response_type);
         }
     }
+
+    public function deleteLink(Request $request) {
+
+        $response_type = $request->input('response_type');
+        $url_ending = $request->input('url_ending');
+        $link = LinkHelper::linkExists($url_ending);
+
+        if (!$link) {
+            throw new ApiException('DELETION ERROR','The Short Link to delete was not found', 404, $response_type);
+        }
+
+        $link->delete();
+        return "OK";
+    }
+
 }

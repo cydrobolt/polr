@@ -231,6 +231,20 @@ Response:
 }
 ```
 
+### /api/v2/admin/delete_link
+Arguments:
+
+ - `url_ending`: the link ending for the URL to delete. (e.g `5ga`)
+
+An API key granted to a regular user can only be used to delete their own links.
+Admins can delete any link.
+
+Response: An OK if the link was deleted, unauthorised if not authorised to delete or 404 if the link does not exist.
+
+Example: GET `http://example.com/api/v2/admin/delete_link?key=API_KEY_HERE&url_ending=5gk`
+
+Response: `OK`
+
 ## HTTP Error Codes
 The API will return an error code if your request was malformed or another error occured while processing your request.
 
