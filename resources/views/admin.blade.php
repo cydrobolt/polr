@@ -93,11 +93,7 @@
             <div role="tabpanel" class="tab-pane" id="developer">
                 <h3>Developer</h3>
 
-                <p>API keys and documentation for developers.</p>
-                <p>
-                    Documentation:
-                    <a href='http://docs.polr.me/en/latest/developer-guide/api/'>http://docs.polr.me/en/latest/developer-guide/api/</a>
-                </p>
+                <p>API keys for developers.</p>
 
                 <h4>API Key: </h4>
                 <div class='row'>

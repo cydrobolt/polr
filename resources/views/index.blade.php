@@ -5,11 +5,19 @@
 @endsection
 
 @section('content')
-<h1 class='title'>{{env('APP_NAME')}}</h1>
 
+<!--h1 class='title'>{{env('APP_NAME')}}</h1-->
+<img loading="lazy" width="500" height="57" decoding="async" data-nimg="1" class="glq-home-logo" style="color:transparent" src="https://i.imgur.com/mXIdqe8.png" />
+<div class="glq-home-intro">
+    <div class="glq-home-title dg"><span>URL Shortener for glq.link</span></div>
+    <div class="glq-home-desc">Quickly shorten links for sharing - Integrated into GraphLinq IDE</div>
+    <div class="glq-home-connect">
+
+    </div>
+</div>
 <form method='POST' action='/shorten' role='form'>
     <input type='url' autocomplete='off'
-        class='form-control long-link-input' placeholder='http://' name='link-url' />
+        class='form-control long-link-input' placeholder='https://enter.url/here' name='link-url' />
 
     <div class='row' id='options' ng-cloak>
         <p>Customize link</p>
@@ -37,8 +45,8 @@
             </div>
         </div>
     </div>
-    <input type='submit' class='btn btn-info' id='shorten' value='Shorten' />
-    <a href='#' class='btn btn-warning' id='show-link-options'>Link Options</a>
+    <input type='submit' class='btn btn-info btn-glq' id='shorten' value='Shorten' />
+    <a href='#' class='btn btn-success bsecond' id='show-link-options'>Link Options</a>
     <input type="hidden" name='_token' value='{{csrf_token()}}' />
 </form>
 

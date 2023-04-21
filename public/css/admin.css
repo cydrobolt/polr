@@ -58,3 +58,12 @@ a.new-user-add {
 .edit-long-link-btn {
     opacity: 0.45;
 }
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #f8f5f000;
+    opacity: 1;
+}
+
+.code {
+    background-color: #00000000;
+}
