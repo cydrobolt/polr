@@ -52,8 +52,18 @@ class SetupController extends Controller {
         if (env('POLR_SETUP_RAN')) {
             return self::setupAlreadyRan();
         }
-
-        return view('setup');
+        
+        // see if any of the variables have already been provided in .env file
+        // in which case pass those to the view, otherwise assume defaults
+        $viewData = [
+            'dbHost' => env('DB_HOST', 'localhost'),
+            'dbName' => env('DB_DATABASE', 'polr'),
+            'dbUsername' => env('DB_USERNAME', 'root'),
+            'dbPassword' => env('DB_PASSWORD', ''),
+            'dbPort' => env('DB_PORT', 3306),
+        ];
+        
+        return view('setup', $viewData);
     }
 
     public static function performSetup(Request $request) {

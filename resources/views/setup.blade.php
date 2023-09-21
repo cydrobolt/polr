@@ -26,22 +26,22 @@ Setup
             <h4>Database Configuration</h4>
 
             <p>Database Host:</p>
-            <input type='text' class='form-control' name='db:host' value='localhost'>
+            <input type='text' class='form-control' name='db:host' value='{{ $dbHost }}'>
 
             <p>Database Port:</p>
-            <input type='text' class='form-control' name='db:port' value='3306'>
+            <input type='text' class='form-control' name='db:port' value='{{ $dbPort }}'>
 
             <p>Database Username:</p>
-            <input type='text' class='form-control' name='db:username' value='root'>
+            <input type='text' class='form-control' name='db:username' value='{{ $dbUsername }}'>
 
             <p>Database Password:</p>
-            <input type='password' class='form-control' name='db:password' value='password'>
+            <input type='password' class='form-control' name='db:password' value='{{ $dbPassword }}'>
 
             <p>
                 Database Name:
                 <setup-tooltip content="Name of existing database. You must create the Polr database manually."></setup-tooltip>
             </p>
-            <input type='text' class='form-control' name='db:name' value='polr'>
+            <input type='text' class='form-control' name='db:name' value='{{ $dbName }}'>
 
 
             <h4>Application Settings</h4>
