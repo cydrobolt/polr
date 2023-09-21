@@ -17,8 +17,9 @@ class AdminPaginationController extends Controller {
     /* Cell rendering functions */
 
     public function renderLongUrlCell($link) {
-        return '<a target="_blank" title="' . e($link->long_url) . '" href="'. e($link->long_url) .'">' . e(str_limit($link->long_url, 50)) . '</a>
-            <a class="btn btn-primary btn-xs edit-long-link-btn" ng-click="editLongLink(\'' . e($link->short_url) . '\', \'' . e($link->long_url) . '\')"><i class="fa fa-edit edit-link-icon"></i></a>';
+        return '<a target="_blank" title="' . e($link->long_url) . '" href="'. e($link->long_url) .'">' . e(str_limit($link->long_url, 50)) . '</a>' .
+            '<a class="btn btn-primary btn-xs link-table-btn" ng-click="'. sprintf("editLongLink('%s', '%s')", e($link->short_url), e($link->long_url) ) . '"><i class="fa fa-edit edit-link-icon"></i></a>'.
+            '<a class="btn btn-primary btn-xs link-table-btn" ng-click="'. sprintf("qrCodeGenerate('%s', '%s%s/%s')", e($link->short_url), e(env('APP_PROTOCOL')), e(env('APP_ADDRESS')), e($link->short_url) ).'"><i class="fa fa-qrcode"></i></a>';
     }
 
     public function renderClicksCell($link) {
