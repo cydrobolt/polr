@@ -137,4 +137,36 @@ class ApiLinkController extends ApiController {
             throw new ApiException('NOT_FOUND', 'Link not found.', 404, $response_type);
         }
     }
+
+    public function findByLongLink(Request $request)
+    {
+        $response_type = $request->input('response_type');
+        $user = $request->user;
+
+        $validator = \Validator::make(array_merge([
+            'url' => str_replace(' ', '%20', $request->input('url'))
+        ], $request->except('url')), [
+            'url' => 'required|url'
+        ]);
+
+        if ($validator->fails()) {
+            throw new ApiException('MISSING_PARAMETERS', 'Invalid or missing parameters.', 400, $response_type);
+        }
+
+        $short_url = LinkHelper::longLinkExists($request->input('url'), $user->username);
+        if (!empty($short_url)) {
+            $formatted_link = LinkFactory::formatLink($short_url);
+        } else {
+            $formatted_link = $this->getShortenedLink(
+                $request->input('url'),
+                ($request->input('is_secret') == 'true' ? true : false),
+                $request->input('custom_ending'),
+                $request->ip(),
+                $user->username,
+                $response_type
+            );
+        }
+
+        return self::encodeResponse($formatted_link, 'find_by_long', $response_type);
+    }
 }
