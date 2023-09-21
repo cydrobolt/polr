@@ -185,7 +185,7 @@ You must create a database for Polr to use before you can complete the setup scr
 To create a database for Polr, you can log onto your `mysql` shell and run the following command:
 
 ```sql
-CREATE DATABASE polrdatabasename;
+CREATE DATABASE polrdatabasename DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
 ```
 
 Remember this database name, as you will need to provide it to Polr during setup.
