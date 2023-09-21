@@ -206,6 +206,18 @@ Setup
             <input type='text' class='form-control' name='setting:allowed_email_domains' placeholder='company.com,company-corp.com'>
 
             <p>
+                Whitelisted Domains:
+                <setup-tooltip content='A comma-separated list of whitelisted domains. To include subdomains use "*." as prefix (eg.: *.example.com)'></setup-tooltip>
+            </p>
+            <input type='text' class='form-control' name='setting:whitelisted_domains' placeholder='company.com,*.example.com'>
+
+            <p>
+                Blacklisted Domains:
+                <setup-tooltip content='A comma-separated list of blacklisted domains. To include subdomains use "*." as prefix (eg.: *.example.com)'></setup-tooltip>
+            </p>
+            <input type='text' class='form-control' name='setting:blacklisted_domains' placeholder='company.com,*.example.com'>
+
+            <p>
                 Password Recovery:
                 <setup-tooltip content="Password recovery allows users to reset their password through email."></setup-tooltip>
             </p>

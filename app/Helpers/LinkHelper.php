@@ -142,4 +142,28 @@ class LinkHelper {
 
         return $base_x_val;
     }
+
+    static public function checkAuthUrl($long_link, $auth_ls) {
+        /**
+         * @param long_link a long link (string)
+         * @param auth_ls a list of (un)authorized urls for shortening
+         * checks whether the link is authorized or not
+         * @return boolean
+         */
+
+        $auth_urls = explode(',', $auth_ls);
+//        echo "<script>console.log( 'ST_WHITELISTED_DOMAINS var_export: " . var_export(env('ST_WHITELISTED_DOMAINS'), true) . " ' );</script>";
+//        foreach ($auth_urls as $x) {echo "<script>console.log( 'ST_WHITELISTED_DOMAINS 8: " . $x . " ' );</script>";}
+
+        $url_host = parse_url($long_link, PHP_URL_HOST);
+//        echo "<script>console.log( 'url_host: " . print_r($url_host, true) . " ' );</script>";
+
+        foreach ($auth_urls as $auth_url) {
+            if (preg_match($auth_url, $url_host)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
