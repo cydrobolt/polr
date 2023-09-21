@@ -118,9 +118,12 @@ class LinkHelper {
          */
         $base = env('POLR_BASE');
 
-        $link = Link::where('is_custom', 0)
+        /*$link = Link::where('is_custom', 0)
             ->orderBy('created_at', 'desc')
-            ->first();
+            ->first();*/
+
+        // This change works quite faster after an index creation on is_custom
+        $link = Link::whereRaw('id = (SELECT max(id) FROM links WHERE is_custom = 0)')->get()->first();
 
         if ($link == null) {
             $base10_val = 0;
