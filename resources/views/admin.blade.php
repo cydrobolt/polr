@@ -109,15 +109,21 @@
                     </div>
                 </div>
 
+                <h4>Bookmarklet: </h4>
+                <div class='row'>
+                    <div class='col-md-8'>
+                        <a class='btn btn-info' onclick="return false;" href='javascript:u=encodeURIComponent(location.href);s="{{env("APP_PROTOCOL")}}{{env("APP_ADDRESS")}}/api/v2/action/shorten?key={{$api_key}}&url="+u;window.open(s,"Shortened URL","location=no,width=400,height=300");'>Shorten</a> (Drag it to your bookmarks bar to use as a shortcut!)
+                    </div>
+                </div>
 
                 <h4>API Quota: </h4>
-                <h2 class='api-quota'>
+                <h4 class='api-quota'>
                     @if ($api_quota == -1)
                         unlimited
                     @else
                         <code>{{$api_quota}}</code>
                     @endif
-                </h2>
+                </h4>
                 <span> requests per minute</span>
             </div>
             @endif
