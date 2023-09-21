@@ -10,8 +10,8 @@
 }
 
 .setup-logo {
-    height: 70px;
-    margin-bottom: 40px;
+    height: 4.5em;
+    margin-bottom: 5em;
 }
 
 body {
@@ -31,22 +31,22 @@ body {
 }
 
 .setup-item {
-    width: 650px;
+    width: 40.65em;
 }
 
 .setup-body {
-    margin-top: 100px;
+    margin-top: 6.25em;
 }
 
 .setup-form-buttons {
-    margin-top: 40px;
-    margin-bottom: 25px;
+    margin-top: 5em;
+    margin-bottom: 1.55em;
     text-align: center;
 }
 
 .setup-form-buttons > input {
-    width: 150px;
-    margin-right: 20px;
+    width: 9.4em;
+    margin-right: 1.25em;
 }
 
 .setup-footer {
@@ -62,11 +62,11 @@ body {
 }
 
 .footer-well {
-    margin-top: 30px;
+    margin-top: 1.85em;
 }
 
 h4, p {
-    margin-top: 20px;
+    margin-top: 1.25em;
 }
 
 .setup-qmark {
