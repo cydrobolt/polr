@@ -2,7 +2,7 @@
 To diagnose an unexpected or unhandled error, turn on the `APP_DEBUG` flag by setting
 it to `true` in `.env`
 
-`SERVER_ERROR`: A generic, unhandled error has occured.
+`SERVER_ERROR`: A generic, unhandled error has occurred.
 
 `JSON_ONLY`: Only JSON-encoded data is available for this endpoint.
 
@@ -18,7 +18,7 @@ it to `true` in `.env`
 
 `CREATION_ERROR`: An error occurred while creating the object.
 
-`AUTH_ERROR`: An error occured while attempting to authenticate the user to the API.
+`AUTH_ERROR`: An error occurred while attempting to authenticate the user to the API.
 
 `QUOTA_EXCEEDED`: User's API usage has exceeded alloted quota.
 

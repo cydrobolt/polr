@@ -223,7 +223,7 @@ Setup
             </p>
             <select name='setting:acct_registration_recaptcha' class='form-control'>
                 <option value='false'>Do not require reCAPTCHA for registration</option>
-                <option value='true'>Require reCATPCHA for registration</option>
+                <option value='true'>Require reCAPTCHA for registration</option>
             </select>
 
             <p>
@@ -281,7 +281,7 @@ Setup
 
     <div>
         Polr Version {{env('VERSION')}} released {{env('VERSION_RELMONTH')}} {{env('VERSION_RELDAY')}}, {{env('VERSION_RELYEAR')}} -
-        <a href='//github.com/cydrobolt/polr' target='_blank'>Github</a>
+        <a href='//github.com/cydrobolt/polr' target='_blank'>GitHub</a>
 
         <div class='footer-well'>
             &copy; Copyright {{env('VERSION_RELYEAR')}}

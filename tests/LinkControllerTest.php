@@ -8,7 +8,7 @@ class LinkControllerTest extends TestCase
      * @return void
      */
     public function testRequestGetNotExistShortUrl() {
-        $response = $this->call('GET', '/notexist');
+        $response = $this->call('GET', '/nonexistent');
         $this->assertTrue($response->isRedirection());
         $this->assertRedirectedTo(env('SETTING_INDEX_REDIRECT'));
     }

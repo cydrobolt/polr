@@ -22,7 +22,7 @@
     @endif
 
     <p>{{env('APP_NAME')}} is powered by Polr 2, an open source, minimalist link shortening platform. The Polr Project is in no way associated with this site.
-        Learn more at <a href='https://github.com/Cydrobolt/polr'>its Github page</a> or its <a href="//project.polr.me">project site</a>.
+        Learn more at <a href='https://github.com/Cydrobolt/polr'>its GitHub page</a> or its <a href="//project.polr.me">project site</a>.
         <br />Polr is licensed under the GNU GPL License.
     </p>
 </div>

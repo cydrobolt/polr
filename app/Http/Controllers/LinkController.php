@@ -72,7 +72,7 @@ class LinkController extends Controller {
         $link_secret_key = $link->secret_key;
         if ($link_secret_key) {
         	if (!$secret_key) {
-        		// if we do not receieve a secret key
+        		// if we do not receive a secret key
         		// when we are expecting one, return a 403
         		return abort(403);
         	}

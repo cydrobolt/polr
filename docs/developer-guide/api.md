@@ -232,7 +232,7 @@ Response:
 ```
 
 ## HTTP Error Codes
-The API will return an error code if your request was malformed or another error occured while processing your request.
+The API will return an error code if your request was malformed or another error occurred while processing your request.
 
 ### HTTP 400 Bad Request
 This status code is returned in the following circumstances:
