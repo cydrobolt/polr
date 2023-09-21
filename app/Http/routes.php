@@ -75,4 +75,7 @@ $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers\Api', '
     /* API data endpoints */
     $app->get('data/link', ['as' => 'api_link_analytics', 'uses' => 'ApiAnalyticsController@lookupLinkStats']);
     $app->post('data/link', ['as' => 'api_link_analytics', 'uses' => 'ApiAnalyticsController@lookupLinkStats']);
+
+    /*API delete endpoints */
+    $app->get('admin/delete_link', ['as' => 'api_delete_link', 'uses' => 'ApiLinkController@deleteLink']);
 });
