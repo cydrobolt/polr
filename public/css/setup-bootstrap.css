@@ -1,4 +1,43 @@
-@import url("//fonts.googleapis.com/css?family=Lobster|Cabin:400,700");/*!
+/* lobster-regular - latin */
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/lobster-v21-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Lobster Regular'), local('Lobster-Regular'),
+       url('../fonts/lobster-v21-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/lobster-v21-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/lobster-v21-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/lobster-v21-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/lobster-v21-latin-regular.svg#Lobster') format('svg'); /* Legacy iOS */
+}
+/* cabin-regular - latin */
+@font-face {
+  font-family: 'Cabin';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/cabin-v13-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Cabin'), local('Cabin-Regular'),
+       url('../fonts/cabin-v13-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/cabin-v13-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/cabin-v13-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/cabin-v13-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/cabin-v13-latin-regular.svg#Cabin') format('svg'); /* Legacy iOS */
+}
+/* cabin-700 - latin */
+@font-face {
+  font-family: 'Cabin';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/cabin-v13-latin-700.eot'); /* IE9 Compat Modes */
+  src: local('Cabin Bold'), local('Cabin-Bold'),
+       url('../fonts/cabin-v13-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/cabin-v13-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/cabin-v13-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/cabin-v13-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/cabin-v13-latin-700.svg#Cabin') format('svg'); /* Legacy iOS */
+}
+/*!
  * bootswatch v3.2.0
  * Homepage: http://bootswatch.com
  * Copyright 2012-2014 Thomas Park
