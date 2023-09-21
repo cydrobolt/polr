@@ -36,6 +36,18 @@
                 <div id='link-availability-status'></div>
             </div>
         </div>
+        
+        @if (env('SETTING_EXPIRY_DATE'))
+        {{-- Show secret toggle only if using counter-based ending --}}
+        <div>
+            <div class='expiry-date'>
+                <label>Expiry date
+                    <input type='date' class='form-control' name='expiry_date'>
+                </label>
+            </div>
+        </div>
+        @endif
+
     </div>
     <input type='submit' class='btn btn-info' id='shorten' value='Shorten' />
     <a href='#' class='btn btn-warning' id='show-link-options'>Link Options</a>

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Redirect;
+use Carbon\Carbon;
 
 use App\Models\Link;
 use App\Factories\LinkFactory;
@@ -34,11 +35,12 @@ class LinkController extends Controller {
         $long_url = $request->input('link-url');
         $custom_ending = $request->input('custom-ending');
         $is_secret = ($request->input('options') == "s" ? true : false);
+        $expiry_date = $request->input('expiry_date');
         $creator = session('username');
         $link_ip = $request->ip();
 
         try {
-            $short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator);
+            $short_url = LinkFactory::createLink($long_url, $is_secret, $custom_ending, $link_ip, $creator, $expiry_date);
         }
         catch (\Exception $e) {
             return self::renderError($e->getMessage());
@@ -54,6 +56,16 @@ class LinkController extends Controller {
         // Return 404 if link not found
         if ($link == null) {
         	return abort(404);
+        }
+        
+        // Return an error if link has expired.
+        if ($link->expiry_date !== '0000-00-00' && $link->expiry_date !== null && $link->expiry_date < Carbon::today()->toDateString()) {
+             if (env('SETTING_REDIRECT_404')) {
+                return abort(404);
+            }
+            return view('error', [
+                'message' => 'Sorry, but this link has been expired.'
+            ]);
         }
 
         // Return an error if the link has been disabled

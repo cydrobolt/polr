@@ -114,6 +114,15 @@ Setup
             </select>
 
             <p>
+                Expiry Date:
+                <setup-tooltip content="If you choose to use pseudorandom strings, you will not have the option to use a counter-based ending."></setup-tooltip>
+            </p>
+            <select name='setting:expiry_date' class='form-control'>
+                <option value='false' selected='selected'>Show expiry date selection</option>
+                <option value='true'>No expiry date</option>
+            </select>
+
+            <p>
                 URL Ending Base:
                 <setup-tooltip content="This will have no effect if you choose to use pseudorandom endings."></setup-tooltip>
             </p>

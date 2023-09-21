@@ -36,7 +36,7 @@ class LinkHelperTest extends TestCase
     }
 
     public function testLinkExists() {
-        $link = LinkFactory::createLink('http://example.com/ci', true, null, '127.0.0.1', false, true);
+        $link = LinkFactory::createLink('http://example.com/ci', true, null, '127.0.0.1', '2021-27-12', false, true);
         // assert that existent link ending returns true
         $this->assertNotEquals(LinkHelper::linkExists($link->short_url), false);
         // assert that nonexistent link ending returns false

@@ -141,13 +141,13 @@ class AdminPaginationController extends Controller {
     public function paginateAdminLinks(Request $request) {
         self::ensureAdmin();
 
-        $admin_links = Link::select(['short_url', 'long_url', 'clicks', 'created_at', 'creator', 'is_disabled']);
+        $admin_links = Link::select(['short_url', 'long_url', 'clicks', 'created_at', 'expiry_date', 'creator', 'is_disabled']);
         return Datatables::of($admin_links)
             ->addColumn('disable', [$this, 'renderToggleLinkActiveCell'])
             ->addColumn('delete', [$this, 'renderDeleteLinkCell'])
             ->editColumn('clicks', [$this, 'renderClicksCell'])
             ->editColumn('long_url', [$this, 'renderLongUrlCell'])
-            ->escapeColumns(['short_url', 'creator'])
+            ->escapeColumns(['short_url', 'creator', 'expiry_date'])
             ->make(true);
     }
 
@@ -156,12 +156,12 @@ class AdminPaginationController extends Controller {
 
         $username = session('username');
         $user_links = Link::where('creator', $username)
-            ->select(['id', 'short_url', 'long_url', 'clicks', 'created_at']);
+            ->select(['id', 'short_url', 'long_url', 'clicks', 'created_at', 'expiry_date']);
 
         return Datatables::of($user_links)
             ->editColumn('clicks', [$this, 'renderClicksCell'])
             ->editColumn('long_url', [$this, 'renderLongUrlCell'])
-            ->escapeColumns(['short_url'])
+            ->escapeColumns(['short_url', 'expiry_date'])
             ->make(true);
     }
 }

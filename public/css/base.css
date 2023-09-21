@@ -37,6 +37,9 @@ body {
 .error-alert {
     text-align: left;
 }
+.expiry-date input {
+    line-height: 1;
+}
 
 @media (min-width: 768px) {
     .content-div-padding {

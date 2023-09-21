@@ -127,6 +127,7 @@ class SetupController extends Controller {
         $st_anon_api = $request->input('setting:anon_api');
         $st_anon_api_quota = $request->input('setting:anon_api_quota');
         $st_pseudor_ending = $request->input('setting:pseudor_ending');
+        $st_expriy_date = $request->input('setting:expiry_date');
         $st_adv_analytics = $request->input('setting:adv_analytics');
 
         $mail_host = $request->input('app:smtp_server');
@@ -185,6 +186,7 @@ class SetupController extends Controller {
             'ST_ANON_API' => $st_anon_api,
             'ST_ANON_API_QUOTA' => $st_anon_api_quota,
             'ST_PSEUDOR_ENDING' => $st_pseudor_ending,
+            'ST_EXPIRY_DATE' => $st_expiry_date,
             'ST_ADV_ANALYTICS' => $st_adv_analytics,
 
             'TMP_SETUP_AUTH_KEY' => $setup_auth_key
