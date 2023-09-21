@@ -98,8 +98,13 @@ class LinkController extends Controller {
             // Record advanced analytics if option is enabled
             ClickHelper::recordClick($link, $request);
         }
+        if (env('POLR_REDIRECT_CODE')) {
+            $redirect_code = env('POLR_REDIRECT_CODE');
+        } else {
+            $redirect_code = 301;
+        }
         // Redirect to final destination
-        return redirect()->to($long_url, 301);
+        return redirect()->to($long_url, $redirect_code);
     }
 
 }
