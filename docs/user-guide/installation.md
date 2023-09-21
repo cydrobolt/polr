@@ -191,6 +191,8 @@ CREATE DATABASE polrdatabasename;
 Remember this database name, as you will need to provide it to Polr during setup.
 Additionally, if you wish to create a new user with access to solely this database, please look into MySQL's [GRANT](https://dev.mysql.com/doc/refman/5.7/en/grant.html) directive.
 
+Useful MariaDB installation and management guide by [Atlantic.Net](https://www.atlantic.net/vps-hosting/how-to-manage-databases-in-mariadb-on-ubuntu-18-04/)
+
 ### SQLite
 
 You may also use SQLite in place of MySQL for Polr. However, SQLite is not recommended for use with Polr.
