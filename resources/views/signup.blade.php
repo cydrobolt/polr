@@ -18,7 +18,7 @@
         @endif
 
         <input type="hidden" name='_token' value='{{csrf_token()}}' />
-        <input type="submit" class="btn btn-default btn-success" value="Register"/>
+        <input type="submit" class="btn btn-default btn-success btn-glq" value="Register"/>
         <p class='login-prompt'>
             <small>Already have an account? <a href='{{route('login')}}'>Login</a></small>
         </p>

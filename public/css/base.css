@@ -49,3 +49,89 @@ body {
         padding-top: 1em;
     }
 }
+
+.navbar-default-dark {
+    background-color: #15122b;
+    border-color: #15122b;
+}
+
+a {
+    color: #c4bae4;
+}
+
+a:hover {
+    color: #ff286f;
+}
+
+
+.login-dropdown-menu {
+    background-color: #15122b;
+}
+
+.form-control {
+    background-color: #00000033;
+    border: 1px solid #dfd7ca95;
+    color: #e2e2e2;
+}
+
+.nav>li>a:hover, .nav>li>a:focus, .nav>li>a:active {
+    text-decoration: none;
+    background-color: #15122b;
+}
+
+.dropdown-menu {
+    border: 1px solid #dfd7ca95;
+}
+
+.active {
+    background-color: #00000000;
+}
+
+
+.pagination>.disabled>span, .pagination>.disabled>span:hover, .pagination>.disabled>span:focus, .pagination>.disabled>a, .pagination>.disabled>a:hover, .pagination>.disabled>a:focus {
+    color: #c4bae4;
+    background-color: #f8f5f01f;
+    border-color: #dfd7ca27;
+    cursor: not-allowed;
+}
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    z-index: 2;
+    color: #c4bae4;
+    background-color: #15122b;
+    border-color: #dfd7ca27;
+    cursor: default;
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 12px 16px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #ff286f;
+    background-color: #15122b;
+    border: 1px solid #dfd7ca27;
+    margin-left: -1px;
+}
+
+.dropdown-menu>li {
+    background-color:#00000000;
+}
+
+
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background-color: #f8f5f000;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    background-color: #00000000;
+}
+
+.dropdown-menu {
+    background-color: #00000000;
+}
+
+.code {
+    background-color: #00000000;
+}

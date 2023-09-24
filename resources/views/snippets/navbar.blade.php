@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+    <nav role="navigation" class="navbar navbar-dark navbar-fixed-top">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -12,8 +12,7 @@
             <a class="navbar-brand" href="{{ route('index') }}">{{env('APP_NAME')}}</a>
         </div>
 
-        <ul id="navbar" class="nav navbar-collapse collapse navbar-nav" id="nbc">
-		    <li><a href="{{ route('about') }}">About</a></li>
+        <ul id="navbar" class="nav navbar-collapse collapse navbar-nav mynav" id="nbc">
 
             @if (empty(session('username')))
                 <li class="visible-xs"><a href="{{ route('login') }}">Sign In</a></li>
@@ -43,7 +42,7 @@
                             <input type="text" name="username" placeholder='Username' size="30" class="form-control login-form-field" />
                             <input type="password" name="password" placeholder='Password' size="30" class="form-control login-form-field" />
                             <input type="hidden" name='_token' value='{{csrf_token()}}' />
-                            <input class="btn btn-success form-control login-form-submit" type="submit" name="login" value="Sign In" />
+                            <input class="btn btn-success form-control login-form-submit btn-glq" type="submit" name="login" value="Sign In" />
                         </form>
                     </div>
                 </li>
