@@ -1,0 +1,15 @@
+.dockerignore
+.git
+.github
+.idea
+docs/
+tests/
+util/
+.gitignore
+.jshintrc
+.travis.yml
+Dockerfile
+mkdocs.yml
+phpunit.xml
+README.md
+server.php
