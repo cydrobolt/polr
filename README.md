@@ -1,7 +1,25 @@
-<img src="https://i.imgur.com/ckI6GTu.png" width="350px" alt="Polr Logo" />
+# Docker
+
+For docker environment use volume mount to save installation configuration
+
+`docker run -d -p 80:80 --name polr -v ${PWD}/.env:/usr/src/app/.env arilot/polr:latest`
+
+Add `APP_ADDRESS` env var for domain name
+
+`docker run -d -p 80:80 --name polr -v ${PWD}/.env:/usr/src/app/.env  -e APP_ADDRESS="example.com" arilot/polr:latest`
+
+# Kubernetes
+
+* Create `polr` namespace
+* Change and add secret file `secrets.yaml` with default environment variables
+* Add secret file `secrets-user.yaml` with default admin user
+* Create persistent volume claim with `pvc.yaml`
+* Deploy mysq db with `mysql.yaml`
+* Create deployment with `deployment.yaml`
+* Add service with `svc.yaml`
 
 
-:aerial_tramway: A modern, minimalist, and lightweight URL shortener.
+A modern, minimalist, and lightweight URL shortener.
 
 [![GitHub license](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)]()
 [![GitHub release](https://img.shields.io/github/release/cydrobolt/polr.svg)](https://github.com/cydrobolt/polr/releases)
