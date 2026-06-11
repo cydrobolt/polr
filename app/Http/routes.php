@@ -72,6 +72,13 @@ $app->group(['prefix' => '/api/v2', 'namespace' => 'App\Http\Controllers\Api', '
     $app->post('action/lookup', ['as' => 'api_lookup_url', 'uses' => 'ApiLinkController@lookupLink']);
     $app->get('action/lookup', ['as' => 'api_lookup_url', 'uses' => 'ApiLinkController@lookupLink']);
 
+    /* API link management endpoints (own links, or any if admin) */
+    $app->get('action/list', ['as' => 'api_list_links', 'uses' => 'ApiLinkController@listLinks']);
+    $app->post('action/rename', ['as' => 'api_rename_link', 'uses' => 'ApiLinkController@renameLink']);
+    $app->post('action/update', ['as' => 'api_update_link', 'uses' => 'ApiLinkController@updateLink']);
+    $app->post('action/toggle', ['as' => 'api_toggle_link', 'uses' => 'ApiLinkController@toggleLink']);
+    $app->post('action/delete', ['as' => 'api_delete_link', 'uses' => 'ApiLinkController@deleteLink']);
+
     /* API data endpoints */
     $app->get('data/link', ['as' => 'api_link_analytics', 'uses' => 'ApiAnalyticsController@lookupLinkStats']);
     $app->post('data/link', ['as' => 'api_link_analytics', 'uses' => 'ApiAnalyticsController@lookupLinkStats']);

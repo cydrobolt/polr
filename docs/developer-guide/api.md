@@ -160,6 +160,137 @@ Response:
 }
 ```
 
+### /api/v2/action/list
+Lists the links you created. Admins receive every link.
+
+Arguments:
+
+ - `query` (optional): case-insensitive substring filter, matched against both the
+   link ending and the destination URL.
+
+An API key granted to a regular user only lists their own links; admins list all links.
+
+Example: GET `http://example.com/api/v2/action/list?key=API_KEY_HERE&query=blog&response_type=json`
+
+Response:
+```
+{
+    "action": "list",
+    "result": {
+        "links": [
+            {
+                "short_url": "blog",
+                "long_url": "https://example.com/my-blog",
+                "clicks": 12,
+                "is_disabled": false,
+                "is_secret": false,
+                "created_at": "2026-06-11 22:41:43"
+            }
+        ]
+    }
+}
+```
+
+### /api/v2/action/rename
+
+_`POST` only_
+
+Renames a link ending in place (the destination, clicks, and creation date are kept;
+only the short URL changes). You may rename links you created; admins may rename any link.
+
+Arguments:
+
+ - `url_ending`: the current link ending (e.g `5ga`)
+ - `new_ending`: the new link ending. Must be unused and may only contain
+   alphanumeric characters, hyphens, and underscores.
+
+Example: POST `http://example.com/api/v2/action/rename` with `key`, `url_ending=5ga`, `new_ending=my-blog`
+
+Response:
+```
+{
+    "action": "rename",
+    "result": {
+        "old_ending": "5ga",
+        "new_ending": "my-blog",
+        "short_url": "https://example.com/my-blog",
+        "long_url": "https://google.com"
+    }
+}
+```
+
+### /api/v2/action/update
+
+_`POST` only_
+
+Changes the destination (long URL) of an existing link. You may update links you
+created; admins may update any link.
+
+Arguments:
+
+ - `url_ending`: the link ending to update (e.g `5ga`)
+ - `long_url`: the new destination URL (must be URL encoded)
+
+Example: POST `http://example.com/api/v2/action/update` with `key`, `url_ending=5ga`, `long_url=https://example.org`
+
+Response:
+```
+{
+    "action": "update",
+    "result": {
+        "short_url": "https://example.com/5ga",
+        "long_url": "https://example.org"
+    }
+}
+```
+
+### /api/v2/action/toggle
+
+_`POST` only_
+
+Enables or disables a link without deleting it. A disabled link stops redirecting
+but keeps its ending, destination, and stats. You may toggle links you created;
+admins may toggle any link.
+
+Arguments:
+
+ - `url_ending`: the link ending to enable/disable (e.g `5ga`)
+
+Example: POST `http://example.com/api/v2/action/toggle` with `key`, `url_ending=5ga`
+
+Response:
+```
+{
+    "action": "toggle",
+    "result": {
+        "url_ending": "5ga",
+        "is_disabled": true
+    }
+}
+```
+
+### /api/v2/action/delete
+
+_`POST` only_
+
+Permanently deletes a link. You may delete links you created; admins may delete any link.
+
+Arguments:
+
+ - `url_ending`: the link ending to delete (e.g `5ga`)
+
+Example: POST `http://example.com/api/v2/action/delete` with `key`, `url_ending=5ga`
+
+Response:
+```
+{
+    "action": "delete",
+    "result": {
+        "deleted": "5ga"
+    }
+}
+```
+
 ### /api/v2/data/link
 Arguments:
 
